@@ -53,6 +53,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -128,6 +130,222 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ARSE.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\dbtune.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EGDB_Maryanaj.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EGDB_Maryanaj.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EGDB_Maryanaj.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EGDB_Maryanaj.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EGDB_Maryanaj.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GDB_ITEMRELATIONSHIPS.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GDB_ITEMRELATIONSHIPTYPES.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GDB_ITEMS.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GDB_ITEMTYPES.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GDB_REPLICALOG.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GDB_TABLES_LAST_MODIFIED.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GH1395.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GH1396_E.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GH1397_E.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\H_M_POLYGON.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\i10.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\i11.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\i12.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\i13.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\i14.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\i2.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\i3.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\i4.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\i5.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\i6.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\i7.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\i8.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\i9.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MAABER_PT.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\M_NAME.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SDE_archives.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SDE_column_registry.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SDE_dbtune.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SDE_GEOMETRY1.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SDE_GEOMETRY2.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SDE_GEOMETRY3.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SDE_GEOMETRY4.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SDE_GEOMETRY5.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SDE_GEOMETRY6.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SDE_GEOMETRY7.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SDE_GEOMETRY8.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SDE_GEOMETRY9.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SDE_geometry_columns.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SDE_layers.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SDE_layer_locks.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SDE_layer_stats.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SDE_lineages_modified.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SDE_locators.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SDE_logfile_pool.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SDE_metadata.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SDE_object_ids.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SDE_object_locks.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SDE_process_information.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SDE_raster_columns.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SDE_server_config.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SDE_spatial_references.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SDE_states.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SDE_state_lineages.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SDE_state_locks.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SDE_tables_modified.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SDE_table_locks.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SDE_table_registry.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SDE_version.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SDE_versions.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SDE_xml_columns.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SDE_xml_indexes.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SDE_xml_index_tags.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ST_GEOMETRY_COLUMNS.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ST_SPATIAL_REFERENCE_SYSTEMS.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\T_T1394.cs">
+      <DependentUpon>EGDB_Maryanaj.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -139,8 +357,25 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\EGDB_Maryanaj.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EGDB_Maryanaj.edmx</DependentUpon>
+      <LastGenOutput>EGDB_Maryanaj.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\EGDB_Maryanaj.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EGDB_Maryanaj.edmx</DependentUpon>
+      <LastGenOutput>EGDB_Maryanaj.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="Models\EGDB_Maryanaj.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>EGDB_Maryanaj.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\EGDB_Maryanaj.edmx.diagram">
+      <DependentUpon>EGDB_Maryanaj.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -169,7 +404,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -183,6 +417,9 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

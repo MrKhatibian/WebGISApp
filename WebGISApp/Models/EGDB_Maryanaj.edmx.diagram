@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="332806cfc0b3482aabe15e0428daca87" Name="Diagram1">
+        <EntityTypeShape EntityType="GisMaryanjModel.ARSE" Width="1.5" PointX="0.75" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.GDB_ITEMRELATIONSHIPS" Width="1.5" PointX="2.75" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.GDB_ITEMS" Width="1.5" PointX="4.75" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.GH1395" Width="1.5" PointX="10.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.GH1396_E" Width="1.5" PointX="2.75" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.GH1397_E" Width="1.5" PointX="12.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.H_M_POLYGON" Width="1.5" PointX="12.75" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.i10" Width="1.5" PointX="12.75" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.i11" Width="1.5" PointX="14.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.i12" Width="1.5" PointX="14.75" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.i13" Width="1.5" PointX="14.75" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.i14" Width="1.5" PointX="14.75" PointY="16.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.i2" Width="1.5" PointX="15.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.i3" Width="1.5" PointX="10.75" PointY="17.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.i4" Width="1.5" PointX="16.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.i5" Width="1.5" PointX="16.75" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.i6" Width="1.5" PointX="16.75" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.i7" Width="1.5" PointX="16.75" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.i8" Width="1.5" PointX="16.75" PointY="17.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.i9" Width="1.5" PointX="17.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.M_NAME" Width="1.5" PointX="12.75" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.MAABER_PT" Width="1.5" PointX="18.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.SDE_archives" Width="1.5" PointX="5.25" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.SDE_column_registry" Width="1.5" PointX="4.75" PointY="20.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.SDE_dbtune" Width="1.5" PointX="18.75" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.SDE_geometry_columns" Width="1.5" PointX="8" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.SDE_GEOMETRY1" Width="1.5" PointX="18.75" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.SDE_GEOMETRY2" Width="1.5" PointX="18.75" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.SDE_GEOMETRY3" Width="1.5" PointX="14.75" PointY="20.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.SDE_GEOMETRY4" Width="1.5" PointX="18.75" PointY="17.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.SDE_GEOMETRY5" Width="1.5" PointX="16.75" PointY="20.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.SDE_GEOMETRY6" Width="1.5" PointX="18.75" PointY="20.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.SDE_GEOMETRY7" Width="1.5" PointX="19.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.SDE_GEOMETRY8" Width="1.5" PointX="20.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.SDE_GEOMETRY9" Width="1.5" PointX="20.75" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.SDE_layer_locks" Width="1.5" PointX="20.75" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.SDE_layer_stats" Width="1.5" PointX="13" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.SDE_layers" Width="1.5" PointX="8" PointY="13.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.SDE_lineages_modified" Width="1.5" PointX="10.75" PointY="22.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.SDE_locators" Width="1.5" PointX="20.75" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.SDE_logfile_pool" Width="1.5" PointX="20.75" PointY="18.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.SDE_metadata" Width="1.5" PointX="20.75" PointY="21.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.SDE_object_ids" Width="1.5" PointX="21.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.SDE_object_locks" Width="1.5" PointX="12.75" PointY="23.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.SDE_process_information" Width="1.5" PointX="14.75" PointY="23.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.SDE_raster_columns" Width="1.5" PointX="8" PointY="21" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.SDE_server_config" Width="1.5" PointX="16.75" PointY="23.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.SDE_spatial_references" Width="1.5" PointX="5.75" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.SDE_state_lineages" Width="1.5" PointX="0.75" PointY="24.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.SDE_state_locks" Width="1.5" PointX="2.75" PointY="24.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.SDE_states" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.SDE_table_locks" Width="1.5" PointX="22.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.SDE_table_registry" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.SDE_tables_modified" Width="1.5" PointX="4.75" PointY="24.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.SDE_version" Width="1.5" PointX="22.75" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.SDE_versions" Width="1.5" PointX="10.75" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.SDE_xml_columns" Width="1.5" PointX="8.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.SDE_xml_index_tags" Width="1.5" PointX="8.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.SDE_xml_indexes" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.T_T1394" Width="1.5" PointX="22.75" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.GDB_ITEMRELATIONSHIPTYPES" Width="1.5" PointX="22.75" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.GDB_ITEMTYPES" Width="1.5" PointX="22.75" PointY="18.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.GDB_REPLICALOG" Width="1.5" PointX="22.75" PointY="21.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.GDB_TABLES_LAST_MODIFIED" Width="1.5" PointX="23.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.dbtune" Width="1.5" PointX="6.75" PointY="25.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.ST_GEOMETRY_COLUMNS" Width="1.5" PointX="8.75" PointY="25.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GisMaryanjModel.ST_SPATIAL_REFERENCE_SYSTEMS" Width="1.5" PointX="18.75" PointY="25.5" IsExpanded="true" />
+        <AssociationConnector Association="GisMaryanjModel.archives_fk1" ManuallyRouted="false" />
+        <AssociationConnector Association="GisMaryanjModel.archives_fk2" ManuallyRouted="false" />
+        <AssociationConnector Association="GisMaryanjModel.geocol_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="GisMaryanjModel.sdelayer_stats_fk2" ManuallyRouted="false" />
+        <AssociationConnector Association="GisMaryanjModel.layers_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="GisMaryanjModel.layers_sfk" ManuallyRouted="false" />
+        <AssociationConnector Association="GisMaryanjModel.rascol_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="GisMaryanjModel.xml_columns_fk1" ManuallyRouted="false" />
+        <AssociationConnector Association="GisMaryanjModel.xml_columns_fk2" ManuallyRouted="false" />
+        <AssociationConnector Association="GisMaryanjModel.xml_indextags_fk1" ManuallyRouted="false" />
+        <AssociationConnector Association="GisMaryanjModel.SDE_mvtables_modified" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
