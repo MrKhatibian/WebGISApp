@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebGISApp.Models;
 
 namespace WebGISApp.Controllers
 {
@@ -25,6 +26,23 @@ namespace WebGISApp.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        private readonly GisMaryanjEntities _context;
+
+        public HomeController()
+        {
+            _context = new GisMaryanjEntities();
+        }
+
+        [HttpGet]
+        public ActionResult GetFeatures()
+        {
+            // Query FeatureClasses from the database
+            var features = _context.ARSE.ToList();
+
+            // Return the features as JSON (including geometries)
+            return Json(features, JsonRequestBehavior.AllowGet);
         }
     }
 }
