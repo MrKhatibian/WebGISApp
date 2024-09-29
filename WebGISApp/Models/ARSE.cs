@@ -11,6 +11,7 @@ namespace WebGISApp.Models
 {
     using System;
     using System.Collections.Generic;
+    using NetTopologySuite.Geometries;
     
     public partial class ARSE
     {
@@ -43,5 +44,6 @@ namespace WebGISApp.Models
         public string Telephone { get; set; }
         public string COD_1 { get; set; }
         public Nullable<int> Parvande_No { get; set; }
+        public Geometry SHAPE { get; set; }
     }
 }
