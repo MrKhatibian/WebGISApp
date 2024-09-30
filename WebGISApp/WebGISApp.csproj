@@ -526,6 +526,7 @@
     <Content Include="Models\EGDB_Maryanaj.edmx.diagram">
       <DependentUpon>EGDB_Maryanaj.edmx</DependentUpon>
     </Content>
+    <Content Include="package.json" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -555,6 +556,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\assets\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

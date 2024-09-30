@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "dev": "npm run copy:all",
+    "build": "npm run copy:all",
+    "copy:all": "npm run copy:components && npm run copy:core",
+    "copy:components": "cpx ./node_modules/@arcgis/map-components/dist/arcgis-map-components/assets/**/*.* ./Content/assets",
+    "copy:core": "cpx ./node_modules/@arcgis/core/assets/**/*.* ./Content/assets",
+    "copy:calcite": "cpx ./node_modules/@esri/calcite-components/dist/calcite/assets/**/*.* ./Content/assets"
+  }
+}
