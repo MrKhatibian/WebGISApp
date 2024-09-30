@@ -1,0 +1,7 @@
+/*!
+ * All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+ * See https://github.com/Esri/calcite-design-system/blob/dev/LICENSE.md for details.
+ * v2.12.2
+ */
+import{d as _}from"./p-e13abaf1.js";import"./p-818852ac.js";import"./p-c59c22e6.js";import"./p-d1368708.js";import"./p-1d0d4f4f.js";import"./p-66edac25.js";import"./p-34a03696.js";import"./p-cd85d59d.js";import"./p-24a311c0.js";import"./p-d2d76227.js";import"./p-89725cbd.js";import"./p-7f68206e.js";import"./p-d918698d.js";import"./p-83d5b046.js";import"./p-d416e09d.js";import"./p-5df740ec.js";import"./p-d2157f9d.js";import"./p-99528bdd.js";import"./p-64575c4a.js";import"./p-afd1e1b3.js";var p={name:"el",weekdays:"Κυριακή_Δευτέρα_Τρίτη_Τετάρτη_Πέμπτη_Παρασκευή_Σάββατο".split("_"),weekdaysShort:"Κυρ_Δευ_Τρι_Τετ_Πεμ_Παρ_Σαβ".split("_"),weekdaysMin:"Κυ_Δε_Τρ_Τε_Πε_Πα_Σα".split("_"),months:"Ιανουάριος_Φεβρουάριος_Μάρτιος_Απρίλιος_Μάιος_Ιούνιος_Ιούλιος_Αύγουστος_Σεπτέμβριος_Οκτώβριος_Νοέμβριος_Δεκέμβριος".split("_"),monthsShort:"Ιαν_Φεβ_Μαρ_Απρ_Μαι_Ιουν_Ιουλ_Αυγ_Σεπτ_Οκτ_Νοε_Δεκ".split("_"),ordinal:function _(p){return p},weekStart:1,relativeTime:{future:"σε %s",past:"πριν %s",s:"μερικά δευτερόλεπτα",m:"ένα λεπτό",mm:"%d λεπτά",h:"μία ώρα",hh:"%d ώρες",d:"μία μέρα",dd:"%d μέρες",M:"ένα μήνα",MM:"%d μήνες",y:"ένα χρόνο",yy:"%d χρόνια"},formats:{LT:"h:mm A",LTS:"h:mm:ss A",L:"DD/MM/YYYY",LL:"D MMMM YYYY",LLL:"D MMMM YYYY h:mm A",LLLL:"dddd, D MMMM YYYY h:mm A"}};_.locale(p,null,true);export{p as default};
+//# sourceMappingURL=p-ce9202ce.js.map
