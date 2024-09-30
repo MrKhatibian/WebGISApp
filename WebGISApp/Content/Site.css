@@ -24,8 +24,8 @@ textarea {
 }
 
 /*Add Map css*/
-@import url("../node_modules/@arcgis/core/assets/esri/themes/dark/main.css");
-@import url("../node_modules/@esri/calcite-components/dist/calcite/calcite.css");
+@import url("../Content/esri/themes/dark/main.css");
+@import url("../Content/calcite/calcite.css");
 
 #viewDiv {
     padding: 0;
