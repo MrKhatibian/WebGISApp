@@ -28,6 +28,12 @@ namespace WebGISApp.Controllers
             return View();
         }
 
+        public ActionResult Map()
+        {
+            ViewBag.Message = "Map Page";
+            return View();
+        }
+
         private readonly GisMaryanjEntities _context;
 
         public HomeController()
