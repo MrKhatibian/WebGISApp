@@ -1,16 +1,4 @@
-﻿/*Import Map css*/
-
-/*Add CDN leaflet css */
-/*@import url("https://unpkg.com/leaflet@1.9.3/dist/leaflet.css");*/
-/*Add locall leaflet css*/
-@import url("Map/Leaflet/leaflet.css");
-
-/*Add locall arcgis css */
-@import url("../Content/Map/esri/themes/dark/main.css");
-@import url("../Content/Map/calcite/calcite.css");
-
-/*End Import Map css*/
-
+﻿
 body {
     padding-top: 50px;
     padding-bottom: 20px;
@@ -35,15 +23,3 @@ select,
 textarea {
     max-width: 280px;
 }
-
-/*Add Map css*/
-
-#viewMapDiv {
-    padding: 0;
-    margin: 0;
-    height: 100%;
-    width: 100%;
-    /*background-color: red;*/
-}
-
-/*End Map css*/

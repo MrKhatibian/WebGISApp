@@ -1216,7 +1216,8 @@
     <Content Include="Content\Map\Leaflet\leaflet-src.js" />
     <Content Include="Content\Map\Leaflet\leaflet.css" />
     <Content Include="Content\Map\Leaflet\leaflet.js" />
-    <Content Include="Scripts\Map\Map.js" />
+    <Content Include="Content\Map\Map.css" />
+    <Content Include="Scripts\Map\MapLoad.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

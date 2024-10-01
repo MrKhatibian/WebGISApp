@@ -4,6 +4,22 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<!-- #region Link -->
+
+<link rel="stylesheet" type="text/css" href="~/Content/Map/Map.css" />
+
+<!-- #endregion -->
+<!-- #region Script -->
+@*Add mapload javascript*@
+<script type="text/javascript" src="@Url.Content("/Scripts/Map/MapLoad.js")"></script>
+
+@*Add Online leaflet.js*@
+@*<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>*@
+@*Add locall leaflet.js*@
+<script type="text/javascript" src="~/Content/Map/Leaflet/leaflet.js"></script>
+
+<!-- #endregion -->
+
 <style>
     #map {
         height: 500px;
@@ -11,14 +27,16 @@
     }
 </style>
 
-<script type="text/javascript" src="@Url.Content("/Scripts/Map/Map.js")"></script>
-@*<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>*@
-<!--Add locall leaflet.js-->
-<script type="text/javascript" src="~/Content/Map/Leaflet/leaflet.js"></script>
+
+
+<!-- #region viewMapDiv -->
 
 <div id="map"></div>
 
-<script>
+<!-- #endregion -->
+
+
+<script>       
         // Initialize the map
         var map = L.map('map').setView([51.505, -0.09], 10);
 
@@ -47,7 +65,7 @@
 </script>
 
 <!--Add Map div-->
-<!--
+
 <div id="viewMapDiv">
     <h3 id="viewMapDiv_h3">
         Hii Map
@@ -55,4 +73,4 @@
     <button class="btn-danger" type="button" onclick="Myfunction()">Say Hi</button>
 
 </div>
--->
+
