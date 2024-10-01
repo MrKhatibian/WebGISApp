@@ -1,9 +1,10 @@
 ﻿/*Import Map css*/
 
 /*Add CDN leaflet css */
-@import url("https://unpkg.com/leaflet@1.9.3/dist/leaflet.css");
+/*@import url("https://unpkg.com/leaflet@1.9.3/dist/leaflet.css");*/
 /*Add locall leaflet css*/
-@import url("Map/Leaflet/leaflet.css")
+@import url("Map/Leaflet/leaflet.css");
+
 /*Add locall arcgis css */
 @import url("../Content/Map/esri/themes/dark/main.css");
 @import url("../Content/Map/calcite/calcite.css");
