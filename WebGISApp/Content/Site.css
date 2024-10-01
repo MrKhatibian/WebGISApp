@@ -24,6 +24,10 @@ textarea {
 }
 
 /*Add Map css*/
+/*Add CDN leaflet css */
+@import url("https://unpkg.com/leaflet@1.9.3/dist/leaflet.css");
+
+/*Add locall arcgis css */
 @import url("../Content/esri/themes/dark/main.css");
 @import url("../Content/calcite/calcite.css");
 
@@ -34,4 +38,5 @@ textarea {
     width: 100%;
     /*background-color: red;*/
 }
+
 /*End Map css*/
