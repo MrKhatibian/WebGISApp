@@ -1,4 +1,14 @@
-﻿body {
+﻿/*Import Map css*/
+
+/*Add CDN leaflet css */
+@import url("https://unpkg.com/leaflet@1.9.3/dist/leaflet.css");
+/*Add locall arcgis css */
+@import url("../Content/esri/themes/dark/main.css");
+@import url("../Content/calcite/calcite.css");
+
+/*End Import Map css*/
+
+body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
@@ -24,12 +34,6 @@ textarea {
 }
 
 /*Add Map css*/
-/*Add CDN leaflet css */
-@import url("https://unpkg.com/leaflet@1.9.3/dist/leaflet.css");
-
-/*Add locall arcgis css */
-@import url("../Content/esri/themes/dark/main.css");
-@import url("../Content/calcite/calcite.css");
 
 #viewMapDiv {
     padding: 0;
