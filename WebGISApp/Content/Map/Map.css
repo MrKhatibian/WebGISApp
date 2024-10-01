@@ -21,6 +21,10 @@
     width: 100%;
     /*background-color: red;*/
 }
+#map {
+    height: 470px;
+    width: 100%;
+}
 
 
 /*#endregion */
