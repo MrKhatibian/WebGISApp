@@ -1,27 +1,25 @@
-﻿//function Myfunction(){    document.getElementById("viewMapDiv_h3").innerHTML = "Hi Muhammad. I'm JavaScript"}
- 
-// Initialize the map
- var map = L.map('mapView').setView([51.505, -0.09], 10);
+﻿require([
+    "esri/Map",
+    "esri/views/MapView",
+    "esri/layers/MapImageLayer"
+], function (Map, MapView, MapImageLayer) {
+    // Create the map
+    var _map = new Map({
+        //basemap: "streets-vector" // You can change the basemap here
+    });
 
- // Add a base map (optional)
- L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-     maxZoom: 18,
-     attribution: '© OpenStreetMap contributors'
- }).addTo(map);
+    // Create the view
+    var view = new MapView({
+        container: "viewDiv", // Reference to the view div created in HTML
+        map: _map,
+        center: [48.464869, 34.834155], // Longitude, latitude 48.464869  34.834155
+        zoom: 16 // Zoom level
+    });
 
- // Add your WMS layer from the local ArcGIS Server
- var wmsLayer = L.tileLayer.wms('http://localhost:6080/arcgis/services/Maryanaj/Maryanaj_14030619/MapServer/WMSServer', {
-     layers: '0',  // Replace '0' with the correct layer ID
-     format: 'image/png',
-     transparent: true,
-     attribution: 'ArcGIS WMS Layer'
- }).addTo(map);
+    // Adding a sample Map Image Layer
+    var layer = new MapImageLayer({
+        url: "http://localhost:6080/arcgis/rest/services/Maryanaj/Maryanaj_14030619/MapServer" // Replace with your ArcGIS Server URL
+    });
 
- // Bounding box for the WMS layer (get this from GetCapabilities)
- var layerBounds = [
-     [34.822474, 48.452172],   // Southwest corner (miny, minx)
-     [34.842205, 48.476566]   // Northeast corner (maxy, maxx)
- ];
-
- // Zoom the map to the WMS layer bounds
- map.fitBounds(layerBounds);
+    _map.add(layer); // Add the layer to the map
+});
