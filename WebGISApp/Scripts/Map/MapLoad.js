@@ -4,14 +4,14 @@
     "esri/layers/MapImageLayer"
 ], function (Map, MapView, MapImageLayer) {
     // Create the map
-    var _map = new Map({
+    var myMap = new Map({
         //basemap: "streets-vector" // You can change the basemap here
     });
 
     // Create the view
     var view = new MapView({
-        container: "viewDiv", // Reference to the view div created in HTML
-        map: _map,
+        container: "mapView", // Reference to the view div created in HTML
+        map: myMap,
         center: [48.464869, 34.834155], // Longitude, latitude 48.464869  34.834155
         zoom: 16 // Zoom level
     });
@@ -21,5 +21,5 @@
         url: "http://localhost:6080/arcgis/rest/services/Maryanaj/Maryanaj_14030619/MapServer" // Replace with your ArcGIS Server URL
     });
 
-    _map.add(layer); // Add the layer to the map
+    myMap.add(layer); // Add the layer to the map
 });

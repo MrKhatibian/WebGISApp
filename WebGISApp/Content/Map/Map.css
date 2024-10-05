@@ -7,7 +7,7 @@
 @import url("Leaflet/leaflet.css");
 
 /*Add locall arcgis css */
-@import url("esri/themes/dark/main.css");
+@import url("esri/themes/light/main.css");
 @import url("calcite/calcite.css");
 
 /*#endregion */
