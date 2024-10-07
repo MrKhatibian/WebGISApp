@@ -4,24 +4,28 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!-- #region Link -->
+<!-- #region Link & Script -->
 
 <link rel="stylesheet" type="text/css" href="~/Content/Map/Map.css" />
+
+@*Add mapload javascript*@
 <script src="https://js.arcgis.com/4.30/"></script>
+<script type="module" src="~/Scripts/Map/MapLoad.js"></script>
+
+@*Add Arcgis api v4.30 javascript  *@
+@*<script type="module" src="~/Scripts/Map/arcgisapi430.js"></script>*@
 
 <!-- #endregion -->
 <!-- #region viewMapDiv -->
 
 <div id="mapView"></div>
 
+
+
 <!-- #endregion -->
 <!-- #region Script -->
-
 @*Add locall leaflet.js*@
-<script type="text/javascript" src="~/Content/Map/Leaflet/leaflet.js"></script>
-
-@*Add mapload javascript*@
-<script type="text/javascript" src="~/Scripts/Map/MapLoad.js"></script>
+@*<script type="text/javascript" src="~/Content/Map/Leaflet/leaflet.js"></script>*@
 
 @*Add Online leaflet.js*@
 @*<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>*@
