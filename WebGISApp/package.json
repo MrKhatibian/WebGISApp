@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@arcgis/core": "^4.30.9",
-    "@arcgis/map-components": "^4.30.7"
+    "@arcgis/map-components": "^4.30.7",
+    "luxon": "^3.5.0"
   }
 }
