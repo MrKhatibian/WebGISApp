@@ -8,27 +8,19 @@
 
 <link rel="stylesheet" type="text/css" href="~/Content/Map/Map.css" />
 
-@*Add mapload javascript*@
-<script src="https://js.arcgis.com/4.30/"></script>
-<script type="module" src="~/Scripts/Map/MapLoad.js"></script>
+@*Add Arcgis Moulde api 4.30*@
+@*<script src="https://js.arcgis.com/4.30/"></script>*@
+<script src="~/Scripts/Map/arcgis_js_v430_api/arcgis_js_api/javascript/4.30/init.js"></script>
 
-@*Add Arcgis api v4.30 javascript  *@
-@*<script type="module" src="~/Scripts/Map/arcgisapi430.js"></script>*@
+@*Add mapload javascript*@
+<script type="module" src="~/Scripts/Map/LoadMap.js"></script>
+
 
 <!-- #endregion -->
+
 <!-- #region viewMapDiv -->
 
 <div id="mapView"></div>
 
-
-
 <!-- #endregion -->
-<!-- #region Script -->
-@*Add locall leaflet.js*@
-@*<script type="text/javascript" src="~/Content/Map/Leaflet/leaflet.js"></script>*@
 
-@*Add Online leaflet.js*@
-@*<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>*@
-
-
-<!-- #endregion -->
