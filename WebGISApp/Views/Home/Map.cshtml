@@ -8,19 +8,30 @@
 
 <link rel="stylesheet" type="text/css" href="~/Content/Map/Map.css" />
 
+
+
+
+<!-- #endregion -->
+<!-- #region viewMapDiv -->
+<div id="buttons">
+    <button class="btn" id="zoomIn">+</button>
+    <button class="btn" id="zoomOut">-</button>
+    <button class="btn" id="toggleLayer">Layers</button>
+    <button class="btn" id="queryFeatures">Query</button>
+    <button class="btn" id="drawPolygon">Draw</button>
+    <button class="btn" id="resetMap">Reset</button>
+</div>
+
+
+
+<div id="mapView">
+
+</div>
+
+<!-- #endregion -->
 @*Add Arcgis Moulde api 4.30*@
 @*<script src="https://js.arcgis.com/4.30/"></script>*@
 <script src="~/Scripts/Map/arcgis_js_v430_api/arcgis_js_api/javascript/4.30/init.js"></script>
 
 @*Add mapload javascript*@
-<script type="module" src="~/Scripts/Map/LoadMap.js"></script>
-
-
-<!-- #endregion -->
-
-<!-- #region viewMapDiv -->
-
-<div id="mapView"></div>
-
-<!-- #endregion -->
-
+<script src="~/Scripts/Map/LoadMap.js"></script>
