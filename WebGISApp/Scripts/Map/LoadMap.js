@@ -1,13 +1,13 @@
-﻿window.onload = function(){
-    require(
+﻿require(
         [
          "esri/Map",
          "esri/views/MapView",
          "esri/layers/MapImageLayer",
-         "esri/layers/FeatureLayer",     
+         "esri/layers/FeatureLayer",
+         "esri/widgets/Search"     
         ],
         function(
-                Map, MapView, MapImageLayer            
+                Map, MapView, MapImageLayer, Search            
             ) 
         {        
             let map = new Map({
@@ -26,23 +26,12 @@
             let view = new MapView({
             map: map,
             center: [48.464869, 34.834155], // Longitude, latitude 48.464869  34.834155
-            zoom: 18, // Zoom level
+            "zoom": 18, // Zoom level
             container: "mapView" // Div element
             });
-    
-            //const searchWidget = new Search({view:view});
-            //view.ui.add(searchWidget, "top-right");        
-            view.ui.move("zoom","bottom-right");
-            document.getElementById("zoomIn").onclick = function(){
-                //view.zoom += 1;
-                //alert("Hiii");
-                view.goto({
-                    center:[48.464869, 34.834155],
-                    zoom:16
-                });
-            }
+            
     
         }
-    );
-};
+);
+  
 
