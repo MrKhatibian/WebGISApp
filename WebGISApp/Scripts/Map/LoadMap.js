@@ -26,23 +26,37 @@
             //map.add(featureLayer);
     
             let view = new MapView({
-            map: map,
+                container: "mapView", // Div element
+                map: map,
+            //zoom:18,
             center: [48.464869, 34.834155], // Longitude, latitude 48.464869  34.834155
             zoom: 18, // Zoom level
-            container: "mapView" // Div element
+            
             });
 
-            const homeBtn = new Home(
-                {
-                    view: view
-                }
-            );
+            //const homeBtn = new Home(                {                    view: view                }            );
             // Add the home button to the top left corner of the view
             //view.ui.add(homeBtn, "bottom-left");
-            view.ui.add("Home-button", "bottom-left"); 
-            document.getElementById("Home-button").addEventListener("click", function(){
-                //homeBtn.go();
-            });
+            view.ui.add("Home-button", "top-left"); 
+        // Define the initial or home extent (center and zoom level)
+        var homeExtent = {
+            center: [48.464869, 34.834155], // Longitude, Latitude
+            zoom: 15                    // Zoom level
+        };
+
+        // Get the custom home button element
+        var homeButton = document.getElementById("Home-button");
+
+        // Add event listener to handle click on the Home button
+        homeButton.addEventListener("click", function() {            
+            view.goTo(homeExtent)
+                .then(function() {
+                    console.log("Returned to home extent");
+                })
+                .catch(function(error) {
+                    console.error("Error going to home extent:", error);
+                });
+        });
 
             // add the button for the draw tool
              view.ui.add("line-button", "top-left");
