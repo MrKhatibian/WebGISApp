@@ -66,7 +66,31 @@
         const fullscreen = new Fullscreen({
             view: view
         });
-        view.ui.add(fullscreen, "top-right");         
+        view.ui.add(fullscreen, "top-right");   
+        view.ui.add("FullScreen-button","top-right");
+        //document.getElementById("FullScreen-button").addEventListener("click", function(){})      
+        // Function to toggle fullscreen
+    function toggleFullscreen() {
+        var viewDiv = document.getElementById("mapView"); // ID of the map container
+        if (!document.fullscreenElement) {
+          if (viewDiv.requestFullscreen) {
+            viewDiv.requestFullscreen();
+          } else if (viewDiv.mozRequestFullScreen) { // Firefox
+            viewDiv.mozRequestFullScreen();
+          } else if (viewDiv.webkitRequestFullscreen) { // Chrome, Safari, and Opera
+            viewDiv.webkitRequestFullscreen();
+          } else if (viewDiv.msRequestFullscreen) { // IE/Edge
+            viewDiv.msRequestFullscreen();
+          }
+        } else {
+          if (document.exitFullscreen) {
+            document.exitFullscreen();
+          }
+        }
+      }
+  
+      // Add event listener to the Fullscreen button
+      document.getElementById("FullScreen-button").addEventListener("click", toggleFullscreen);
     }
 );
   
