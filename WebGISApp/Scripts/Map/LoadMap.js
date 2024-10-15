@@ -73,6 +73,10 @@
         //add maual btn FullScreen   
         view.ui.add("FullScreen-button","top-right");
 
+        //add Indentify section
+        let params;
+        
+
     }
 );
   
