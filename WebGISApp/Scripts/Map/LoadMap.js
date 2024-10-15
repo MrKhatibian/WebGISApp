@@ -1,43 +1,44 @@
 ﻿require(
-        [
-         "esri/Map",
-         "esri/views/MapView",
-         "esri/layers/MapImageLayer",
-         "esri/layers/FeatureLayer",
-         "esri/widgets/Search",
-         "esri/widgets/Attribution",
-         "esri/widgets/Home"     
-        ],
-        function(
-                Map, MapView, MapImageLayer, Search, Attribution, Home            
-            ) 
-        {        
-            let map = new Map({
-            //basemap: "arcgis/topographic" // basemap styles service
-            });
+    [
+        "esri/Map",
+        "esri/views/MapView",
+        "esri/layers/MapImageLayer",
+        "esri/layers/FeatureLayer",
+        "esri/widgets/Search",
+        "esri/widgets/Attribution",
+        "esri/widgets/Home"     
+    ],
+    function(
+        Map, MapView, MapImageLayer,
+        Search, Attribution, Home,
+        FeatureLayer            
+    ) 
+    {        
+        const map = new Map({
+            basemap: "gray-vector" // basemap styles service
+        });
           
-            // Adding a sample Map Image Layer
-            let layer = new MapImageLayer({
-            url: "http://localhost:6080/arcgis/rest/services/Maryanaj/Maryanaj_14030619/MapServer" // Replace with your ArcGIS Server URL         
-            });
-            map.add(layer);
+        // Adding a sample Map Image Layer
+        const layer = new MapImageLayer({
+            // Replace with your ArcGIS Server URL
+            url: "http://localhost:6080/arcgis/rest/services/Maryanaj/Maryanaj_14030619/MapServer"
+            //url: "http://localhost:6080/arcgis/rest/services/SampleWorldCities/MapServer"
+        });
+        map.add(layer);
     
-            //const featureLayer = new FeatureLayer("http://localhost:6080/arcgis/rest/services/SampleWorldCities/MapServer/1");
-            //map.add(featureLayer);
+        //const featureLayer = new FeatureLayer("http://localhost:6080/arcgis/rest/services/SampleWorldCities/MapServer/1");
+        //map.add(featureLayer);
     
-            let view = new MapView({
-                container: "mapView", // Div element
-                map: map,
-            //zoom:18,
-            center: [48.464869, 34.834155], // Longitude, latitude 48.464869  34.834155
-            zoom: 18, // Zoom level
-            
-            });
+        const view = new MapView({
+            container: "mapView", // Div element
+            map: map,
+            zoom: 12, // Zoom level
+            center: [48.464869, 34.834155], // Longitude, latitude 48.464869  34.834155                        
+        });
+        
+        // Add the home button to the top left corner of the view        
+        view.ui.add("Home-button", "top-left"); 
 
-            //const homeBtn = new Home(                {                    view: view                }            );
-            // Add the home button to the top left corner of the view
-            //view.ui.add(homeBtn, "bottom-left");
-            view.ui.add("Home-button", "top-left"); 
         // Define the initial or home extent (center and zoom level)
         var homeExtent = {
             center: [48.464869, 34.834155], // Longitude, Latitude
@@ -58,11 +59,11 @@
                 });
         });
 
-            // add the button for the draw tool
-             view.ui.add("line-button", "top-left");
+        // add the button for the draw tool
+        view.ui.add("line-button", "top-left");
 
     
-        }
+    }
 );
   
 
