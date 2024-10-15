@@ -6,12 +6,13 @@
         "esri/layers/FeatureLayer",
         "esri/widgets/Search",
         "esri/widgets/Attribution",
-        "esri/widgets/Home"     
+        "esri/widgets/Home",
+        "esri/widgets/Fullscreen"     
     ],
     function(
         Map, MapView, MapImageLayer,
         Search, Attribution, Home,
-        FeatureLayer            
+        FeatureLayer, Fullscreen
     ) 
     {        
         const map = new Map({
@@ -62,7 +63,10 @@
         // add the button for the draw tool
         view.ui.add("line-button", "top-left");
 
-    
+        const fullscreen = new Fullscreen({
+            view: view
+        });
+        view.ui.add(fullscreen, "top-right");         
     }
 );
   
