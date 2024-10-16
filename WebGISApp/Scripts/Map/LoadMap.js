@@ -7,16 +7,20 @@
         "esri/widgets/Search",
         "esri/widgets/Attribution",
         "esri/widgets/Home",
-        "esri/widgets/Fullscreen"     
+        "esri/widgets/Fullscreen",
+        "esri/rest/identify",
+        "esri/rest/support/IdentifyParameters"     
     ],
     function(
         Map, MapView, MapImageLayer,
         Search, Attribution, Home,
-        FeatureLayer, Fullscreen
+        FeatureLayer, Fullscreen,identify,
+        IdentifyParameters
     ) 
     {        
         const map = new Map({
-            basemap: "gray-vector" // basemap styles service
+            //basemap: "gray-vector" // basemap styles service
+            basemap: "osm"
         });
                 
         // Adding a sample Map Image Layer
@@ -33,12 +37,12 @@
         const view = new MapView({
             container: "mapView", // Div element
             map: map,
-            zoom: 12, // Zoom level
+            zoom: 14, // Zoom level
             center: [48.464869, 34.834155], // Longitude, latitude 48.464869  34.834155                        
         });
         
         //remove bottom atribution (power by esri)
-        view.ui.empty();
+        //view.ui.empty();
 
         // Add the home button to the top left corner of the view        
         view.ui.add("Home-button", "top-left"); 
@@ -75,8 +79,29 @@
 
         //add Indentify section
         let params;
-        
+        var divTest = document.getElementById("divTest");
+        //divTest.innerHTML= "Hii";
 
+        view.when(function () {
+            // executeIdentify() is called each time the view is clicked
+            view.on("click", executeIdentify);
+  
+            // Set the parameters for the identify
+            params = new IdentifyParameters();
+            params.tolerance = 3;
+            params.layerIds = [0, 1, 2, 3, 4];
+            params.layerOption = "top";
+            params.width = view.width;
+            params.height = view.height;
+        });
+        function executeIdentify(event) {
+            // Set the geometry to the location of the view click
+            params.geometry = event.mapPoint;
+            params.mapExtent = view.extent;
+            document.getElementById("mapView").style.cursor = "wait";
+            
+            //divTest.innerHTML= params.layerIds.toString();
+        };
     }
 );
   
