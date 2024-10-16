@@ -24,9 +24,10 @@
         });
                 
         // Adding a sample Map Image Layer
+        const mapServerUrl = "http://localhost:6080/arcgis/rest/services/Maryanaj/Maryanaj_14030619/MapServer";
         const layer = new MapImageLayer({
             // Replace with your ArcGIS Server URL
-            url: "http://localhost:6080/arcgis/rest/services/Maryanaj/Maryanaj_14030619/MapServer"
+            url: mapServerUrl
             //url: "http://localhost:6080/arcgis/rest/services/SampleWorldCities/MapServer"
         });
         map.add(layer);
