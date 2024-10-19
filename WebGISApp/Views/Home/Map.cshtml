@@ -4,25 +4,32 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!-- #region Link -->
+<!-- #region Link & Script -->
 
 <link rel="stylesheet" type="text/css" href="~/Content/Map/Map.css" />
 
+@*Add Arcgis Moulde api 4.30*@
+@*<script src="https://js.arcgis.com/4.25/"></script>*@
+<script src="~/Scripts/Map/arcgis_js_v430_api/arcgis_js_api/javascript/4.30/init.js"></script>
+@* Add mapload *@
+<script src="~/Scripts/Map/LoadMap.js"></script>
+
 <!-- #endregion -->
 <!-- #region viewMapDiv -->
+@*Add div test for Identify*@
 
-<div id="mapView"></div>
+<div id="mapView">
+    <div id="line-button" class="esri-widget esri-widget--button  esri-interactive" title="Draw polyline">
+        <span class="esri-icon-polyline"></span>
+    </div>
+    <div id="Home-button" class="esri-widget esri-widget--button esri-home" title="Default map view">
+        <span class="esri-icon-home"></span>
+    </div>
+    <div id="FullScreen-button" class="esri-widget esri-widget--button esri-interactive" title="Full Screen">
+        <span class="esri-icon-zoom-out-fixed"></span>
+    </div>
+</div>
 
 <!-- #endregion -->
-<!-- #region Script -->
-
-@*Add locall leaflet.js*@
-<script type="text/javascript" src="~/Content/Map/Leaflet/leaflet.js"></script>
-@*Add mapload javascript*@
-<script type="text/javascript" src="~/Scripts/Map/MapLoad.js"></script>
-
-@*Add Online leaflet.js*@
-@*<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>*@
-
-
-<!-- #endregion -->
+@* Add DrawTools *@
+@*<script src="~/Scripts/Map/Draw.js"></script>*@
