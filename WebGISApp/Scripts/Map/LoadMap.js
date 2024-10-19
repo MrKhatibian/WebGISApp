@@ -9,17 +9,19 @@
         "esri/widgets/Home",
         "esri/widgets/Fullscreen",
         "esri/rest/identify",
-        "esri/rest/support/IdentifyParameters"     
+        "esri/rest/support/IdentifyParameters",
+        "esri/widgets/CoordinateConversion"
     ],
     function(
         Map, MapView, MapImageLayer,
         Search, Attribution, Home,
         FeatureLayer, Fullscreen,identify,
-        IdentifyParameters
+        IdentifyParameters, CoordinateConversion
     ) 
     {        
         const map = new Map({
             //basemap: "gray-vector" // basemap styles service
+            //basemap: "topo-vector"
             basemap: "osm"
         });
                 
@@ -174,6 +176,13 @@
             document.getElementById("mapView").style.cursor = "auto";
           }
         };
+
+        //Add Coordinate widget
+        const ccWidget = new CoordinateConversion({
+          view: view
+        });
+
+        view.ui.add(ccWidget, "bottom-left");
     }
 );
   
