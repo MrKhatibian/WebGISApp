@@ -1,4 +1,6 @@
-﻿require(
+﻿
+
+require(
     [
         "esri/Map",
         "esri/views/MapView",
