@@ -20,7 +20,10 @@
 <!-- #endregion -->
 <!-- #region viewMapDiv -->
 @*Add div test for Identify*@
-<calcite-shell style="padding-top:50px; font-size:15px; " >
+<calcite-shell id="mapView">
+    <calcite-panel heading="Content" id="Content1">
+
+    </calcite-panel>
     <calcite-shell-panel slot="panel-start" position="start" id="shell-panel-start">
         <calcite-action-bar slot="action-bar">
             <calcite-action text="Save" icon="save" indicator></calcite-action>
@@ -42,19 +45,17 @@
             <calcite-block heading="Block 1" collapsible></calcite-block>
         </calcite-panel>
     </calcite-shell-panel>
-    <calcite-panel heading="Content">
-        <div id="mapView">
-            <div id="line-button" class="esri-widget esri-widget--button  esri-interactive" title="Draw polyline">
-                <span class="esri-icon-polyline"></span>
-            </div>
-            <div id="Home-button" class="esri-widget esri-widget--button esri-home" title="Default map view">
-                <span class="esri-icon-home"></span>
-            </div>
-            <div id="FullScreen-button" class="esri-widget esri-widget--button esri-interactive" title="Full Screen">
-                <span class="esri-icon-zoom-out-fixed"></span>
-            </div>
-        </div>
-    </calcite-panel>
+
+    <div id="line-button" class="esri-widget esri-widget--button  esri-interactive" title="Draw polyline">
+        <span class="esri-icon-polyline"></span>
+    </div>
+    <div id="Home-button" class="esri-widget esri-widget--button esri-home" title="Default map view">
+        <span class="esri-icon-home"></span>
+    </div>
+    <div id="FullScreen-button" class="esri-widget esri-widget--button esri-interactive" title="Full Screen">
+        <span class="esri-icon-zoom-out-fixed"></span>
+    </div>
+
 </calcite-shell>
 
 @**@

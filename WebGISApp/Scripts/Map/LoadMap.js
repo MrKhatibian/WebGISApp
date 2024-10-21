@@ -50,7 +50,10 @@ require(
         //view.ui.empty();
 
         // Add the home button to the top left corner of the view        
-        view.ui.add("Home-button", "top-left"); 
+        view.ui.add("Home-button", "bottom-right"); 
+        view.ui.add("shell-panel-start","top-left");
+        view.ui.add("shell-panel-end","top-right");
+        view.ui.move("zoom","bottom-right");        
 
         // Define the initial or home extent (center and zoom level)
         var homeExtent = {
@@ -73,7 +76,7 @@ require(
         });
 
         // add the button for the draw tool
-        view.ui.add("line-button", "top-left");
+        view.ui.add("line-button", "bottom-right");
 
         const fullscreen = new Fullscreen({
             view: view
@@ -184,7 +187,7 @@ require(
           view: view
         });
 
-        view.ui.add(ccWidget, "bottom-left");
+        view.ui.add(ccWidget, "bottom-left");        
     }
 );
   
