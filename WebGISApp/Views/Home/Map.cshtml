@@ -4,10 +4,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@* Add mapload *@
+<script src="~/Scripts/Map/LoadMap.js"></script>
 
 <!-- #region viewMapDiv -->
 <calcite-shell>
-    <div id="mapView"></div>    
+    <div id="mapView"></div>
     <calcite-shell-panel slot="panel-start" position="start" id="shell-panel-start" collapsed>
         <calcite-action-bar slot="action-bar">
             <calcite-action text="Save" icon="save" indicator></calcite-action>
@@ -31,14 +33,15 @@
         </calcite-panel>
     </calcite-shell-panel>
 
-    @*<div id="line-button" class="esri-widget esri-widget--button  esri-interactive" title="Draw polyline">
-            <span class="esri-icon-polyline"></span>
-        </div>
-        <div id="Home-button" class="esri-widget esri-widget--button esri-home" title="Default map view">
-            <span class="esri-icon-home"></span>
-        </div>
-        <div id="FullScreen-button" class="esri-widget esri-widget--button esri-interactive" title="Full Screen">
-            <span class="esri-icon-zoom-out-fixed"></span>*@
+    <div id="line-button" class="esri-widget esri-widget--button  esri-interactive" title="Draw polyline">
+        <span class="esri-icon-polyline"></span>
+    </div>
+    <div id="Home-button" class="esri-widget esri-widget--button esri-home" title="Default map view">
+        <span class="esri-icon-home"></span>
+    </div>
+    <div id="FullScreen-button" class="esri-widget esri-widget--button esri-interactive" title="Full Screen">
+        <span class="esri-icon-zoom-out-fixed"></span>
+    </div>
 
 </calcite-shell>
 
@@ -46,8 +49,7 @@
 @* Add DrawTools *@
 @*<script src="~/Scripts/Map/Draw.js"></script>*@
 
-@* Add mapload *@
-<script src="~/Scripts/Map/LoadMap.js"></script>
+
 
 <script>
     const shellPanelStart = document.getElementById("shell-panel-start");

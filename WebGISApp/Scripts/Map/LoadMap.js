@@ -1,5 +1,4 @@
 ﻿
-
 require(
     [
         "esri/Map",
@@ -50,10 +49,11 @@ require(
         //view.ui.empty();
 
         // Add the home button to the top left corner of the view        
-        view.ui.add("Home-button", "bottom-right"); 
-        view.ui.add("shell-panel-start","top-left");
-        view.ui.add("shell-panel-end","top-right");
-        view.ui.move("zoom","bottom-right");        
+         
+        //view.ui.add("shell-panel-start","top-left");
+        //view.ui.add("shell-panel-end","top-right");
+        view.ui.move("zoom","bottom-right");  
+        view.ui.add("Home-button", "bottom-right");      
 
         // Define the initial or home extent (center and zoom level)
         var homeExtent = {
