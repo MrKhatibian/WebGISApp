@@ -1,39 +1,37 @@
 ﻿@{
     ViewBag.Title = "Contact";
 }
-<calcite-shell class="container">
-    <calcite-shell-panel slot="panel-start" position="start" id="shell-panel-start">
-        <calcite-action-bar slot="action-bar">
-            <calcite-action text="Save" icon="save" indicator></calcite-action>
-            @*<calcite-action active icon="map" text="Map"></calcite-action>*@
-            <calcite-action icon="map" text="Map"></calcite-action>
-            <calcite-action icon="layer" text="Layer"></calcite-action>
-        </calcite-action-bar>
-        <calcite-panel heading="Map" id="panel-start">
-            <calcite-block heading="Block 1" collapsible></calcite-block>
-        </calcite-panel>
-    </calcite-shell-panel>
-    <calcite-shell-panel slot="panel-end" position="end" id="shell-panel-end" collapsed>
-        <calcite-action-bar slot="action-bar">
-            <calcite-action text="Layer" icon="sliders-horizontal"></calcite-action>
-            <calcite-action text="Styles" icon="shapes"></calcite-action>
-            <calcite-action text="Filter" icon="layer-filter"></calcite-action>
-            <calcite-action text="Configure" icon="popup"></calcite-action>
-        </calcite-action-bar>
-        <calcite-panel heading id="panel-end" closable closed>
-            <calcite-block heading="Block 1" collapsible></calcite-block>
-        </calcite-panel>
-    </calcite-shell-panel>
-    <calcite-navigation slot="header">
-        <calcite-navigation-logo slot="logo" heading="Snow Plow Map" description="City of AcmeCo">
-        </calcite-navigation-logo>
-        <calcite-menu slot="content-end" label="Snow Plow Map Menu">
-            <calcite-menu-item text="Drivers" icon-start="license" text-enabled></calcite-menu-item>
-            <calcite-menu-item active text="Routes" icon-start="road-sign" text-enabled></calcite-menu-item>
-            <calcite-menu-item text="Forecast" icon-start="snow" text-enabled></calcite-menu-item>
-        </calcite-menu>
-    </calcite-navigation>
-</calcite-shell>
+<calcite-shell-panel slot="panel-start" position="start" id="shell-panel-start">
+    <calcite-action-bar slot="action-bar">
+        <calcite-action text="Save" icon="save" indicator></calcite-action>
+        <calcite-action active icon="map" text="Map"></calcite-action>
+        @*<calcite-action icon="map" text="Map"></calcite-action>*@
+        <calcite-action icon="layer" text="Layer"></calcite-action>
+    </calcite-action-bar>
+    <calcite-panel heading="Map" id="panel-start">
+        <calcite-block heading="Block 1" collapsible></calcite-block>
+    </calcite-panel>
+</calcite-shell-panel>
+<calcite-shell-panel slot="panel-end" position="end" id="shell-panel-end" collapsed>
+    <calcite-action-bar slot="action-bar">
+        <calcite-action text="Layer" icon="sliders-horizontal"></calcite-action>
+        <calcite-action text="Styles" icon="shapes"></calcite-action>
+        <calcite-action text="Filter" icon="layer-filter"></calcite-action>
+        <calcite-action text="Configure" icon="popup"></calcite-action>
+    </calcite-action-bar>
+    <calcite-panel heading id="panel-end" closable closed>
+        <calcite-block heading="Block 1" collapsible></calcite-block>
+    </calcite-panel>
+</calcite-shell-panel>
+<calcite-navigation slot="header">
+    <calcite-navigation-logo slot="logo" heading="Snow Plow Map" description="City of AcmeCo">
+    </calcite-navigation-logo>
+    <calcite-menu slot="content-end" label="Snow Plow Map Menu">
+        <calcite-menu-item text="Drivers" icon-start="license" text-enabled></calcite-menu-item>
+        <calcite-menu-item active text="Routes" icon-start="road-sign" text-enabled></calcite-menu-item>
+        <calcite-menu-item text="Forecast" icon-start="snow" text-enabled></calcite-menu-item>
+    </calcite-menu>
+</calcite-navigation>
 <script>
     const shellPanelStart = document.getElementById("shell-panel-start");
     const shellPanelEnd = document.getElementById("shell-panel-end");

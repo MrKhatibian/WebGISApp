@@ -23,7 +23,10 @@
 </head>
 
 <body>
-    @*<header>
+    <calcite-shell>
+        @RenderBody()
+    </calcite-shell>
+                       @*<header>
             <div class="navbar navbar-inverse navbar-fixed-top">
                 <div class="container">
                     <div class="navbar-header">
@@ -45,12 +48,10 @@
                 </div>
             </div>
         </header>*@
-        
-    @RenderBody()
-    @*<footer><p>&copy; @DateTime.Now.Year - My ASP.NET Application</p></footer>*@
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+                       @*@RenderBody()*@
+                       @*<footer><p>&copy; @DateTime.Now.Year - My ASP.NET Application</p></footer>*@
+                       @Scripts.Render("~/bundles/jquery")
+                       @Scripts.Render("~/bundles/bootstrap")
+                       @RenderSection("scripts", required: false)
 </body>
 </html>
