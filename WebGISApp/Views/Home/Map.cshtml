@@ -6,16 +6,15 @@
 
 
 <!-- #region viewMapDiv -->
-@*Add div test for Identify*@
 <calcite-shell>
     <div id="mapView"></div>    
-    <calcite-shell-panel slot="panel-start" position="start" id="shell-panel-start">
+    <calcite-shell-panel slot="panel-start" position="start" id="shell-panel-start" collapsed>
         <calcite-action-bar slot="action-bar">
             <calcite-action text="Save" icon="save" indicator></calcite-action>
             <calcite-action active icon="map" text="Map"></calcite-action>
             <calcite-action icon="layer" text="Layer"></calcite-action>
         </calcite-action-bar>
-        <calcite-panel heading="Map" id="panel-start">
+        <calcite-panel heading="Map" id="panel-start" closable closed>
             <calcite-block heading="Block 1" collapsible></calcite-block>
         </calcite-panel>
     </calcite-shell-panel>
