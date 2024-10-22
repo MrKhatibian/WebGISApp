@@ -4,36 +4,23 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!-- #region Link & Script -->
 
-<link rel="stylesheet" type="text/css" href="~/Content/Map/Map.css" />
-
-@*Add Arcgis Moulde api 4.30*@
-@*<script src="https://js.arcgis.com/4.25/"></script>*@
-<script src="~/Scripts/Map/arcgis_js_v430_api/arcgis_js_api/javascript/4.30/init.js"></script>
-<script type="module" src=https://js.arcgis.com/calcite-components/2.13.0/calcite.esm.js></script>
-<link rel="stylesheet" type="text/css" href=https://js.arcgis.com/calcite-components/2.13.0/calcite.css />
-
-@* Add mapload *@
-<script src="~/Scripts/Map/LoadMap.js"></script>
-
-<!-- #endregion -->
 <!-- #region viewMapDiv -->
 @*Add div test for Identify*@
-<calcite-shell id="mapView">
-    <calcite-panel heading="Content" id="Content1">
-
-    </calcite-panel>
+<calcite-shell>
+    @*<div id="mapView"></div>*@
+    <calcite-panel heading="Content"></calcite-panel>
     <calcite-shell-panel slot="panel-start" position="start" id="shell-panel-start">
         <calcite-action-bar slot="action-bar">
             <calcite-action text="Save" icon="save" indicator></calcite-action>
-            <calcite-action text="Map" icon="map" active></calcite-action>
-            <calcite-action text="Layer" icon="layer"></calcite-action>
+            <calcite-action active icon="map" text="Map"></calcite-action>
+            <calcite-action icon="layer" text="Layer"></calcite-action>
         </calcite-action-bar>
         <calcite-panel heading="Map" id="panel-start">
             <calcite-block heading="Block 1" collapsible></calcite-block>
         </calcite-panel>
     </calcite-shell-panel>
+
     <calcite-shell-panel slot="panel-end" position="end" id="shell-panel-end" collapsed>
         <calcite-action-bar slot="action-bar">
             <calcite-action text="Layer" icon="sliders-horizontal"></calcite-action>
@@ -46,20 +33,55 @@
         </calcite-panel>
     </calcite-shell-panel>
 
-    <div id="line-button" class="esri-widget esri-widget--button  esri-interactive" title="Draw polyline">
-        <span class="esri-icon-polyline"></span>
-    </div>
-    <div id="Home-button" class="esri-widget esri-widget--button esri-home" title="Default map view">
-        <span class="esri-icon-home"></span>
-    </div>
-    <div id="FullScreen-button" class="esri-widget esri-widget--button esri-interactive" title="Full Screen">
-        <span class="esri-icon-zoom-out-fixed"></span>
-    </div>
+    @*<div id="line-button" class="esri-widget esri-widget--button  esri-interactive" title="Draw polyline">
+            <span class="esri-icon-polyline"></span>
+        </div>
+        <div id="Home-button" class="esri-widget esri-widget--button esri-home" title="Default map view">
+            <span class="esri-icon-home"></span>
+        </div>
+        <div id="FullScreen-button" class="esri-widget esri-widget--button esri-interactive" title="Full Screen">
+            <span class="esri-icon-zoom-out-fixed"></span>*@
 
 </calcite-shell>
-
-@**@
 
 <!-- #endregion -->
 @* Add DrawTools *@
 @*<script src="~/Scripts/Map/Draw.js"></script>*@
+
+@* Add mapload *@
+@*<script src="~/Scripts/Map/LoadMap.js"></script>*@
+
+<script>
+    const shellPanelStart = document.getElementById("shell-panel-start");
+    const shellPanelEnd = document.getElementById("shell-panel-end");
+    const panelStart = document.getElementById("panel-start");
+    const panelEnd = document.getElementById("panel-end");
+
+    const actionsStart = shellPanelStart?.querySelectorAll("calcite-action");
+    const actionsEnd = shellPanelEnd?.querySelectorAll("calcite-action");
+
+    actionsStart?.forEach(el => {
+        el.addEventListener("click", function(event) {
+            actionsStart?.forEach(action => (action.active = false));
+            el.active = panelStart.closed;
+            shellPanelStart.collapsed = !shellPanelStart.collapsed;
+            panelStart.closed = !panelStart.closed;
+            panelStart.heading = el.text;
+        });
+    });
+
+    panelEnd?.addEventListener("calcitePanelClose", function(event) {
+        actionsEnd.forEach(action => (action.active = false));
+        shellPanelEnd.collapsed = true;
+    });
+
+    actionsEnd?.forEach(el => {
+        el.addEventListener("click", function(event) {
+            actionsEnd?.forEach(action => (action.active = false));
+            el.active = panelEnd.closed;
+            shellPanelEnd.collapsed = !shellPanelEnd.collapsed;
+            panelEnd.closed = !panelEnd.closed;
+            panelEnd.heading = el.text;
+        });
+    });
+</script>
