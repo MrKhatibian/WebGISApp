@@ -8,8 +8,7 @@
 <!-- #region viewMapDiv -->
 @*Add div test for Identify*@
 <calcite-shell>
-    @*<div id="mapView"></div>*@
-    <calcite-panel heading="Content"></calcite-panel>
+    <div id="mapView"></div>    
     <calcite-shell-panel slot="panel-start" position="start" id="shell-panel-start">
         <calcite-action-bar slot="action-bar">
             <calcite-action text="Save" icon="save" indicator></calcite-action>
@@ -49,7 +48,7 @@
 @*<script src="~/Scripts/Map/Draw.js"></script>*@
 
 @* Add mapload *@
-@*<script src="~/Scripts/Map/LoadMap.js"></script>*@
+<script src="~/Scripts/Map/LoadMap.js"></script>
 
 <script>
     const shellPanelStart = document.getElementById("shell-panel-start");

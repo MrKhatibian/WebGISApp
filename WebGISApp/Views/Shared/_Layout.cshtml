@@ -8,50 +8,32 @@
     @Scripts.Render("~/bundles/modernizr")
 
     <!-- #region Link & Script -->
-
-    @*<link rel="stylesheet" type="text/css" href="~/Content/Map/Map.css" />*@
+    <link rel="stylesheet" type="text/css" href="~/Content/Map/Map.css" />
+    <link rel="stylesheet" type="text/css" href="~/Scripts/Map/arcgis_js_v430_api/arcgis_js_api/javascript/4.30/esri/themes/light/main.css"/>
 
     @*Add Arcgis Moulde api 4.30*@
     @*<script src="https://js.arcgis.com/4.25/"></script>*@
-    @*<script src="~/Scripts/Map/arcgis_js_v430_api/arcgis_js_api/javascript/4.30/init.js"></script>*@
+    <script src="~/Scripts/Map/arcgis_js_v430_api/arcgis_js_api/javascript/4.30/init.js"></script>
     <script type="module" src=https://js.arcgis.com/calcite-components/2.13.0/calcite.esm.js></script>
     <link rel="stylesheet" type="text/css" href=https://js.arcgis.com/calcite-components/2.13.0/calcite.css />
-
-
-
     <!-- #endregion -->
 </head>
 
 <body>
     <calcite-shell>
+        <calcite-navigation slot="header">
+            <calcite-navigation-logo slot="logo" heading="Snow Plow Map" description="City of AcmeCo">
+            </calcite-navigation-logo>
+            <calcite-menu slot="content-end" label="Snow Plow Map Menu">
+                <calcite-menu-item text="Drivers" icon-start="license" text-enabled></calcite-menu-item>
+                <calcite-menu-item text="Map" icon-start="road-sign" text-enabled active></calcite-menu-item>
+                <calcite-menu-item text="Forecast" icon-start="snow" text-enabled></calcite-menu-item>
+            </calcite-menu>
+        </calcite-navigation>
         @RenderBody()
-    </calcite-shell>
-                       @*<header>
-            <div class="navbar navbar-inverse navbar-fixed-top">
-                <div class="container">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                    </div>
-                    <div class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav">
-                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                            <li>@Html.ActionLink("About", "About", "Home")</li>
-                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                            <li>@Html.ActionLink("Map", "Map", "Home")</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </header>*@
-                       @*@RenderBody()*@
-                       @*<footer><p>&copy; @DateTime.Now.Year - My ASP.NET Application</p></footer>*@
-                       @Scripts.Render("~/bundles/jquery")
-                       @Scripts.Render("~/bundles/bootstrap")
-                       @RenderSection("scripts", required: false)
+    </calcite-shell>    
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
 </body>
 </html>

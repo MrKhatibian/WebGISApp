@@ -1,24 +1,8 @@
-﻿
-/*#region Import Map css */
-
-/*Add Online leaflet css*/ 
-/*@import url("https://unpkg.com/leaflet@1.9.3/dist/leaflet.css");*/
-/*Add locall leaflet css*/
-/*@import url("Leaflet/leaflet.css");*/
-
-/*Add locall arcgis css */
-/*@import url("esri/themes/light/main.css");
-@import url("calcite/calcite.css");
-*/
-@import url("../../Scripts/Map/arcgis_js_v430_api/arcgis_js_api/javascript/4.30/esri/themes/light/main.css");
-
-/*#endregion */
-
-/*#region MapLoad */
+﻿/*#region MapLoad */
 
 /* Map container */
 #mapView {
-    height:89vh;
+    height:100%;
     width:100%;
     position: relative;
 }
