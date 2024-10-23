@@ -1,5 +1,4 @@
-﻿
-require(
+﻿require(
     [
         "esri/Map",
         "esri/views/MapView",
@@ -53,7 +52,9 @@ require(
         //view.ui.add("shell-panel-start","top-left");
         //view.ui.add("shell-panel-end","top-right");
         view.ui.move("zoom","bottom-right");  
-        view.ui.add("Home-button", "bottom-right");      
+        //view.ui.add("Home-button", "bottom-right"); 
+        // add the button for the draw tool
+        view.ui.add(["line-button", "Home-button"], "bottom-right");     
 
         // Define the initial or home extent (center and zoom level)
         var homeExtent = {
@@ -74,10 +75,7 @@ require(
                     console.error("Error going to home extent:", error);
                 });
         });
-
-        // add the button for the draw tool
-        view.ui.add("line-button", "bottom-right");
-
+        
         const fullscreen = new Fullscreen({
             view: view
         });
@@ -188,6 +186,7 @@ require(
         });
 
         view.ui.add(ccWidget, "bottom-left");        
+        document.querySelector("calcite-loader").hidden = true;
     }
 );
   

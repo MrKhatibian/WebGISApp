@@ -6,4 +6,9 @@
     width:100%;
     position: relative;
 }
+
+calcite-loader {
+    align-self: center;
+    justify-self: center;
+}
 /*#endregion */
