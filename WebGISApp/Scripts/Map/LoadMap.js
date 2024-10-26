@@ -92,7 +92,12 @@
 
         view.ui.add(ccWidget, "bottom-left");        
         document.querySelector("calcite-loader").hidden = true;
+        // Exporting the value, function, and class        
     }
 );
-  
 
+//alert(view.zoom.toString);
+import {myValue} from './Draw.js';
+
+export {myValue};
+//export const _view = require("",function(){});
