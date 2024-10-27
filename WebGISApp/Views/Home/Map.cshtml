@@ -8,9 +8,9 @@
 <script type="module" src="~/Scripts/Map/LoadMap.js"></script>
 
 <!-- #region viewMapDiv -->
-<calcite-shell>
+<calcite-shell content-behind hidden>
     @*<calcite-loader></calcite-loader>*@
-    
+
     <calcite-shell-panel slot="panel-start" position="start" id="shell-panel-start" collapsed>
         <calcite-action-bar slot="action-bar">
             <calcite-action text="Save" icon="save" indicator></calcite-action>
@@ -47,7 +47,6 @@
 </calcite-shell>
 
 <!-- #endregion -->
-
 @* Add DrawTools *@
 @*<script type="module" src="~/Scripts/Map/Draw.js"></script>*@
 
@@ -59,37 +58,37 @@
 
 
 
-<script>
-    const shellPanelStart = document.getElementById("shell-panel-start");
-    const shellPanelEnd = document.getElementById("shell-panel-end");
-    const panelStart = document.getElementById("panel-start");
-    const panelEnd = document.getElementById("panel-end");
+@*<script>
+        const shellPanelStart = document.getElementById("shell-panel-start");
+        const shellPanelEnd = document.getElementById("shell-panel-end");
+        const panelStart = document.getElementById("panel-start");
+        const panelEnd = document.getElementById("panel-end");
 
-    const actionsStart = shellPanelStart?.querySelectorAll("calcite-action");
-    const actionsEnd = shellPanelEnd?.querySelectorAll("calcite-action");
+        const actionsStart = shellPanelStart?.querySelectorAll("calcite-action");
+        const actionsEnd = shellPanelEnd?.querySelectorAll("calcite-action");
 
-    actionsStart?.forEach(el => {
-        el.addEventListener("click", function(event) {
-            actionsStart?.forEach(action => (action.active = false));
-            el.active = panelStart.closed;
-            shellPanelStart.collapsed = !shellPanelStart.collapsed;
-            panelStart.closed = !panelStart.closed;
-            panelStart.heading = el.text;
+        actionsStart?.forEach(el => {
+            el.addEventListener("click", function(event) {
+                actionsStart?.forEach(action => (action.active = false));
+                el.active = panelStart.closed;
+                shellPanelStart.collapsed = !shellPanelStart.collapsed;
+                panelStart.closed = !panelStart.closed;
+                panelStart.heading = el.text;
+            });
         });
-    });
 
-    panelEnd?.addEventListener("calcitePanelClose", function(event) {
-        actionsEnd.forEach(action => (action.active = false));
-        shellPanelEnd.collapsed = true;
-    });
-
-    actionsEnd?.forEach(el => {
-        el.addEventListener("click", function(event) {
-            actionsEnd?.forEach(action => (action.active = false));
-            el.active = panelEnd.closed;
-            shellPanelEnd.collapsed = !shellPanelEnd.collapsed;
-            panelEnd.closed = !panelEnd.closed;
-            panelEnd.heading = el.text;
+        panelEnd?.addEventListener("calcitePanelClose", function(event) {
+            actionsEnd.forEach(action => (action.active = false));
+            shellPanelEnd.collapsed = true;
         });
-    });
-</script>
+
+        actionsEnd?.forEach(el => {
+            el.addEventListener("click", function(event) {
+                actionsEnd?.forEach(action => (action.active = false));
+                el.active = panelEnd.closed;
+                shellPanelEnd.collapsed = !shellPanelEnd.collapsed;
+                panelEnd.closed = !panelEnd.closed;
+                panelEnd.heading = el.text;
+            });
+        });
+    </script>*@
