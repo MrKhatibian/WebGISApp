@@ -88,6 +88,7 @@ const legend = new Legend({
 view.when(() => {
     //const { title, description, thumbnailUrl, avgRating } = map.portalItem;
     //document.querySelector("#header-title").heading = title;
+    document.querySelector("#header-title").heading = "title";
     //document.querySelector("#item-description").innerHTML = description;
     //document.querySelector("#item-thumbnail").src = thumbnailUrl;
     //document.querySelector("#item-rating").value = avgRating;
@@ -128,7 +129,9 @@ view.when(() => {
 });
 
 //document.querySelector("calcite-shell").hidden = false;
-//document.querySelector("calcite-loader").hidden = true;
+
+
+
 // End for test /////////////////////////////////////////////////////////////////////////////////////////////
 
 
