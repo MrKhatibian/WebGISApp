@@ -58,7 +58,7 @@ homeButton.addEventListener("click", function() {
 });
 
 //Stop Calcite loader      
-document.querySelector("calcite-loader").hidden = true;
+//document.querySelector("calcite-loader").hidden = true;
 
 // #endregion Main ------------------------------------------------------------------------------------------
 
@@ -94,7 +94,7 @@ view.ui.add(fullscreen, "top-right");
 //add maual btn FullScreen
 view.ui.add("FullScreen-button","top-right");
 
-// #endregion View -----------------------------------------------------------------------------------------
+// #endregion View ------------------------------------------------------------------------------------------
 
 //#region Exporting -----------------------------------------------------------------------------------------
 
