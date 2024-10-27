@@ -7,8 +7,20 @@
     position: relative;
 }
 
+body {
+    display: flex;
+}
+
 calcite-loader {
     align-self: center;
     justify-self: center;
+}
+
+#info-content {
+    padding: 0.75rem;
+}
+
+calcite-rating {
+    margin-top: 0.25rem;
 }
 /*#endregion */
