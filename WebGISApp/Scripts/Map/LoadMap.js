@@ -141,6 +141,12 @@ view.when(() => {
 // #endregion Main ------------------------------------------------------------------------------------------
 
 // #region Widget -------------------------------------------------------------------------------------------
+
+// Add Home button widget
+const homeBtn = new Home({
+    view: view
+});
+
 // Add FullScreen widget
 const fullscreen = new Fullscreen({
     view: view
@@ -150,6 +156,10 @@ const fullscreen = new Fullscreen({
 const ccWidget = new CoordinateConversion({
     view: view
 });
+
+
+
+
 // #endregion Widget ----------------------------------------------------------------------------------------
 
 // #region View ---------------------------------------------------------------------------------------------
@@ -160,9 +170,10 @@ const ccWidget = new CoordinateConversion({
 view.ui.move("zoom","bottom-right");
 //view.ui.move("zoom", "top-left");  
 
+// Add the home button
+view.ui.add(homeBtn, "top-right");
 
 // Add Draw button
-// Add the home button to the top left corner of the view 
 //view.ui.add("Home-button", "bottom-right");  
 view.ui.add(["line-button", "Home-button"], "top-right"); 
 
