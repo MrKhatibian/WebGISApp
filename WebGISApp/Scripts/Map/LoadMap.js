@@ -11,6 +11,8 @@ import CoordinateConversion from "./arcgis_js_v430_api/arcgis_js_api/javascript/
 import BasemapGallery from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/BasemapGallery.js";
 import Bookmarks from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/Bookmarks.js";
 import LayerList from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/LayerList.js";
+import Legend from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/Legend.js";
+import Print from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/Print.js";
 
 // #endregion -----------------------------------------------------------------------------------------------
 
@@ -77,6 +79,13 @@ const layerList = new LayerList({
     visibilityAppearance: "checkbox",
     container: "layers-container"
 });
+
+const legend = new Legend({
+    view,
+    container: "legend-container"
+});
+
+
 
 document.querySelector("calcite-shell").hidden = false;
 document.querySelector("calcite-loader").hidden = true;
