@@ -7,6 +7,11 @@ import FeatureLayer from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@ar
 import Home from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/Home.js";
 import Fullscreen from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/Fullscreen.js";
 import CoordinateConversion from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/CoordinateConversion.js";
+
+import BasemapGallery from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/BasemapGallery.js";
+import Bookmarks from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/Bookmarks.js";
+import LayerList from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/LayerList.js";
+
 // #endregion -----------------------------------------------------------------------------------------------
 
 // #region Main ---------------------------------------------------------------------------------------------
@@ -60,6 +65,24 @@ homeButton.addEventListener("click", function() {
     });
 });
 
+// Add for test /////////////////////////////////////////////////////////////////////////////////////////////
+const bookmarks = new Bookmarks({
+    view,
+    container: "bookmarks-container"
+});
+
+const layerList = new LayerList({
+    view,
+    dragEnabled: true,
+    visibilityAppearance: "checkbox",
+    container: "layers-container"
+});
+
+document.querySelector("calcite-shell").hidden = false;
+document.querySelector("calcite-loader").hidden = true;
+// End for test /////////////////////////////////////////////////////////////////////////////////////////////
+
+
 //Stop Calcite loader      
 //document.querySelector("calcite-loader").hidden = true;
 
@@ -82,7 +105,8 @@ const ccWidget = new CoordinateConversion({
 //view.ui.empty();
 
 // Move Zoom button                
-view.ui.move("zoom","bottom-right");  
+//view.ui.move("zoom","bottom-right");
+view.ui.move("zoom", "top-left");  
 
 
 // Add Draw button
