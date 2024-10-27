@@ -85,10 +85,53 @@ const legend = new Legend({
     container: "legend-container"
 });
 
+view.when(() => {
+    //const { title, description, thumbnailUrl, avgRating } = map.portalItem;
+    //document.querySelector("#header-title").heading = title;
+    //document.querySelector("#item-description").innerHTML = description;
+    //document.querySelector("#item-thumbnail").src = thumbnailUrl;
+    //document.querySelector("#item-rating").value = avgRating;
 
+    let activeWidget;
 
-document.querySelector("calcite-shell").hidden = false;
-document.querySelector("calcite-loader").hidden = true;
+    const handleActionBarClick = ({ target }) => {
+      if (target.tagName !== "CALCITE-ACTION") {
+        return;
+      }
+
+      if (activeWidget) {
+        document.querySelector(`[data-action-id=${activeWidget}]`).active = false;
+        document.querySelector(`[data-panel-id=${activeWidget}]`).hidden = true;
+      }
+
+      const nextWidget = target.dataset.actionId;
+      if (nextWidget !== activeWidget) {
+        document.querySelector(`[data-action-id=${nextWidget}]`).active = true;
+        document.querySelector(`[data-panel-id=${nextWidget}]`).hidden = false;
+        activeWidget = nextWidget;
+      } else {
+        activeWidget = null;
+      }
+    };
+
+    document.querySelector("calcite-action-bar").addEventListener("click", handleActionBarClick);
+
+    let actionBarExpanded = false;
+
+    document.addEventListener("calciteActionBarToggle", event => {
+      actionBarExpanded = !actionBarExpanded;
+      view.padding = {
+        left: actionBarExpanded ? 150 : 49
+      };
+    });
+
+    document.querySelector("calcite-shell").hidden = false;
+    document.querySelector("calcite-loader").hidden = true;
+
+});
+
+//document.querySelector("calcite-shell").hidden = false;
+//document.querySelector("calcite-loader").hidden = true;
 // End for test /////////////////////////////////////////////////////////////////////////////////////////////
 
 
