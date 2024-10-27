@@ -32,6 +32,9 @@ map.add(layer);
 // Creat and Set Map View
 const view = new MapView({
     container: "mapView", // Div element
+    padding: {
+        left: 49
+      },
     map: map,
     zoom: 14, // Zoom level
     center: [48.464869, 34.834155], // Longitude, latitude 48.464869  34.834155                        
