@@ -1,103 +1,103 @@
-﻿require(
-    [
-        "esri/Map",
-        "esri/views/MapView",
-        "esri/layers/MapImageLayer",
-        "esri/layers/FeatureLayer",
-        "esri/widgets/Search",
-        "esri/widgets/Attribution",
-        "esri/widgets/Home",
-        "esri/widgets/Fullscreen",
-        "esri/rest/identify",
-        "esri/rest/support/IdentifyParameters",
-        "esri/widgets/CoordinateConversion"
-    ],
-    function(
-        Map, MapView, MapImageLayer,
-        Search, Attribution, Home,
-        FeatureLayer, Fullscreen,identify,
-        IdentifyParameters, CoordinateConversion
-    ) 
-    {        
-        const map = new Map({
-            //basemap: "gray-vector" // basemap styles service
-            //basemap: "topo-vector"
-            basemap: "osm"
-        });
-                
-        // Adding a sample Map Image Layer
-        const mapServerUrl = "http://localhost:6080/arcgis/rest/services/Maryanaj/Maryanaj_14030619/MapServer";
-        const layer = new MapImageLayer({
-            // Replace with your ArcGIS Server URL
-            url: mapServerUrl
-            //url: "http://localhost:6080/arcgis/rest/services/SampleWorldCities/MapServer"
-        });
-        map.add(layer);
-    
-        //const featureLayer = new FeatureLayer("http://localhost:6080/arcgis/rest/services/SampleWorldCities/MapServer/1");
-        //map.add(featureLayer);
-    
-        const view = new MapView({
-            container: "mapView", // Div element
-            map: map,
-            zoom: 14, // Zoom level
-            center: [48.464869, 34.834155], // Longitude, latitude 48.464869  34.834155                        
-        });
+﻿
+// #region Import -------------------------------------------------------------------------------------------
+import Map from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/Map.js";
+import MapView from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/views/MapView.js";
+import MapImageLayer from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/layers/MapImageLayer.js";
+import FeatureLayer from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/layers/FeatureLayer.js";
+import Home from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/Home.js";
+import Fullscreen from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/Fullscreen.js";
+import CoordinateConversion from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/CoordinateConversion.js";
+// #endregion -----------------------------------------------------------------------------------------------
+
+// #region Main ---------------------------------------------------------------------------------------------
+const map = new Map({
+    //basemap: "gray-vector" // basemap styles service
+    //basemap: "topo-vector"
+    basemap: "osm"
+});
+
+// Adding Map Image Layer
+const mapServerUrl = "http://localhost:6080/arcgis/rest/services/Maryanaj/Maryanaj_14030619/MapServer";
+const layer = new MapImageLayer({
+    // Replace with your ArcGIS Server URL
+    url: mapServerUrl
+    //url: "http://localhost:6080/arcgis/rest/services/SampleWorldCities/MapServer"
+});
+map.add(layer);
+
+// Adding Feature Layer
+//const featureLayer = new FeatureLayer("http://localhost:6080/arcgis/rest/services/SampleWorldCities/MapServer/1");
+//map.add(featureLayer);
+
+// Creat and Set Map View
+const view = new MapView({
+    container: "mapView", // Div element
+    map: map,
+    zoom: 14, // Zoom level
+    center: [48.464869, 34.834155], // Longitude, latitude 48.464869  34.834155                        
+});
         
-        //remove bottom atribution (power by esri)
-        //view.ui.empty();
+// Define the initial or home extent (center and zoom level)
+var homeExtent = {
+    center: [48.464869, 34.834155], // Longitude, Latitude
+    zoom: 15                    // Zoom level
+};
 
-        // Add the home button to the top left corner of the view        
-         
-        //view.ui.add("shell-panel-start","top-left");
-        //view.ui.add("shell-panel-end","top-right");
-        view.ui.move("zoom","bottom-right");  
-        //view.ui.add("Home-button", "bottom-right"); 
-        // add the button for the draw tool
-        view.ui.add(["line-button", "Home-button"], "bottom-right");     
+// Get the custom Home-button element
+var homeButton = document.getElementById("Home-button");
 
-        // Define the initial or home extent (center and zoom level)
-        var homeExtent = {
-            center: [48.464869, 34.834155], // Longitude, Latitude
-            zoom: 15                    // Zoom level
-        };
+// Add event listener to handle click on the Home button
+homeButton.addEventListener("click", function() {            
+    view.goTo(homeExtent)
+    .then(function() {
+        console.log("Returned to home extent");
+    })
+    .catch(function(error) {
+        console.error("Error going to home extent:", error);
+    });
+});
 
-        // Get the custom home button element
-        var homeButton = document.getElementById("Home-button");
+//Stop Calcite loader      
+document.querySelector("calcite-loader").hidden = true;
 
-        // Add event listener to handle click on the Home button
-        homeButton.addEventListener("click", function() {            
-            view.goTo(homeExtent)
-                .then(function() {
-                    console.log("Returned to home extent");
-                })
-                .catch(function(error) {
-                    console.error("Error going to home extent:", error);
-                });
-        });
-        
-        const fullscreen = new Fullscreen({
-            view: view
-        });
-        view.ui.add(fullscreen, "top-right");
-        //add maual btn FullScreen   
-        view.ui.add("FullScreen-button","top-right");
+// #endregion Main ------------------------------------------------------------------------------------------
 
-        
+// #region Widget -------------------------------------------------------------------------------------------
+// Add FullScreen widget
+const fullscreen = new Fullscreen({
+    view: view
+});
+           
+//Add Coordinate widget
+const ccWidget = new CoordinateConversion({
+    view: view
+});
+// #endregion Widget ----------------------------------------------------------------------------------------
 
-        //Add Coordinate widget
-        const ccWidget = new CoordinateConversion({
-          view: view
-        });
+// #region View ---------------------------------------------------------------------------------------------
+//Remove bottom atribution (power by esri)
+//view.ui.empty();
 
-        view.ui.add(ccWidget, "bottom-left");        
-        document.querySelector("calcite-loader").hidden = true;
-        // Exporting the value, function, and class        
-    }
-);
+// Move Zoom button                
+view.ui.move("zoom","bottom-right");  
 
-//alert(view.zoom.toString);
-import {myValue} from './Draw.js';
 
-export {myValue};
-//export const _view = require("",function(){});
+// Add Draw button
+// Add the home button to the top left corner of the view 
+//view.ui.add("Home-button", "bottom-right");  
+view.ui.add(["line-button", "Home-button"], "bottom-right"); 
+
+// View Coordinate widget
+view.ui.add(ccWidget, "bottom-left");
+
+view.ui.add(fullscreen, "top-right");
+//add maual btn FullScreen
+view.ui.add("FullScreen-button","top-right");
+
+// #endregion View -----------------------------------------------------------------------------------------
+
+//#region Exporting -----------------------------------------------------------------------------------------
+
+export {view, mapServerUrl};
+
+//#endregion Exporting --------------------------------------------------------------------------------------

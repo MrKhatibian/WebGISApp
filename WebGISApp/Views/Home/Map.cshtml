@@ -5,11 +5,12 @@
 }
 
 @* Add mapload *@
-@*<script type="module" src="~/Scripts/Map/LoadMap.js"></script>*@
+<script type="module" src="~/Scripts/Map/LoadMap.js"></script>
 
 <!-- #region viewMapDiv -->
 <calcite-shell>
     <calcite-loader></calcite-loader>
+    
     <calcite-shell-panel slot="panel-start" position="start" id="shell-panel-start" collapsed>
         <calcite-action-bar slot="action-bar">
             <calcite-action text="Save" icon="save" indicator></calcite-action>
@@ -46,10 +47,15 @@
 </calcite-shell>
 
 <!-- #endregion -->
+
 @* Add DrawTools *@
-<script type="module" src="~/Scripts/Map/Draw.js"></script>
-@*<script src="~/Scripts/Map/Identify.js"></script>*@
-<script type="module" src="~/Scripts/Map/Test.js"></script>
+@*<script type="module" src="~/Scripts/Map/Draw.js"></script>*@
+
+@*Add Identify*@
+<script type="module" src="~/Scripts/Map/Identify.js"></script>
+
+
+@*<script type="module" src="~/Scripts/Map/Test.js"></script>*@
 
 
 

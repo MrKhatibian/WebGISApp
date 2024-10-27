@@ -1,45 +1,13 @@
-﻿// Importing the value and function using CommonJS
-//const view = require('./LoadMap.js');
+﻿// #region Import -------------------------------------------------------------------------------------------
+import {view, mapServerUrl} from './LoadMap.js';
+//import identify from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/rest/identify.js";
+import { identify } from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/rest/identify.js";
+import IdentifyParameters from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/rest/support/IdentifyParameters.js";
 
-require(
-    [
-        "esri/Map",
-        "esri/views/MapView",
-        "esri/layers/MapImageLayer",
-        "esri/rest/identify",
-        "esri/rest/support/IdentifyParameters"
-    ],
-    function(
-        Map, MapView, MapImageLayer,identify,
-        IdentifyParameters
-    ) 
-    {        
 
-        const map = new Map({
-            //basemap: "gray-vector" // basemap styles service
-            //basemap: "topo-vector"
-            basemap: "osm"
-        });
-                
-        // Adding a sample Map Image Layer
-        const mapServerUrl = "http://localhost:6080/arcgis/rest/services/Maryanaj/Maryanaj_14030619/MapServer";
-        const layer = new MapImageLayer({
-            // Replace with your ArcGIS Server URL
-            url: mapServerUrl
-            //url: "http://localhost:6080/arcgis/rest/services/SampleWorldCities/MapServer"
-        });
-        map.add(layer);
-        
-        //const featureLayer = new FeatureLayer("http://localhost:6080/arcgis/rest/services/SampleWorldCities/MapServer/1");
-        //map.add(featureLayer);
-    
-        const view = new MapView({
-            container: "mapView", // Div element
-            map: map,
-            zoom: 14, // Zoom level
-            center: [48.464869, 34.834155], // Longitude, latitude 48.464869  34.834155                        
-        });        
-//add Indentify section
+// #endregion Import ----------------------------------------------------------------------------------------
+
+//#region Main ----------------------------------------------------------------------------------------------
 let params;        
 view.when(function () {
     // executeIdentify() is called each time the view is clicked
@@ -135,5 +103,5 @@ function executeIdentify(event) {
         document.getElementById("mapView").style.cursor = "auto";
     }
 };
-    }
-);
+
+//#endregion Main -------------------------------------------------------------------------------------------
