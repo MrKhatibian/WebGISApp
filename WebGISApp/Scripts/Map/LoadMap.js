@@ -125,13 +125,10 @@ view.when(() => {
       };
     });
 
-    document.querySelector("calcite-shell").hidden = false;
-    document.querySelector("calcite-loader").hidden = true;
-
 });
 
-//document.querySelector("calcite-shell").hidden = false;
-//document.querySelector("calcite-loader").hidden = true;
+document.querySelector("calcite-shell").hidden = false;
+document.querySelector("calcite-loader").hidden = true;
 // End for test /////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -157,8 +154,8 @@ const ccWidget = new CoordinateConversion({
 //view.ui.empty();
 
 // Move Zoom button                
-//view.ui.move("zoom","bottom-right");
-view.ui.move("zoom", "top-left");  
+view.ui.move("zoom","bottom-right");
+//view.ui.move("zoom", "top-left");  
 
 
 // Add Draw button
@@ -167,11 +164,11 @@ view.ui.move("zoom", "top-left");
 view.ui.add(["line-button", "Home-button"], "bottom-right"); 
 
 // View Coordinate widget
-view.ui.add(ccWidget, "bottom-left");
+//view.ui.add(ccWidget, "bottom-left");
 
 view.ui.add(fullscreen, "top-right");
 //add maual btn FullScreen
-view.ui.add("FullScreen-button","top-right");
+//view.ui.add("FullScreen-button","top-right");
 
 // #endregion View ------------------------------------------------------------------------------------------
 
