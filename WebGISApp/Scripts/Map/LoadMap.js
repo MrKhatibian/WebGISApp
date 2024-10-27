@@ -46,8 +46,10 @@ const view = new MapView({
     zoom: 14, // Zoom level
     center: [48.464869, 34.834155], // Longitude, latitude 48.464869  34.834155                        
 });
-        
-// Define the initial or home extent (center and zoom level)
+  
+// #region manual Home extent
+/*
+//Define the initial or home extent (center and zoom level)
 var homeExtent = {
     center: [48.464869, 34.834155], // Longitude, Latitude
     zoom: 15                    // Zoom level
@@ -66,6 +68,8 @@ homeButton.addEventListener("click", function() {
         console.error("Error going to home extent:", error);
     });
 });
+*/
+// #endregion
 
 // Add for test /////////////////////////////////////////////////////////////////////////////////////////////
 const bookmarks = new Bookmarks({
@@ -172,10 +176,13 @@ view.ui.move("zoom","bottom-right");
 
 // Add the home button
 view.ui.add(homeBtn, "top-right");
+// Add the home button Manual
+//view.ui.add("Home-button", "top-right");
 
 // Add Draw button
 //view.ui.add("Home-button", "bottom-right");  
-view.ui.add(["line-button", "Home-button"], "top-right"); 
+//view.ui.add(["line-button", "Home-button"], "top-right");
+view.ui.add("line-button", "top-right"); 
 
 // View Coordinate widget
 //view.ui.add(ccWidget, "bottom-left");
