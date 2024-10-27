@@ -127,8 +127,8 @@ view.when(() => {
 
 });
 
-document.querySelector("calcite-shell").hidden = false;
-document.querySelector("calcite-loader").hidden = true;
+//document.querySelector("calcite-shell").hidden = false;
+//document.querySelector("calcite-loader").hidden = true;
 // End for test /////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -161,7 +161,7 @@ view.ui.move("zoom","bottom-right");
 // Add Draw button
 // Add the home button to the top left corner of the view 
 //view.ui.add("Home-button", "bottom-right");  
-view.ui.add(["line-button", "Home-button"], "bottom-right"); 
+view.ui.add(["line-button", "Home-button"], "top-right"); 
 
 // View Coordinate widget
 //view.ui.add(ccWidget, "bottom-left");
