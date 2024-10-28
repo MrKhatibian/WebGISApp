@@ -88,7 +88,7 @@
 </calcite-shell>
 
 <!-- Add Modal-->
-<calcite-dialog open modal heading="Add a group" id="dialog_addlayer">
+<calcite-dialog heading="Add a group" id="dialog_addlayer">
     <calcite-label>
         Group name
         <calcite-input value="City of Acme Surveying Crews" placeholder="Enter a descriptive title"></calcite-input>
@@ -129,13 +129,4 @@
 
 @*<script type="module" src="~/Scripts/Map/Test.js"></script>*@
 
-
-<script>
-    const btn_addlayer = document.getElementById("btn_addlayer");
-    const dialog_addlayer = document.getElementById("dialog_addlayer");
-
-    btn_addlayer?.addEventListener("click", function() {
-        dialog_addlayer.open = true;
-    });
-</script>
 

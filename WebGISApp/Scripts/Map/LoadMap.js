@@ -90,6 +90,14 @@ view.when(() => {
 
 });
 
+//Add btn Add layer for open dialog_import data
+const btn_addlayer = document.getElementById("btn_addlayer");
+const dialog_addlayer = document.getElementById("dialog_addlayer");
+
+btn_addlayer?.addEventListener("click", function() {
+  dialog_addlayer.open = true;
+});
+
 //document.querySelector("calcite-shell").hidden = false;
   
 // #region manual Home extent
