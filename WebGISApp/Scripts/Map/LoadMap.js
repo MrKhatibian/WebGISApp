@@ -46,6 +46,51 @@ const view = new MapView({
     zoom: 14, // Zoom level
     center: [48.464869, 34.834155], // Longitude, latitude 48.464869  34.834155                        
 });
+
+view.when(() => {
+  //const { title, description, thumbnailUrl, avgRating } = map.portalItem;
+  //document.querySelector("#header-title").heading = title;
+  document.querySelector("#header-title").heading = "Hi Amard";
+  document.querySelector("#item-description").innerHTML = "New WebGIS For Amard Creat by Mr.Khatibian";
+  //document.querySelector("#item-thumbnail").src = thumbnailUrl;
+  //document.querySelector("#item-rating").value = avgRating;
+
+  let activeWidget;
+
+  const handleActionBarClick = ({ target }) => {
+    if (target.tagName !== "CALCITE-ACTION") {
+      return;
+    }
+
+    if (activeWidget) {
+      document.querySelector(`[data-action-id=${activeWidget}]`).active = false;
+      document.querySelector(`[data-panel-id=${activeWidget}]`).hidden = true;
+    }
+
+    const nextWidget = target.dataset.actionId;
+    if (nextWidget !== activeWidget) {
+      document.querySelector(`[data-action-id=${nextWidget}]`).active = true;
+      document.querySelector(`[data-panel-id=${nextWidget}]`).hidden = false;
+      activeWidget = nextWidget;
+    } else {
+      activeWidget = null;
+    }
+  };
+
+  document.querySelector("calcite-action-bar").addEventListener("click", handleActionBarClick);
+
+  let actionBarExpanded = false;
+
+  document.addEventListener("calciteActionBarToggle", event => {
+    actionBarExpanded = !actionBarExpanded;
+    view.padding = {
+      left: actionBarExpanded ? 150 : 49
+    };
+  });
+
+});
+
+//document.querySelector("calcite-shell").hidden = false;
   
 // #region manual Home extent
 /*
@@ -71,69 +116,8 @@ homeButton.addEventListener("click", function() {
 */
 // #endregion
 
+
 // Add for test /////////////////////////////////////////////////////////////////////////////////////////////
-const bookmarks = new Bookmarks({
-    view,
-    container: "bookmarks-container"
-});
-
-const layerList = new LayerList({
-    view,
-    dragEnabled: true,
-    visibilityAppearance: "checkbox",
-    container: "layers-container"
-});
-
-const legend = new Legend({
-    view,
-    container: "legend-container"
-});
-
-view.when(() => {
-    //const { title, description, thumbnailUrl, avgRating } = map.portalItem;
-    //document.querySelector("#header-title").heading = title;
-    document.querySelector("#header-title").heading = "title";
-    //document.querySelector("#item-description").innerHTML = description;
-    //document.querySelector("#item-thumbnail").src = thumbnailUrl;
-    //document.querySelector("#item-rating").value = avgRating;
-
-    let activeWidget;
-
-    const handleActionBarClick = ({ target }) => {
-      if (target.tagName !== "CALCITE-ACTION") {
-        return;
-      }
-
-      if (activeWidget) {
-        document.querySelector(`[data-action-id=${activeWidget}]`).active = false;
-        document.querySelector(`[data-panel-id=${activeWidget}]`).hidden = true;
-      }
-
-      const nextWidget = target.dataset.actionId;
-      if (nextWidget !== activeWidget) {
-        document.querySelector(`[data-action-id=${nextWidget}]`).active = true;
-        document.querySelector(`[data-panel-id=${nextWidget}]`).hidden = false;
-        activeWidget = nextWidget;
-      } else {
-        activeWidget = null;
-      }
-    };
-
-    document.querySelector("calcite-action-bar").addEventListener("click", handleActionBarClick);
-
-    let actionBarExpanded = false;
-
-    document.addEventListener("calciteActionBarToggle", event => {
-      actionBarExpanded = !actionBarExpanded;
-      view.padding = {
-        left: actionBarExpanded ? 150 : 49
-      };
-    });
-
-});
-
-//document.querySelector("calcite-shell").hidden = false;
-
 
 
 // End for test /////////////////////////////////////////////////////////////////////////////////////////////
@@ -144,24 +128,42 @@ view.when(() => {
 
 // #endregion Main ------------------------------------------------------------------------------------------
 
-// #region Widget -------------------------------------------------------------------------------------------
+// #region Widgets -------------------------------------------------------------------------------------------
 
-// Add Home button widget
+// Add Home button
 const homeBtn = new Home({
     view: view
 });
 
-// Add FullScreen widget
+// Add FullScreen
 const fullscreen = new Fullscreen({
     view: view
 });
            
-//Add Coordinate widget
+//Add Coordinate
 const ccWidget = new CoordinateConversion({
     view: view
 });
 
+//Add Bookmark 
+const bookmarks = new Bookmarks({
+  view,
+  container: "bookmarks-container"
+});
 
+//Add LayerList
+const layerList = new LayerList({
+  view,
+  dragEnabled: true,
+  visibilityAppearance: "checkbox",
+  container: "layers-container"
+});
+
+//Add Legend
+const legend = new Legend({
+  view,
+  container: "legend-container"
+});
 
 
 // #endregion Widget ----------------------------------------------------------------------------------------
