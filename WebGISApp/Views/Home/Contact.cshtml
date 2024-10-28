@@ -1,60 +1,54 @@
 ﻿@{
     ViewBag.Title = "Contact";
 }
-<calcite-shell-panel slot="panel-start" position="start" id="shell-panel-start">
-    <calcite-action-bar slot="action-bar">
-        <calcite-action text="Save" icon="save" indicator></calcite-action>
-        <calcite-action active icon="map" text="Map"></calcite-action>
-        @*<calcite-action icon="map" text="Map"></calcite-action>*@
-        <calcite-action icon="layer" text="Layer"></calcite-action>
-    </calcite-action-bar>
-    <calcite-panel heading="Map" id="panel-start">
-        <calcite-block heading="Block 1" collapsible></calcite-block>
-    </calcite-panel>
-</calcite-shell-panel>
-<calcite-shell-panel slot="panel-end" position="end" id="shell-panel-end" collapsed>
-    <calcite-action-bar slot="action-bar">
-        <calcite-action text="Layer" icon="sliders-horizontal"></calcite-action>
-        <calcite-action text="Styles" icon="shapes"></calcite-action>
-        <calcite-action text="Filter" icon="layer-filter"></calcite-action>
-        <calcite-action text="Configure" icon="popup"></calcite-action>
-    </calcite-action-bar>
-    <calcite-panel heading id="panel-end" closable closed>
-        <calcite-block heading="Block 1" collapsible></calcite-block>
-    </calcite-panel>
-</calcite-shell-panel>
+
+
+<body>
+    <calcite-modal aria-labelledby="modal-title" id="example-modal">
+        <div slot="header" id="modal-title">
+            Add a group
+        </div>
+        <div slot="content">
+            <calcite-label>
+                Group name
+                <calcite-input value="City of Acme Surveying Crews" placeholder="Enter a descriptive title">
+                </calcite-input>
+            </calcite-label>
+            <calcite-label>
+                Choose default user role
+                <calcite-tile-select-group>
+                    <calcite-tile-select checked input-enabled input-alignment="end" icon="rangefinder"
+                                         heading="Field operator"
+                                         description="This role allows users in the field to create new Reports, and view and edit existing Reports and Attachments">
+                    </calcite-tile-select>
+                    <calcite-tile-select input-enabled input-alignment="end" icon="knowledge-graph-dashboard"
+                                         heading="Office coordinator"
+                                         description="This role allows teammates on-base to view, duplicate, and create meaningful insights from Reports">
+                    </calcite-tile-select>
+                </calcite-tile-select-group>
+            </calcite-label>
+            <calcite-notice open icon="pencil" width="full">
+                <div slot="message">You can edit this choice later on, in Settings.</div>
+            </calcite-notice>
+        </div>
+        <calcite-button slot="back" kind="neutral" width="full">
+            Back
+        </calcite-button>
+        <calcite-button slot="secondary" width="full" appearance="outline">
+            Cancel
+        </calcite-button>
+        <calcite-button slot="primary" width="full">
+            Save
+        </calcite-button>
+    </calcite-modal>
+    <calcite-button id="example-button">Open modal</calcite-button>
+</body>
 
 <script>
-    const shellPanelStart = document.getElementById("shell-panel-start");
-    const shellPanelEnd = document.getElementById("shell-panel-end");
-    const panelStart = document.getElementById("panel-start");
-    const panelEnd = document.getElementById("panel-end");
+    const button = document.getElementById("example-button");
+    const modal = document.getElementById("example-modal");
 
-    const actionsStart = shellPanelStart?.querySelectorAll("calcite-action");
-    const actionsEnd = shellPanelEnd?.querySelectorAll("calcite-action");
-
-    actionsStart?.forEach(el => {
-        el.addEventListener("click", function(event) {
-            actionsStart?.forEach(action => (action.active = false));
-            el.active = panelStart.closed;
-            shellPanelStart.collapsed = !shellPanelStart.collapsed;
-            panelStart.closed = !panelStart.closed;
-            panelStart.heading = el.text;
-        });
-    });
-
-    panelEnd?.addEventListener("calcitePanelClose", function(event) {
-        actionsEnd.forEach(action => (action.active = false));
-        shellPanelEnd.collapsed = true;
-    });
-
-    actionsEnd?.forEach(el => {
-        el.addEventListener("click", function(event) {
-            actionsEnd?.forEach(action => (action.active = false));
-            el.active = panelEnd.closed;
-            shellPanelEnd.collapsed = !shellPanelEnd.collapsed;
-            panelEnd.closed = !panelEnd.closed;
-            panelEnd.heading = el.text;
-        });
+    button?.addEventListener("click", function() {
+        modal.open = true;
     });
 </script>
