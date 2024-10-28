@@ -34,7 +34,14 @@
         </calcite-panel>
         <calcite-panel heading="Layers" height-scale="l" data-panel-id="layers" hidden>
             <div id="layers-container"></div>
-            <calcite-split-button slot="fab" primary-icon-start="layers" primary-text="Add" overlay-positioning="fixed" data-name="addfromonline" appearance="outline-fill" kind="brand" dropdown-icon-type="chevron" scale="m" width="auto" calcite-hydrated=""><calcite-dropdown-group selection-mode="none" role="group" calcite-hydrated=""><calcite-dropdown-item icon-start="search" data-name="addfromonline" role="menuitem" tabindex="0" calcite-hydrated="">Browse layers</calcite-dropdown-item><calcite-dropdown-item icon-start="web" data-name="addfromurl" role="menuitem" tabindex="0" calcite-hydrated="">Add layer from URL</calcite-dropdown-item><calcite-dropdown-item icon-start="pencil-mark" data-name="addsketch" role="menuitem" tabindex="0" calcite-hydrated="">Create Sketch layer</calcite-dropdown-item><calcite-dropdown-item icon-start="media-layer" data-name="addmedia" role="menuitem" tabindex="0" calcite-hydrated="">Add media layer</calcite-dropdown-item></calcite-dropdown-group></calcite-split-button>
+            <calcite-split-button id="btn_addlayer" slot="fab" primary-icon-start="layers" primary-text="Add" overlay-positioning="fixed" data-name="addfromonline" appearance="outline-fill" kind="brand" dropdown-icon-type="chevron" scale="m" width="auto" calcite-hydrated="">
+                <calcite-dropdown-group selection-mode="none" role="group" calcite-hydrated="">
+                    <calcite-dropdown-item icon-start="search" data-name="addfromonline" role="menuitem" tabindex="0" calcite-hydrated="">Browse layers</calcite-dropdown-item>
+                    <calcite-dropdown-item icon-start="web" data-name="addfromurl" role="menuitem" tabindex="0" calcite-hydrated="">Add layer from URL</calcite-dropdown-item>
+                    <calcite-dropdown-item icon-start="pencil-mark" data-name="addsketch" role="menuitem" tabindex="0" calcite-hydrated="">Create Sketch layer</calcite-dropdown-item>
+                    <calcite-dropdown-item icon-start="media-layer" data-name="addmedia" role="menuitem" tabindex="0" calcite-hydrated="">Add media layer</calcite-dropdown-item>
+                </calcite-dropdown-group>
+            </calcite-split-button>
         </calcite-panel>
         <calcite-panel heading="Basemaps" height-scale="l" data-panel-id="basemaps" hidden>
             <div id="basemaps-container"></div>
@@ -66,7 +73,7 @@
         </calcite-panel>
     </calcite-shell-panel>
     <!-- Add Modal-->
-    <calcite-modal aria-labelledby="modal-title" id="example-modal">
+    <calcite-dialog aria-labelledby="modal-title" id="dialog_addlayer">
         <div slot="header" id="modal-title">
             Add a group
         </div>
@@ -102,7 +109,7 @@
         <calcite-button slot="primary" width="full">
             Save
         </calcite-button>
-    </calcite-modal>
+    </calcite-dialog>
 
     <div id="line-button" class="esri-widget esri-widget--button  esri-interactive" title="Draw polyline">
         <span class="esri-icon-polyline"></span>
@@ -128,5 +135,12 @@
 @*<script type="module" src="~/Scripts/Map/Test.js"></script>*@
 
 
+<script>
+    const btn_addlayer = document.getElementById("btn_addlayer");
+    const dialog_addlayer = document.getElementById("dialog_addlayer");
 
+    btn_addlayer?.addEventListener("click", function() {
+        dialog_addlayer.open = true;
+    });
+</script>
 

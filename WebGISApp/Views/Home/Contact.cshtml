@@ -4,51 +4,45 @@
 
 
 <body>
-    <calcite-modal aria-labelledby="modal-title" id="example-modal">
-        <div slot="header" id="modal-title">
-            Add a group
-        </div>
-        <div slot="content">
-            <calcite-label>
-                Group name
-                <calcite-input value="City of Acme Surveying Crews" placeholder="Enter a descriptive title">
-                </calcite-input>
-            </calcite-label>
-            <calcite-label>
-                Choose default user role
-                <calcite-tile-select-group>
-                    <calcite-tile-select checked input-enabled input-alignment="end" icon="rangefinder"
-                                         heading="Field operator"
-                                         description="This role allows users in the field to create new Reports, and view and edit existing Reports and Attachments">
-                    </calcite-tile-select>
-                    <calcite-tile-select input-enabled input-alignment="end" icon="knowledge-graph-dashboard"
-                                         heading="Office coordinator"
-                                         description="This role allows teammates on-base to view, duplicate, and create meaningful insights from Reports">
-                    </calcite-tile-select>
-                </calcite-tile-select-group>
-            </calcite-label>
-            <calcite-notice open icon="pencil" width="full">
-                <div slot="message">You can edit this choice later on, in Settings.</div>
-            </calcite-notice>
-        </div>
-        <calcite-button slot="back" kind="neutral" width="full">
+    <calcite-dialog open modal heading="Add a group" id="example-dialog">
+        <calcite-label>
+            Group name
+            <calcite-input value="City of Acme Surveying Crews" placeholder="Enter a descriptive title"></calcite-input>
+        </calcite-label>
+        <calcite-label>
+            Choose default user role
+            <calcite-tile-select-group>
+                <calcite-tile-select checked input-enabled input-alignment="end" icon="rangefinder"
+                                     heading="Field operator"
+                                     description="This role allows users in the field to create new Reports, and view and edit existing Reports and Attachments">
+                </calcite-tile-select>
+                <calcite-tile-select input-enabled input-alignment="end" icon="knowledge-graph-dashboard"
+                                     heading="Office coordinator"
+                                     description="This role allows teammates on-base to view, duplicate, and create meaningful insights from Reports">
+                </calcite-tile-select>
+            </calcite-tile-select-group>
+        </calcite-label>
+        <calcite-notice open icon width="full">
+            <div slot="message">You can edit this choice later on, in Settings.</div>
+        </calcite-notice>
+        <calcite-button slot="footer-start" kind="neutral">
             Back
         </calcite-button>
-        <calcite-button slot="secondary" width="full" appearance="outline">
+        <calcite-button slot="footer-end" appearance="outline">
             Cancel
         </calcite-button>
-        <calcite-button slot="primary" width="full">
+        <calcite-button slot="footer-end">
             Save
         </calcite-button>
-    </calcite-modal>
-    <calcite-button id="example-button">Open modal</calcite-button>
+    </calcite-dialog>
+    <calcite-button id="example-button">Open dialog</calcite-button>
 </body>
 
 <script>
     const button = document.getElementById("example-button");
-    const modal = document.getElementById("example-modal");
+    const dialog = document.getElementById("example-dialog");
 
     button?.addEventListener("click", function() {
-        modal.open = true;
+        dialog.open = true;
     });
 </script>
