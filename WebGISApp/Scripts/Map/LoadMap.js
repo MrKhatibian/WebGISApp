@@ -93,9 +93,12 @@ view.when(() => {
 //Add btn Add layer for open dialog_import data
 const btn_addlayer = document.getElementById("btn_addlayer");
 const dialog_addlayer = document.getElementById("dialog_addlayer");
-
+const btn_CancelAddlayer = document.getElementById("btn_CancelAddlayer");
 btn_addlayer?.addEventListener("click", function() {
   dialog_addlayer.open = true;
+});
+btn_CancelAddlayer.addEventListener("click",function(){
+  dialog_addlayer.open= false;
 });
 
 //document.querySelector("calcite-shell").hidden = false;
