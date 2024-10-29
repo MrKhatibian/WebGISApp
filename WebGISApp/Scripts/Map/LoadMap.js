@@ -91,14 +91,14 @@ view.when(() => {
 });
 
 //Add btn Add layer for open dialog_import data
-const btn_addlayer = document.getElementById("btn_addlayer");
-const dialog_addlayer = document.getElementById("dialog_addlayer");
+const btn_Addlayer = document.getElementById("btn_Addlayer");
+const dialog_Addlayer = document.getElementById("dialog_Addlayer");
 const btn_CancelAddlayer = document.getElementById("btn_CancelAddlayer");
-btn_addlayer?.addEventListener("click", function() {
-  dialog_addlayer.open = true;
+btn_Addlayer?.addEventListener("click", function() {
+  dialog_Addlayer.open = true;
 });
 btn_CancelAddlayer.addEventListener("click",function(){
-  dialog_addlayer.open= false;
+  dialog_Addlayer.open= false;
 });
 
 //document.querySelector("calcite-shell").hidden = false;
