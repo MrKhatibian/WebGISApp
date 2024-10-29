@@ -4,32 +4,129 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!-- #region Link & Script -->
-
-<link rel="stylesheet" type="text/css" href="~/Content/Map/Map.css" />
-
-@*Add Arcgis Moulde api 4.30*@
-@*<script src="https://js.arcgis.com/4.25/"></script>*@
-<script src="~/Scripts/Map/arcgis_js_v430_api/arcgis_js_api/javascript/4.30/init.js"></script>
 @* Add mapload *@
-<script src="~/Scripts/Map/LoadMap.js"></script>
+<script type="module" src="~/Scripts/Map/LoadMap.js"></script>
 
-<!-- #endregion -->
 <!-- #region viewMapDiv -->
-@*Add div test for Identify*@
+<calcite-shell content-behind>
+    @*<calcite-loader></calcite-loader>*@
 
-<div id="mapView">
+    <calcite-navigation slot="header">
+        <calcite-navigation-logo id="header-title" heading-level="1" slot="logo">
+            <!-- Dynamically populated -->
+        </calcite-navigation-logo>
+    </calcite-navigation>
+
+    <calcite-shell-panel slot="panel-start" display-mode="float">
+        <calcite-action-bar slot="action-bar">
+            <calcite-action data-action-id="addlayer" icon="plus" text="Add Layer"></calcite-action>
+            <calcite-action data-action-id="layers" icon="layers" text="Layers"></calcite-action>
+            <calcite-action data-action-id="basemaps" icon="basemap" text="Basemaps"></calcite-action>
+            <calcite-action data-action-id="legend" icon="legend" text="Legend"></calcite-action>
+            <calcite-action data-action-id="bookmarks" icon="bookmark" text="Bookmarks"></calcite-action>
+            <calcite-action data-action-id="print" icon="print" text="Print"></calcite-action>
+            <calcite-action data-action-id="information" icon="information" text="Information"></calcite-action>
+        </calcite-action-bar>
+
+        <!-- Map-specific panels (each one provides a div for a ArcGIS Maps SDK for JavaScript widget) -->
+        <calcite-panel heading="Add Layer" height-scale="l" data-panel-id="addlayer" hidden>
+            <div id="addlayer-container"></div>
+        </calcite-panel>
+        <calcite-panel heading="Layers" height-scale="l" data-panel-id="layers" hidden>
+            <div id="layers-container"></div>
+            <calcite-split-button id="btn_addlayer" slot="fab" primary-icon-start="layers" primary-text="Add" overlay-positioning="fixed" data-name="addfromonline" appearance="outline-fill" kind="brand" dropdown-icon-type="chevron" scale="m" width="auto" calcite-hydrated="">
+                <calcite-dropdown-group selection-mode="none" role="group" calcite-hydrated="">
+                    <calcite-dropdown-item icon-start="search" data-name="addfromonline" role="menuitem" tabindex="0" calcite-hydrated="">Browse layers</calcite-dropdown-item>
+                    <calcite-dropdown-item icon-start="web" data-name="addfromurl" role="menuitem" tabindex="0" calcite-hydrated="">Add layer from URL</calcite-dropdown-item>
+                    <calcite-dropdown-item icon-start="pencil-mark" data-name="addsketch" role="menuitem" tabindex="0" calcite-hydrated="">Create Sketch layer</calcite-dropdown-item>
+                    <calcite-dropdown-item icon-start="media-layer" data-name="addmedia" role="menuitem" tabindex="0" calcite-hydrated="">Add media layer</calcite-dropdown-item>
+                </calcite-dropdown-group>
+            </calcite-split-button>
+        </calcite-panel>
+        <calcite-panel heading="Basemaps" height-scale="l" data-panel-id="basemaps" hidden>
+            <div id="basemaps-container"></div>
+        </calcite-panel>
+        <calcite-panel heading="Legend" height-scale="l" data-panel-id="legend" hidden>
+            <div id="legend-container"></div>
+        </calcite-panel>
+        <calcite-panel heading="Bookmarks" height-scale="l" data-panel-id="bookmarks" hidden>
+            <div id="bookmarks-container"></div>
+        </calcite-panel>
+        <calcite-panel heading="Print" height-scale="l" data-panel-id="print" hidden>
+            <div id="print-container"></div>
+        </calcite-panel>
+
+        <!-- Info panel (populates with info from the web map) -->
+        <calcite-panel heading="Details" data-panel-id="information" hidden>
+            <div id="info-content">
+                <img id="item-thumbnail" alt="webmap thumbnail" />
+                <div id="item-description">
+                    <!-- Dynamically populated -->
+                </div>
+                <calcite-label layout="inline">
+                    <b>Rating:</b>
+                    <calcite-rating id="item-rating" read-only>
+                        <!-- Dynamically populated -->
+                    </calcite-rating>
+                </calcite-label>
+            </div>
+        </calcite-panel>
+    </calcite-shell-panel>
+
+
     <div id="line-button" class="esri-widget esri-widget--button  esri-interactive" title="Draw polyline">
         <span class="esri-icon-polyline"></span>
     </div>
-    <div id="Home-button" class="esri-widget esri-widget--button esri-home" title="Default map view">
-        <span class="esri-icon-home"></span>
-    </div>
-    <div id="FullScreen-button" class="esri-widget esri-widget--button esri-interactive" title="Full Screen">
-        <span class="esri-icon-zoom-out-fixed"></span>
-    </div>
-</div>
+    @*
+        <div id="Home-button" class="esri-widget esri-widget--button esri-home" title="Default map view">
+            <span class="esri-icon-home"></span>
+        </div>
+        <div id="FullScreen-button" class="esri-widget esri-widget--button esri-interactive" title="Full Screen">
+            <span class="esri-icon-zoom-out-fixed"></span>
+        </div>*@
+    <div id="mapView"></div>
+</calcite-shell>
 
+<!-- Add Modal-->
+<calcite-dialog heading="Add a group" id="dialog_addlayer">
+    <calcite-label>
+        Group name
+        <calcite-input value="City of Acme Surveying Crews" placeholder="Enter a descriptive title"></calcite-input>
+    </calcite-label>
+    <calcite-label>
+        Choose default user role
+        <calcite-tile-group>
+            <calcite-tile checked input-enabled input-alignment="end" icon="rangefinder"
+                                 heading="Field operator"
+                                 description="This role allows users in the field to create new Reports, and view and edit existing Reports and Attachments">
+            </calcite-tile>
+            <calcite-tile input-enabled input-alignment="end" icon="knowledge-graph-dashboard"
+                                 heading="Office coordinator"
+                                 description="This role allows teammates on-base to view, duplicate, and create meaningful insights from Reports">
+            </calcite-tile>
+        </calcite-tile-group>
+    </calcite-label>
+    <calcite-notice open icon width="full">
+        <div slot="message">You can edit this choice later on, in Settings.</div>
+    </calcite-notice>
+    <calcite-button slot="footer-start" kind="neutral">
+        Back
+    </calcite-button>
+    <calcite-button slot="footer-end" appearance="outline">
+        Cancel
+    </calcite-button>
+    <calcite-button slot="footer-end">
+        Save
+    </calcite-button>
+</calcite-dialog>
 <!-- #endregion -->
 @* Add DrawTools *@
-@*<script src="~/Scripts/Map/Draw.js"></script>*@
+@*<script type="module" src="~/Scripts/Map/Draw.js"></script>*@
+
+@*Add Identify*@
+<script type="module" src="~/Scripts/Map/Identify.js"></script>
+
+
+@*<script type="module" src="~/Scripts/Map/Test.js"></script>*@
+
+

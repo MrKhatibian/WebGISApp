@@ -1,25 +1,28 @@
-﻿
-/*#region Import Map css */
-
-/*Add Online leaflet css*/ 
-/*@import url("https://unpkg.com/leaflet@1.9.3/dist/leaflet.css");*/
-/*Add locall leaflet css*/
-/*@import url("Leaflet/leaflet.css");*/
-
-/*Add locall arcgis css */
-/*@import url("esri/themes/light/main.css");
-@import url("calcite/calcite.css");
-*/
-@import url("../../Scripts/Map/arcgis_js_v430_api/arcgis_js_api/javascript/4.30/esri/themes/light/main.css");
-
-/*#endregion */
-
-/*#region MapLoad */
+﻿/*#region MapLoad */
 
 /* Map container */
 #mapView {
-    height:80vh;
+    height:100%;
     width:100%;
-    position: relative;
+    padding:0;
+    margin:0;
+    /*position: relative;*/
+}
+
+body {
+    display: flex;
+}
+
+calcite-loader {
+    align-self: center;
+    justify-self: center;
+}
+
+#info-content {
+    padding: 0.75rem;
+}
+
+calcite-rating {
+    margin-top: 0.25rem;
 }
 /*#endregion */

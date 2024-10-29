@@ -1,189 +1,210 @@
-﻿require(
-    [
-        "esri/Map",
-        "esri/views/MapView",
-        "esri/layers/MapImageLayer",
-        "esri/layers/FeatureLayer",
-        "esri/widgets/Search",
-        "esri/widgets/Attribution",
-        "esri/widgets/Home",
-        "esri/widgets/Fullscreen",
-        "esri/rest/identify",
-        "esri/rest/support/IdentifyParameters",
-        "esri/widgets/CoordinateConversion"
-    ],
-    function(
-        Map, MapView, MapImageLayer,
-        Search, Attribution, Home,
-        FeatureLayer, Fullscreen,identify,
-        IdentifyParameters, CoordinateConversion
-    ) 
-    {        
-        const map = new Map({
-            //basemap: "gray-vector" // basemap styles service
-            //basemap: "topo-vector"
-            basemap: "osm"
-        });
-                
-        // Adding a sample Map Image Layer
-        const mapServerUrl = "http://localhost:6080/arcgis/rest/services/Maryanaj/Maryanaj_14030619/MapServer";
-        const layer = new MapImageLayer({
-            // Replace with your ArcGIS Server URL
-            url: mapServerUrl
-            //url: "http://localhost:6080/arcgis/rest/services/SampleWorldCities/MapServer"
-        });
-        map.add(layer);
-    
-        //const featureLayer = new FeatureLayer("http://localhost:6080/arcgis/rest/services/SampleWorldCities/MapServer/1");
-        //map.add(featureLayer);
-    
-        const view = new MapView({
-            container: "mapView", // Div element
-            map: map,
-            zoom: 14, // Zoom level
-            center: [48.464869, 34.834155], // Longitude, latitude 48.464869  34.834155                        
-        });
-        
-        //remove bottom atribution (power by esri)
-        //view.ui.empty();
+﻿
+// #region Import -------------------------------------------------------------------------------------------
+import Map from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/Map.js";
+import MapView from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/views/MapView.js";
+import MapImageLayer from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/layers/MapImageLayer.js";
+import FeatureLayer from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/layers/FeatureLayer.js";
+import Home from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/Home.js";
+import Fullscreen from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/Fullscreen.js";
+import CoordinateConversion from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/CoordinateConversion.js";
 
-        // Add the home button to the top left corner of the view        
-        view.ui.add("Home-button", "top-left"); 
+import BasemapGallery from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/BasemapGallery.js";
+import Bookmarks from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/Bookmarks.js";
+import LayerList from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/LayerList.js";
+import Legend from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/Legend.js";
+import Print from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/Print.js";
 
-        // Define the initial or home extent (center and zoom level)
-        var homeExtent = {
-            center: [48.464869, 34.834155], // Longitude, Latitude
-            zoom: 15                    // Zoom level
-        };
+// #endregion -----------------------------------------------------------------------------------------------
 
-        // Get the custom home button element
-        var homeButton = document.getElementById("Home-button");
+// #region Main ---------------------------------------------------------------------------------------------
+const map = new Map({
+    //basemap: "gray-vector" // basemap styles service
+    //basemap: "topo-vector"
+    basemap: "osm"
+});
 
-        // Add event listener to handle click on the Home button
-        homeButton.addEventListener("click", function() {            
-            view.goTo(homeExtent)
-                .then(function() {
-                    console.log("Returned to home extent");
-                })
-                .catch(function(error) {
-                    console.error("Error going to home extent:", error);
-                });
-        });
+// Adding Map Image Layer
+const mapServerUrl = "http://localhost:6080/arcgis/rest/services/Maryanaj/Maryanaj_14030619/MapServer";
+const layer = new MapImageLayer({
+    // Replace with your ArcGIS Server URL
+    url: mapServerUrl
+    //url: "http://localhost:6080/arcgis/rest/services/SampleWorldCities/MapServer"
+});
+map.add(layer);
 
-        // add the button for the draw tool
-        view.ui.add("line-button", "top-left");
+// Adding Feature Layer
+//const featureLayer = new FeatureLayer("http://localhost:6080/arcgis/rest/services/SampleWorldCities/MapServer/1");
+//map.add(featureLayer);
 
-        const fullscreen = new Fullscreen({
-            view: view
-        });
-        view.ui.add(fullscreen, "top-right");
-        //add maual btn FullScreen   
-        view.ui.add("FullScreen-button","top-right");
+// Creat and Set Map View
+const view = new MapView({
+    container: "mapView", // Div element
+    padding: {
+        left: 49
+      },
+    map: map,
+    zoom: 14, // Zoom level
+    center: [48.464869, 34.834155], // Longitude, latitude 48.464869  34.834155                        
+});
 
-        //add Indentify section
-        let params;        
-        view.when(function () {
-            // executeIdentify() is called each time the view is clicked
-            view.on("click", executeIdentify);
-  
-            // Set the parameters for the identify
-            params = new IdentifyParameters();
-            params.tolerance = 3;
-            params.layerIds = [0, 1, 2, 3, 4];
-            params.layerOption = "top";
-            params.width = view.width;
-            params.height = view.height;
-        });
-        function executeIdentify(event) {
-            // Set the geometry to the location of the view click
-            params.geometry = event.mapPoint;
-            params.mapExtent = view.extent;
-            document.getElementById("mapView").style.cursor = "wait";
-            
-            // This function returns a promise that resolves to an array of features
-          // A custom popupTemplate is set for each feature based on the layer it
-          // originates from
-          identify
-          .identify(mapServerUrl, params)
-          .then(function (response) {
-            const results = response.results;            
+view.when(() => {
+  //const { title, description, thumbnailUrl, avgRating } = map.portalItem;
+  //document.querySelector("#header-title").heading = title;
+  document.querySelector("#header-title").heading = "Hi Amard";
+  document.querySelector("#item-description").innerHTML = "New WebGIS For Amard Creat by Mr.Khatibian";
+  //document.querySelector("#item-thumbnail").src = thumbnailUrl;
+  //document.querySelector("#item-rating").value = avgRating;
 
-            return results.map(function (result) {
-              let feature = result.feature;
-              let layerName = result.layerName;              
+  let activeWidget;
 
-              feature.attributes.layerName = layerName;
-              
-              if (layerName === "عرصه") {
-                feature.popupTemplate = {
-                  // autocasts as new PopupTemplate()
-                  title: layerName,                  
-                  content:
-                    "<b>OBJECTID:</b> {OBJECTID} " +
-                    "<br><b>Geometry Type:</b> {SHAPE}" +
-                    "<br><b>Code_nosazi:</b> {Code_nosazi}"
-                };
-              } else if (layerName === "water") {
-                feature.popupTemplate = {
-                  // autocasts as new PopupTemplate()
-                  title: "{LABEL_LOCAL}",
-                  content:
-                    "<b>Block ID:</b> {BLOCK_ID} " +
-                    "<br><b>Geometry Type:</b> {Shape}" +
-                    "<br><b>Water Area:</b> {Shape_Area}"
-                };
-              } else if (layerName === "Urban") {
-                feature.popupTemplate = {
-                  // autocasts as new PopupTemplate()
-                  title: layerName,
-                  content:
-                    "<b>Block ID:</b> {BLOCK_ID} " +
-                    "<br><b>Geometry Type:</b> {Shape}" +
-                    "<br><b>Urban Area:</b> {Shape_Area}"
-                };
-              } else if (layerName === "Landuse") {
-                feature.popupTemplate = {
-                  // autocasts as new PopupTemplate()
-                  title: layerName,
-                  content:
-                    "<b>Block ID:</b> {BLOCK_ID} " +
-                    "<br><b>Geometry Type:</b> {Shape}" +
-                    "<br><b>Landuse Area:</b> {Shape_Area}"
-                };
-              } else if (layerName === "Counties") {
-                feature.popupTemplate = {
-                  // autocasts as new PopupTemplate()
-                  title: layerName,
-                  content:
-                    "<b>ObjectID:</b> {OBJECTID} " +
-                    "<br><b>Geometry Type:</b> {SHAPE}" +
-                    "<br><b>Landuse Area:</b> {SHAPE_Area}"
-                };
-              }
-              return feature;
-            });
-          })
-          .then(showPopup); // Send the array of features to showPopup()
-
-          // Shows the results of the identify in a popup once the promise is resolved
-          function showPopup(response) {
-            if (response.length > 0) {
-              view.openPopup({
-                features: response,
-                location: event.mapPoint
-              });
-            }
-            document.getElementById("mapView").style.cursor = "auto";
-          }
-        };
-
-        //Add Coordinate widget
-        const ccWidget = new CoordinateConversion({
-          view: view
-        });
-
-        view.ui.add(ccWidget, "bottom-left");
+  const handleActionBarClick = ({ target }) => {
+    if (target.tagName !== "CALCITE-ACTION") {
+      return;
     }
-);
-  
 
+    if (activeWidget) {
+      document.querySelector(`[data-action-id=${activeWidget}]`).active = false;
+      document.querySelector(`[data-panel-id=${activeWidget}]`).hidden = true;
+    }
+
+    const nextWidget = target.dataset.actionId;
+    if (nextWidget !== activeWidget) {
+      document.querySelector(`[data-action-id=${nextWidget}]`).active = true;
+      document.querySelector(`[data-panel-id=${nextWidget}]`).hidden = false;
+      activeWidget = nextWidget;
+    } else {
+      activeWidget = null;
+    }
+  };
+
+  document.querySelector("calcite-action-bar").addEventListener("click", handleActionBarClick);
+
+  let actionBarExpanded = false;
+
+  document.addEventListener("calciteActionBarToggle", event => {
+    actionBarExpanded = !actionBarExpanded;
+    view.padding = {
+      left: actionBarExpanded ? 150 : 49
+    };
+  });
+
+});
+
+//Add btn Add layer for open dialog_import data
+const btn_addlayer = document.getElementById("btn_addlayer");
+const dialog_addlayer = document.getElementById("dialog_addlayer");
+
+btn_addlayer?.addEventListener("click", function() {
+  dialog_addlayer.open = true;
+});
+
+//document.querySelector("calcite-shell").hidden = false;
+  
+// #region manual Home extent
+/*
+//Define the initial or home extent (center and zoom level)
+var homeExtent = {
+    center: [48.464869, 34.834155], // Longitude, Latitude
+    zoom: 15                    // Zoom level
+};
+
+// Get the custom Home-button element
+var homeButton = document.getElementById("Home-button");
+
+// Add event listener to handle click on the Home button
+homeButton.addEventListener("click", function() {            
+    view.goTo(homeExtent)
+    .then(function() {
+        console.log("Returned to home extent");
+    })
+    .catch(function(error) {
+        console.error("Error going to home extent:", error);
+    });
+});
+*/
+// #endregion
+
+
+// Add for test /////////////////////////////////////////////////////////////////////////////////////////////
+
+
+// End for test /////////////////////////////////////////////////////////////////////////////////////////////
+
+
+//Stop Calcite loader      
+//document.querySelector("calcite-loader").hidden = true;
+
+// #endregion Main ------------------------------------------------------------------------------------------
+
+// #region Widgets -------------------------------------------------------------------------------------------
+
+// Add Home button
+const homeBtn = new Home({
+    view: view
+});
+
+// Add FullScreen
+const fullscreen = new Fullscreen({
+    view: view
+});
+           
+//Add Coordinate
+const ccWidget = new CoordinateConversion({
+    view: view
+});
+
+//Add Bookmark 
+const bookmarks = new Bookmarks({
+  view,
+  container: "bookmarks-container"
+});
+
+//Add LayerList
+const layerList = new LayerList({
+  view,
+  dragEnabled: true,
+  visibilityAppearance: "checkbox",
+  container: "layers-container"
+});
+
+//Add Legend
+const legend = new Legend({
+  view,
+  container: "legend-container"
+});
+
+
+// #endregion Widget ----------------------------------------------------------------------------------------
+
+// #region View ---------------------------------------------------------------------------------------------
+//Remove bottom atribution (power by esri)
+//view.ui.empty();
+
+// Move Zoom button                
+view.ui.move("zoom","bottom-right");
+//view.ui.move("zoom", "top-left");  
+
+// Add the home button
+view.ui.add(homeBtn, "top-right");
+// Add the home button Manual
+//view.ui.add("Home-button", "top-right");
+
+// Add Draw button
+//view.ui.add("Home-button", "bottom-right");  
+//view.ui.add(["line-button", "Home-button"], "top-right");
+view.ui.add("line-button", "top-right"); 
+
+// View Coordinate widget
+//view.ui.add(ccWidget, "bottom-left");
+
+view.ui.add(fullscreen, "top-right");
+//add maual btn FullScreen
+//view.ui.add("FullScreen-button","top-right");
+
+// #endregion View ------------------------------------------------------------------------------------------
+
+//#region Exporting -----------------------------------------------------------------------------------------
+
+export {view, mapServerUrl};
+
+//#endregion Exporting --------------------------------------------------------------------------------------
