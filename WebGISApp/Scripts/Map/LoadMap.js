@@ -129,16 +129,16 @@ homeButton.addEventListener("click", function() {
 
 
 // Add for test /////////////////////////////////////////////////////////////////////////////////////////////
-const btnSave_Addlayer = document.getElementById("btnSave_Addlayer");
+const btnAdd_Addlayer = document.getElementById("btnAdd_Addlayer");
 const input_Addlayer = document.getElementById("input_Addlayer").value;
-btnSave_Addlayer.addEventListener("click", function(){addData(input_Addlayer,"Mapserver")});
+btnAdd_Addlayer.addEventListener("click", function(){addData(input_Addlayer,"Mapserver")});
 function addData(dataPath, dataType){
   if (dataType == "Mapserver") {
     const layer = new MapImageLayer({
       url: dataPath
     });
-    map.add(layer); 
-    alert("OK");
+    map.add(layer);
+    dialog_Addlayer.open= false;         
   }
 }
 // End for test /////////////////////////////////////////////////////////////////////////////////////////////
