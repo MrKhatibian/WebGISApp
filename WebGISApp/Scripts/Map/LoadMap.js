@@ -129,7 +129,9 @@ homeButton.addEventListener("click", function() {
 
 
 // Add for test /////////////////////////////////////////////////////////////////////////////////////////////
-
+const btnSave_Addlayer = document.getElementById("btnSave_Addlayer");
+const input_Addlayer = document.getElementById("input_Addlayer").value;
+btnSave_Addlayer.addEventListener("click",function(){alert(input_Addlayer)});
 
 // End for test /////////////////////////////////////////////////////////////////////////////////////////////
 
