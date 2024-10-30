@@ -34,14 +34,7 @@
         </calcite-panel>
         <calcite-panel heading="Layers" height-scale="l" data-panel-id="layers" hidden>
             <div id="layers-container"></div>
-            <calcite-split-button id="btn_Addlayer" slot="fab" primary-icon-start="layers" primary-text="Add" overlay-positioning="fixed" data-name="addfromonline" appearance="outline-fill" kind="brand" dropdown-icon-type="chevron" scale="m" width="auto" calcite-hydrated="">
-                <calcite-dropdown-group selection-mode="none" role="group" calcite-hydrated="">
-                    <calcite-dropdown-item icon-start="search" data-name="addfromonline" role="menuitem" tabindex="0" calcite-hydrated="">Browse layers</calcite-dropdown-item>
-                    <calcite-dropdown-item icon-start="web" data-name="addfromurl" role="menuitem" tabindex="0" calcite-hydrated="">Add layer from URL</calcite-dropdown-item>
-                    <calcite-dropdown-item icon-start="pencil-mark" data-name="addsketch" role="menuitem" tabindex="0" calcite-hydrated="">Create Sketch layer</calcite-dropdown-item>
-                    <calcite-dropdown-item icon-start="media-layer" data-name="addmedia" role="menuitem" tabindex="0" calcite-hydrated="">Add media layer</calcite-dropdown-item>
-                </calcite-dropdown-group>
-            </calcite-split-button>
+            <calcite-split-button id="btn_Addlayer" slot="fab" primary-icon-start="layers" primary-text="Add" overlay-positioning="fixed" data-name="addfromonline" appearance="outline-fill" kind="brand" dropdown-icon-type="chevron" scale="m" width="auto" calcite-hydrated=""></calcite-split-button>
         </calcite-panel>
         <calcite-panel heading="Basemaps" height-scale="l" data-panel-id="basemaps" hidden>
             <div id="basemaps-container"></div>
@@ -89,16 +82,17 @@
 
     <!-- Add Modal-->
     <calcite-dialog open heading="Add layer" id="dialog_Addlayer" scale="m" widthScale="m" slot="modals">
-        <div style="padding-bottom:200px">
+        <div style="padding-bottom:80px">
             <calcite-label>
-                <span class="lable">URL</span>
-                <calcite-input id="input_Addlayer" value="http://localhost:6080/arcgis/rest/services/KhoramAbad/KhoramAbad14030712/MapServer" placeholder="Example: http://"></calcite-input>
+                <span class="lable">URL Or Path</span>
+                <calcite-input id="input_AddData" value="http://localhost:6080/arcgis/rest/services/KhoramAbad/KhoramAbad14030712/MapServer" placeholder="Example: http://"></calcite-input>
             </calcite-label>
             <calcite-label>
                 <span class="lable">Data Type</span>
             </calcite-label>
-            <calcite-combobox placeholder="Select a field" selection-mode="single" placement="bottom">
-                <calcite-combobox-item value="ArcGIS Server web service" text-label="ArcGIS Server web service"></calcite-combobox-item>
+            <calcite-combobox selection-mode="single" id="combo_AddData" >
+                <calcite-combobox-item value="ArcGIS Server web service" text-label="ArcGIS Server web service" selected></calcite-combobox-item>
+                <calcite-combobox-item value="Shapefile" text-label="Shapefile"></calcite-combobox-item>
                 <calcite-combobox-item value="GeoJSON" text-label="GeoJSON"></calcite-combobox-item>
                 <calcite-combobox-item value="KML (OGC)" text-label="KML (OGC)"></calcite-combobox-item>
                 <calcite-combobox-item value="OGC feature layer" text-label="OGC feature layer"></calcite-combobox-item>
@@ -111,12 +105,12 @@
             </calcite-combobox>
 
         </div>
-        @*<calcite-notice open icon width="full">
+        <calcite-notice open icon width="full">
             <div slot="message"><span>Supported layer types are CSV, GeoJSON, OGC WFS web service, OGC WMS web service, OGC WMTS web service, OGC API - Features, ArcGIS Server web service, KML, GeoRSS, tile layer</span></div>
-        </calcite-notice>*@
+        </calcite-notice>
         <calcite-button slot="footer-start" kind="neutral">Back</calcite-button>
         <calcite-button slot="footer-end" appearance="outline" id="btn_CancelAddlayer">Cancel</calcite-button>
-        <calcite-button slot="footer-end" id="btnAdd_Addlayer">Add</calcite-button>
+        <calcite-button slot="footer-end" id="btnAdd_AddData">Add</calcite-button>
     </calcite-dialog>
 </calcite-shell>
 <!-- #endregion -->

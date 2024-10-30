@@ -129,13 +129,14 @@ homeButton.addEventListener("click", function() {
 
 
 // Add for test /////////////////////////////////////////////////////////////////////////////////////////////
-const btnAdd_Addlayer = document.getElementById("btnAdd_Addlayer");
-const input_Addlayer = document.getElementById("input_Addlayer").value;
-btnAdd_Addlayer.addEventListener("click", function(){addData(input_Addlayer,"Mapserver")});
+const btnAdd_AddData = document.getElementById("btnAdd_AddData");
+const input_AddData = document.getElementById("input_AddData").value;
+const combo_AddData = document.getElementById("combo_AddData").value;
+btnAdd_AddData.addEventListener("click", function(){addData(input_AddData,combo_AddData)});
 function addData(dataPath, dataType){
-  if (dataType == "Mapserver") {
+  if (dataType == "ArcGIS Server web service") {
     const layer = new MapImageLayer({
-      url: dataPath
+      url: input_AddData
     });
     map.add(layer);
     dialog_Addlayer.open= false;         
