@@ -34,7 +34,8 @@
         </calcite-panel>
         <calcite-panel heading="Layers" height-scale="l" data-panel-id="layers" hidden>
             <div id="layers-container"></div>
-            <calcite-split-button id="btn_AddData" slot="fab" primary-icon-start="layers" primary-text="Add" overlay-positioning="fixed" data-name="addfromonline" appearance="outline-fill" kind="brand" dropdown-icon-type="chevron" scale="m" width="auto" calcite-hydrated=""></calcite-split-button>
+            @*<calcite-button id="btn_AddData" slot="fab" primary-icon-start="layers" primary-text="Add" overlay-positioning="fixed" data-name="addfromonline" appearance="outline-fill" kind="brand" dropdown-icon-type="chevron" scale="m" width="auto" calcite-hydrated=""></calcite-button>*@
+            <calcite-button id="btn_AddData" icon-start="add-layer" label="Add new layer" slot="fab" scale="m" width="auto" overlay-positioning="fixed">Add</calcite-button>
         </calcite-panel>
         <calcite-panel heading="Basemaps" height-scale="l" data-panel-id="basemaps" hidden>
             <div id="basemaps-container"></div>
