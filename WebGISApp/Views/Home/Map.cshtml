@@ -34,7 +34,7 @@
         </calcite-panel>
         <calcite-panel heading="Layers" height-scale="l" data-panel-id="layers" hidden>
             <div id="layers-container"></div>
-            <calcite-split-button id="btn_Addlayer" slot="fab" primary-icon-start="layers" primary-text="Add" overlay-positioning="fixed" data-name="addfromonline" appearance="outline-fill" kind="brand" dropdown-icon-type="chevron" scale="m" width="auto" calcite-hydrated=""></calcite-split-button>
+            <calcite-split-button id="btn_AddData" slot="fab" primary-icon-start="layers" primary-text="Add" overlay-positioning="fixed" data-name="addfromonline" appearance="outline-fill" kind="brand" dropdown-icon-type="chevron" scale="m" width="auto" calcite-hydrated=""></calcite-split-button>
         </calcite-panel>
         <calcite-panel heading="Basemaps" height-scale="l" data-panel-id="basemaps" hidden>
             <div id="basemaps-container"></div>
@@ -81,7 +81,7 @@
 
 
     <!-- Add Modal-->
-    <calcite-dialog open heading="Add layer" id="dialog_Addlayer" scale="m" widthScale="m" slot="modals">
+    <calcite-dialog open heading="Add layer" id="dialog_AddData" scale="m" widthScale="m" slot="modals">
         <div style="padding-bottom:80px">
             <calcite-label>
                 <span class="lable">URL Or Path</span>
@@ -109,7 +109,7 @@
             <div slot="message"><span>Supported layer types are CSV, GeoJSON, OGC WFS web service, OGC WMS web service, OGC WMTS web service, OGC API - Features, ArcGIS Server web service, KML, GeoRSS, tile layer</span></div>
         </calcite-notice>
         <calcite-button slot="footer-start" kind="neutral">Back</calcite-button>
-        <calcite-button slot="footer-end" appearance="outline" id="btn_CancelAddlayer">Cancel</calcite-button>
+        <calcite-button slot="footer-end" appearance="outline" id="btn_CancelAddData">Cancel</calcite-button>
         <calcite-button slot="footer-end" id="btnAdd_AddData">Add</calcite-button>
     </calcite-dialog>
 </calcite-shell>

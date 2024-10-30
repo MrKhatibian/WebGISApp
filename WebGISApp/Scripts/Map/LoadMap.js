@@ -91,14 +91,14 @@ view.when(() => {
 });
 
 //Add btn Add layer for open dialog_import data
-const btn_Addlayer = document.getElementById("btn_Addlayer");
-const dialog_Addlayer = document.getElementById("dialog_Addlayer");
-const btn_CancelAddlayer = document.getElementById("btn_CancelAddlayer");
-btn_Addlayer?.addEventListener("click", function() {
-  dialog_Addlayer.open = true;
+const btn_AddData = document.getElementById("btn_AddData");
+const dialog_AddData = document.getElementById("dialog_AddData");
+const btn_CancelAddData = document.getElementById("btn_CancelAddData");
+btn_AddData?.addEventListener("click", function() {
+    dialog_AddData.open = true;
 });
-btn_CancelAddlayer.addEventListener("click",function(){
-  dialog_Addlayer.open= false;
+btn_CancelAddData.addEventListener("click",function(){
+    dialog_AddData.open= false;
 });
 
 //document.querySelector("calcite-shell").hidden = false;
@@ -132,14 +132,15 @@ homeButton.addEventListener("click", function() {
 const btnAdd_AddData = document.getElementById("btnAdd_AddData");
 const input_AddData = document.getElementById("input_AddData").value;
 const combo_AddData = document.getElementById("combo_AddData").value;
-btnAdd_AddData.addEventListener("click", function(){addData(input_AddData,combo_AddData)});
+btnAdd_AddData.addEventListener("click", function () { addData(input_AddData, combo_AddData) });
 function addData(dataPath, dataType){
   if (dataType == "ArcGIS Server web service") {
     const layer = new MapImageLayer({
-      url: input_AddData
+        url: dataPath
     });
     map.add(layer);
-    dialog_Addlayer.open= false;         
+      dialog_AddData.open = false;
+      alert(dataType);
   }
 }
 // End for test /////////////////////////////////////////////////////////////////////////////////////////////
