@@ -13,6 +13,8 @@ import Bookmarks from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgi
 import LayerList from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/LayerList.js";
 import Legend from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/Legend.js";
 import Print from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/Print.js";
+import Measurement from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/Measurement.js";
+
 
 // #endregion -----------------------------------------------------------------------------------------------
 
@@ -188,6 +190,8 @@ const legend = new Legend({
   container: "legend-container"
 });
 
+// Add Measurement widget
+const measurement = new Measurement();
 
 // #endregion Widget ----------------------------------------------------------------------------------------
 
