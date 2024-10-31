@@ -1,5 +1,9 @@
 ﻿
 // #region Import -------------------------------------------------------------------------------------------
+//Import Files
+
+
+//Import Modules
 import Map from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/Map.js";
 import MapView from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/views/MapView.js";
 import MapImageLayer from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/layers/MapImageLayer.js";
@@ -7,7 +11,6 @@ import FeatureLayer from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@ar
 import Home from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/Home.js";
 import Fullscreen from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/Fullscreen.js";
 import CoordinateConversion from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/CoordinateConversion.js";
-
 import BasemapGallery from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/BasemapGallery.js";
 import Bookmarks from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/Bookmarks.js";
 import LayerList from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/LayerList.js";
@@ -145,6 +148,59 @@ function addData(dataPath, dataType){
       alert(dataType);
   }
 }
+
+// Add Measurement widget
+const measurement = new Measurement();
+// Set-up event handlers for buttons and click events
+const distanceButton = document.getElementById('distance');
+const areaButton = document.getElementById('area');
+const clearButton = document.getElementById('clear');
+
+distanceButton.addEventListener("click", () => {
+    distanceMeasurement();
+});
+areaButton.addEventListener("click", () => {
+    areaMeasurement();
+});
+clearButton.addEventListener("click", () => {
+    clearMeasurements();
+});
+
+// Call the loadView() function for the initial view
+loadView();
+
+// The loadView() function to define the view for the widgets and div
+function loadView() {    
+    // Add the appropriate measurement UI to the bottom-right when activated
+    view.ui.add(measurement, "bottom-left");
+    view.ui.add("toolbarDiv", "top-right");
+
+    
+    // Set the views for the widgets
+    measurement.view = view;    
+}
+// Call the appropriate DistanceMeasurement2D or DirectLineMeasurement3D
+function distanceMeasurement() {
+    const type = view.type;
+    measurement.activeTool = type.toUpperCase() === "2D" ? "distance" : "direct-line";
+    distanceButton.classList.add("active");
+    areaButton.classList.remove("active");
+}
+
+// Call the appropriate AreaMeasurement2D or AreaMeasurement3D
+function areaMeasurement() {
+    measurement.activeTool = "area";
+    distanceButton.classList.remove("active");
+    areaButton.classList.add("active");
+}
+
+// Clears all measurements
+function clearMeasurements() {
+    distanceButton.classList.remove("active");
+    areaButton.classList.remove("active");
+    measurement.clear();
+}
+
 // End for test /////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -190,8 +246,7 @@ const legend = new Legend({
   container: "legend-container"
 });
 
-// Add Measurement widget
-const measurement = new Measurement();
+
 
 // #endregion Widget ----------------------------------------------------------------------------------------
 

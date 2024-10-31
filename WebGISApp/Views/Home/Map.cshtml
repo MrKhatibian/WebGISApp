@@ -49,7 +49,7 @@
         <calcite-panel heading="Print" height-scale="l" data-panel-id="print" hidden>
             <div id="print-container"></div>
         </calcite-panel>
-        
+
         <!-- Info panel (populates with info from the web map) -->
         <calcite-panel heading="Details" data-panel-id="information" hidden>
             <div id="info-content">
@@ -80,6 +80,16 @@
         </div>*@
     <div id="mapView"></div>
 
+    <!--Add meature test-->
+    <div id="toolbarDiv" class="esri-component esri-widget">
+        <button id="distance" class="esri-widget--button esri-interactive esri-icon-measure-line" title="Distance Measurement Tool">
+        </button>
+        <button id="area" class="esri-widget--button esri-interactive esri-icon-measure-area" title="Area Measurement Tool">
+        </button>
+        <button id="clear" class="esri-widget--button esri-interactive esri-icon-trash" title="Clear Measurements">
+        </button>
+    </div>
+
 
     <!-- Add Modal-->
     <calcite-dialog heading="Add layer" id="dialog_AddData" scale="m" widthScale="m" slot="modals">
@@ -91,7 +101,7 @@
             <calcite-label>
                 <span class="lable">Data Type</span>
             </calcite-label>
-            <calcite-combobox selection-mode="single" id="combo_AddData" >
+            <calcite-combobox selection-mode="single" id="combo_AddData">
                 <calcite-combobox-item value="ArcGIS Server web service" text-label="ArcGIS Server web service" selected></calcite-combobox-item>
                 <calcite-combobox-item value="Shapefile" text-label="Shapefile"></calcite-combobox-item>
                 <calcite-combobox-item value="GeoJSON" text-label="GeoJSON"></calcite-combobox-item>
