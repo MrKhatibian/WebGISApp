@@ -17,6 +17,10 @@ import LayerList from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgi
 import Legend from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/Legend.js";
 import Print from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/Print.js";
 import Measurement from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/Measurement.js";
+import Graphic from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/Graphic.js";
+import GraphicsLayer from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/layers/GraphicsLayer.js";
+import * as geometryEngine from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/geometry/geometryEngine.js";
+import Sketch from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/Sketch.js";
 
 
 // #endregion -----------------------------------------------------------------------------------------------
@@ -152,6 +156,19 @@ function addData(dataPath, dataType){
       dialog_AddData.open = false;      
   }
 }
+
+const graphicsLayer = new GraphicsLayer();
+map.add(graphicsLayer);
+
+const sketch = new Sketch({
+    layer: graphicsLayer,
+    view: view,
+    creationMode: "update",
+    visibleElements: { createTools: { polyline: true, polygon: true } }
+});
+sketch.visible = false;
+view.ui.add(sketch, "top-right");
+
 
 //// Add Measurement widget
 //const measurement = new Measurement();
