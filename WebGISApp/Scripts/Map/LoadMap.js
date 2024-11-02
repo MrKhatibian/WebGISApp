@@ -46,9 +46,8 @@ const view = new MapView({
     container: "mapView", // Div element
     padding: {
         left: 40,
-        right:40
-
-      },
+        right: 40
+    },
     map: map,
     zoom: 14, // Zoom level
     center: [48.464869, 34.834155], // Longitude, latitude 48.464869  34.834155                        
@@ -65,10 +64,10 @@ view.when(() => {
     let activeWidget;
 
     const handleActionBarClick = ({ target }) => {
-        if (target.tagName !== "CALCITE-ACTION") {
+        if (target.tagName !== "CALCITE-ACTION") {            
             return;
         }
-
+        
         if (activeWidget) {
             document.querySelector(`[data-action-id=${activeWidget}]`).active = false;
             document.querySelector(`[data-panel-id=${activeWidget}]`).hidden = true;
@@ -83,20 +82,20 @@ view.when(() => {
             activeWidget = null;
         }
     };
+    
+    document.getElementById("actionBarRight").addEventListener("click", handleActionBarClick);
 
-    // add padding for show Mapbtn when expanded click
-    /*
-    document.querySelector("calcite-action-bar").addEventListener("click", handleActionBarClick);
+    //// add padding for show Mapbtn when expanded click
+       
+    //let actionBarExpanded = false;
 
-    let actionBarExpanded = false;
-
-    document.addEventListener("calciteActionBarToggle", event => {
-        actionBarExpanded = !actionBarExpanded;
-        view.padding = {
-            left: actionBarExpanded ? 150 : 40,
-            right: actionBarExpanded ? 150 : 40
-        };
-    });*/
+    //document.addEventListener("calciteActionBarToggle", event => {
+    //    actionBarExpanded = !actionBarExpanded;
+    //    view.padding = {
+    //        left: actionBarExpanded ? 150 : 40,
+    //        right: actionBarExpanded ? 150 : 40
+    //    };
+    //});
 
 });
 
@@ -149,62 +148,61 @@ function addData(dataPath, dataType){
         url: dataPath
     });
     map.add(layer);
-      dialog_AddData.open = false;
-      alert(dataType);
+      dialog_AddData.open = false;      
   }
 }
 
-// Add Measurement widget
-const measurement = new Measurement();
-// Set-up event handlers for buttons and click events
-const distanceButton = document.getElementById('distance');
-const areaButton = document.getElementById('area');
-const clearButton = document.getElementById('clear');
+//// Add Measurement widget
+//const measurement = new Measurement();
+//// Set-up event handlers for buttons and click events
+//const distanceButton = document.getElementById('distance');
+//const areaButton = document.getElementById('area');
+//const clearButton = document.getElementById('clear');
 
-distanceButton.addEventListener("click", () => {
-    distanceMeasurement();
-});
-areaButton.addEventListener("click", () => {
-    areaMeasurement();
-});
-clearButton.addEventListener("click", () => {
-    clearMeasurements();
-});
+//distanceButton.addEventListener("click", () => {
+//    distanceMeasurement();
+//});
+//areaButton.addEventListener("click", () => {
+//    areaMeasurement();
+//});
+//clearButton.addEventListener("click", () => {
+//    clearMeasurements();
+//});
 
-// Call the loadView() function for the initial view
-loadView();
+//// Call the loadView() function for the initial view
+//loadView();
 
-// The loadView() function to define the view for the widgets and div
-function loadView() {    
-    // Add the appropriate measurement UI to the bottom-right when activated
-    view.ui.add(measurement, "bottom-left");
-    view.ui.add("toolbarDiv", "top-right");
+//// The loadView() function to define the view for the widgets and div
+//function loadView() {    
+//    // Add the appropriate measurement UI to the bottom-right when activated
+//    view.ui.add(measurement, "bottom-left");
+//    view.ui.add("toolbarDiv", "top-right");
 
     
-    // Set the views for the widgets
-    measurement.view = view;    
-}
-// Call the appropriate DistanceMeasurement2D or DirectLineMeasurement3D
-function distanceMeasurement() {
-    const type = view.type;
-    measurement.activeTool = type.toUpperCase() === "2D" ? "distance" : "direct-line";
-    distanceButton.classList.add("active");
-    areaButton.classList.remove("active");
-}
+//    // Set the views for the widgets
+//    measurement.view = view;    
+//}
+//// Call the appropriate DistanceMeasurement2D or DirectLineMeasurement3D
+//function distanceMeasurement() {
+//    const type = view.type;
+//    measurement.activeTool = type.toUpperCase() === "2D" ? "distance" : "direct-line";
+//    distanceButton.classList.add("active");
+//    areaButton.classList.remove("active");
+//}
 
-// Call the appropriate AreaMeasurement2D or AreaMeasurement3D
-function areaMeasurement() {
-    measurement.activeTool = "area";
-    distanceButton.classList.remove("active");
-    areaButton.classList.add("active");
-}
+//// Call the appropriate AreaMeasurement2D or AreaMeasurement3D
+//function areaMeasurement() {
+//    measurement.activeTool = "area";
+//    distanceButton.classList.remove("active");
+//    areaButton.classList.add("active");
+//}
 
-// Clears all measurements
-function clearMeasurements() {
-    distanceButton.classList.remove("active");
-    areaButton.classList.remove("active");
-    measurement.clear();
-}
+//// Clears all measurements
+//function clearMeasurements() {
+//    distanceButton.classList.remove("active");
+//    areaButton.classList.remove("active");
+//    measurement.clear();
+//}
 
 // End for test /////////////////////////////////////////////////////////////////////////////////////////////
 
