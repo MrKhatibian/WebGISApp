@@ -84,6 +84,7 @@ view.when(() => {
     };
     
     document.getElementById("actionBarRight").addEventListener("click", handleActionBarClick);
+    document.getElementById("actionBarLeft").addEventListener("click", handleActionBarClick);
 
     //// add padding for show Mapbtn when expanded click
        
