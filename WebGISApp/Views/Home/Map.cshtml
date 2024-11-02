@@ -8,7 +8,7 @@
 <script type="module" src="~/Scripts/Map/LoadMap.js"></script>
 
 <!-- #region viewMapDiv -->
-<calcite-shell content-behind>
+<calcite-shell content-behind calcite-hydrated>
     @*<calcite-loader></calcite-loader>*@
 
     <calcite-navigation slot="header">
@@ -17,7 +17,19 @@
         </calcite-navigation-logo>
     </calcite-navigation>
 
-    <calcite-shell-panel slot="panel-start" display-mode="float">
+    <calcite-shell-panel slot="panel-end" display-mode="float" position="end">
+        <calcite-action-bar slot="action-bar">
+            <calcite-action data-action-id="addlayer" icon="plus" text="Add Layer"></calcite-action>
+            <calcite-action data-action-id="layers" icon="layers" text="Layers"></calcite-action>
+            <calcite-action data-action-id="basemaps" icon="basemap" text="Basemaps"></calcite-action>
+            <calcite-action data-action-id="legend" icon="legend" text="Legend"></calcite-action>
+            <calcite-action data-action-id="bookmarks" icon="bookmark" text="Bookmarks"></calcite-action>
+            <calcite-action data-action-id="print" icon="print" text="Print"></calcite-action>
+            <calcite-action data-action-id="information" icon="information" text="Information"></calcite-action>
+        </calcite-action-bar>
+    </calcite-shell-panel>
+
+    <calcite-shell-panel slot="panel-start" display-mode="float" position="start">
         <calcite-action-bar slot="action-bar">
             <calcite-action data-action-id="addlayer" icon="plus" text="Add Layer"></calcite-action>
             <calcite-action data-action-id="layers" icon="layers" text="Layers"></calcite-action>

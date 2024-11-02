@@ -45,7 +45,9 @@ map.add(layer);
 const view = new MapView({
     container: "mapView", // Div element
     padding: {
-        left: 49
+        left: 40,
+        right:40
+
       },
     map: map,
     zoom: 14, // Zoom level
@@ -53,45 +55,48 @@ const view = new MapView({
 });
 
 view.when(() => {
-  //const { title, description, thumbnailUrl, avgRating } = map.portalItem;
-  //document.querySelector("#header-title").heading = title;
-  document.querySelector("#header-title").heading = "Hi Amard";
-  document.querySelector("#item-description").innerHTML = "New WebGIS For Amard Creat by Mr.Khatibian";
-  //document.querySelector("#item-thumbnail").src = thumbnailUrl;
-  //document.querySelector("#item-rating").value = avgRating;
+    //const { title, description, thumbnailUrl, avgRating } = map.portalItem;
+    //document.querySelector("#header-title").heading = title;
+    document.querySelector("#header-title").heading = "Hi Amard";
+    document.querySelector("#item-description").innerHTML = "New WebGIS For Amard Creat by Mr.Khatibian";
+    //document.querySelector("#item-thumbnail").src = thumbnailUrl;
+    //document.querySelector("#item-rating").value = avgRating;
 
-  let activeWidget;
+    let activeWidget;
 
-  const handleActionBarClick = ({ target }) => {
-    if (target.tagName !== "CALCITE-ACTION") {
-      return;
-    }
+    const handleActionBarClick = ({ target }) => {
+        if (target.tagName !== "CALCITE-ACTION") {
+            return;
+        }
 
-    if (activeWidget) {
-      document.querySelector(`[data-action-id=${activeWidget}]`).active = false;
-      document.querySelector(`[data-panel-id=${activeWidget}]`).hidden = true;
-    }
+        if (activeWidget) {
+            document.querySelector(`[data-action-id=${activeWidget}]`).active = false;
+            document.querySelector(`[data-panel-id=${activeWidget}]`).hidden = true;
+        }
 
-    const nextWidget = target.dataset.actionId;
-    if (nextWidget !== activeWidget) {
-      document.querySelector(`[data-action-id=${nextWidget}]`).active = true;
-      document.querySelector(`[data-panel-id=${nextWidget}]`).hidden = false;
-      activeWidget = nextWidget;
-    } else {
-      activeWidget = null;
-    }
-  };
-
-  document.querySelector("calcite-action-bar").addEventListener("click", handleActionBarClick);
-
-  let actionBarExpanded = false;
-
-  document.addEventListener("calciteActionBarToggle", event => {
-    actionBarExpanded = !actionBarExpanded;
-    view.padding = {
-      left: actionBarExpanded ? 150 : 49
+        const nextWidget = target.dataset.actionId;
+        if (nextWidget !== activeWidget) {
+            document.querySelector(`[data-action-id=${nextWidget}]`).active = true;
+            document.querySelector(`[data-panel-id=${nextWidget}]`).hidden = false;
+            activeWidget = nextWidget;
+        } else {
+            activeWidget = null;
+        }
     };
-  });
+
+    // add padding for show Mapbtn when expanded click
+    /*
+    document.querySelector("calcite-action-bar").addEventListener("click", handleActionBarClick);
+
+    let actionBarExpanded = false;
+
+    document.addEventListener("calciteActionBarToggle", event => {
+        actionBarExpanded = !actionBarExpanded;
+        view.padding = {
+            left: actionBarExpanded ? 150 : 40,
+            right: actionBarExpanded ? 150 : 40
+        };
+    });*/
 
 });
 
