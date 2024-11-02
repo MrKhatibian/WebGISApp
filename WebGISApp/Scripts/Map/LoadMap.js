@@ -46,7 +46,7 @@ const view = new MapView({
     container: "mapView", // Div element
     padding: {
         left: 40,
-        right: 40
+        right: 20
     },
     map: map,
     zoom: 14, // Zoom level
