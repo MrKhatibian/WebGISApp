@@ -269,7 +269,7 @@ view.ui.add(homeBtn, "top-right");
 // Add Draw button
 //view.ui.add("Home-button", "bottom-right");  
 //view.ui.add(["line-button", "Home-button"], "top-right");
-view.ui.add("line-button", "top-right"); 
+//view.ui.add("line-button", "top-right"); 
 
 // View Coordinate widget
 //view.ui.add(ccWidget, "bottom-left");
