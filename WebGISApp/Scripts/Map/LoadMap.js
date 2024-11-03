@@ -165,7 +165,7 @@ const sketch = new Sketch({
     layer: graphicsLayer,
     view: view,
     creationMode: "update",
-    visibleElements: { createTools: { polyline: true, polygon: true } }
+    visibleElements: { createTools: { point:false, rectangle:false, circle:false } }
 });
 sketch.visible = false;
 view.ui.add(sketch, "top-left");
@@ -179,6 +179,7 @@ function stopMeasurement() {
     sketch.visible = false;
     updateUI(false);
     clearGraphics();
+    sketch.cancel();
     //alert("stop");
 }
 function startMeasurement() {
