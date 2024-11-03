@@ -167,17 +167,34 @@ const sketch = new Sketch({
     visibleElements: { createTools: { polyline: true, polygon: true } }
 });
 sketch.visible = false;
-view.ui.add(sketch, "top-right");
+view.ui.add(sketch, "top-left");
 let isMeasuring = false;
 
-let switchMeasure = document.getElementById("switchMeasure");
-switchMeasure.checked = false;
-switchMeasure.addEventListener("click", () => {
-    if (!switchMeasure.checked) {
-        alert("Yes");
-    }    
-});
+//let switchMeasure = document.getElementById("switchMeasure");
+//switchMeasure.checked = false;
+//switchMeasure.addEventListener("click", () => {
+//    if (!switchMeasure.checked) {
+//        alert("Yes");
 
+//    }    
+//});
+document.getElementById("switchMeasure").onclick = () => {
+    isMeasuring ? stopMeasurement() : startMeasurement();
+};
+function stopMeasurement() {
+    isMeasuring = false;
+    sketch.visible = false;
+    //updateUI("Start Measurement", false);
+    //clearGraphics();
+    alert("stop");
+}
+function startMeasurement() {
+    isMeasuring = true;
+    sketch.visible = true;
+    //updateUI("Stop Measurement", true);
+    sketch.create("polyline");
+    alert("start");
+}
 //document.getElementById("toggle-measurement").onclick = () => {
 //    isMeasuring ? stopMeasurement() : startMeasurement();
 //};
