@@ -87,15 +87,20 @@ view.when(() => {
     actionBarRight.addEventListener("click", handleActionBarClick);
     actionBarLeft.addEventListener("click", handleActionBarClick);
 
-    // add padding for show Mapbtn when expanded click
-       
-    let actionBarExpanded = false;
-    let mapDiv = document.getElementById("mapView");
-    //mapDiv.style.padding = "0 37px 0 37px";
+    // add padding for show Mapbtn when expanded click       
+    let actionBarExpandedRight = false;
+    let mapDiv = document.getElementById("mapView");    
     actionBarRight.addEventListener("calciteActionBarToggle", event => {        
-        actionBarExpanded = !actionBarExpanded;
+        actionBarExpandedRight = !actionBarExpandedRight;
         //alert(mapDiv.style.padding);
-        mapDiv.style.padding = actionBarExpanded? "0 80px 0 37px" : "0 37px 0 37px";
+        mapDiv.style.padding = actionBarExpandedRight? "0 80px 0 37px" : "0 37px 0 37px";
+    });
+
+    // add padding for show Mapbtn when expanded click       
+    let actionBarExpandedLeft = false;    
+    actionBarLeft.addEventListener("calciteActionBarToggle", event => {
+        actionBarExpandedLeft = !actionBarExpandedLeft;        
+        mapDiv.style.padding = actionBarExpandedLeft ? "0 37px 0 91px" : "0 37px 0 37px";
     });
 
 });
@@ -166,14 +171,6 @@ sketch.visible = false;
 view.ui.add(sketch, "top-left");
 let isMeasuring = false;
 
-//let switchMeasure = document.getElementById("switchMeasure");
-//switchMeasure.checked = false;
-//switchMeasure.addEventListener("click", () => {
-//    if (!switchMeasure.checked) {
-//        alert("Yes");
-
-//    }    
-//});
 document.getElementById("switchMeasure").onclick = () => {
     isMeasuring ? stopMeasurement() : startMeasurement();
 };
@@ -200,8 +197,8 @@ sketch.on("create", event => {
         const geometry = event.graphic.geometry;
         const result = geometry.type === "polyline"
             ? geometryEngine.geodesicLength(geometry, "kilometers")
-            : geometryEngine.geodesicArea(geometry, "square-kilometers");
-        displayResult(result, geometry.type === "polyline" ? "km" : "sq km");
+            : geometryEngine.geodesicArea(geometry, "square-meters");
+        displayResult(result, geometry.type === "polyline" ? "km" : "sq m");
     }
 });
 function displayResult(value, unit) {
