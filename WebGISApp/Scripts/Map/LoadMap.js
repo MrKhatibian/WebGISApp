@@ -47,11 +47,7 @@ map.add(layer);
 
 // Creat and Set Map View
 const view = new MapView({
-    container: "mapView", // Div element
-    //padding: {
-    //    left: 40,
-    //    right: 20
-    //},
+    container: "mapView", // Div element    
     map: map,
     zoom: 14, // Zoom level
     center: [48.464869, 34.834155], // Longitude, latitude 48.464869  34.834155                        
@@ -86,21 +82,21 @@ view.when(() => {
             activeWidget = null;
         }
     };
-    
-    document.getElementById("actionBarRight").addEventListener("click", handleActionBarClick);
-    document.getElementById("actionBarLeft").addEventListener("click", handleActionBarClick);
+    let actionBarRight = document.getElementById("actionBarRight");
+    let actionBarLeft = document.getElementById("actionBarLeft");
+    actionBarRight.addEventListener("click", handleActionBarClick);
+    actionBarLeft.addEventListener("click", handleActionBarClick);
 
-    //// add padding for show Mapbtn when expanded click
+    // add padding for show Mapbtn when expanded click
        
-    //let actionBarExpanded = false;
-
-    //document.addEventListener("calciteActionBarToggle", event => {
-    //    actionBarExpanded = !actionBarExpanded;
-    //    view.padding = {
-    //        left: actionBarExpanded ? 150 : 40,
-    //        right: actionBarExpanded ? 150 : 40
-    //    };
-    //});
+    let actionBarExpanded = false;
+    let mapDiv = document.getElementById("mapView");
+    //mapDiv.style.padding = "0 37px 0 37px";
+    actionBarRight.addEventListener("calciteActionBarToggle", event => {        
+        actionBarExpanded = !actionBarExpanded;
+        //alert(mapDiv.style.padding);
+        mapDiv.style.padding = actionBarExpanded? "0 80px 0 37px" : "0 37px 0 37px";
+    });
 
 });
 
