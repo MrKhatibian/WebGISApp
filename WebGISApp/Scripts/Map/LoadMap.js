@@ -168,7 +168,19 @@ const sketch = new Sketch({
 });
 sketch.visible = false;
 view.ui.add(sketch, "top-right");
+let isMeasuring = false;
 
+let switchMeasure = document.getElementById("switchMeasure");
+switchMeasure.checked = false;
+switchMeasure.addEventListener("click", () => {
+    if (!switchMeasure.checked) {
+        alert("Yes");
+    }    
+});
+
+//document.getElementById("toggle-measurement").onclick = () => {
+//    isMeasuring ? stopMeasurement() : startMeasurement();
+//};
 
 //// Add Measurement widget
 //const measurement = new Measurement();

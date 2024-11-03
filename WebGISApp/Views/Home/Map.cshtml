@@ -23,7 +23,9 @@
         
         <!-- Map-specific panels (each one provides a div for a ArcGIS Maps SDK for JavaScript widget) -->
         <calcite-panel heading="Measure Tool" height-scale="l" data-panel-id="measureTool" hidden>
-            <div id="measureTool-container"></div>
+            <div id="measureTool-container" style="height:50px">
+                <calcite-switch id="switchMeasure" scale="l" label="turn on measure"></calcite-switch>
+            </div>
         </calcite-panel>
     </calcite-shell-panel>
 
