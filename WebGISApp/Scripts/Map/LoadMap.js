@@ -184,16 +184,36 @@ document.getElementById("switchMeasure").onclick = () => {
 function stopMeasurement() {
     isMeasuring = false;
     sketch.visible = false;
-    //updateUI("Start Measurement", false);
-    //clearGraphics();
-    alert("stop");
+    updateUI(false);
+    clearGraphics();
+    //alert("stop");
 }
 function startMeasurement() {
     isMeasuring = true;
     sketch.visible = true;
-    //updateUI("Stop Measurement", true);
+    updateUI(true);
     sketch.create("polyline");
-    alert("start");
+    //alert("start");
+}
+function clearGraphics() {
+    graphicsLayer.removeAll();
+    //displayResult(0, "");
+}
+sketch.on("create", event => {
+    if (event.state === "complete") {
+        const geometry = event.graphic.geometry;
+        const result = geometry.type === "polyline"
+            ? geometryEngine.geodesicLength(geometry, "kilometers")
+            : geometryEngine.geodesicArea(geometry, "square-kilometers");
+        displayResult(result, geometry.type === "polyline" ? "km" : "sq km");
+    }
+});
+function displayResult(value, unit) {
+    document.getElementById("result-value").textContent = `${value.toFixed(2)} ${unit}`;
+}
+function updateUI(showResult) {
+    //document.getElementById("toggle-measurement").textContent = buttonText;
+    document.getElementById("measurement-result").style.display = showResult ? "block" : "none";
 }
 //document.getElementById("toggle-measurement").onclick = () => {
 //    isMeasuring ? stopMeasurement() : startMeasurement();
