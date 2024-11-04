@@ -42,7 +42,7 @@
             </calcite-action-group>       
             <clacite-action-group layout="vertical" overlay-positioning="fixed" class="js-action-group" calcite-hydrated slot="actions-end">
                 <calcite-action data-action-id="information" icon="information" text="Information"></calcite-action>
-                <calcite-action data-action-id="55" icon="information" text="Information"></calcite-action>
+                <calcite-action data-action-id="mapProperties" icon="gear" text="Propertices"></calcite-action>
             </clacite-action-group>
         </calcite-action-bar>
 
@@ -63,7 +63,11 @@
         </calcite-panel>
         <calcite-panel heading="Print" height-scale="l" data-panel-id="print" hidden>
             <div id="print-container"></div>
+        </calcite-panel> 
+        <calcite-panel heading="Map Propertices" height-scale="l" data-panel-id="mapProperties" hidden>
+            <div id="mapProperties-container"></div>
         </calcite-panel>
+
 
         <!-- Info panel (populates with info from the web map) -->
         <calcite-panel heading="Details" data-panel-id="information" hidden>
