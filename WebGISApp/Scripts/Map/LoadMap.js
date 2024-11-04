@@ -293,7 +293,7 @@ view.ui.add(homeBtn, "top-right");
 view.ui.add(fullscreen, "top-right");
 //add maual btn FullScreen
 //view.ui.add("FullScreen-button","top-right");
-view.ui.add("identify","top-left");
+//view.ui.add("identify","top-left");
 
 // #endregion View ------------------------------------------------------------------------------------------
 
