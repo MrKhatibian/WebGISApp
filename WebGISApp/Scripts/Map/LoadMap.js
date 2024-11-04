@@ -47,7 +47,7 @@ map.add(layer);
 
 // Creat and Set Map View
 const view = new MapView({
-    container: "mapView", // Div element    
+    container: "mapView", // Div element     
     map: map,
     zoom: 14, // Zoom level
     center: [48.464869, 34.834155], // Longitude, latitude 48.464869  34.834155                        
@@ -117,7 +117,7 @@ btn_CancelAddData.addEventListener("click",function(){
 });
 
 //document.querySelector("calcite-shell").hidden = false;
-  
+
 // #region manual Home extent
 /*
 //Define the initial or home extent (center and zoom level)
@@ -144,6 +144,8 @@ homeButton.addEventListener("click", function() {
 
 
 // Add for test /////////////////////////////////////////////////////////////////////////////////////////////
+
+// #region Add layer ----------------------------------------------------------------------------------------
 const btnAdd_AddData = document.getElementById("btnAdd_AddData");
 const input_AddData = document.getElementById("input_AddData").value;
 const combo_AddData = document.getElementById("combo_AddData").value;
@@ -157,9 +159,11 @@ function addData(dataPath, dataType){
       dialog_AddData.open = false;      
   }
 }
+// #endregion -----------------------------------------------------------------------------------------------
 
+
+// #region Measurment tool ----------------------------------------------------------------------------------
 const graphicsLayer = new GraphicsLayer();
-//map.add(graphicsLayer);
 
 const sketch = new Sketch({
     layer: graphicsLayer,
@@ -212,61 +216,9 @@ function updateUI(showResult) {
     //document.getElementById("toggle-measurement").textContent = buttonText;
     document.getElementById("measurement-result").style.display = showResult ? "block" : "none";
 }
-//document.getElementById("toggle-measurement").onclick = () => {
-//    isMeasuring ? stopMeasurement() : startMeasurement();
-//};
+// #endregion -----------------------------------------------------------------------------------------------
 
-//// Add Measurement widget
-//const measurement = new Measurement();
-//// Set-up event handlers for buttons and click events
-//const distanceButton = document.getElementById('distance');
-//const areaButton = document.getElementById('area');
-//const clearButton = document.getElementById('clear');
 
-//distanceButton.addEventListener("click", () => {
-//    distanceMeasurement();
-//});
-//areaButton.addEventListener("click", () => {
-//    areaMeasurement();
-//});
-//clearButton.addEventListener("click", () => {
-//    clearMeasurements();
-//});
-
-//// Call the loadView() function for the initial view
-//loadView();
-
-//// The loadView() function to define the view for the widgets and div
-//function loadView() {    
-//    // Add the appropriate measurement UI to the bottom-right when activated
-//    view.ui.add(measurement, "bottom-left");
-//    view.ui.add("toolbarDiv", "top-right");
-
-    
-//    // Set the views for the widgets
-//    measurement.view = view;    
-//}
-//// Call the appropriate DistanceMeasurement2D or DirectLineMeasurement3D
-//function distanceMeasurement() {
-//    const type = view.type;
-//    measurement.activeTool = type.toUpperCase() === "2D" ? "distance" : "direct-line";
-//    distanceButton.classList.add("active");
-//    areaButton.classList.remove("active");
-//}
-
-//// Call the appropriate AreaMeasurement2D or AreaMeasurement3D
-//function areaMeasurement() {
-//    measurement.activeTool = "area";
-//    distanceButton.classList.remove("active");
-//    areaButton.classList.add("active");
-//}
-
-//// Clears all measurements
-//function clearMeasurements() {
-//    distanceButton.classList.remove("active");
-//    areaButton.classList.remove("active");
-//    measurement.clear();
-//}
 
 // End for test /////////////////////////////////////////////////////////////////////////////////////////////
 

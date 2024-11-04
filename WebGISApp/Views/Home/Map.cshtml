@@ -30,14 +30,16 @@
         </calcite-panel>
     </calcite-shell-panel>
 
-    <calcite-shell-panel slot="panel-start" display-mode="float" position="start">
+    <calcite-shell-panel slot="panel-start" display-mode="float" position="start">        
         <calcite-action-bar slot="action-bar" id="actionBarLeft">
-            <calcite-action data-action-id="layers" icon="layers" text="Layers"></calcite-action>
-            <calcite-action data-action-id="basemaps" icon="basemap" text="Basemaps"></calcite-action>
-            <calcite-action data-action-id="legend" icon="legend" text="Legend"></calcite-action>
-            <calcite-action data-action-id="bookmarks" icon="bookmark" text="Bookmarks"></calcite-action>
-            <calcite-action data-action-id="print" icon="print" text="Print"></calcite-action>
-            <calcite-action data-action-id="information" icon="information" text="Information"></calcite-action>
+            <calcite-action-group>
+                <calcite-action data-action-id="layers" icon="layers" text="Layers"></calcite-action>
+                <calcite-action data-action-id="basemaps" icon="basemap" text="Basemaps"></calcite-action>
+                <calcite-action data-action-id="legend" icon="legend" text="Legend"></calcite-action>
+                <calcite-action data-action-id="bookmarks" icon="bookmark" text="Bookmarks"></calcite-action>
+                <calcite-action data-action-id="print" icon="print" text="Print"></calcite-action>
+                <calcite-action data-action-id="information" icon="information" text="Information"></calcite-action>
+            </calcite-action-group>            
         </calcite-action-bar>
 
         <!-- Map-specific panels (each one provides a div for a ArcGIS Maps SDK for JavaScript widget) -->
@@ -76,32 +78,24 @@
         </calcite-panel>
     </calcite-shell-panel>
 
+    <!--#region Extera buttons-->
+    @*<div id="FullScreen-button" class="esri-widget esri-widget--button esri-interactive" title="Full Screen">
+            <span class="esri-icon-zoom-out-fixed"></span>
+        </div>
 
-    @*<div id="line-button" class="esri-widget esri-widget--button  esri-interactive" title="Draw polyline">
+        <div id="line-button" class="esri-widget esri-widget--button  esri-interactive" title="Draw polyline">
             <span class="esri-icon-polyline"></span>
-        </div>*@
-    <div id="identify" class="esri-widget esri-widget--button  esri-interactive" title="Draw polyline">
-        <span class="esri-icon-polyline"></span>
-    </div>
-    @*
+        </div>
+        <div id="identify" class="esri-widget esri-widget--button  esri-interactive" title="Draw polyline">
+            <span class="esri-icon-polyline"></span>
+        </div>
+
         <div id="Home-button" class="esri-widget esri-widget--button esri-home" title="Default map view">
             <span class="esri-icon-home"></span>
-        </div>
-        <div id="FullScreen-button" class="esri-widget esri-widget--button esri-interactive" title="Full Screen">
-            <span class="esri-icon-zoom-out-fixed"></span>
         </div>*@
+    <!--#endregion-->
+
     <div id="mapView" style="padding:0 37px 0 37px"></div>
-
-    <!--Add meature test-->
-    <!--<div id="toolbarDiv" class="esri-component esri-widget">
-        <button id="distance" class="esri-widget--button esri-interactive esri-icon-measure-line" title="Distance Measurement Tool">
-        </button>
-        <button id="area" class="esri-widget--button esri-interactive esri-icon-measure-area" title="Area Measurement Tool">
-        </button>
-        <button id="clear" class="esri-widget--button esri-interactive esri-icon-trash" title="Clear Measurements">
-        </button>
-    </div>-->
-
 
     <!-- Add Modal-->
     <calcite-dialog heading="Add layer" id="dialog_AddData" scale="m" widthScale="m" slot="modals">
