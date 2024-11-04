@@ -159,13 +159,14 @@ function addData(dataPath, dataType){
 }
 
 const graphicsLayer = new GraphicsLayer();
-map.add(graphicsLayer);
+//map.add(graphicsLayer);
 
 const sketch = new Sketch({
     layer: graphicsLayer,
     view: view,
-    creationMode: "update",
-    visibleElements: { createTools: { point:false, rectangle:false, circle:false } }
+    creationMode: "single",
+    visibleElements: {
+        createTools: { point: false, rectangle: false, circle: false },selectionTools: {"lasso-selection": false},settingsMenu: true}
 });
 sketch.visible = false;
 view.ui.add(sketch, "top-left");
@@ -180,12 +181,14 @@ function stopMeasurement() {
     updateUI(false);
     clearGraphics();
     sketch.cancel();
+    map.remove(graphicsLayer);
     //alert("stop");
 }
 function startMeasurement() {
     isMeasuring = true;
     sketch.visible = true;
-    updateUI(true);
+    map.add(graphicsLayer);
+    updateUI(true);    
     sketch.create("polyline");
     //alert("start");
 }
@@ -193,7 +196,7 @@ function clearGraphics() {
     graphicsLayer.removeAll();
     //displayResult(0, "");
 }
-sketch.on("create", event => {
+sketch.on("create", event => {    
     if (event.state === "complete") {
         const geometry = event.graphic.geometry;
         const result = geometry.type === "polyline"
