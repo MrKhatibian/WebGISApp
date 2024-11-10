@@ -276,7 +276,20 @@ const layerList = new LayerList({
         ]];
     }
 });
+// Handle LayerList action events
+layerList.on("trigger-action", (event) => {
+    const layer = event.item.layer;
 
+    if (event.action.id === "zoom-to-layer") {
+        // Zoom to the layer's full extent
+        layer.queryExtent().then((response) => {
+            view.goTo(response.extent);
+        });
+    } else if (event.action.id === "remove-layer") {
+        // Remove the layer from the map
+        map.remove(layer);
+    }
+});
 
 //Add Legend
 const legend = new Legend({
