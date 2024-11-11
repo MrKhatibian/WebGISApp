@@ -272,19 +272,26 @@ const layerList = new LayerList({
                 title: "Zoom to Layer",
                 className: "esri-icon-zoom-out-fixed",
                 id: "zoom-to-layer"
+            },
+            {
+                title: "Remove Layer",
+                className: "esri-icon-close",
+                id: "remove-layer"
             }
         ]];
     }
 });
+
 // Handle LayerList action events
 layerList.on("trigger-action", (event) => {
     const layer = event.item.layer;
 
     if (event.action.id === "zoom-to-layer") {
         // Zoom to the layer's full extent
-        layer.queryExtent().then((response) => {
-            view.goTo(response.extent);
-        });
+        //layer.queryExtent().then((response) => {
+        //    view.goTo(response.extent);
+        //});
+        alert(layer.name);
     } else if (event.action.id === "remove-layer") {
         // Remove the layer from the map
         map.remove(layer);
