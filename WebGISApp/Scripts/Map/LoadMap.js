@@ -295,12 +295,20 @@ layerList.on("trigger-action", (event) => {
 
     if (event.action.id === "zoom-to-layer") {        
         selectedLayer.when(() => {
-            view.goTo(selectedLayer.fullExtent);
+            view.goTo(selectedLayer.fullExtent).catch((error) => {
+                if (error.name != "AbortError") {
+                    console.error(error);
+                }
+            });
         });
         //alert(event.item.layer);
     } else if (event.action.id === "remove-layer") {
         // Remove the layer from the map
-        map.remove(selectedLayer);
+        map.remove(selectedLayer).catch ((error) => {
+            if (error.name != "AbortError") {
+                console.error(error);
+            }
+        });
     }
 });
 
