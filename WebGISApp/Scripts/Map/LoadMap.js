@@ -264,12 +264,7 @@ const layerList = new LayerList({
         const { item } = event;
         if (item.layer.type === "map-image") {
             // Add custom actions: Toggle Table and Zoom to Layer
-            item.actionsSections = [[
-                {
-                    title: "Toggle Table",
-                    className: "esri-icon-table",
-                    id: "toggle-table"
-                },
+            item.actionsSections = [[                
                 {
                     title: "Zoom to Layer",
                     className: "esri-icon-zoom-out-fixed",
@@ -281,7 +276,15 @@ const layerList = new LayerList({
                     id: "remove-layer"
                 }
             ]];
-        }        
+        } else if (item.layer.type === "sublayer") {
+            item.actionsSections = [[
+                {
+                    title: "Toggle Table",
+                    className: "esri-icon-table",
+                    id: "toggle-table"
+                }
+            ]];
+        }     
     }
 });
 // add Layerlist filter 
