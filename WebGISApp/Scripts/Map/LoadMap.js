@@ -262,8 +262,9 @@ const layerList = new LayerList({
     container: "layers-container",
     listItemCreatedFunction: (event) => {
         const { item } = event;
-        // Add custom actions: Toggle Table and Zoom to Layer
-        item.actionsSections = [
+        if (item.layer.type === "map-image") {
+            // Add custom actions: Toggle Table and Zoom to Layer
+            item.actionsSections = [[
                 {
                     title: "Toggle Table",
                     className: "esri-icon-table",
@@ -279,7 +280,8 @@ const layerList = new LayerList({
                     className: "esri-icon-close",
                     id: "remove-layer"
                 }
-            ];
+            ]];
+        }        
     }
 });
 // add Layerlist filter 
