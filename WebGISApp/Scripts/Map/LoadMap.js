@@ -334,6 +334,12 @@ function toggleFeatureTable() {
         flag = false;       
         mapDiv1.style.height = "50%";
         attributeTable.style.height = "50%";
+        //Create the FeatureTable widget
+        const featureTable = new FeatureTable({
+            view: view,
+            layer: featureLayer,
+            container: attributeTable // Temporary container for now
+        });
     } else {
         flag = true;
         mapDiv1.style.height = "100%";
@@ -354,12 +360,7 @@ function toggleFeatureTable() {
     //}
     //overlayContainer.style.display = overlayContainer.style.display === "none" ? "block" : "none";
 }
-// Create the FeatureTable widget
-//const featureTable = new FeatureTable({
-//    view: view,
-//    layer: featureLayer,
-//    container: document.createElement("div") // Temporary container for now
-//});
+ 
 
 //Add Legend
 const legend = new Legend({
