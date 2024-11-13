@@ -30,7 +30,7 @@
         </calcite-panel>
     </calcite-shell-panel>
 
-    <calcite-shell-panel slot="panel-start" display-mode="float" position="start">        
+    <calcite-shell-panel slot="panel-start" display-mode="float" position="start">
         <calcite-action-bar slot="action-bar" id="actionBarLeft">
             <calcite-action-group>
                 <calcite-action data-action-id="layers" icon="layers" text="Layers"></calcite-action>
@@ -38,8 +38,8 @@
                 <calcite-action data-action-id="legend" icon="legend" text="Legend"></calcite-action>
                 <calcite-action data-action-id="bookmarks" icon="bookmark" text="Bookmarks"></calcite-action>
                 <calcite-action data-action-id="print" icon="print" text="Print"></calcite-action>
-                
-            </calcite-action-group>       
+
+            </calcite-action-group>
             <clacite-action-group layout="vertical" overlay-positioning="fixed" class="js-action-group" calcite-hydrated slot="actions-end">
                 <calcite-action data-action-id="information" icon="information" text="Information"></calcite-action>
                 <calcite-action data-action-id="mapProperties" icon="gear" text="Propertices"></calcite-action>
@@ -63,7 +63,7 @@
         </calcite-panel>
         <calcite-panel heading="Print" height-scale="l" data-panel-id="print" hidden>
             <div id="print-container"></div>
-        </calcite-panel> 
+        </calcite-panel>
         <calcite-panel heading="Map Propertices" height-scale="l" data-panel-id="mapProperties" hidden>
             <div id="mapProperties-container"></div>
         </calcite-panel>
@@ -103,7 +103,8 @@
         </div>*@
     <!--#endregion-->
 
-    <div id="mapView" style="padding:0 37px 0 37px"></div>
+    <div id="mapView" style="padding:0 37px 0 37px" class="mapView"></div>
+    <div class="overlay-container" id="attributeTable"></div>
 
     <!-- Add Modal-->
     <calcite-dialog heading="Add layer" id="dialog_AddData" scale="m" widthScale="m" slot="modals">

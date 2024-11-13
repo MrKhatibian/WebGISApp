@@ -22,7 +22,7 @@ import GraphicsLayer from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@a
 import * as geometryEngine from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/geometry/geometryEngine.js";
 import Sketch from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/Sketch.js";
 import ScaleBar from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/ScaleBar.js";
-import Collection from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/core/Collection.js";
+import FeatureTable from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/FeatureTable.js";
 
 
 
@@ -46,6 +46,13 @@ map.add(layer);
 
 // Adding Feature Layer
 //const featureLayer = new FeatureLayer("http://localhost:6080/arcgis/rest/services/SampleWorldCities/MapServer/1");
+//map.add(featureLayer);
+// FeatureLayer for Roads
+const featureLayer = new FeatureLayer({
+    url: "http://localhost:6080/arcgis/rest/services/Maryanaj/Maryanaj_14030619/MapServer/0",
+    outFields: ["*"],
+    title: "Arse"
+});
 //map.add(featureLayer);
 
 // Creat and Set Map View
@@ -312,8 +319,47 @@ layerList.on("trigger-action", (event) => {
                 console.error(error);
             }
         });
+    } else if (event.action.id === "toggle-table") {        
+        toggleFeatureTable();
     }
 });
+let mapDiv1 = document.getElementById("mapView");
+let attributeTable = document.getElementById("attributeTable");
+let flag = true;
+// Toggle FeatureTable overlay visibility
+function toggleFeatureTable() {    
+    //let mapDiv = document.getElementById("mapView");
+    //mapDiv1.style.height = "50%";
+    if (flag) {
+        flag = false;       
+        mapDiv1.style.height = "50%";
+        attributeTable.style.height = "50%";
+    } else {
+        flag = true;
+        mapDiv1.style.height = "100%";
+        attributeTable.style.height = "0%";
+    }
+    
+    //const overlayContainer = document.getElementById("mapView");
+    //alert(.toString());
+    //const mapView = document.querySelector("mapView");
+    //if (overlayContainer.style.display === "none") {
+    //    overlayContainer.style.display == "block";
+    //    //mapView.style.height == "50%";
+    //    alert("none");
+    //} else {
+    //    overlayContainer.style.display == "none";
+    //    //mapView.style.height == "100%";
+    //    alert("block");
+    //}
+    //overlayContainer.style.display = overlayContainer.style.display === "none" ? "block" : "none";
+}
+// Create the FeatureTable widget
+//const featureTable = new FeatureTable({
+//    view: view,
+//    layer: featureLayer,
+//    container: document.createElement("div") // Temporary container for now
+//});
 
 //Add Legend
 const legend = new Legend({
