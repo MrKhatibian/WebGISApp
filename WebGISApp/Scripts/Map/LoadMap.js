@@ -103,7 +103,7 @@ view.when(() => {
     actionBarRight.addEventListener("calciteActionBarToggle", event => {        
         actionBarExpandedRight = !actionBarExpandedRight;
         //alert(mapDiv.style.padding);
-        mapDiv.style.padding = actionBarExpandedRight? "0 80px 0 37px" : "0 37px 0 37px";
+        mapDiv.style.padding = actionBarExpandedRight ? "0 80px 0 37px" : "0 37px 0 37px";        
     });
 
     // add padding for show Mapbtn when expanded click       
@@ -301,8 +301,7 @@ layerList.minFilterItems = 5;
 
 // Handle LayerList action events
 layerList.on("trigger-action", (event) => {
-    const selectedLayer = event.item.layer;
-
+    const selectedLayer = event.item.layer;    
     if (event.action.id === "zoom-to-layer") {        
         selectedLayer.when(() => {
             view.goTo(selectedLayer.fullExtent).catch((error) => {
@@ -320,7 +319,7 @@ layerList.on("trigger-action", (event) => {
             }
         });
     } else if (event.action.id === "toggle-table") {        
-        toggleFeatureTable();
+        toggleFeatureTable(event.item.layer.url);
     }
 });
 let mapDiv1 = document.getElementById("mapView");
@@ -331,14 +330,30 @@ const featureTable = new FeatureTable({
     layer: featureLayer,
     container: attributeTable // Temporary container for now
 });
+// Optional: Customize FeatureTable fields
+featureTable.visibleElements = {
+    header: true,
+    menu: true,
+    menuItems: {
+        clearSelection: true,
+        zoomToSelection: true
+    }
+};
+
 // Toggle FeatureTable overlay visibility
-function toggleFeatureTable() {    
+function toggleFeatureTable(featureUrl) {    
     //let mapDiv = document.getElementById("mapView");
     //mapDiv1.style.height = "50%";
+    const featureLayer = new FeatureLayer({
+        url: featureUrl,
+        outFields: ["*"],
+        title: "Arse"
+    });;
     if (flag) {
-        flag = false;       
+        flag = false;        
+        featureTable.layer = featureLayer;        
         mapDiv1.style.height = "50%";
-        attributeTable.style.height = "50%";
+        attributeTable.style.height = "50%";        
         //Create the FeatureTable widget
         
     } else {
