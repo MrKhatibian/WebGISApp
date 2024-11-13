@@ -326,6 +326,11 @@ layerList.on("trigger-action", (event) => {
 let mapDiv1 = document.getElementById("mapView");
 let attributeTable = document.getElementById("attributeTable");
 let flag = true;
+const featureTable = new FeatureTable({
+    view: view,
+    layer: featureLayer,
+    container: attributeTable // Temporary container for now
+});
 // Toggle FeatureTable overlay visibility
 function toggleFeatureTable() {    
     //let mapDiv = document.getElementById("mapView");
@@ -335,11 +340,7 @@ function toggleFeatureTable() {
         mapDiv1.style.height = "50%";
         attributeTable.style.height = "50%";
         //Create the FeatureTable widget
-        const featureTable = new FeatureTable({
-            view: view,
-            layer: featureLayer,
-            container: attributeTable // Temporary container for now
-        });
+        
     } else {
         flag = true;
         mapDiv1.style.height = "100%";

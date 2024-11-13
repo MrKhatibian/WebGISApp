@@ -102,46 +102,46 @@
             <span class="esri-icon-home"></span>
         </div>*@
     <!--#endregion-->
+    <div id="mainView" style="padding: 0 37px 0 37px; height: 100%; width: 100%">
+        <div id="mapView" class="mapView"></div>
+        <div class="overlay-container" id="attributeTable"></div>
+        <!-- Add Modal-->
+        <calcite-dialog heading="Add layer" id="dialog_AddData" scale="m" widthScale="m" slot="modals">
+            <div style="padding-bottom:80px">
+                <calcite-label>
+                    <span class="lable">URL Or Path</span>
+                    <calcite-input id="input_AddData" value="http://localhost:6080/arcgis/rest/services/KhoramAbad/KhoramAbad14030712/MapServer" placeholder="Example: http://"></calcite-input>
+                </calcite-label>
+                <calcite-label>
+                    <span class="lable">Data Type</span>
+                </calcite-label>
+                <calcite-combobox selection-mode="single" id="combo_AddData">
+                    <calcite-combobox-item value="ArcGIS Server web service" text-label="ArcGIS Server web service" selected></calcite-combobox-item>
+                    <calcite-combobox-item value="Shapefile" text-label="Shapefile"></calcite-combobox-item>
+                    <calcite-combobox-item value="GeoJSON" text-label="GeoJSON"></calcite-combobox-item>
+                    <calcite-combobox-item value="KML (OGC)" text-label="KML (OGC)"></calcite-combobox-item>
+                    <calcite-combobox-item value="OGC feature layer" text-label="OGC feature layer"></calcite-combobox-item>
+                    <calcite-combobox-item value="WFS (OGC)" text-label="WFS (OGC)"></calcite-combobox-item>
+                    <calcite-combobox-item value="WMS (OGC)" text-label="WMS (OGC)"></calcite-combobox-item>
+                    <calcite-combobox-item value="WMTS (OGC)" text-label="WMTS (OGC)"></calcite-combobox-item>
+                    <calcite-combobox-item value="GeoRSS" text-label="GeoRSS"></calcite-combobox-item>
+                    <calcite-combobox-item value="CSV" text-label="CSV"></calcite-combobox-item>
+                    <calcite-combobox-item value="Tile layer" text-label="Tile layer"></calcite-combobox-item>
+                </calcite-combobox>
 
-    <div id="mapView" style="padding:0 37px 0 37px" class="mapView"></div>
-    <div class="overlay-container" id="attributeTable"></div>
-
-    <!-- Add Modal-->
-    <calcite-dialog heading="Add layer" id="dialog_AddData" scale="m" widthScale="m" slot="modals">
-        <div style="padding-bottom:80px">
-            <calcite-label>
-                <span class="lable">URL Or Path</span>
-                <calcite-input id="input_AddData" value="http://localhost:6080/arcgis/rest/services/KhoramAbad/KhoramAbad14030712/MapServer" placeholder="Example: http://"></calcite-input>
-            </calcite-label>
-            <calcite-label>
-                <span class="lable">Data Type</span>
-            </calcite-label>
-            <calcite-combobox selection-mode="single" id="combo_AddData">
-                <calcite-combobox-item value="ArcGIS Server web service" text-label="ArcGIS Server web service" selected></calcite-combobox-item>
-                <calcite-combobox-item value="Shapefile" text-label="Shapefile"></calcite-combobox-item>
-                <calcite-combobox-item value="GeoJSON" text-label="GeoJSON"></calcite-combobox-item>
-                <calcite-combobox-item value="KML (OGC)" text-label="KML (OGC)"></calcite-combobox-item>
-                <calcite-combobox-item value="OGC feature layer" text-label="OGC feature layer"></calcite-combobox-item>
-                <calcite-combobox-item value="WFS (OGC)" text-label="WFS (OGC)"></calcite-combobox-item>
-                <calcite-combobox-item value="WMS (OGC)" text-label="WMS (OGC)"></calcite-combobox-item>
-                <calcite-combobox-item value="WMTS (OGC)" text-label="WMTS (OGC)"></calcite-combobox-item>
-                <calcite-combobox-item value="GeoRSS" text-label="GeoRSS"></calcite-combobox-item>
-                <calcite-combobox-item value="CSV" text-label="CSV"></calcite-combobox-item>
-                <calcite-combobox-item value="Tile layer" text-label="Tile layer"></calcite-combobox-item>
-            </calcite-combobox>
-
-        </div>
-        <calcite-notice open icon width="full">
-            <div slot="message"><span>Supported layer types are CSV, GeoJSON, OGC WFS web service, OGC WMS web service, OGC WMTS web service, OGC API - Features, ArcGIS Server web service, KML, GeoRSS, tile layer</span></div>
-        </calcite-notice>
-        <calcite-button slot="footer-start" kind="neutral">Back</calcite-button>
-        <calcite-button slot="footer-end" appearance="outline" id="btn_CancelAddData">Cancel</calcite-button>
-        <calcite-button slot="footer-end" id="btnAdd_AddData">Add</calcite-button>
-    </calcite-dialog>
-    <calcite-card id="measurement-result" appearance="solid" theme="dark" scale="l">
-        <div slot="title">Measurement Result</div>
-        <div slot="subtitle"><span id="result-value">0</span></div>
-    </calcite-card>
+            </div>
+            <calcite-notice open icon width="full">
+                <div slot="message"><span>Supported layer types are CSV, GeoJSON, OGC WFS web service, OGC WMS web service, OGC WMTS web service, OGC API - Features, ArcGIS Server web service, KML, GeoRSS, tile layer</span></div>
+            </calcite-notice>
+            <calcite-button slot="footer-start" kind="neutral">Back</calcite-button>
+            <calcite-button slot="footer-end" appearance="outline" id="btn_CancelAddData">Cancel</calcite-button>
+            <calcite-button slot="footer-end" id="btnAdd_AddData">Add</calcite-button>
+        </calcite-dialog>
+        <calcite-card id="measurement-result" appearance="solid" theme="dark" scale="l">
+            <div slot="title">Measurement Result</div>
+            <div slot="subtitle"><span id="result-value">0</span></div>
+        </calcite-card>
+    </div>
 </calcite-shell>
 <!-- #endregion -->
 
