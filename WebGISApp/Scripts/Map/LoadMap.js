@@ -301,7 +301,7 @@ layerList.minFilterItems = 5;
 
 // Handle LayerList action events
 layerList.on("trigger-action", (event) => {
-    const selectedLayer = event.item.layer;    
+    const selectedLayer = event.item.layer;        
     if (event.action.id === "zoom-to-layer") {        
         selectedLayer.when(() => {
             view.goTo(selectedLayer.fullExtent).catch((error) => {
@@ -309,8 +309,7 @@ layerList.on("trigger-action", (event) => {
                     console.error(error);
                 }
             });
-        });
-        //alert(event.item.layer);
+        });        
     } else if (event.action.id === "remove-layer") {
         // Remove the layer from the map
         map.remove(selectedLayer).catch ((error) => {
@@ -318,8 +317,8 @@ layerList.on("trigger-action", (event) => {
                 console.error(error);
             }
         });
-    } else if (event.action.id === "toggle-table") {        
-        toggleFeatureTable(event.item.layer.url);
+    } else if (event.action.id === "toggle-table") {
+        toggleFeatureTable(selectedLayer.url, selectedLayer.title);
     }
 });
 let mapDiv1 = document.getElementById("mapView");
@@ -327,7 +326,7 @@ let attributeTable = document.getElementById("attributeTable");
 let flag = true;
 const featureTable = new FeatureTable({
     view: view,
-    layer: featureLayer,
+    //layer: featureLayer,
     container: attributeTable // Temporary container for now
 });
 // Optional: Customize FeatureTable fields
@@ -341,21 +340,17 @@ featureTable.visibleElements = {
 };
 
 // Toggle FeatureTable overlay visibility
-function toggleFeatureTable(featureUrl) {    
-    //let mapDiv = document.getElementById("mapView");
-    //mapDiv1.style.height = "50%";
+function toggleFeatureTable(urlLayer, titleLayer) {        
     const featureLayer = new FeatureLayer({
-        url: featureUrl,
+        url: urlLayer,
         outFields: ["*"],
-        title: "Arse"
-    });;
+        title: titleLayer
+    });
     if (flag) {
         flag = false;        
         featureTable.layer = featureLayer;        
         mapDiv1.style.height = "50%";
-        attributeTable.style.height = "50%";        
-        //Create the FeatureTable widget
-        
+        attributeTable.style.height = "50%";                        
     } else {
         flag = true;
         mapDiv1.style.height = "100%";
