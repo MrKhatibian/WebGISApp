@@ -21,8 +21,8 @@
         </calcite-menu>
     </calcite-navigation>
 
-    <calcite-shell-panel slot="panel-end" position="end" display-mode="float">
-        <calcite-action-bar slot="action-bar" id="actionBarRight">
+    <calcite-shell-panel slot="panel-start" position="start" display-mode="float">
+        <calcite-action-bar slot="action-bar" id="actionBarLeft">
             <calcite-action data-action-id="measureTool" icon="measure" text="Measure"></calcite-action>
         </calcite-action-bar>
 
@@ -35,8 +35,9 @@
         </calcite-panel>
     </calcite-shell-panel>
     <!-- Left Panel -->
-    <calcite-shell-panel slot="panel-start" display-mode="float" position="start">
-        <calcite-action-bar slot="action-bar" id="actionBarLeft">
+    <calcite-shell-panel slot="panel-end" display-mode="float" position="end">
+        @*<calcite-action-bar slot="action-bar" id="actionBarLeft">*@
+        <calcite-action-bar slot="action-bar" id="actionBarRight">
             <calcite-action-group>
                 <calcite-action data-action-id="layers" icon="layers" text="لایه‌ها"></calcite-action>
                 <calcite-action data-action-id="basemaps" icon="basemap" text="نقشه‌های پایه"></calcite-action>
