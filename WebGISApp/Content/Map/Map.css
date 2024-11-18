@@ -24,6 +24,10 @@ calcite-action-bar {
     direction: rtl;
     text-align: right;
 }
+calcite-panel {
+    direction: rtl;
+    text-align: right;
+}
 #info-content {
     padding: 0.75rem;
 }
