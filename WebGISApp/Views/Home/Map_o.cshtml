@@ -1,0 +1,159 @@
+﻿
+@{
+    ViewBag.Title = "ArcGIS WMS Layer with Zoom";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- #region viewMapDiv -->
+<calcite-shell content-behind>
+    @*<calcite-loader></calcite-loader>*@
+
+    <calcite-navigation slot="header">
+        <calcite-navigation-logo id="header-title" heading-level="1" slot="logo">
+            <!-- Dynamically populated -->
+        </calcite-navigation-logo>
+        <calcite-menu slot="content-end" label="Snow Plow Map Menu">
+            <calcite-menu-item text="Drivers" icon-start="license" text-enabled></calcite-menu-item>
+            <calcite-menu-item text="Map" icon-start="road-sign" text-enabled active></calcite-menu-item>
+            <calcite-menu-item text="Forecast" icon-start="snow" text-enabled></calcite-menu-item>
+        </calcite-menu>
+    </calcite-navigation>
+    <calcite-shell-panel slot="panel-end" position="end" display-mode="float">
+        <calcite-action-bar slot="action-bar" id="actionBarRight">
+            <calcite-action data-action-id="measureTool" icon="measure" text="Measure"></calcite-action>
+        </calcite-action-bar>
+
+        <!-- Map-specific panels (each one provides a div for a ArcGIS Maps SDK for JavaScript widget) -->
+        <calcite-panel heading="Measure Tool" height-scale="l" data-panel-id="measureTool" hidden>
+            <div id="measureTool-container" style="height:50px">
+                <calcite-switch id="switchMeasure" scale="l" label="turn on measure"></calcite-switch>
+
+            </div>
+        </calcite-panel>
+    </calcite-shell-panel>
+
+    <calcite-shell-panel slot="panel-start" display-mode="float" position="start">
+        <calcite-action-bar slot="action-bar" id="actionBarLeft">
+            <calcite-action-group>
+                <calcite-action data-action-id="layers" icon="layers" text="Layers"></calcite-action>
+                <calcite-action data-action-id="basemaps" icon="basemap" text="Basemaps"></calcite-action>
+                <calcite-action data-action-id="legend" icon="legend" text="Legend"></calcite-action>
+                <calcite-action data-action-id="bookmarks" icon="bookmark" text="Bookmarks"></calcite-action>
+                <calcite-action data-action-id="print" icon="print" text="Print"></calcite-action>
+
+            </calcite-action-group>
+            <clacite-action-group layout="vertical" overlay-positioning="fixed" class="js-action-group" calcite-hydrated slot="actions-end">
+                <calcite-action data-action-id="information" icon="information" text="Information"></calcite-action>
+                <calcite-action data-action-id="mapProperties" icon="gear" text="Propertices"></calcite-action>
+            </clacite-action-group>
+        </calcite-action-bar>
+
+        <!-- Map-specific panels (each one provides a div for a ArcGIS Maps SDK for JavaScript widget) -->
+        <calcite-panel heading="Layers" height-scale="l" data-panel-id="layers" hidden>
+            <div id="layers-container"></div>
+            @*<calcite-button id="btn_AddData" slot="fab" primary-icon-start="layers" primary-text="Add" overlay-positioning="fixed" data-name="addfromonline" appearance="outline-fill" kind="brand" dropdown-icon-type="chevron" scale="m" width="auto" calcite-hydrated=""></calcite-button>*@
+            <calcite-button id="btn_AddData" icon-start="add-layer" label="Add new layer" slot="fab" scale="m" width="auto" overlay-positioning="fixed">Add</calcite-button>
+        </calcite-panel>
+        <calcite-panel heading="Basemaps" height-scale="l" data-panel-id="basemaps" hidden>
+            <div id="basemaps-container"></div>
+        </calcite-panel>
+        <calcite-panel heading="Legend" height-scale="l" data-panel-id="legend" hidden>
+            <div id="legend-container"></div>
+        </calcite-panel>
+        <calcite-panel heading="Bookmarks" height-scale="l" data-panel-id="bookmarks" hidden>
+            <div id="bookmarks-container"></div>
+        </calcite-panel>
+        <calcite-panel heading="Print" height-scale="l" data-panel-id="print" hidden>
+            <div id="print-container"></div>
+        </calcite-panel>
+        <calcite-panel heading="Map Propertices" height-scale="l" data-panel-id="mapProperties" hidden>
+            <div id="mapProperties-container"></div>
+        </calcite-panel>
+
+
+        <!-- Info panel (populates with info from the web map) -->
+        <calcite-panel heading="Details" data-panel-id="information" hidden>
+            <div id="info-content">
+                <img id="item-thumbnail" alt="webmap thumbnail" />
+                <div id="item-description">
+                    <!-- Dynamically populated -->
+                </div>
+                <calcite-label layout="inline">
+                    <b>Rating:</b>
+                    <calcite-rating id="item-rating" read-only>
+                        <!-- Dynamically populated -->
+                    </calcite-rating>
+                </calcite-label>
+            </div>
+        </calcite-panel>
+    </calcite-shell-panel>
+
+    <!--#region Extera buttons-->
+    @*<div id="FullScreen-button" class="esri-widget esri-widget--button esri-interactive" title="Full Screen">
+            <span class="esri-icon-zoom-out-fixed"></span>
+        </div>
+
+        <div id="line-button" class="esri-widget esri-widget--button  esri-interactive" title="Draw polyline">
+            <span class="esri-icon-polyline"></span>
+        </div>
+        <div id="identify" class="esri-widget esri-widget--button  esri-interactive" title="Draw polyline">
+            <span class="esri-icon-polyline"></span>
+        </div>
+
+        <div id="Home-button" class="esri-widget esri-widget--button esri-home" title="Default map view">
+            <span class="esri-icon-home"></span>
+        </div>*@
+    <!--#endregion-->
+    <div id="mainView" style="padding: 0 37px 0 37px; height: 100%; width: 100%">
+        <div id="mapView" class="mapView"></div>
+        <div class="attributeTable" id="attributeTable"></div>
+        <!-- Add Modal-->
+        <calcite-dialog heading="Add layer" id="dialog_AddData" scale="m" widthScale="m" slot="modals">
+            <div style="padding-bottom:80px">
+                <calcite-label>
+                    <span class="lable">URL Or Path</span>
+                    <calcite-input id="input_AddData" value="http://localhost:6080/arcgis/rest/services/KhoramAbad/KhoramAbad14030712/MapServer" placeholder="Example: http://"></calcite-input>
+                </calcite-label>
+                <calcite-label>
+                    <span class="lable">Data Type</span>
+                </calcite-label>
+                <calcite-combobox selection-mode="single" id="combo_AddData">
+                    <calcite-combobox-item value="ArcGIS Server web service" text-label="ArcGIS Server web service" selected></calcite-combobox-item>
+                    <calcite-combobox-item value="Shapefile" text-label="Shapefile"></calcite-combobox-item>
+                    <calcite-combobox-item value="GeoJSON" text-label="GeoJSON"></calcite-combobox-item>
+                    <calcite-combobox-item value="KML (OGC)" text-label="KML (OGC)"></calcite-combobox-item>
+                    <calcite-combobox-item value="OGC feature layer" text-label="OGC feature layer"></calcite-combobox-item>
+                    <calcite-combobox-item value="WFS (OGC)" text-label="WFS (OGC)"></calcite-combobox-item>
+                    <calcite-combobox-item value="WMS (OGC)" text-label="WMS (OGC)"></calcite-combobox-item>
+                    <calcite-combobox-item value="WMTS (OGC)" text-label="WMTS (OGC)"></calcite-combobox-item>
+                    <calcite-combobox-item value="GeoRSS" text-label="GeoRSS"></calcite-combobox-item>
+                    <calcite-combobox-item value="CSV" text-label="CSV"></calcite-combobox-item>
+                    <calcite-combobox-item value="Tile layer" text-label="Tile layer"></calcite-combobox-item>
+                </calcite-combobox>
+
+            </div>
+            <calcite-notice open icon width="full">
+                <div slot="message"><span>Supported layer types are CSV, GeoJSON, OGC WFS web service, OGC WMS web service, OGC WMTS web service, OGC API - Features, ArcGIS Server web service, KML, GeoRSS, tile layer</span></div>
+            </calcite-notice>
+            <calcite-button slot="footer-start" kind="neutral">Back</calcite-button>
+            <calcite-button slot="footer-end" appearance="outline" id="btn_CancelAddData">Cancel</calcite-button>
+            <calcite-button slot="footer-end" id="btnAdd_AddData">Add</calcite-button>
+        </calcite-dialog>
+        <calcite-card id="measurement-result" appearance="solid" theme="dark" scale="l">
+            <div slot="title">Measurement Result</div>
+            <div slot="subtitle"><span id="result-value">0</span></div>
+        </calcite-card>
+    </div>
+</calcite-shell>
+<!-- #endregion -->
+@* Add mapload *@
+<script type="module" src="~/Scripts/Map/LoadMap.js"></script>
+
+@* Add DrawTools *@
+@*<script type="module" src="~/Scripts/Map/Draw.js"></script>*@
+
+@*Add Identify*@
+@*<script type="module" src="~/Scripts/Map/Identify.js"></script>*@
+
+
+@*<script type="module" src="~/Scripts/Map/Test.js"></script>*@

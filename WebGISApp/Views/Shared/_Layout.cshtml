@@ -14,6 +14,9 @@
     @*<link rel="stylesheet" type="text/css"href="https://js.arcgis.com/4.30/esri/themes/light/main.css" />*@
     <link rel="stylesheet" type="text/css" href="~/Scripts/Map/arcgis_js_v430_api/arcgis_js_api/javascript/4.30/esri/themes/light/main.css" />
     @*<link rel="stylesheet" type="text/css" href="~/Scripts/Map/arcgis_js_v430_api/esri/themes/light/main.css" />*@
+    <!--Add Calcite css Online and Local-->
+    @*<link rel="stylesheet" type="text/css" href=https://js.arcgis.com/calcite-components/2.13.0/calcite.css />*@
+    <link rel="stylesheet" type="text/css" href=~/Content/Map/calcite/calcite.css />
 
     <!--Add Arcgis Moulde api 4.30 Online and Local-->
     @*<script src="https://js.arcgis.com/4.30/"></script>*@
@@ -23,26 +26,10 @@
     <!--Add Calcite js Online and Local-->
     @*<script type="module" src=https://js.arcgis.com/calcite-components/2.13.0/calcite.esm.js></script>*@
     <script type="module" src="~/Content/Map/calcite/calcite.esm.js"></script>
-
-    <!--Add Calcite css Online and Local-->
-    @*<link rel="stylesheet" type="text/css" href=https://js.arcgis.com/calcite-components/2.13.0/calcite.css />*@
-    <link rel="stylesheet" type="text/css" href=~/Content/Map/calcite/calcite.css />
-
     <!-- #endregion -->
 </head>
 
-<body class="calcite-light">
-    @*<calcite-shell>
-            <calcite-navigation slot="header">
-                <calcite-navigation-logo slot="logo" heading="Snow Plow Map" description="City of AcmeCo">
-                </calcite-navigation-logo>
-                <calcite-menu slot="content-end" label="Snow Plow Map Menu">
-                    <calcite-menu-item text="Drivers" icon-start="license" text-enabled></calcite-menu-item>
-                    <calcite-menu-item text="Map" icon-start="road-sign" text-enabled active></calcite-menu-item>
-                    <calcite-menu-item text="Forecast" icon-start="snow" text-enabled></calcite-menu-item>
-                </calcite-menu>
-            </calcite-navigation>
-        </calcite-shell>*@
+<body>    
     @RenderBody()
 
     @Scripts.Render("~/bundles/jquery")

@@ -4,10 +4,21 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@* Add mapload *@
-<script type="module" src="~/Scripts/Map/LoadMap.js"></script>
-
 <!-- #region viewMapDiv -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <calcite-shell content-behind>
     @*<calcite-loader></calcite-loader>*@
 
@@ -15,6 +26,11 @@
         <calcite-navigation-logo id="header-title" heading-level="1" slot="logo">
             <!-- Dynamically populated -->
         </calcite-navigation-logo>
+        <calcite-menu slot="content-end" label="Snow Plow Map Menu">
+            <calcite-menu-item text="Drivers" icon-start="license" text-enabled></calcite-menu-item>
+            <calcite-menu-item text="Map" icon-start="road-sign" text-enabled active></calcite-menu-item>
+            <calcite-menu-item text="Forecast" icon-start="snow" text-enabled></calcite-menu-item>
+        </calcite-menu>
     </calcite-navigation>
     <calcite-shell-panel slot="panel-end" position="end" display-mode="float">
         <calcite-action-bar slot="action-bar" id="actionBarRight">
@@ -47,7 +63,7 @@
         </calcite-action-bar>
 
         <!-- Map-specific panels (each one provides a div for a ArcGIS Maps SDK for JavaScript widget) -->
-        <calcite-panel heading="Layers" height-scale="l" data-panel-id="layers">
+        <calcite-panel heading="Layers" height-scale="l" data-panel-id="layers" hidden>
             <div id="layers-container"></div>
             @*<calcite-button id="btn_AddData" slot="fab" primary-icon-start="layers" primary-text="Add" overlay-positioning="fixed" data-name="addfromonline" appearance="outline-fill" kind="brand" dropdown-icon-type="chevron" scale="m" width="auto" calcite-hydrated=""></calcite-button>*@
             <calcite-button id="btn_AddData" icon-start="add-layer" label="Add new layer" slot="fab" scale="m" width="auto" overlay-positioning="fixed">Add</calcite-button>
@@ -104,7 +120,7 @@
     <!--#endregion-->
     <div id="mainView" style="padding: 0 37px 0 37px; height: 100%; width: 100%">
         <div id="mapView" class="mapView"></div>
-        <div class="overlay-container" id="attributeTable"></div>
+        <div class="attributeTable" id="attributeTable"></div>
         <!-- Add Modal-->
         <calcite-dialog heading="Add layer" id="dialog_AddData" scale="m" widthScale="m" slot="modals">
             <div style="padding-bottom:80px">
@@ -144,6 +160,8 @@
     </div>
 </calcite-shell>
 <!-- #endregion -->
+@* Add mapload *@
+<script type="module" src="~/Scripts/Map/LoadMap.js"></script>
 
 @* Add DrawTools *@
 @*<script type="module" src="~/Scripts/Map/Draw.js"></script>*@
