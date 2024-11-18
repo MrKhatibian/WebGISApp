@@ -6,32 +6,33 @@
 
 <!-- #region viewMapDiv -->
 
+<calcite-shell>
 
-
-
-
-
-
-
-
-
-
-
-
-
-<calcite-shell content-behind>
-    @*<calcite-loader></calcite-loader>*@
-
-    <calcite-navigation slot="header">
-        <calcite-navigation-logo id="header-title" heading-level="1" slot="logo">
-            <!-- Dynamically populated -->
-        </calcite-navigation-logo>
+    <!--<calcite-navigation slot="header">
+        <calcite-navigation-logo id="header-title" heading-level="1" slot="logo">-->
+    <!-- Dynamically populated -->
+    <!--</calcite-navigation-logo>
         <calcite-menu slot="content-end" label="Snow Plow Map Menu">
             <calcite-menu-item text="Drivers" icon-start="license" text-enabled></calcite-menu-item>
             <calcite-menu-item text="Map" icon-start="road-sign" text-enabled active></calcite-menu-item>
             <calcite-menu-item text="Forecast" icon-start="snow" text-enabled></calcite-menu-item>
         </calcite-menu>
+    </calcite-navigation>-->
+
+    <!-- Header: Top navigation area -->
+    <calcite-navigation slot="header">
+        <calcite-navigation-user slot="logo" full-name="تحلیل گران آمارد" thumbnail="./Amard.png"></calcite-navigation-user>
+        <calcite-navigation-logo id="header-title" heading-level="1" slot="user">
+            <!-- Dynamically populated -->
+        </calcite-navigation-logo>
+        <!--<calcite-navigation-user slot="logo" full-name="تحلیل گران آمارد" username="دمو" thumbnail="./Amard.png"></calcite-navigation-user>-->
+        <!--<calcite-navigation-user slot="user" full-name="محمد خطیبیان" thumbnail="./Muhammad.jpg"></calcite-navigation-user>-->
+        <calcite-menu slot="content-end">
+            <!--<calcite-menu-item text="باز نشانی" icon-start="refresh"></calcite-menu-item>-->
+            <!--<calcite-menu-item text="نقشه" icon-start="analysis" text-enabled active></calcite-menu-item>-->
+        </calcite-menu>
     </calcite-navigation>
+
     <calcite-shell-panel slot="panel-end" position="end" display-mode="float">
         <calcite-action-bar slot="action-bar" id="actionBarRight">
             <calcite-action data-action-id="measureTool" icon="measure" text="Measure"></calcite-action>
