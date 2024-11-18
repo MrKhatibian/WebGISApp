@@ -7,29 +7,17 @@
 <!-- #region viewMapDiv -->
 
 <calcite-shell>
-
-    <!--<calcite-navigation slot="header">
-        <calcite-navigation-logo id="header-title" heading-level="1" slot="logo">-->
-    <!-- Dynamically populated -->
-    <!--</calcite-navigation-logo>
-        <calcite-menu slot="content-end" label="Snow Plow Map Menu">
-            <calcite-menu-item text="Drivers" icon-start="license" text-enabled></calcite-menu-item>
-            <calcite-menu-item text="Map" icon-start="road-sign" text-enabled active></calcite-menu-item>
-            <calcite-menu-item text="Forecast" icon-start="snow" text-enabled></calcite-menu-item>
-        </calcite-menu>
-    </calcite-navigation>-->
-
     <!-- Header: Top navigation area -->
     <calcite-navigation slot="header">
         <calcite-navigation-user slot="logo" full-name="تحلیل گران آمارد" thumbnail="~/Content/Images/Amard.png"></calcite-navigation-user>
-        <calcite-navigation-logo id="header-title" heading-level="1" slot="user">
+        <calcite-navigation-logo id="header-title" heading-level="1" slot="content-center">
             <!-- Dynamically populated -->
         </calcite-navigation-logo>
         <!--<calcite-navigation-user slot="logo" full-name="تحلیل گران آمارد" username="دمو" thumbnail="./Amard.png"></calcite-navigation-user>-->
         <!--<calcite-navigation-user slot="user" full-name="محمد خطیبیان" thumbnail="./Muhammad.jpg"></calcite-navigation-user>-->
         <calcite-menu slot="content-end">
             <!--<calcite-menu-item text="باز نشانی" icon-start="refresh"></calcite-menu-item>-->
-            <!--<calcite-menu-item text="نقشه" icon-start="analysis" text-enabled active></calcite-menu-item>-->
+            <calcite-menu-item text="نقشه" icon-start="analysis" text-enabled active></calcite-menu-item>
         </calcite-menu>
     </calcite-navigation>
 
@@ -46,48 +34,44 @@
             </div>
         </calcite-panel>
     </calcite-shell-panel>
-
+    <!-- Left Panel -->
     <calcite-shell-panel slot="panel-start" display-mode="float" position="start">
         <calcite-action-bar slot="action-bar" id="actionBarLeft">
             <calcite-action-group>
-                <calcite-action data-action-id="layers" icon="layers" text="Layers"></calcite-action>
-                <calcite-action data-action-id="basemaps" icon="basemap" text="Basemaps"></calcite-action>
-                <calcite-action data-action-id="legend" icon="legend" text="Legend"></calcite-action>
-                <calcite-action data-action-id="bookmarks" icon="bookmark" text="Bookmarks"></calcite-action>
-                <calcite-action data-action-id="print" icon="print" text="Print"></calcite-action>
+                <calcite-action data-action-id="layers" icon="layers" text="لایه‌ها"></calcite-action>
+                <calcite-action data-action-id="basemaps" icon="basemap" text="نقشه‌های پایه"></calcite-action>
+                <calcite-action data-action-id="legend" icon="legend" text="راهنمای نقشه"></calcite-action>                
+                <calcite-action data-action-id="print" icon="print" text="چاپ و خروجی"></calcite-action>
 
             </calcite-action-group>
             <clacite-action-group layout="vertical" overlay-positioning="fixed" class="js-action-group" calcite-hydrated slot="actions-end">
-                <calcite-action data-action-id="information" icon="information" text="Information"></calcite-action>
-                <calcite-action data-action-id="mapProperties" icon="gear" text="Propertices"></calcite-action>
+                <calcite-action data-action-id="information" icon="information" text="اطلاعات"></calcite-action>
+                <calcite-action data-action-id="mapProperties" icon="gear" text="تنظیمات"></calcite-action>
             </clacite-action-group>
         </calcite-action-bar>
 
         <!-- Map-specific panels (each one provides a div for a ArcGIS Maps SDK for JavaScript widget) -->
-        <calcite-panel heading="Layers" height-scale="l" data-panel-id="layers" hidden>
+        <calcite-panel heading="لایه‌ها" height-scale="l" data-panel-id="layers" hidden>
             <div id="layers-container"></div>
             @*<calcite-button id="btn_AddData" slot="fab" primary-icon-start="layers" primary-text="Add" overlay-positioning="fixed" data-name="addfromonline" appearance="outline-fill" kind="brand" dropdown-icon-type="chevron" scale="m" width="auto" calcite-hydrated=""></calcite-button>*@
             <calcite-button id="btn_AddData" icon-start="add-layer" label="Add new layer" slot="fab" scale="m" width="auto" overlay-positioning="fixed">Add</calcite-button>
         </calcite-panel>
-        <calcite-panel heading="Basemaps" height-scale="l" data-panel-id="basemaps" hidden>
+        <calcite-panel heading="نقشه‌های پایه" height-scale="l" data-panel-id="basemaps" hidden>
             <div id="basemaps-container"></div>
         </calcite-panel>
-        <calcite-panel heading="Legend" height-scale="l" data-panel-id="legend" hidden>
+        <calcite-panel heading="راهنمای نقشه" height-scale="l" data-panel-id="legend" hidden>
             <div id="legend-container"></div>
-        </calcite-panel>
-        <calcite-panel heading="Bookmarks" height-scale="l" data-panel-id="bookmarks" hidden>
-            <div id="bookmarks-container"></div>
-        </calcite-panel>
-        <calcite-panel heading="Print" height-scale="l" data-panel-id="print" hidden>
+        </calcite-panel>        
+        <calcite-panel heading="چاپ و خروجی" height-scale="l" data-panel-id="print" hidden>
             <div id="print-container"></div>
         </calcite-panel>
-        <calcite-panel heading="Map Propertices" height-scale="l" data-panel-id="mapProperties" hidden>
+        <calcite-panel heading="تنظیمات" height-scale="l" data-panel-id="mapProperties" hidden>
             <div id="mapProperties-container"></div>
         </calcite-panel>
 
 
         <!-- Info panel (populates with info from the web map) -->
-        <calcite-panel heading="Details" data-panel-id="information" hidden>
+        <calcite-panel heading="اطلاعات" data-panel-id="information" hidden>
             <div id="info-content">
                 <img id="item-thumbnail" alt="webmap thumbnail" />
                 <div id="item-description">

@@ -255,11 +255,6 @@ const ccWidget = new CoordinateConversion({
     view: view
 });
 
-//Add Bookmark 
-const bookmarks = new Bookmarks({
-  view,
-  container: "bookmarks-container"
-});
 
 //Add LayerList
 const layerList = new LayerList({

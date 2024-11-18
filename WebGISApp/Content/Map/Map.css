@@ -11,12 +11,14 @@
 }
 
 body {
-    display: flex;
+    font-family: Candara, sans-serif;
+    height: 100vh;    
+    overflow: hidden;
 }
 
 calcite-navigation {
     direction: rtl;
-    text-align: right;
+    text-align: right;    
 }
 
 #info-content {
