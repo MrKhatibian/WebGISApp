@@ -14,9 +14,9 @@ body {
     display: flex;
 }
 
-calcite-loader {
-    align-self: center;
-    justify-self: center;
+calcite-navigation {
+    direction: rtl;
+    text-align: right;
 }
 
 #info-content {
