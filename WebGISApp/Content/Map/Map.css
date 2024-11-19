@@ -1,13 +1,9 @@
 ﻿/*#region MapLoad */
 
 /* Map container */
-.mapView {
-    height: 100%;
+#mapView {
     width: 100%;
-    /*padding:0 37px 0 37px;*/
-    margin: 0;
-    /*position: relative;*/
-    overflow: hidden;
+    height: 100%;
 }
 
 body {

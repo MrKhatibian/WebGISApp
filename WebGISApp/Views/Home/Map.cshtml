@@ -21,27 +21,27 @@
         </calcite-menu>
     </calcite-navigation>
 
-    <calcite-shell-panel slot="panel-start" position="start" display-mode="float">
+    <calcite-shell-panel slot="panel-start" position="start" id="shell-panel-start" display-mode="float" collapsed>
         <calcite-action-bar slot="action-bar" id="actionBarLeft">
-            <calcite-action data-action-id="measureTool" icon="measure" text="Measure"></calcite-action>
+            <calcite-action data-action-id="measureTool" icon="measure" text="ابزار اندازه‌گیر"></calcite-action>
         </calcite-action-bar>
 
         <!-- Map-specific panels (each one provides a div for a ArcGIS Maps SDK for JavaScript widget) -->
-        <calcite-panel heading="Measure Tool" height-scale="l" data-panel-id="measureTool" hidden>
+        <calcite-panel id="Test" heading="ابزار اندازه‌گیری" height-scale="l" data-panel-id="measureTool" hidden>
             <div id="measureTool-container" style="height:50px">
-                <calcite-switch id="switchMeasure" scale="l" label="turn on measure"></calcite-switch>
+                <calcite-switch id="switchMeasure" label="turn on measure"></calcite-switch>
 
             </div>
         </calcite-panel>
     </calcite-shell-panel>
     <!-- Left Panel -->
-    <calcite-shell-panel slot="panel-end" display-mode="float" position="end">
+    <calcite-shell-panel slot="panel-end" position="end" id="shell-panel-end" display-mode="float" collapsed>
         @*<calcite-action-bar slot="action-bar" id="actionBarLeft">*@
         <calcite-action-bar slot="action-bar" id="actionBarRight">
             <calcite-action-group>
                 <calcite-action data-action-id="layers" icon="layers" text="لایه‌ها"></calcite-action>
                 <calcite-action data-action-id="basemaps" icon="basemap" text="نقشه‌های پایه"></calcite-action>
-                <calcite-action data-action-id="legend" icon="legend" text="راهنمای نقشه"></calcite-action>                
+                <calcite-action data-action-id="legend" icon="legend" text="راهنمای نقشه"></calcite-action>
                 <calcite-action data-action-id="print" icon="print" text="چاپ و خروجی"></calcite-action>
 
             </calcite-action-group>
@@ -51,7 +51,7 @@
             </clacite-action-group>
         </calcite-action-bar>
 
-        <!-- Map-specific panels (each one provides a div for a ArcGIS Maps SDK for JavaScript widget) -->
+        <!-- Map-specific panels (each one provides a div for a ArcGIS Maps SDK for JavaScript widget) -->       
         <calcite-panel heading="لایه‌ها" height-scale="l" data-panel-id="layers" hidden>
             <div id="layers-container"></div>
             @*<calcite-button id="btn_AddData" slot="fab" primary-icon-start="layers" primary-text="Add" overlay-positioning="fixed" data-name="addfromonline" appearance="outline-fill" kind="brand" dropdown-icon-type="chevron" scale="m" width="auto" calcite-hydrated=""></calcite-button>*@
@@ -62,7 +62,7 @@
         </calcite-panel>
         <calcite-panel heading="راهنمای نقشه" height-scale="l" data-panel-id="legend" hidden>
             <div id="legend-container"></div>
-        </calcite-panel>        
+        </calcite-panel>
         <calcite-panel heading="چاپ و خروجی" height-scale="l" data-panel-id="print" hidden>
             <div id="print-container"></div>
         </calcite-panel>
@@ -104,46 +104,45 @@
             <span class="esri-icon-home"></span>
         </div>*@
     <!--#endregion-->
-    <div id="mainView" style="padding: 0 37px 0 37px; height: 100%; width: 100%">
-        <div id="mapView" class="mapView"></div>
-        <div class="attributeTable" id="attributeTable"></div>
-        <!-- Add Modal-->
-        <calcite-dialog heading="Add layer" id="dialog_AddData" scale="m" widthScale="m" slot="modals">
-            <div style="padding-bottom:80px">
-                <calcite-label>
-                    <span class="lable">URL Or Path</span>
-                    <calcite-input id="input_AddData" value="http://localhost:6080/arcgis/rest/services/KhoramAbad/KhoramAbad14030712/MapServer" placeholder="Example: http://"></calcite-input>
-                </calcite-label>
-                <calcite-label>
-                    <span class="lable">Data Type</span>
-                </calcite-label>
-                <calcite-combobox selection-mode="single" id="combo_AddData">
-                    <calcite-combobox-item value="ArcGIS Server web service" text-label="ArcGIS Server web service" selected></calcite-combobox-item>
-                    <calcite-combobox-item value="Shapefile" text-label="Shapefile"></calcite-combobox-item>
-                    <calcite-combobox-item value="GeoJSON" text-label="GeoJSON"></calcite-combobox-item>
-                    <calcite-combobox-item value="KML (OGC)" text-label="KML (OGC)"></calcite-combobox-item>
-                    <calcite-combobox-item value="OGC feature layer" text-label="OGC feature layer"></calcite-combobox-item>
-                    <calcite-combobox-item value="WFS (OGC)" text-label="WFS (OGC)"></calcite-combobox-item>
-                    <calcite-combobox-item value="WMS (OGC)" text-label="WMS (OGC)"></calcite-combobox-item>
-                    <calcite-combobox-item value="WMTS (OGC)" text-label="WMTS (OGC)"></calcite-combobox-item>
-                    <calcite-combobox-item value="GeoRSS" text-label="GeoRSS"></calcite-combobox-item>
-                    <calcite-combobox-item value="CSV" text-label="CSV"></calcite-combobox-item>
-                    <calcite-combobox-item value="Tile layer" text-label="Tile layer"></calcite-combobox-item>
-                </calcite-combobox>
+    <!-- Main Content Area: Where the map or primary content goes -->
+    <calcite-panel><div id="mapView"></div></calcite-panel>    
+    <calcite-panel><div class="attributeTable" id="attributeTable"></div></calcite-panel>
+    <!-- Add Modal-->
+    <calcite-dialog heading="Add layer" id="dialog_AddData" scale="m" widthScale="m" slot="modals">
+        <div style="padding-bottom:80px">
+            <calcite-label>
+                <span class="lable">URL Or Path</span>
+                <calcite-input id="input_AddData" value="http://localhost:6080/arcgis/rest/services/KhoramAbad/KhoramAbad14030712/MapServer" placeholder="Example: http://"></calcite-input>
+            </calcite-label>
+            <calcite-label>
+                <span class="lable">Data Type</span>
+            </calcite-label>
+            <calcite-combobox selection-mode="single" id="combo_AddData">
+                <calcite-combobox-item value="ArcGIS Server web service" text-label="ArcGIS Server web service" selected></calcite-combobox-item>
+                <calcite-combobox-item value="Shapefile" text-label="Shapefile"></calcite-combobox-item>
+                <calcite-combobox-item value="GeoJSON" text-label="GeoJSON"></calcite-combobox-item>
+                <calcite-combobox-item value="KML (OGC)" text-label="KML (OGC)"></calcite-combobox-item>
+                <calcite-combobox-item value="OGC feature layer" text-label="OGC feature layer"></calcite-combobox-item>
+                <calcite-combobox-item value="WFS (OGC)" text-label="WFS (OGC)"></calcite-combobox-item>
+                <calcite-combobox-item value="WMS (OGC)" text-label="WMS (OGC)"></calcite-combobox-item>
+                <calcite-combobox-item value="WMTS (OGC)" text-label="WMTS (OGC)"></calcite-combobox-item>
+                <calcite-combobox-item value="GeoRSS" text-label="GeoRSS"></calcite-combobox-item>
+                <calcite-combobox-item value="CSV" text-label="CSV"></calcite-combobox-item>
+                <calcite-combobox-item value="Tile layer" text-label="Tile layer"></calcite-combobox-item>
+            </calcite-combobox>
 
-            </div>
-            <calcite-notice open icon width="full">
-                <div slot="message"><span>Supported layer types are CSV, GeoJSON, OGC WFS web service, OGC WMS web service, OGC WMTS web service, OGC API - Features, ArcGIS Server web service, KML, GeoRSS, tile layer</span></div>
-            </calcite-notice>
-            <calcite-button slot="footer-start" kind="neutral">Back</calcite-button>
-            <calcite-button slot="footer-end" appearance="outline" id="btn_CancelAddData">Cancel</calcite-button>
-            <calcite-button slot="footer-end" id="btnAdd_AddData">Add</calcite-button>
-        </calcite-dialog>
-        <calcite-card id="measurement-result" appearance="solid" theme="dark" scale="l">
-            <div slot="title">Measurement Result</div>
-            <div slot="subtitle"><span id="result-value">0</span></div>
-        </calcite-card>
-    </div>
+        </div>
+        <calcite-notice open icon width="full">
+            <div slot="message"><span>Supported layer types are CSV, GeoJSON, OGC WFS web service, OGC WMS web service, OGC WMTS web service, OGC API - Features, ArcGIS Server web service, KML, GeoRSS, tile layer</span></div>
+        </calcite-notice>
+        <calcite-button slot="footer-start" kind="neutral">Back</calcite-button>
+        <calcite-button slot="footer-end" appearance="outline" id="btn_CancelAddData">Cancel</calcite-button>
+        <calcite-button slot="footer-end" id="btnAdd_AddData">Add</calcite-button>
+    </calcite-dialog>
+    <calcite-card id="measurement-result" appearance="solid" theme="dark" scale="l">
+        <div slot="title">Measurement Result</div>
+        <div slot="subtitle"><span id="result-value">0</span></div>
+    </calcite-card>
 </calcite-shell>
 <!-- #endregion -->
 @* Add mapload *@

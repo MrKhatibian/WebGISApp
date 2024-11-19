@@ -74,10 +74,11 @@ view.when(() => {
     let activeWidget;
 
     const handleActionBarClick = ({ target }) => {
-        if (target.tagName !== "CALCITE-ACTION") {            
+        alert(target.id);
+        if (target.tagName !== "CALCITE-ACTION") {
             return;
         }
-        
+
         if (activeWidget) {
             document.querySelector(`[data-action-id=${activeWidget}]`).active = false;
             document.querySelector(`[data-panel-id=${activeWidget}]`).hidden = true;
@@ -92,27 +93,36 @@ view.when(() => {
             activeWidget = null;
         }
     };
-    let actionBarRight = document.getElementById("actionBarRight");
-    let actionBarLeft = document.getElementById("actionBarLeft");
-    actionBarRight.addEventListener("click", handleActionBarClick);
-    actionBarLeft.addEventListener("click", handleActionBarClick);
+    //let shellPanelStart = document.getElementById("shell-panel-start");
+    //let shellPanelEnd = document.getElementById("shell-panel-end");
+    //let actionBarRight = document.getElementById("actionBarRight");
+    //let actionBarLeft = document.getElementById("actionBarLeft");
+    //actionBarRight.addEventListener("click", shellFunction(shellPanelStart));
+    //actionBarLeft.addEventListener("click", handleActionBarClick);
+    // References to shell panels and actions
+    const shellPanelStart = document.getElementById("shell-panel-start");
+    const panelStart = document.getElementById("Test");
 
-    // add padding for show Mapbtn when expanded click       
-    let actionBarExpandedRight = false;
-    let mapDiv = document.getElementById("mapView");    
-    actionBarRight.addEventListener("calciteActionBarToggle", event => {        
-        actionBarExpandedRight = !actionBarExpandedRight;
-        //alert(mapDiv.style.padding);
-        mapDiv.style.padding = actionBarExpandedRight ? "0 80px 0 37px" : "0 37px 0 37px";        
+    const actionsStart = shellPanelStart?.querySelectorAll("calcite-action");
+
+
+    // Add click listeners for start panel actions
+    actionsStart?.forEach(el => {
+        el.addEventListener("click", function () {
+            if (el.active) {
+                el.active = false; // Set the clicked action as active
+                shellPanelStart.collapsed = true; // Expand panel
+                panelStart.closed = true; // Open panel
+                return
+            }; // Prevent unnecessary toggling
+            actionsStart?.forEach(action => (action.active = false));
+            el.active = true; // Set the clicked action as active
+            shellPanelStart.collapsed = false; // Expand panel
+            panelStart.closed = false; // Open panel
+            panelStart.hidden = false;
+            panelStart.heading = el.text; // Update heading
+        });
     });
-
-    // add padding for show Mapbtn when expanded click       
-    let actionBarExpandedLeft = false;    
-    actionBarLeft.addEventListener("calciteActionBarToggle", event => {
-        actionBarExpandedLeft = !actionBarExpandedLeft;        
-        mapDiv.style.padding = actionBarExpandedLeft ? "0 37px 0 91px" : "0 37px 0 37px";
-    });
-
 });
 
 //Add btn Add layer for open dialog_import data
