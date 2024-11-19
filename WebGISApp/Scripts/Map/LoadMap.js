@@ -1,5 +1,4 @@
-﻿
-// #region Import -------------------------------------------------------------------------------------------
+﻿// #region Import -------------------------------------------------------------------------------------------
 //Import Files
 
 
@@ -64,51 +63,26 @@ const view = new MapView({
 });
 
 view.when(() => {
-    //const { title, description, thumbnailUrl, avgRating } = map.portalItem;
+    const { title, description, thumbnailUrl, avgRating } = layer;
+    alert(title);
     //document.querySelector("#header-title").heading = title;
-    document.querySelector("#header-title").heading = "Hi Amard";
+    document.querySelector("#header-title").heading = title;
     document.querySelector("#item-description").innerHTML = "New WebGIS For Amard Creat by Mr.Khatibian";
     //document.querySelector("#item-thumbnail").src = thumbnailUrl;
     //document.querySelector("#item-rating").value = avgRating;
 
-    let activeWidget;
-
-    const handleActionBarClick = ({ target }) => {
-        alert(target.id);
-        if (target.tagName !== "CALCITE-ACTION") {
-            return;
-        }
-
-        if (activeWidget) {
-            document.querySelector(`[data-action-id=${activeWidget}]`).active = false;
-            document.querySelector(`[data-panel-id=${activeWidget}]`).hidden = true;
-        }
-
-        const nextWidget = target.dataset.actionId;
-        if (nextWidget !== activeWidget) {
-            document.querySelector(`[data-action-id=${nextWidget}]`).active = true;
-            document.querySelector(`[data-panel-id=${nextWidget}]`).hidden = false;
-            activeWidget = nextWidget;
-        } else {
-            activeWidget = null;
-        }
-    };
-    //let shellPanelStart = document.getElementById("shell-panel-start");
-    //let shellPanelEnd = document.getElementById("shell-panel-end");
-    //let actionBarRight = document.getElementById("actionBarRight");
-    //let actionBarLeft = document.getElementById("actionBarLeft");
-    //actionBarRight.addEventListener("click", shellFunction(shellPanelStart));
-    //actionBarLeft.addEventListener("click", handleActionBarClick);
     // References to shell panels and actions
-    const shellPanelStart = document.getElementById("shell-panel-start");
-    const panelStart = document.getElementById("Test");
+    const shellPanelStart = document.getElementById("shell-panel-start");    
+    const shellPanelEnd = document.getElementById("shell-panel-end");    
 
     const actionsStart = shellPanelStart?.querySelectorAll("calcite-action");
-
+    const actionsEnd = shellPanelEnd?.querySelectorAll("calcite-action");
 
     // Add click listeners for start panel actions
     actionsStart?.forEach(el => {
         el.addEventListener("click", function () {
+            //alert(el.id);
+            const panelStart = document.getElementById("panel_"+el.id);
             if (el.active) {
                 el.active = false; // Set the clicked action as active
                 shellPanelStart.collapsed = true; // Expand panel
@@ -118,11 +92,29 @@ view.when(() => {
             actionsStart?.forEach(action => (action.active = false));
             el.active = true; // Set the clicked action as active
             shellPanelStart.collapsed = false; // Expand panel
-            panelStart.closed = false; // Open panel
-            panelStart.hidden = false;
+            panelStart.closed = false; // Open panel            
             panelStart.heading = el.text; // Update heading
         });
     });
+    // Add click listeners for end panel actions
+    actionsEnd?.forEach(el => {
+        el.addEventListener("click", function () {
+            //alert(el.id);
+            const panelEnd = document.getElementById("panel_"+el.id);
+            if (el.active) {
+                el.active = false; // Set the clicked action as active
+                shellPanelEnd.collapsed = true; // Expand panel
+                panelEnd.hidden = true; // Open panel
+                return
+            }; // Prevent unnecessary toggling
+            actionsEnd?.forEach(action => (action.active = false));
+            el.active = true; // Set the clicked action as active
+            shellPanelEnd.collapsed = false; // Expand panel            
+            panelEnd.hidden = false;
+            panelEnd.heading = el.text; // Update heading
+        });
+    });
+
 });
 
 //Add btn Add layer for open dialog_import data
@@ -360,21 +352,7 @@ function toggleFeatureTable(urlLayer, titleLayer) {
         flag = true;
         mapDiv1.style.height = "100%";
         attributeTable.style.height = "0%";
-    }
-    
-    //const overlayContainer = document.getElementById("mapView");
-    //alert(.toString());
-    //const mapView = document.querySelector("mapView");
-    //if (overlayContainer.style.display === "none") {
-    //    overlayContainer.style.display == "block";
-    //    //mapView.style.height == "50%";
-    //    alert("none");
-    //} else {
-    //    overlayContainer.style.display == "none";
-    //    //mapView.style.height == "100%";
-    //    alert("block");
-    //}
-    //overlayContainer.style.display = overlayContainer.style.display === "none" ? "block" : "none";
+    }    
 }
  
 

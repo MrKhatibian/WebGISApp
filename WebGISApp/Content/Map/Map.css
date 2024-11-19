@@ -1,20 +1,30 @@
 ﻿/*#region MapLoad */
 
-/* Map container */
-#mapView {
-    width: 100%;
-    height: 100%;
-}
-
 body {
     font-family: Candara, sans-serif;
     height: 100vh;    
     overflow: hidden;
 }
-
+#panelMapView{
+    width:100%;
+    height:100%;
+}
+/* Map container */
+#mapView {
+    width: 100%;
+    height: 100%;
+}
+#panelAttributeTable{
+    width: 100%;
+    height: 0%;
+}
+#attributeTable {
+    width: 100%;
+    height: 100%;
+}
 calcite-navigation {
     direction: rtl;
-    text-align: right;    
+    text-align: right;
 }
 calcite-action-bar {
     direction: rtl;
