@@ -63,58 +63,56 @@ const view = new MapView({
 });
 
 view.when(() => {
-    const { title, description, thumbnailUrl, avgRating } = layer;
-    alert(title);
-    //document.querySelector("#header-title").heading = title;
+    const { title, url } = layer;        
     document.querySelector("#header-title").heading = title;
-    document.querySelector("#item-description").innerHTML = "New WebGIS For Amard Creat by Mr.Khatibian";
-    //document.querySelector("#item-thumbnail").src = thumbnailUrl;
-    //document.querySelector("#item-rating").value = avgRating;
+    document.querySelector("#item-description").innerHTML = url;        
 
-    // References to shell panels and actions
-    const shellPanelStart = document.getElementById("shell-panel-start");    
-    const shellPanelEnd = document.getElementById("shell-panel-end");    
+    
 
-    const actionsStart = shellPanelStart?.querySelectorAll("calcite-action");
-    const actionsEnd = shellPanelEnd?.querySelectorAll("calcite-action");
+});
+
+// References to shell panels and actions
+const shellPanelStart = document.getElementById("shell-panel-start");
+const shellPanelEnd = document.getElementById("shell-panel-end");
+
+const actionsStart = shellPanelStart?.querySelectorAll("calcite-action");
+const actionsEnd = shellPanelEnd?.querySelectorAll("calcite-action");
 
     // Add click listeners for start panel actions
-    actionsStart?.forEach(el => {
-        el.addEventListener("click", function () {
-            //alert(el.id);
-            const panelStart = document.getElementById("panel_"+el.id);
-            if (el.active) {
-                el.active = false; // Set the clicked action as active
-                shellPanelStart.collapsed = true; // Expand panel
-                panelStart.closed = true; // Open panel
-                return
-            }; // Prevent unnecessary toggling
-            actionsStart?.forEach(action => (action.active = false));
-            el.active = true; // Set the clicked action as active
-            shellPanelStart.collapsed = false; // Expand panel
-            panelStart.closed = false; // Open panel            
-            panelStart.heading = el.text; // Update heading
-        });
+actionsStart?.forEach(el => {
+    el.addEventListener("click", function () {
+        //alert(el.id);
+        const panelStart = document.getElementById("panel_" + el.id);
+        if (el.active) {
+            el.active = false; // Set the clicked action as active
+            shellPanelStart.collapsed = true; // Expand panel
+            panelStart.closed = true; // Open panel
+            return
+        }; // Prevent unnecessary toggling
+        actionsStart?.forEach(action => (action.active = false));
+        el.active = true; // Set the clicked action as active
+        shellPanelStart.collapsed = false; // Expand panel
+        panelStart.closed = false; // Open panel            
+        panelStart.heading = el.text; // Update heading
     });
+});
     // Add click listeners for end panel actions
-    actionsEnd?.forEach(el => {
-        el.addEventListener("click", function () {
-            //alert(el.id);
-            const panelEnd = document.getElementById("panel_"+el.id);
-            if (el.active) {
-                el.active = false; // Set the clicked action as active
-                shellPanelEnd.collapsed = true; // Expand panel
-                panelEnd.hidden = true; // Open panel
-                return
-            }; // Prevent unnecessary toggling
-            actionsEnd?.forEach(action => (action.active = false));
-            el.active = true; // Set the clicked action as active
-            shellPanelEnd.collapsed = false; // Expand panel            
-            panelEnd.hidden = false;
-            panelEnd.heading = el.text; // Update heading
-        });
+actionsEnd?.forEach(el => {
+    el.addEventListener("click", function () {
+        //alert(el.id);
+        const panelEnd = document.getElementById("panel_" + el.id);
+        if (el.active) {
+            el.active = false; // Set the clicked action as active
+            shellPanelEnd.collapsed = true; // Expand panel
+            panelEnd.hidden = true; // Open panel
+            return
+        }; // Prevent unnecessary toggling
+        actionsEnd?.forEach(action => (action.active = false));
+        el.active = true; // Set the clicked action as active
+        shellPanelEnd.collapsed = false; // Expand panel            
+        panelEnd.hidden = false;
+        panelEnd.heading = el.text; // Update heading
     });
-
 });
 
 //Add btn Add layer for open dialog_import data
@@ -162,14 +160,15 @@ const btnAdd_AddData = document.getElementById("btnAdd_AddData");
 const input_AddData = document.getElementById("input_AddData").value;
 const combo_AddData = document.getElementById("combo_AddData").value;
 btnAdd_AddData.addEventListener("click", function () { addData(input_AddData, combo_AddData) });
-function addData(dataPath, dataType){
-  if (dataType == "ArcGIS Server web service") {
-    const layer = new MapImageLayer({
-        url: dataPath
-    });
-    map.add(layer);
-      dialog_AddData.open = false;      
-  }
+function addData(dataPath, dataType) {
+    if (!dialog_AddData.open) { dialog_AddData.open = true }
+    if (dataType == "ArcGIS Server web service") {
+        const layer = new MapImageLayer({
+            url: dataPath
+        });
+        map.add(layer);
+        dialog_AddData.open = false;
+    }
 }
 // #endregion -----------------------------------------------------------------------------------------------
 
@@ -318,13 +317,13 @@ layerList.on("trigger-action", (event) => {
         toggleFeatureTable(selectedLayer.url, selectedLayer.title);
     }
 });
-let mapDiv1 = document.getElementById("mapView");
-let attributeTable = document.getElementById("attributeTable");
+let panelMapView = document.getElementById("panelMapView");
+let panelAttributeTable = document.getElementById("panelAttributeTable");
 let flag = true;
 const featureTable = new FeatureTable({
     view: view,
     //layer: featureLayer,
-    container: attributeTable // Temporary container for now
+    container: "attributeTable" // Temporary container for now
 });
 // Optional: Customize FeatureTable fields
 featureTable.visibleElements = {
@@ -346,12 +345,12 @@ function toggleFeatureTable(urlLayer, titleLayer) {
     if (flag) {
         flag = false;        
         featureTable.layer = featureLayer;        
-        mapDiv1.style.height = "50%";
-        attributeTable.style.height = "50%";                        
+        panelMapView.style.height = "50%";
+        panelAttributeTable.style.height = "50%";                        
     } else {
         flag = true;
-        mapDiv1.style.height = "100%";
-        attributeTable.style.height = "0%";
+        panelMapView.style.height = "100%";
+        panelAttributeTable.style.height = "0%";
     }    
 }
  
