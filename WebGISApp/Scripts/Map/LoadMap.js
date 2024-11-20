@@ -44,11 +44,8 @@ const layer = new MapImageLayer({
 map.add(layer);
 
 // Adding Feature Layer
-//const featureLayer = new FeatureLayer("http://localhost:6080/arcgis/rest/services/SampleWorldCities/MapServer/1");
-//map.add(featureLayer);
-// FeatureLayer for Roads
 const featureLayer = new FeatureLayer({
-    url: "http://localhost:6080/arcgis/rest/services/Maryanaj/Maryanaj_14030619/MapServer/0",
+    url: mapServerUrl+"/0",
     outFields: ["*"],
     title: "Arse"
 });
