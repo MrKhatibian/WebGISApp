@@ -21,9 +21,13 @@ calcite-action-bar {
 calcite-rating {
     margin-top: 0.25rem;
 }
-#mainPanel{
-    width:100%;
-    height:100%;
+calcite-dialog {
+    direction: rtl;
+    text-align: right;
+}
+#mainPanel {
+    width: 100%;
+    height: 100%;
 }
 #panelMapView{
     width:100%;

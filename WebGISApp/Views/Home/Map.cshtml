@@ -60,7 +60,7 @@
         <calcite-panel heading="لایه‌ها" height-scale="l" id="panel_layers">
             <div id="layers-container"></div>
             @*<calcite-button id="btn_AddData" slot="fab" primary-icon-start="layers" primary-text="Add" overlay-positioning="fixed" data-name="addfromonline" appearance="outline-fill" kind="brand" dropdown-icon-type="chevron" scale="m" width="auto" calcite-hydrated=""></calcite-button>*@
-            <calcite-button id="btn_AddData" icon-start="add-layer" label="Add new layer" slot="fab" scale="m" width="auto" overlay-positioning="fixed">Add</calcite-button>
+            <calcite-button id="btn_AddData" icon-start="add-layer" label="افزودن داده" slot="fab" scale="m" width="auto" overlay-positioning="fixed">افزودن داده</calcite-button>
         </calcite-panel>
         <calcite-panel heading="نقشه‌های پایه" height-scale="l" id="panel_basemaps" closed hidden>
             <div id="basemaps-container"></div>
@@ -115,16 +115,16 @@
         <div id="attributeTable"></div>
     </calcite-panel>
     <!-- Add Modal -->
-    <calcite-dialog heading="افزودن لایه جدید" id="dialog_AddData" slot="modals">
+    <calcite-dialog heading="افزودن داده" id="dialog_AddData" slot="modals">
         <div style="padding-bottom:80px">
             <calcite-label>
-                <span class="lable">URL Or Path</span>
-                <calcite-input id="input_AddData" value="http://localhost:6080/arcgis/rest/services/KhoramAbad/KhoramAbad14030712/MapServer" placeholder="Example: http://"></calcite-input>
+                <span class="lable">آدرس کامل داده را وارد نمایید:</span>
+                <calcite-input style="direction:ltr;text-align:left" id="input_AddData" value="http://localhost:6080/arcgis/rest/services/KhoramAbad/KhoramAbad14030712/MapServer" placeholder="Example: http://"></calcite-input>
             </calcite-label>
             <calcite-label>
-                <span class="lable">Data Type</span>
+                <span class="lable">توع داده را انتخاب کنید:</span>
             </calcite-label>
-            <calcite-combobox selection-mode="single" id="combo_AddData">
+            <calcite-combobox style="direction:ltr;text-align:left" selection-mode="single" id="combo_AddData">
                 <calcite-combobox-item value="ArcGIS Server web service" text-label="ArcGIS Server web service" selected></calcite-combobox-item>
                 <calcite-combobox-item value="Shapefile" text-label="Shapefile"></calcite-combobox-item>
                 <calcite-combobox-item value="WMS (OGC)" text-label="WMS (OGC)"></calcite-combobox-item>
@@ -140,11 +140,12 @@
 
         </div>
         <calcite-notice open icon width="full">
-            <div slot="message"><span>Supported layer types are CSV, GeoJSON, OGC WFS web service, OGC WMS web service, OGC WMTS web service, OGC API - Features, ArcGIS Server web service, KML, GeoRSS, tile layer</span></div>
+            <div slot="title"><span>لیست نوع داده‌های مجاز:</span></div>
+            <div slot="message" style="text-align:left; direction:ltr" ><span> CSV, GeoJSON, OGC WFS web service, OGC WMS web service, OGC WMTS web service, OGC API - Features, ArcGIS Server web service, KML, GeoRSS, tile layer</span></div>
         </calcite-notice>
-        <calcite-button slot="footer-start" kind="neutral">Back</calcite-button>
-        <calcite-button slot="footer-end" appearance="outline" id="btn_CancelAddData">Cancel</calcite-button>
-        <calcite-button slot="footer-end" id="btnAdd_AddData">Add</calcite-button>
+        @*<calcite-button slot="footer-start" kind="neutral">Back</calcite-button>*@
+        <calcite-button slot="footer-end" appearance="outline" id="btn_CancelAddData">انصراف</calcite-button>
+        <calcite-button slot="footer-end" id="btnAdd_AddData">افزودن</calcite-button>
     </calcite-dialog>
 </calcite-shell>
 <!-- #endregion -->

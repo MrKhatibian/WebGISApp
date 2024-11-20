@@ -165,7 +165,7 @@ function addData(dataPath, dataType) {
     if (dataType == "ArcGIS Server web service") {
         const layer = new MapImageLayer({
             url: dataPath
-        });
+        });        
         map.add(layer);
         dialog_AddData.open = false;
     }
