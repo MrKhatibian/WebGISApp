@@ -1,4 +1,4 @@
-﻿// #region Import -------------------------------------------------------------------------------------------
+﻿// #region Import -----------------------------------------------------------------------------------------------------
 //Import Files
 
 
@@ -25,9 +25,9 @@ import FeatureTable from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@ar
 
 
 
-// #endregion -----------------------------------------------------------------------------------------------
+// #endregion ---------------------------------------------------------------------------------------------------------
 
-// #region Main ---------------------------------------------------------------------------------------------
+// #region Main -------------------------------------------------------------------------------------------------------
 const map = new Map({
     //basemap: "gray-vector" // basemap styles service
     //basemap: "topo-vector"
@@ -65,12 +65,10 @@ const view = new MapView({
 view.when(() => {
     const { title, url } = layer;        
     document.querySelector("#header-title").heading = title;
-    document.querySelector("#item-description").innerHTML = url;        
-
-    
-
+    document.querySelector("#item-description").innerHTML = url;            
 });
-
+// #endregion Main ----------------------------------------------------------------------------------------------------
+// #region shell panels and actionbar----------------------------------------------------------------------------------
 // References to shell panels and actions
 const shellPanelStart = document.getElementById("shell-panel-start");
 const shellPanelEnd = document.getElementById("shell-panel-end");
@@ -78,7 +76,7 @@ const shellPanelEnd = document.getElementById("shell-panel-end");
 const actionsStart = shellPanelStart?.querySelectorAll("calcite-action");
 const actionsEnd = shellPanelEnd?.querySelectorAll("calcite-action");
 
-    // Add click listeners for start panel actions
+// Add click listeners for start panel actions
 actionsStart?.forEach(el => {
     el.addEventListener("click", function () {
         //alert(el.id);
@@ -92,11 +90,12 @@ actionsStart?.forEach(el => {
         actionsStart?.forEach(action => (action.active = false));
         el.active = true; // Set the clicked action as active
         shellPanelStart.collapsed = false; // Expand panel
-        panelStart.closed = false; // Open panel            
+        panelStart.closed = false; // Open panel      
+        panelStart.hidden = false;
         panelStart.heading = el.text; // Update heading
     });
 });
-    // Add click listeners for end panel actions
+// Add click listeners for end panel actions
 actionsEnd?.forEach(el => {
     el.addEventListener("click", function () {
         //alert(el.id);
@@ -114,48 +113,17 @@ actionsEnd?.forEach(el => {
         panelEnd.heading = el.text; // Update heading
     });
 });
-
-//Add btn Add layer for open dialog_import data
+// #endregion----------------------------------------------------------------------------------------------------------
+// #region Add data and open dialogdialog_import-----------------------------------------------------------------------
 const btn_AddData = document.getElementById("btn_AddData");
 const dialog_AddData = document.getElementById("dialog_AddData");
 const btn_CancelAddData = document.getElementById("btn_CancelAddData");
-btn_AddData?.addEventListener("click", function() {
+btn_AddData?.addEventListener("click", function () {
     dialog_AddData.open = true;
 });
-btn_CancelAddData.addEventListener("click",function(){
-    dialog_AddData.open= false;
+btn_CancelAddData.addEventListener("click", function () {
+    dialog_AddData.open = false;
 });
-
-//document.querySelector("calcite-shell").hidden = false;
-
-// #region manual Home extent
-/*
-//Define the initial or home extent (center and zoom level)
-var homeExtent = {
-    center: [48.464869, 34.834155], // Longitude, Latitude
-    zoom: 15                    // Zoom level
-};
-
-// Get the custom Home-button element
-var homeButton = document.getElementById("Home-button");
-
-// Add event listener to handle click on the Home button
-homeButton.addEventListener("click", function() {            
-    view.goTo(homeExtent)
-    .then(function() {
-        console.log("Returned to home extent");
-    })
-    .catch(function(error) {
-        console.error("Error going to home extent:", error);
-    });
-});
-*/
-// #endregion
-
-
-// Add for test /////////////////////////////////////////////////////////////////////////////////////////////
-
-// #region Add layer ----------------------------------------------------------------------------------------
 const btnAdd_AddData = document.getElementById("btnAdd_AddData");
 const input_AddData = document.getElementById("input_AddData").value;
 const combo_AddData = document.getElementById("combo_AddData").value;
@@ -165,15 +133,13 @@ function addData(dataPath, dataType) {
     if (dataType == "ArcGIS Server web service") {
         const layer = new MapImageLayer({
             url: dataPath
-        });        
+        });
         map.add(layer);
         dialog_AddData.open = false;
     }
 }
-// #endregion -----------------------------------------------------------------------------------------------
-
-
-// #region Measurment tool ----------------------------------------------------------------------------------
+// #endregion----------------------------------------------------------------------------------------------------------
+// #region Measurment tool --------------------------------------------------------------------------------------------
 const graphicsLayer = new GraphicsLayer();
 
 const sketch = new Sketch({
@@ -181,7 +147,8 @@ const sketch = new Sketch({
     view: view,
     creationMode: "single",
     visibleElements: {
-        createTools: { point: false, rectangle: false, circle: false },selectionTools: {"lasso-selection": false},settingsMenu: true}
+        createTools: { point: false, rectangle: false, circle: false }, selectionTools: { "lasso-selection": false }, settingsMenu: true
+    }
 });
 sketch.visible = false;
 view.ui.add(sketch, "top-left");
@@ -203,7 +170,7 @@ function startMeasurement() {
     isMeasuring = true;
     sketch.visible = true;
     map.add(graphicsLayer);
-    updateUI(true);    
+    updateUI(true);
     sketch.create("polyline");
     //alert("start");
 }
@@ -211,7 +178,7 @@ function clearGraphics() {
     graphicsLayer.removeAll();
     //displayResult(0, "");
 }
-sketch.on("create", event => {    
+sketch.on("create", event => {
     if (event.state === "complete") {
         const geometry = event.graphic.geometry;
         const result = geometry.type === "polyline"
@@ -227,36 +194,8 @@ function updateUI(showResult) {
     //document.getElementById("toggle-measurement").textContent = buttonText;
     document.getElementById("measurement-result").style.display = showResult ? "block" : "none";
 }
-// #endregion -----------------------------------------------------------------------------------------------
-
-
-
-// End for test /////////////////////////////////////////////////////////////////////////////////////////////
-
-
-//Stop Calcite loader      
-//document.querySelector("calcite-loader").hidden = true;
-
-// #endregion Main ------------------------------------------------------------------------------------------
-
-// #region Widgets -------------------------------------------------------------------------------------------
-
-// Add Home button
-const homeBtn = new Home({
-    view: view
-});
-
-// Add FullScreen
-const fullscreen = new Fullscreen({
-    view: view
-});
-           
-//Add Coordinate
-const ccWidget = new CoordinateConversion({
-    view: view
-});
-
-
+// #endregion ---------------------------------------------------------------------------------------------------------
+// #region FeatureTable and layerlist----------------------------------------------------------------------------------
 //Add LayerList
 const layerList = new LayerList({
     view,
@@ -267,7 +206,7 @@ const layerList = new LayerList({
         const { item } = event;
         if (item.layer.type === "map-image") {
             // Add custom actions: Toggle Table and Zoom to Layer
-            item.actionsSections = [[                
+            item.actionsSections = [[
                 {
                     title: "Zoom to Layer",
                     className: "esri-icon-zoom-out-fixed",
@@ -287,7 +226,7 @@ const layerList = new LayerList({
                     id: "toggle-table"
                 }
             ]];
-        }     
+        }
     }
 });
 // add Layerlist filter 
@@ -297,18 +236,18 @@ layerList.minFilterItems = 5;
 
 // Handle LayerList action events
 layerList.on("trigger-action", (event) => {
-    const selectedLayer = event.item.layer;        
-    if (event.action.id === "zoom-to-layer") {        
+    const selectedLayer = event.item.layer;
+    if (event.action.id === "zoom-to-layer") {
         selectedLayer.when(() => {
             view.goTo(selectedLayer.fullExtent).catch((error) => {
                 if (error.name != "AbortError") {
                     console.error(error);
                 }
             });
-        });        
+        });
     } else if (event.action.id === "remove-layer") {
         // Remove the layer from the map
-        map.remove(selectedLayer).catch ((error) => {
+        map.remove(selectedLayer).catch((error) => {
             if (error.name != "AbortError") {
                 console.error(error);
             }
@@ -332,33 +271,60 @@ featureTable.visibleElements = {
     menuItems: {
         clearSelection: true,
         zoomToSelection: true
-    }
+    },
+    editingEnabled: true, // set this to true to enable editing
+    paginationEnabled: true
 };
 
 // Toggle FeatureTable overlay visibility
-function toggleFeatureTable(urlLayer, titleLayer) {        
+function toggleFeatureTable(urlLayer, titleLayer) {
     const featureLayer = new FeatureLayer({
         url: urlLayer,
         outFields: ["*"],
         title: titleLayer
     });
     if (flag) {
-        flag = false;        
-        featureTable.layer = featureLayer;        
+        flag = false;
+        featureTable.layer = featureLayer;
         panelMapView.style.height = "50%";
-        panelAttributeTable.style.height = "50%";                        
+        panelAttributeTable.style.height = "50%";
     } else {
         flag = true;
         panelMapView.style.height = "100%";
         panelAttributeTable.style.height = "0%";
-    }    
+    }
 }
- 
+// #endregion ---------------------------------------------------------------------------------------------------------
+// #region Widgets and view -------------------------------------------------------------------------------------------
+
+//Remove bottom atribution (power by esri)
+view.ui.empty();
+
+// Move Zoom button                
+view.ui.move("zoom", "bottom-right");
+
+// Add Home button
+const homeBtn = new Home({
+    view: view
+});
+view.ui.add(homeBtn, "top-right");
+
+// Add FullScreen
+const fullscreen = new Fullscreen({
+    view: view
+});
+view.ui.add(fullscreen, "top-right");
+
+//Add Coordinate
+const ccWidget = new CoordinateConversion({
+    view: view
+});
+//view.ui.add(ccWidget, "bottom-left");
 
 //Add Legend
 const legend = new Legend({
-  view,
-  container: "legend-container"
+    view,
+    container: "legend-container"
 });
 
 //Add ScaleBar
@@ -367,38 +333,20 @@ const scaleBar = new ScaleBar({
     unit: "metric" // The scale bar displays both metric and imperial units.
 });
 view.ui.add(scaleBar, "bottom-left");
-// #endregion Widget ----------------------------------------------------------------------------------------
-
-// #region View ---------------------------------------------------------------------------------------------
-//Remove bottom atribution (power by esri)
-view.ui.empty();
-
-// Move Zoom button                
-view.ui.move("zoom","bottom-right");
-//view.ui.move("zoom", "top-left");  
-
-// Add the home button
-view.ui.add(homeBtn, "top-right");
-// Add the home button Manual
-//view.ui.add("Home-button", "top-right");
 
 // Add Draw button
-//view.ui.add("Home-button", "bottom-right");  
-//view.ui.add(["line-button", "Home-button"], "top-right");
-//view.ui.add("line-button", "top-right"); 
+//view.ui.add(["line-button", "top-right");
+// #endregion Widget --------------------------------------------------------------------------------------------------
+// Add for test ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// View Coordinate widget
-//view.ui.add(ccWidget, "bottom-left");
 
-view.ui.add(fullscreen, "top-right");
-//add maual btn FullScreen
-//view.ui.add("FullScreen-button","top-right");
-//view.ui.add("identify","top-left");
 
-// #endregion View ------------------------------------------------------------------------------------------
 
-//#region Exporting -----------------------------------------------------------------------------------------
+
+
+// End for test ///////////////////////////////////////////////////////////////////////////////////////////////////////
+//#region Exporting ---------------------------------------------------------------------------------------------------
 
 export {view, mapServerUrl};
 
-//#endregion Exporting --------------------------------------------------------------------------------------
+//#endregion Exporting ------------------------------------------------------------------------------------------------
