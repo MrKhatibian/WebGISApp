@@ -64,22 +64,24 @@ view.when(() => {
     document.querySelector("#header-title").heading = title;
     document.querySelector("#item-description").innerHTML = url;            
 });
+// Alert box for error messages
+const boxAlert = document.getElementById("alert");
 
-// Aler for error messages
-const messageBox = document.getElementById("messageBox");
-
-function showMessage(message, isError = false) {
-    messageBox.innerText = message;
-    messageBox.style.display = "block";
-    messageBox.style.color = isError ? "red" : "green";
+function showMessage(message, errorType) {
+    boxAlert.innerText = message;
+    boxAlert.style.display = "block";
+    boxAlert.kind = errorType ? "danger" : "success";
 
     // Auto-hide the message box after 3 seconds
     setTimeout(() => {
-        messageBox.style.display = "none";
+        boxAlert.style.display = "none";
     }, 3000);
+}
 // refresh map button
 const btnRefresh = document.getElementById("refresh");
-btnRefresh.addEventListener("click",);
+btnRefresh.addEventListener("click", function () {
+
+});
 // #endregion Main ----------------------------------------------------------------------------------------------------
 // #region shell panels and actionbar----------------------------------------------------------------------------------
 // References to shell panels and actions
