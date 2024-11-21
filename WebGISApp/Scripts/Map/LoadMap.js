@@ -64,6 +64,22 @@ view.when(() => {
     document.querySelector("#header-title").heading = title;
     document.querySelector("#item-description").innerHTML = url;            
 });
+
+// Aler for error messages
+const messageBox = document.getElementById("messageBox");
+
+function showMessage(message, isError = false) {
+    messageBox.innerText = message;
+    messageBox.style.display = "block";
+    messageBox.style.color = isError ? "red" : "green";
+
+    // Auto-hide the message box after 3 seconds
+    setTimeout(() => {
+        messageBox.style.display = "none";
+    }, 3000);
+// refresh map button
+const btnRefresh = document.getElementById("refresh");
+btnRefresh.addEventListener("click",);
 // #endregion Main ----------------------------------------------------------------------------------------------------
 // #region shell panels and actionbar----------------------------------------------------------------------------------
 // References to shell panels and actions
