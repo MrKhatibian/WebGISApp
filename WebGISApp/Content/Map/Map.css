@@ -25,6 +25,9 @@ calcite-dialog {
     direction: rtl;
     text-align: right;
 }
+calcite-alert{
+    direction:rtl;
+}
 #mainPanel {
     width: 100%;
     height: 100%;

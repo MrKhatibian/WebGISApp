@@ -65,11 +65,15 @@ view.when(() => {
     document.querySelector("#item-description").innerHTML = url;            
 });
 // Alert box for error messages
-const boxAlert = document.getElementById("alert");
 
-function showMessage(message, errorType) {
-    boxAlert.innerText = message;
+function alertBox(title, message, icon, errorType) {
+    const boxAlert = document.getElementById("alert");
+    const titleAlert = document.getElementById("alertTitle");
+    const messageAlert = document.getElementById("alertMessage");
     boxAlert.style.display = "block";
+    titleAlert.innerText = title;
+    messageAlert.innerText = message;
+    boxAlert.icon = icon;    
     boxAlert.kind = errorType ? "danger" : "success";
 
     // Auto-hide the message box after 3 seconds
@@ -80,7 +84,7 @@ function showMessage(message, errorType) {
 // refresh map button
 const btnRefresh = document.getElementById("refresh");
 btnRefresh.addEventListener("click", function () {
-
+    alertBox("Hiiiii","Amard" ,"rangefinder", "danger");
 });
 // #endregion Main ----------------------------------------------------------------------------------------------------
 // #region shell panels and actionbar----------------------------------------------------------------------------------
