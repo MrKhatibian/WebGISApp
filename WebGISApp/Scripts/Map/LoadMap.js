@@ -66,15 +66,34 @@ view.when(() => {
 });
 // Alert box for error messages
 
-function alertBox(title, message, icon, errorType) {
+function alertBox(message, alertType) {
     const boxAlert = document.getElementById("alert");
     const titleAlert = document.getElementById("alertTitle");
     const messageAlert = document.getElementById("alertMessage");
-    boxAlert.style.display = "block";
-    titleAlert.innerText = title;
-    messageAlert.innerText = message;
-    boxAlert.icon = icon;    
-    boxAlert.kind = errorType ? "danger" : "success";
+    boxAlert.open = true;
+    boxAlert.style.display = "block";    
+    messageAlert.innerText = message;    
+    switch (alertType) {
+        case "success":
+            boxAlert.kind = "success";
+            boxAlert.icon = "check-extent";            
+            titleAlert.innerText = "انجام شد";
+            break;
+        case "danger":
+            boxAlert.kind = "danger";
+            boxAlert.icon = "x-octagon";            
+            titleAlert.innerText = "خطا";
+            break;
+        case "info":
+            boxAlert.kind = "info";
+            boxAlert.icon = "information";            
+            titleAlert.innerText = "اطلاعات";
+            break;
+        case "warning":
+            boxAlert.kind = "warning";
+            boxAlert.icon = "exclamation-mark-triangle";            
+            titleAlert.innerText = "هشدار";
+    }
 
     // Auto-hide the message box after 3 seconds
     setTimeout(() => {
@@ -84,7 +103,7 @@ function alertBox(title, message, icon, errorType) {
 // refresh map button
 const btnRefresh = document.getElementById("refresh");
 btnRefresh.addEventListener("click", function () {
-    alertBox("Hiiiii","Amard" ,"rangefinder", "danger");
+    alertBox("تحلیل گران آمارد", "success");
 });
 // #endregion Main ----------------------------------------------------------------------------------------------------
 // #region shell panels and actionbar----------------------------------------------------------------------------------
