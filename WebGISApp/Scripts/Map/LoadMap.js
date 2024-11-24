@@ -64,8 +64,7 @@ view.when(() => {
     document.querySelector("#header-title").heading = title;
     document.querySelector("#item-description").innerHTML = url;            
 });
-// Alert box for error messages
-
+//#region Alert box for error messages --------------------------------------------------------------------------------
 function alertBox(message, alertType) {
     const boxAlert = document.getElementById("alert");
     const titleAlert = document.getElementById("alertTitle");
@@ -79,7 +78,7 @@ function alertBox(message, alertType) {
             boxAlert.icon = "check-extent";            
             titleAlert.innerText = "انجام شد";
             break;
-        case "danger":
+        case "error":
             boxAlert.kind = "danger";
             boxAlert.icon = "x-octagon";            
             titleAlert.innerText = "خطا";
@@ -100,10 +99,30 @@ function alertBox(message, alertType) {
         boxAlert.style.display = "none";
     }, 3000);
 }
+//#endregion ----------------------------------------------------------------------------------------------------------
+function layerLoadStatus() {
+    switch (layer.loadStatus) {
+        case "not-loaded":
+            return "بارگذاری نشده است.";            
+        case "loading":
+            return "درحال بارگذاری";
+        case "failed":
+            return "خطا در بارگذاری";            
+        case "loaded":
+            return "بارگذاری انجام شد.";
+        default:
+            return "وضعیت نامشخص است."; // In case of unexpected status
+    }
+}
 // refresh map button
 const btnRefresh = document.getElementById("refresh");
 btnRefresh.addEventListener("click", function () {
-    alertBox("تحلیل گران آمارد", "success");
+    if (typeof layer !== "undefined" && typeof layer.refresh === "function") {
+        layer.refresh(); // Refresh the layer
+        alertBox(layerLoadStatus(),"info"); // Call the function to show the current status
+    } else {
+        alertBox("لایه مشخص نشده یا قابلیت رفرش ندارد.", error); // Error handling for undefined layer
+    }
 });
 // #endregion Main ----------------------------------------------------------------------------------------------------
 // #region shell panels and actionbar----------------------------------------------------------------------------------
