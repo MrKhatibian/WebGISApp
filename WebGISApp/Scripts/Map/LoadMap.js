@@ -22,6 +22,7 @@ import * as geometryEngine from "./arcgis_js_v430_api/arcgis_js_api/javascript/4
 import Sketch from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/Sketch.js";
 import ScaleBar from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/ScaleBar.js";
 import FeatureTable from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/FeatureTable.js";
+import it from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/layers/ImageryTileLayer.js";
 
 
 
@@ -36,6 +37,7 @@ const map = new Map({
 
 // Adding Map Image Layer
 const mapServerUrl = "http://localhost:6080/arcgis/rest/services/Maryanaj/Maryanaj_14030619/MapServer";
+//const mapServerUrl = "http://localhost:6080/arcgis/rest/services/Maryanaj/MaryanajEditenabled_14030619/FeatureServer";
 const layer = new MapImageLayer({
     // Replace with your ArcGIS Server URL
     url: mapServerUrl
@@ -121,7 +123,7 @@ btnRefresh.addEventListener("click", function () {
         layer.refresh(); // Refresh the layer
         alertBox(layerLoadStatus(),"info"); // Call the function to show the current status
     } else {
-        alertBox("لایه مشخص نشده یا قابلیت رفرش ندارد.", error); // Error handling for undefined layer
+        alertBox("لایه مشخص نشده یا قابلیت رفرش ندارد.", "error"); // Error handling for undefined layer
     }
 });
 // #endregion Main ----------------------------------------------------------------------------------------------------
@@ -318,8 +320,11 @@ let panelAttributeTable = document.getElementById("panelAttributeTable");
 let flag = true;
 const featureTable = new FeatureTable({
     view: view,
-    //layer: featureLayer,
-    container: "attributeTable" // Temporary container for now
+    layer: featureLayer,
+    container: "attributeTable", // Temporary container for now
+    multiSortEnabled: true, // set this to true to enable sorting on multiple columns    
+    editingEnabled: true, // set this to true to enable editing
+    paginationEnabled: true,
 });
 // Optional: Customize FeatureTable fields
 featureTable.visibleElements = {
@@ -328,9 +333,7 @@ featureTable.visibleElements = {
     menuItems: {
         clearSelection: true,
         zoomToSelection: true
-    },
-    editingEnabled: true, // set this to true to enable editing
-    paginationEnabled: true
+    },        
 };
 
 // Toggle FeatureTable overlay visibility
@@ -395,7 +398,33 @@ view.ui.add(scaleBar, "bottom-left");
 //view.ui.add(["line-button", "top-right");
 // #endregion Widget --------------------------------------------------------------------------------------------------
 // Add for test ///////////////////////////////////////////////////////////////////////////////////////////////////////
-
+// Check if the highlights are being changed on the table
+// update the features array to match the table highlights
+let features = [];
+featureTable.highlightIds.on("change", async (event) => {
+    // this array will keep track of selected feature objectIds to
+    // sync the layerview feature effects and feature table selection
+    // set excluded effect on the features that are not selected in the table    
+    event.removed.forEach((item) => {        
+        const data = features.find((data) => {            
+            return data === item;
+        });        
+        if (data) {            
+            features.splice(features.indexOf(data), 1);
+        }
+    });
+    
+    // If the selection is added, push all added selections to array
+    event.added.forEach((item) => {
+        features.push(item);
+    });    
+    //csvLayerView.featureEffect = {
+    //    filter: {
+    //        objectIds: features
+    //    },
+    //    excludedEffect: "blur(5px) grayscale(90%) opacity(40%)"
+    //};
+});
 
 
 
