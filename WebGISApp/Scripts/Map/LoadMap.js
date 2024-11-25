@@ -35,13 +35,21 @@ const map = new Map({
     basemap: "osm"
 });
 
-// Adding Map Image Layer
-const mapServerUrl = "http://localhost:6080/arcgis/rest/services/Maryanaj/Maryanaj_14030619/MapServer";
-//const mapServerUrl = "http://localhost:6080/arcgis/rest/services/Maryanaj/MaryanajEditenabled_14030619/FeatureServer";
+// Adding Map Layer
+const serverUrl = "http://localhost:6080/arcgis/rest/services/Maryanaj/Maryanaj_14030619";
+creatServiceUrl(serverUrl);
+
+function creatServiceUrl(inputServiceUrl) { 
+    //Creat MapServer URL 
+    const mapServerUrl = inputServiceUrl + "/MapServer";
+    //Creat FeatureServer URL
+    const featureServerUrl = inputServiceUrl + "/FeatureServer";
+    return { mapServerUrl, featureServerUrl }; 
+}
+
 const layer = new MapImageLayer({
     // Replace with your ArcGIS Server URL
-    url: mapServerUrl
-    //url: "http://localhost:6080/arcgis/rest/services/SampleWorldCities/MapServer"
+    url: mapServerUrl    
 });
 map.add(layer);
 
