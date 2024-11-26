@@ -35,10 +35,10 @@ const map = new Map({
     basemap: "osm"
 });
 
-// Adding Map Layer
+// Adding Map URL
 const serverUrl = "http://localhost:6080/arcgis/rest/services/Maryanaj/Maryanaj_14030619";
 creatServiceUrl(serverUrl);
-
+// Creat Map service URL
 function creatServiceUrl(inputServiceUrl) { 
     //Creat MapServer URL 
     const mapServerUrl = inputServiceUrl + "/MapServer";
