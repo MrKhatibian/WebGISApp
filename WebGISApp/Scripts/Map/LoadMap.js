@@ -37,19 +37,14 @@ const map = new Map({
 
 // Adding Map URL
 const serverUrl = "http://localhost:6080/arcgis/rest/services/Maryanaj/Maryanaj_14030619";
-creatServiceUrl(serverUrl);
-// Creat Map service URL
-function creatServiceUrl(inputServiceUrl) { 
-    //Creat MapServer URL 
-    const mapServerUrl = inputServiceUrl + "/MapServer";
-    //Creat FeatureServer URL
-    const featureServerUrl = inputServiceUrl + "/FeatureServer";
-    return { mapServerUrl, featureServerUrl }; 
-}
+//Creat MapServer URL 
+const mapServerUrl = serverUrl + "/MapServer";
+//Creat FeatureServer URL
+const featureServerUrl = inputServiceUrl + "/FeatureServer";
 
 const layer = new MapImageLayer({
     // Replace with your ArcGIS Server URL
-    url: mapServerUrl    
+    url: creatServiceUrl(serverUrl)    
 });
 map.add(layer);
 
