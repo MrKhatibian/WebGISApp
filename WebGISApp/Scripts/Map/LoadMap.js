@@ -259,43 +259,47 @@ const shellPanelStart = document.getElementById("shell-panel-start");
 const shellPanelEnd = document.getElementById("shell-panel-end");
 
 const actionsStart = shellPanelStart?.querySelectorAll("calcite-action");
+const panelStart = shellPanelStart?.querySelectorAll("calcite-panel");
 const actionsEnd = shellPanelEnd?.querySelectorAll("calcite-action");
-
+const panelEnd = shellPanelEnd?.querySelectorAll("calcite-panel");
 // Add click listeners for start panel actions
 actionsStart?.forEach(el => {
-    el.addEventListener("click", function () {
-        //alert(el.id);
-        const panelStart = document.getElementById("panel_" + el.id);
+    el.addEventListener("click", function () {                    
+        const selectedActionPanelStart = document.getElementById("panel_" + el.id);        
         if (el.active) {
             el.active = false; // Set the clicked action as active
             shellPanelStart.collapsed = true; // Expand panel
-            panelStart.closed = true; // Open panel
+            selectedActionPanelStart.hidden = true; // Open panel
+            selectedActionPanelStart.closed = true; 
             return
-        }; // Prevent unnecessary toggling
-        actionsStart?.forEach(action => (action.active = false));
+        }; // Prevent unnecessary toggling        
+        panelStart?.forEach(item => { item.closed = true });
+        actionsStart?.forEach(action => { action.active = false });
         el.active = true; // Set the clicked action as active
         shellPanelStart.collapsed = false; // Expand panel
-        panelStart.closed = false; // Open panel      
-        panelStart.hidden = false;
-        panelStart.heading = el.text; // Update heading
+        selectedActionPanelStart.hidden = false; // Open panel
+        selectedActionPanelStart.closed = false;
+        selectedActionPanelStart.heading = el.text; // Update heading
     });
 });
 // Add click listeners for end panel actions
 actionsEnd?.forEach(el => {
-    el.addEventListener("click", function () {
-        //alert(el.id);
-        const panelEnd = document.getElementById("panel_" + el.id);
+    el.addEventListener("click", function () {                
+        const selectedActionPanelEnd = document.getElementById("panel_" + el.id);        
         if (el.active) {
             el.active = false; // Set the clicked action as active
             shellPanelEnd.collapsed = true; // Expand panel
-            panelEnd.hidden = true; // Open panel
+            selectedActionPanelEnd.closed = true; // Open panel
+            selectedActionPanelEnd.hidden = true; // Open panel
             return
         }; // Prevent unnecessary toggling
+        panelEnd?.forEach(item => { item.closed = true });
         actionsEnd?.forEach(action => (action.active = false));
         el.active = true; // Set the clicked action as active
         shellPanelEnd.collapsed = false; // Expand panel            
-        panelEnd.hidden = false;
-        panelEnd.heading = el.text; // Update heading
+        selectedActionPanelEnd.closed = false;
+        selectedActionPanelEnd.hidden = false;
+        selectedActionPanelEnd.heading = el.text; // Update heading
     });
 });
 // #endregion
