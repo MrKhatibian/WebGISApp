@@ -22,13 +22,28 @@ import * as geometryEngine from "./arcgis_js_v430_api/arcgis_js_api/javascript/4
 import Sketch from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/Sketch.js";
 import ScaleBar from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/ScaleBar.js";
 import FeatureTable from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/FeatureTable.js";
-import it from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/layers/ImageryTileLayer.js";
+import ImageryTileLayer from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/layers/ImageryTileLayer.js";
+import TileLayer from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/layers/TileLayer.js";
 
 
 
 // #endregion
 
 // #region Main
+let featureLayer;
+const features = [];
+
+// Add the basemap layer
+const basemapLayer = new TileLayer({
+    url: "http://localhost:6080/arcgis/rest/services/Maryanaj/MaryanajEditenabled_14030619/MapServer"
+});
+
+// Create the map and add the basemap layer
+//const map = new Map({
+//    basemap: {
+//        baseLayers: [basemapLayer]
+//    }
+//});
 const map = new Map({
     //basemap: "gray-vector"
     //basemap: "topo-vector"
