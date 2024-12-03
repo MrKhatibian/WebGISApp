@@ -99,6 +99,67 @@ view.when(() => {
 
     // Add the feature layer to the map
     map.add(featureLayer);
+    // #region FeatureTable and layerlist
+    //Add LayerList
+    const layerList = new LayerList({
+        view,
+        dragEnabled: true,
+        visibilityAppearance: "checkbox",
+        container: "layers-container",
+        listItemCreatedFunction: (event) => {
+            const { item } = event;
+            if (item.layer.type === "map-image") {
+                // Add custom actions: Toggle Table and Zoom to Layer
+                item.actionsSections = [[
+                    {
+                        title: "Zoom to Layer",
+                        className: "esri-icon-zoom-out-fixed",
+                        id: "zoom-to-layer"
+                    },
+                    {
+                        title: "Remove Layer",
+                        className: "esri-icon-close",
+                        id: "remove-layer"
+                    }
+                ]];
+            } else if (item.layer.type === "sublayer") {
+                item.actionsSections = [[
+                    {
+                        title: "Toggle Table",
+                        className: "esri-icon-table",
+                        id: "toggle-table"
+                    }
+                ]];
+            }
+        }
+    });
+    // add Layerlist filter 
+    layerList.visibleElements.filter = true;
+    //Default Value: 10
+    layerList.minFilterItems = 5;
+
+    // Handle LayerList action events
+    layerList.on("trigger-action", (event) => {
+        const selectedLayer = event.item.layer;
+        if (event.action.id === "zoom-to-layer") {
+            selectedLayer.when(() => {
+                view.goTo(selectedLayer.fullExtent).catch((error) => {
+                    if (error.name != "AbortError") {
+                        console.error(error);
+                    }
+                });
+            });
+        } else if (event.action.id === "remove-layer") {
+            // Remove the layer from the map
+            map.remove(selectedLayer).catch((error) => {
+                if (error.name != "AbortError") {
+                    console.error(error);
+                }
+            });
+        } else if (event.action.id === "toggle-table") {
+            toggleFeatureTable(selectedLayer.url, selectedLayer.title);
+        }
+    });
     let panelMapView = document.getElementById("panelMapView");
     let panelAttributeTable = document.getElementById("panelAttributeTable");
     let flag = true;
@@ -137,6 +198,8 @@ view.when(() => {
             panelAttributeTable.style.height = "0%";
         }
     }
+    // #endregion
+    
     // #region Add for test
 
     // Check if the highlights are being changed on the table
@@ -325,69 +388,7 @@ function updateUI(showResult) {
     document.getElementById("measurement-result").style.display = showResult ? "block" : "none";
 }
 // #endregion -
-// #region FeatureTable and layerlist
-//Add LayerList
-const layerList = new LayerList({
-    view,
-    dragEnabled: true,
-    visibilityAppearance: "checkbox",
-    container: "layers-container",
-    listItemCreatedFunction: (event) => {
-        const { item } = event;
-        if (item.layer.type === "map-image") {
-            // Add custom actions: Toggle Table and Zoom to Layer
-            item.actionsSections = [[
-                {
-                    title: "Zoom to Layer",
-                    className: "esri-icon-zoom-out-fixed",
-                    id: "zoom-to-layer"
-                },
-                {
-                    title: "Remove Layer",
-                    className: "esri-icon-close",
-                    id: "remove-layer"
-                }
-            ]];
-        } else if (item.layer.type === "sublayer") {
-            item.actionsSections = [[
-                {
-                    title: "Toggle Table",
-                    className: "esri-icon-table",
-                    id: "toggle-table"
-                }
-            ]];
-        }
-    }
-});
-// add Layerlist filter 
-layerList.visibleElements.filter = true;
-//Default Value: 10
-layerList.minFilterItems = 5;
 
-// Handle LayerList action events
-layerList.on("trigger-action", (event) => {
-    const selectedLayer = event.item.layer;
-    if (event.action.id === "zoom-to-layer") {
-        selectedLayer.when(() => {
-            view.goTo(selectedLayer.fullExtent).catch((error) => {
-                if (error.name != "AbortError") {
-                    console.error(error);
-                }
-            });
-        });
-    } else if (event.action.id === "remove-layer") {
-        // Remove the layer from the map
-        map.remove(selectedLayer).catch((error) => {
-            if (error.name != "AbortError") {
-                console.error(error);
-            }
-        });
-    } else if (event.action.id === "toggle-table") {
-        toggleFeatureTable(selectedLayer.url, selectedLayer.title);
-    }
-});
-
-// #endregion
 // #region Widgets and view
 
 //Remove bottom atribution (power by esri)
