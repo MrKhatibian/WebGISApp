@@ -1,4 +1,4 @@
-﻿// #region Import -----------------------------------------------------------------------------------------------------
+﻿// #region Import
 //Import Files
 
 
@@ -26,31 +26,31 @@ import it from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/
 
 
 
-// #endregion ---------------------------------------------------------------------------------------------------------
+// #endregion
 
-// #region Main -------------------------------------------------------------------------------------------------------
+// #region Main
 const map = new Map({
-    //basemap: "gray-vector" // basemap styles service
+    //basemap: "gray-vector"
     //basemap: "topo-vector"
     basemap: "osm"
 });
 
 // Adding Map URL
-const serverUrl = "http://localhost:6080/arcgis/rest/services/Maryanaj/Maryanaj_14030619";
+const serverUrl = "http://localhost:6080/arcgis/rest/services/Maryanaj/MaryanajEditenabled_14030619";
 //Creat MapServer URL 
 const mapServerUrl = serverUrl + "/MapServer";
 //Creat FeatureServer URL
-const featureServerUrl = inputServiceUrl + "/FeatureServer";
+const featureServerUrl = serverUrl + "/FeatureServer";
 
 const layer = new MapImageLayer({
     // Replace with your ArcGIS Server URL
-    url: creatServiceUrl(serverUrl)    
+    url: mapServerUrl   
 });
 map.add(layer);
 
 // Adding Feature Layer
 const featureLayer = new FeatureLayer({
-    url: mapServerUrl+"/0",
+    url: featureServerUrl +"/0",
     outFields: ["*"],
     title: "Arse"
 });
@@ -61,7 +61,7 @@ const view = new MapView({
     container: "mapView", // Div element     
     map: map,
     zoom: 14, // Zoom level
-    center: [48.464869, 34.834155], // Longitude, latitude 48.464869  34.834155                        
+    center: [48.464869, 34.834155] // Longitude, latitude 48.464869  34.834155                        
 });
 
 view.when(() => {
@@ -69,42 +69,7 @@ view.when(() => {
     document.querySelector("#header-title").heading = title;
     document.querySelector("#item-description").innerHTML = url;            
 });
-//#region Alert box for error messages --------------------------------------------------------------------------------
-function alertBox(message, alertType) {
-    const boxAlert = document.getElementById("alert");
-    const titleAlert = document.getElementById("alertTitle");
-    const messageAlert = document.getElementById("alertMessage");
-    boxAlert.open = true;
-    boxAlert.style.display = "block";    
-    messageAlert.innerText = message;    
-    switch (alertType) {
-        case "success":
-            boxAlert.kind = "success";
-            boxAlert.icon = "check-extent";            
-            titleAlert.innerText = "انجام شد";
-            break;
-        case "error":
-            boxAlert.kind = "danger";
-            boxAlert.icon = "x-octagon";            
-            titleAlert.innerText = "خطا";
-            break;
-        case "info":
-            boxAlert.kind = "info";
-            boxAlert.icon = "information";            
-            titleAlert.innerText = "اطلاعات";
-            break;
-        case "warning":
-            boxAlert.kind = "warning";
-            boxAlert.icon = "exclamation-mark-triangle";            
-            titleAlert.innerText = "هشدار";
-    }
 
-    // Auto-hide the message box after 3 seconds
-    setTimeout(() => {
-        boxAlert.style.display = "none";
-    }, 3000);
-}
-//#endregion ----------------------------------------------------------------------------------------------------------
 function layerLoadStatus() {
     switch (layer.loadStatus) {
         case "not-loaded":
@@ -129,8 +94,8 @@ btnRefresh.addEventListener("click", function () {
         alertBox("لایه مشخص نشده یا قابلیت رفرش ندارد.", "error"); // Error handling for undefined layer
     }
 });
-// #endregion Main ----------------------------------------------------------------------------------------------------
-// #region shell panels and actionbar----------------------------------------------------------------------------------
+// #endregion Main 
+// #region shell panels and actionbar
 // References to shell panels and actions
 const shellPanelStart = document.getElementById("shell-panel-start");
 const shellPanelEnd = document.getElementById("shell-panel-end");
@@ -175,8 +140,8 @@ actionsEnd?.forEach(el => {
         panelEnd.heading = el.text; // Update heading
     });
 });
-// #endregion----------------------------------------------------------------------------------------------------------
-// #region Add data and open dialogdialog_import-----------------------------------------------------------------------
+// #endregion
+// #region Add data and open dialogdialog_import-
 const btn_AddData = document.getElementById("btn_AddData");
 const dialog_AddData = document.getElementById("dialog_AddData");
 const btn_CancelAddData = document.getElementById("btn_CancelAddData");
@@ -200,8 +165,8 @@ function addData(dataPath, dataType) {
         dialog_AddData.open = false;
     }
 }
-// #endregion----------------------------------------------------------------------------------------------------------
-// #region Measurment tool --------------------------------------------------------------------------------------------
+// #endregion
+// #region Measurment tool 
 const graphicsLayer = new GraphicsLayer();
 
 const sketch = new Sketch({
@@ -256,8 +221,8 @@ function updateUI(showResult) {
     //document.getElementById("toggle-measurement").textContent = buttonText;
     document.getElementById("measurement-result").style.display = showResult ? "block" : "none";
 }
-// #endregion ---------------------------------------------------------------------------------------------------------
-// #region FeatureTable and layerlist----------------------------------------------------------------------------------
+// #endregion -
+// #region FeatureTable and layerlist
 //Add LayerList
 const layerList = new LayerList({
     view,
@@ -338,7 +303,6 @@ featureTable.visibleElements = {
         zoomToSelection: true
     },        
 };
-
 // Toggle FeatureTable overlay visibility
 function toggleFeatureTable(urlLayer, titleLayer) {
     const featureLayer = new FeatureLayer({
@@ -357,8 +321,8 @@ function toggleFeatureTable(urlLayer, titleLayer) {
         panelAttributeTable.style.height = "0%";
     }
 }
-// #endregion ---------------------------------------------------------------------------------------------------------
-// #region Widgets and view -------------------------------------------------------------------------------------------
+// #endregion
+// #region Widgets and view
 
 //Remove bottom atribution (power by esri)
 view.ui.empty();
@@ -399,8 +363,45 @@ view.ui.add(scaleBar, "bottom-left");
 
 // Add Draw button
 //view.ui.add(["line-button", "top-right");
-// #endregion Widget --------------------------------------------------------------------------------------------------
-// Add for test ///////////////////////////////////////////////////////////////////////////////////////////////////////
+// #endregion Widget 
+//#region Alert box for error messages 
+function alertBox(message, alertType) {
+    const boxAlert = document.getElementById("alert");
+    const titleAlert = document.getElementById("alertTitle");
+    const messageAlert = document.getElementById("alertMessage");
+    boxAlert.open = true;
+    boxAlert.style.display = "block";
+    messageAlert.innerText = message;
+    switch (alertType) {
+        case "success":
+            boxAlert.kind = "success";
+            boxAlert.icon = "check-extent";
+            titleAlert.innerText = "انجام شد";
+            break;
+        case "error":
+            boxAlert.kind = "danger";
+            boxAlert.icon = "x-octagon";
+            titleAlert.innerText = "خطا";
+            break;
+        case "info":
+            boxAlert.kind = "info";
+            boxAlert.icon = "information";
+            titleAlert.innerText = "اطلاعات";
+            break;
+        case "warning":
+            boxAlert.kind = "warning";
+            boxAlert.icon = "exclamation-mark-triangle";
+            titleAlert.innerText = "هشدار";
+    }
+
+    // Auto-hide the message box after 3 seconds
+    setTimeout(() => {
+        boxAlert.style.display = "none";
+    }, 3000);
+}
+//#endregion 
+// #region Add for test
+
 // Check if the highlights are being changed on the table
 // update the features array to match the table highlights
 let features = [];
@@ -433,9 +434,9 @@ featureTable.highlightIds.on("change", async (event) => {
 
 
 
-// End for test ///////////////////////////////////////////////////////////////////////////////////////////////////////
-//#region Exporting ---------------------------------------------------------------------------------------------------
+// #endregion End for test 
+//#region Exporting
 
 export {view, mapServerUrl};
 
-//#endregion Exporting ------------------------------------------------------------------------------------------------
+//#endregion Exporting 
