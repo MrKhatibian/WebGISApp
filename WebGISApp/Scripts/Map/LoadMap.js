@@ -30,6 +30,8 @@ import TileLayer from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgi
 // #endregion
 
 // #region Main
+
+// Paramter
 let featureLayer;
 const features = [];
 
@@ -51,7 +53,8 @@ const map = new Map({
 });
 
 // Adding Map URL
-const serverUrl = "http://localhost:6080/arcgis/rest/services/Maryanaj/MaryanajEditenabled_14030619";
+//const serverUrl = "http://localhost:6080/arcgis/rest/services/Maryanaj/MaryanajEditenabled_14030619";
+const serverUrl = "http://localhost:6080/arcgis/rest/services/Maryanaj/MaryanajWithoutLabel_14030619";
 //Creat MapServer URL 
 const mapServerUrl = serverUrl + "/MapServer";
 //Creat FeatureServer URL
@@ -63,13 +66,7 @@ const layer = new MapImageLayer({
 });
 map.add(layer);
 
-// Adding Feature Layer
-const featureLayer = new FeatureLayer({
-    url: featureServerUrl +"/0",
-    outFields: ["*"],
-    title: "Arse"
-});
-//map.add(featureLayer);
+
 
 // Creat and Set Map View
 const view = new MapView({
@@ -78,11 +75,102 @@ const view = new MapView({
     zoom: 14, // Zoom level
     center: [48.464869, 34.834155] // Longitude, latitude 48.464869  34.834155                        
 });
-
 view.when(() => {
-    const { title, url } = layer;        
-    document.querySelector("#header-title").heading = title;
-    document.querySelector("#item-description").innerHTML = url;            
+    if (!layer || !featureServerUrl) {
+        console.error("Layer or FeatureServer URL is missing");
+        return;
+    }
+
+    const { title, url } = layer;
+
+    // Update HTML elements safely
+    const headerTitleElement = document.querySelector("#header-title");
+    const itemDescriptionElement = document.querySelector("#item-description");
+
+    if (headerTitleElement) headerTitleElement.textContent = title;
+    if (itemDescriptionElement) itemDescriptionElement.innerHTML = url;
+    
+    // Add Feature Layer
+    const featureLayer = new FeatureLayer({
+        url: `${featureServerUrl}/0`, // Template literals for clarity
+        outFields: ["*"], // Fetch all fields
+        title: "Feature Layer Title" // Replace with a descriptive title
+    });
+
+    // Add the feature layer to the map
+    map.add(featureLayer);
+    let panelMapView = document.getElementById("panelMapView");
+    let panelAttributeTable = document.getElementById("panelAttributeTable");
+    let flag = true;
+    const featureTable = new FeatureTable({
+        view: view,
+        layer: featureLayer,
+        container: "attributeTable", // Temporary container for now
+        multiSortEnabled: true, // set this to true to enable sorting on multiple columns    
+        editingEnabled: true, // set this to true to enable editing
+        paginationEnabled: true,
+    });
+    // Optional: Customize FeatureTable fields
+    featureTable.visibleElements = {
+        header: true,
+        menu: true,
+        menuItems: {
+            clearSelection: true,
+            zoomToSelection: true
+        },
+    };
+    // Toggle FeatureTable overlay visibility
+    function toggleFeatureTable(urlLayer, titleLayer) {
+        const featureLayer = new FeatureLayer({
+            url: urlLayer,
+            outFields: ["*"],
+            title: titleLayer
+        });
+        if (flag) {
+            flag = false;
+            featureTable.layer = featureLayer;
+            panelMapView.style.height = "50%";
+            panelAttributeTable.style.height = "50%";
+        } else {
+            flag = true;
+            panelMapView.style.height = "100%";
+            panelAttributeTable.style.height = "0%";
+        }
+    }
+    // #region Add for test
+
+    // Check if the highlights are being changed on the table
+    // update the features array to match the table highlights
+    featureTable.highlightIds.on("change", async (event) => {
+        // this array will keep track of selected feature objectIds to
+        // sync the layerview feature effects and feature table selection
+        // set excluded effect on the features that are not selected in the table    
+        event.removed.forEach((item) => {
+            const data = features.find((data) => {
+                return data === item;
+            });
+            if (data) {
+                features.splice(features.indexOf(data), 1);
+            }
+        });
+
+        // If the selection is added, push all added selections to array
+        event.added.forEach((item) => {
+            features.push(item);
+        });
+        //csvLayerView.featureEffect = {
+        //    filter: {
+        //        objectIds: features
+        //    },
+        //    excludedEffect: "blur(5px) grayscale(90%) opacity(40%)"
+        //};
+    });
+
+
+
+
+
+    // #endregion End for test 
 });
 
 function layerLoadStatus() {
@@ -298,44 +386,7 @@ layerList.on("trigger-action", (event) => {
         toggleFeatureTable(selectedLayer.url, selectedLayer.title);
     }
 });
-let panelMapView = document.getElementById("panelMapView");
-let panelAttributeTable = document.getElementById("panelAttributeTable");
-let flag = true;
-const featureTable = new FeatureTable({
-    view: view,
-    layer: featureLayer,
-    container: "attributeTable", // Temporary container for now
-    multiSortEnabled: true, // set this to true to enable sorting on multiple columns    
-    editingEnabled: true, // set this to true to enable editing
-    paginationEnabled: true,
-});
-// Optional: Customize FeatureTable fields
-featureTable.visibleElements = {
-    header: true,
-    menu: true,
-    menuItems: {
-        clearSelection: true,
-        zoomToSelection: true
-    },        
-};
-// Toggle FeatureTable overlay visibility
-function toggleFeatureTable(urlLayer, titleLayer) {
-    const featureLayer = new FeatureLayer({
-        url: urlLayer,
-        outFields: ["*"],
-        title: titleLayer
-    });
-    if (flag) {
-        flag = false;
-        featureTable.layer = featureLayer;
-        panelMapView.style.height = "50%";
-        panelAttributeTable.style.height = "50%";
-    } else {
-        flag = true;
-        panelMapView.style.height = "100%";
-        panelAttributeTable.style.height = "0%";
-    }
-}
+
 // #endregion
 // #region Widgets and view
 
@@ -415,41 +466,7 @@ function alertBox(message, alertType) {
     }, 3000);
 }
 //#endregion 
-// #region Add for test
 
-// Check if the highlights are being changed on the table
-// update the features array to match the table highlights
-let features = [];
-featureTable.highlightIds.on("change", async (event) => {
-    // this array will keep track of selected feature objectIds to
-    // sync the layerview feature effects and feature table selection
-    // set excluded effect on the features that are not selected in the table    
-    event.removed.forEach((item) => {        
-        const data = features.find((data) => {            
-            return data === item;
-        });        
-        if (data) {            
-            features.splice(features.indexOf(data), 1);
-        }
-    });
-    
-    // If the selection is added, push all added selections to array
-    event.added.forEach((item) => {
-        features.push(item);
-    });    
-    //csvLayerView.featureEffect = {
-    //    filter: {
-    //        objectIds: features
-    //    },
-    //    excludedEffect: "blur(5px) grayscale(90%) opacity(40%)"
-    //};
-});
-
-
-
-
-
-// #endregion End for test 
 //#region Exporting
 
 export {view, mapServerUrl};
