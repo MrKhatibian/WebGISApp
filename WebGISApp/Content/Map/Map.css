@@ -5,10 +5,10 @@ body {
     height: 100vh;    
     overflow: hidden;
 }
-/*calcite-panel {
-    direction: rtl;
-    text-align: right;
-}*/
+.drRtL{
+    direction:rtl;
+    text-align:right
+}
 calcite-navigation {
     direction: rtl;
     text-align: right;

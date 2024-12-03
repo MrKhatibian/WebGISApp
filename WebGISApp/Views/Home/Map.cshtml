@@ -56,29 +56,29 @@
         </calcite-action-bar>
 
         <!-- Map-specific panels (each one provides a div for a ArcGIS Maps SDK for JavaScript widget) -->
-        <calcite-panel id="panel_layers" hidden closed>
+        <calcite-panel id="panel_layers" class="drRtL" hidden closed>
             <div id="layers-container"></div>
             @*<calcite-button id="btn_AddData" slot="fab" primary-icon-start="layers" primary-text="Add" overlay-positioning="fixed" data-name="addfromonline" appearance="outline-fill" kind="brand" dropdown-icon-type="chevron" scale="m" width="auto" calcite-hydrated=""></calcite-button>*@
             <calcite-button id="btn_AddData" icon-start="add-layer" label="افزودن داده" slot="fab" scale="m" width="auto" overlay-positioning="fixed">افزودن داده</calcite-button>
         </calcite-panel>
-        <calcite-panel id="panel_basemaps" hidden closed>
+        <calcite-panel id="panel_basemaps" class="drRtL" hidden closed>
             <div id="basemaps-container"></div>
         </calcite-panel>
-        <calcite-panel id="panel_legend" hidden closed>
+        <calcite-panel id="panel_legend" class="drRtL" hidden closed>
             <div id="legend-container"></div>
         </calcite-panel>
-        <calcite-panel id="panel_print" hidden closed>
+        <calcite-panel id="panel_print" class="drRtL" hidden closed>
             <div id="print-container"></div>
         </calcite-panel>
         <!-- Info panel (populates with info from the web map) -->
-        <calcite-panel id="panel_information" hidden closed>
+        <calcite-panel id="panel_information" class="drRtL" hidden closed>
             <div id="info-content">
                 <div id="item-description">
                     <!-- Dynamically populated -->
                 </div>
             </div>
         </calcite-panel>
-        <calcite-panel id="panel_mapProperties" hidden closed>
+        <calcite-panel id="panel_mapProperties" class="drRtL" hidden closed>
             <div id="mapProperties-container"></div>
         </calcite-panel>
     </calcite-shell-panel>
