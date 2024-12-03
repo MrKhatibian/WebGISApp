@@ -40,20 +40,12 @@ const basemapLayer = new TileLayer({
     url: "http://localhost:6080/arcgis/rest/services/Maryanaj/MaryanajEditenabled_14030619/MapServer"
 });
 
-// Create the map and add the basemap layer
-//const map = new Map({
-//    basemap: {
-//        baseLayers: [basemapLayer]
-//    }
-//});
-const map = new Map({
-    //basemap: "gray-vector"
-    //basemap: "topo-vector"
+const map = new Map({   
     basemap: "osm"
+    //basemap: {baseLayers: [basemapLayer]}
 });
 
 // Adding Map URL
-//const serverUrl = "http://localhost:6080/arcgis/rest/services/Maryanaj/MaryanajEditenabled_14030619";
 const serverUrl = "http://localhost:6080/arcgis/rest/services/Maryanaj/MaryanajWithoutLabel_14030619";
 //Creat MapServer URL 
 const mapServerUrl = serverUrl + "/MapServer";
@@ -76,6 +68,7 @@ const view = new MapView({
     center: [48.464869, 34.834155] // Longitude, latitude 48.464869  34.834155                        
 });
 view.when(() => {
+  
     if (!layer || !featureServerUrl) {
         console.error("Layer or FeatureServer URL is missing");
         return;
@@ -85,16 +78,15 @@ view.when(() => {
 
     // Update HTML elements safely
     const headerTitleElement = document.querySelector("#header-title");
-    const itemDescriptionElement = document.querySelector("#item-description");
-
-    if (headerTitleElement) headerTitleElement.textContent = title;
+    const itemDescriptionElement = document.querySelector("#item-description");    
+    if (headerTitleElement) headerTitleElement.heading = title;
     if (itemDescriptionElement) itemDescriptionElement.innerHTML = url;
     
     // Add Feature Layer
     const featureLayer = new FeatureLayer({
         url: `${featureServerUrl}/0`, // Template literals for clarity
         outFields: ["*"], // Fetch all fields
-        title: "Feature Layer Title" // Replace with a descriptive title
+        title: "Arse" // Replace with a descriptive title
     });
 
     // Add the feature layer to the map
@@ -112,12 +104,12 @@ view.when(() => {
                 // Add custom actions: Toggle Table and Zoom to Layer
                 item.actionsSections = [[
                     {
-                        title: "Zoom to Layer",
+                        title: "زوم به لایه",
                         className: "esri-icon-zoom-out-fixed",
                         id: "zoom-to-layer"
                     },
                     {
-                        title: "Remove Layer",
+                        title: "پاک کردن لایه",
                         className: "esri-icon-close",
                         id: "remove-layer"
                     }
@@ -125,7 +117,7 @@ view.when(() => {
             } else if (item.layer.type === "sublayer") {
                 item.actionsSections = [[
                     {
-                        title: "Toggle Table",
+                        title: "جدول اطلاعات",
                         className: "esri-icon-table",
                         id: "toggle-table"
                     }
@@ -199,7 +191,30 @@ view.when(() => {
         }
     }
     // #endregion
-    
+    function layerLoadStatus() {
+        switch (layer.loadStatus) {
+            case "not-loaded":
+                return "بارگذاری نشده است.";
+            case "loading":
+                return "درحال بارگذاری";
+            case "failed":
+                return "خطا در بارگذاری";
+            case "loaded":
+                return "بارگذاری انجام شد.";
+            default:
+                return "وضعیت نامشخص است."; // In case of unexpected status
+        }
+    }
+    // refresh map button
+    const btnRefresh = document.getElementById("refresh");
+    btnRefresh.addEventListener("click", function () {
+        if (typeof layer !== "undefined" && typeof layer.refresh === "function") {
+            layer.refresh(); // Refresh the layer
+            alertBox(layerLoadStatus(), "info"); // Call the function to show the current status
+        } else {
+            alertBox("لایه مشخص نشده یا قابلیت رفرش ندارد.", "error"); // Error handling for undefined layer
+        }
+    });
     // #region Add for test
 
     // Check if the highlights are being changed on the table
@@ -236,30 +251,7 @@ view.when(() => {
     // #endregion End for test 
 });
 
-function layerLoadStatus() {
-    switch (layer.loadStatus) {
-        case "not-loaded":
-            return "بارگذاری نشده است.";            
-        case "loading":
-            return "درحال بارگذاری";
-        case "failed":
-            return "خطا در بارگذاری";            
-        case "loaded":
-            return "بارگذاری انجام شد.";
-        default:
-            return "وضعیت نامشخص است."; // In case of unexpected status
-    }
-}
-// refresh map button
-const btnRefresh = document.getElementById("refresh");
-btnRefresh.addEventListener("click", function () {
-    if (typeof layer !== "undefined" && typeof layer.refresh === "function") {
-        layer.refresh(); // Refresh the layer
-        alertBox(layerLoadStatus(),"info"); // Call the function to show the current status
-    } else {
-        alertBox("لایه مشخص نشده یا قابلیت رفرش ندارد.", "error"); // Error handling for undefined layer
-    }
-});
+
 // #endregion Main 
 // #region shell panels and actionbar
 // References to shell panels and actions
