@@ -264,22 +264,12 @@ const actionsEnd = shellPanelEnd?.querySelectorAll("calcite-action");
 const panelEnd = shellPanelEnd?.querySelectorAll("calcite-panel");
 // Add click listeners for start panel actions
 actionsStart?.forEach(el => {
-    el.addEventListener("click", function () {                    
-        const selectedActionPanelStart = document.getElementById("panel_" + el.id);        
+    el.addEventListener("click", function () {                            
         if (el.active) {
-            el.active = false; // Set the clicked action as active
-            shellPanelStart.collapsed = true; // Expand panel
-            selectedActionPanelStart.hidden = true; // Open panel
-            selectedActionPanelStart.closed = true; 
+            el.active = false; // Set the clicked action as active           
             return
-        }; // Prevent unnecessary toggling        
-        panelStart?.forEach(item => { item.closed = true });
-        actionsStart?.forEach(action => { action.active = false });
+        };
         el.active = true; // Set the clicked action as active
-        shellPanelStart.collapsed = false; // Expand panel
-        selectedActionPanelStart.hidden = false; // Open panel
-        selectedActionPanelStart.closed = false;
-        selectedActionPanelStart.heading = el.text; // Update heading
     });
 });
 // Add click listeners for end panel actions
@@ -328,6 +318,10 @@ function addData(dataPath, dataType) {
     }
 }
 // #endregion
+// #region Drawing
+// Created a new graphiclayer for Drawing
+const graphiclayerDraw = new GraphicsLayer();
+// #endregion 
 // #region Measurment tool 
 const graphicsLayer = new GraphicsLayer();
 
@@ -343,7 +337,7 @@ sketch.visible = false;
 view.ui.add(sketch, "top-left");
 let isMeasuring = false;
 
-document.getElementById("switchMeasure").onclick = () => {
+document.getElementById("measureTool").onclick = () => {
     isMeasuring ? stopMeasurement() : startMeasurement();
 };
 function stopMeasurement() {
