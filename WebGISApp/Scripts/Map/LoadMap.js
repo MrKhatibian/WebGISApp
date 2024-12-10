@@ -212,6 +212,7 @@ view.when(() => {
     btnRefresh.addEventListener("click", function () {
         if (typeof layer !== "undefined" && typeof layer.refresh === "function") {
             layer.refresh(); // Refresh the layer
+            featureLayer.refresh();
             alertBox(layerLoadStatus(), "info"); // Call the function to show the current status
         } else {
             alertBox("لایه مشخص نشده یا قابلیت رفرش ندارد.", "error"); // Error handling for undefined layer
@@ -220,28 +221,32 @@ view.when(() => {
 
     // #region Editor
     // Create the Editor
-    const editor = new Editor({
-        view: view,
-        // Pass in the configurations created above
-        layerInfos: [featureLayer],
-    });
-
-    // Add widget to the view
-    view.ui.add(editor, "top-left");
-    editor.visible = false;
+    var editor = null;    
     let isEditing = false;
     document.getElementById("Editable").onclick = () => {
         isEditing ? stopEdit() : startEdit();
     };
     function stopEdit() {
         isEditing = false;
-        editor.visible = false;
-        //editor.cancelWorkflow();
+        editor.visible = false;       
         editor.destroy();
     }
     function startEdit() {
         isEditing = true;
-        editor.visible = true;
+        editor = new Editor({
+            view: view,
+            layerInfos: [featureLayer],
+            //visibleElements: { filter : false }
+        });        
+        view.ui.add(editor, "top-left");
+        editor.on("sketch-update", function (evt) {            
+            const { tool, graphics, state } = evt.detail;
+
+            if (state === "complete") {
+                
+            }
+            
+        });
     }
     // #endregion 
 
@@ -348,7 +353,6 @@ function addData(dataPath, dataType) {
     }
 }
 // #endregion
-
 // #region Measurment tool 
 const graphicsLayer = new GraphicsLayer();
 
