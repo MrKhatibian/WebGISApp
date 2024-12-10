@@ -34,7 +34,7 @@ calcite-alert{
 }
 #panelMapView{
     width:100%;
-    height:50%;
+    height:100%;
 }
 /* Map container */
 #mapView {
@@ -43,7 +43,7 @@ calcite-alert{
 }
 #panelAttributeTable {
     width: 100%;
-    height: 50%;
+    height: 0%;
 }
 #attributeTable {
     width: 100%;

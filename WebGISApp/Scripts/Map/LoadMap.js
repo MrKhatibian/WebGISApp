@@ -24,7 +24,8 @@ import ScaleBar from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis
 import FeatureTable from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/FeatureTable.js";
 import ImageryTileLayer from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/layers/ImageryTileLayer.js";
 import TileLayer from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/layers/TileLayer.js";
-
+import { Polygon } from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/geometry.js";
+import Editor from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/Editor.js";
 
 
 // #endregion
@@ -86,11 +87,12 @@ view.when(() => {
     const featureLayer = new FeatureLayer({
         url: `${featureServerUrl}/0`, // Template literals for clarity
         outFields: ["*"], // Fetch all fields
-        title: "Arse" // Replace with a descriptive title
+        title: "عرصه" // Replace with a descriptive title
     });
 
     // Add the feature layer to the map
     map.add(featureLayer);
+
     // #region FeatureTable and layerlist
     //Add LayerList
     const layerList = new LayerList({
@@ -215,6 +217,34 @@ view.when(() => {
             alertBox("لایه مشخص نشده یا قابلیت رفرش ندارد.", "error"); // Error handling for undefined layer
         }
     });
+
+    // #region Editor
+    // Create the Editor
+    const editor = new Editor({
+        view: view,
+        // Pass in the configurations created above
+        layerInfos: [featureLayer],
+    });
+
+    // Add widget to the view
+    view.ui.add(editor, "top-left");
+    editor.visible = false;
+    let isEditing = false;
+    document.getElementById("Editable").onclick = () => {
+        isEditing ? stopEdit() : startEdit();
+    };
+    function stopEdit() {
+        isEditing = false;
+        editor.visible = false;
+        //editor.cancelWorkflow();
+        editor.destroy();
+    }
+    function startEdit() {
+        isEditing = true;
+        editor.visible = true;
+    }
+    // #endregion 
+
     // #region Add for test
 
     // Check if the highlights are being changed on the table
@@ -243,7 +273,7 @@ view.when(() => {
         //    excludedEffect: "blur(5px) grayscale(90%) opacity(40%)"
         //};
     });
-
+    
 
 
 
@@ -293,7 +323,7 @@ actionsEnd?.forEach(el => {
     });
 });
 // #endregion
-// #region Add data and open dialogdialog_import-
+// #region Add data and open dialogdialog_import
 const btn_AddData = document.getElementById("btn_AddData");
 const dialog_AddData = document.getElementById("dialog_AddData");
 const btn_CancelAddData = document.getElementById("btn_CancelAddData");
@@ -318,10 +348,7 @@ function addData(dataPath, dataType) {
     }
 }
 // #endregion
-// #region Drawing
-// Created a new graphiclayer for Drawing
-const graphiclayerDraw = new GraphicsLayer();
-// #endregion 
+
 // #region Measurment tool 
 const graphicsLayer = new GraphicsLayer();
 
@@ -378,7 +405,6 @@ function updateUI(showResult) {
     document.getElementById("measurement-result").style.display = showResult ? "block" : "none";
 }
 // #endregion -
-
 // #region Widgets and view
 
 //Remove bottom atribution (power by esri)
@@ -457,7 +483,6 @@ function alertBox(message, alertType) {
     }, 3000);
 }
 //#endregion 
-
 //#region Exporting
 
 export {view, mapServerUrl};
