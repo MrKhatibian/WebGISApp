@@ -84,14 +84,14 @@ view.when(() => {
     if (itemDescriptionElement) itemDescriptionElement.innerHTML = url;
     
     // Add Feature Layer
-    const featureLayer = new FeatureLayer({
+    var featureLayer = new FeatureLayer({
         url: `${featureServerUrl}/0`, // Template literals for clarity
         outFields: ["*"], // Fetch all fields
         title: "عرصه" // Replace with a descriptive title
     });
 
     // Add the feature layer to the map
-    map.add(featureLayer);
+    //map.add(featureLayer);
 
     // #region FeatureTable and layerlist
     //Add LayerList
@@ -157,8 +157,14 @@ view.when(() => {
             });
         } else if (event.action.id === "toggle-table") {
             toggleFeatureTable(selectedLayer.url, selectedLayer.title);
-        } else if (event.action.id === "toggle-edit") {
-            alert(selectedLayer.url);
+        } else if (event.action.id === "toggle-edit") {                       
+            featureLayer = new FeatureLayer({
+                url: `${featureServerUrl}/${selectedLayer.id}`, // Template literals for clarity
+                outFields: ["*"], // Fetch all fields
+                title: selectedLayer.title // Replace with a descriptive title
+            });
+            startEdit(featureLayer);
+            //alert(`${featureServerUrl}/${selectedLayer.id}`);
         }
     });
     let panelMapView = document.getElementById("panelMapView");
@@ -183,14 +189,14 @@ view.when(() => {
     };
     // Toggle FeatureTable overlay visibility
     function toggleFeatureTable(urlLayer, titleLayer) {
-        const featureLayer = new FeatureLayer({
+        const featureLayer1 = new FeatureLayer({
             url: urlLayer,
             outFields: ["*"],
             title: titleLayer
         });
         if (flag) {
             flag = false;
-            featureTable.layer = featureLayer;
+            featureTable.layer = featureLayer1;
             panelMapView.style.height = "50%";
             panelAttributeTable.style.height = "50%";
         } else {
@@ -236,26 +242,30 @@ view.when(() => {
     function stopEdit() {
         isEditing = false;
         editor.visible = false;       
-        editor.destroy();        
+        editor.destroy();
+        map.remove(featureLayer);
     }
-    function startEdit() {
-        isEditing = true;
-        editor = new Editor({
-            view: view,
-            layerInfos: [featureLayer],
-            snappingOptions: { // autocasts to SnappingOptions()
-                enabled: true,
-                featureSources: [{ layer: featureLayer }], // autocasts to FeatureSnappingLayerSource()                
-            },            
-        });        
-        view.ui.add(editor, "top-left");
-        editor.on("sketch-update", function (evt) {
-            
-            const { tool, graphics, state } = evt.detail;            
-            if (state === "complete") {
-                
-            }            
-        });
+    function startEdit(featureLayer) {
+        if (isEditing == false) {
+            isEditing = true;
+            map.add(featureLayer);
+            editor = new Editor({
+                view: view,
+                layerInfos: [featureLayer],
+                snappingOptions: { // autocasts to SnappingOptions()
+                    enabled: true,
+                    featureSources: [{ layer: featureLayer }], // autocasts to FeatureSnappingLayerSource()                
+                },
+            });
+            view.ui.add(editor, "top-left");
+            editor.on("sketch-update", function (evt) {
+
+                const { tool, graphics, state } = evt.detail;
+                if (state === "complete") {
+
+                }
+            });
+        }        
     }
     // #endregion 
 
