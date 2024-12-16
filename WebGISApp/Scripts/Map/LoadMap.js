@@ -122,6 +122,11 @@ view.when(() => {
                         title: "جدول اطلاعات",
                         className: "esri-icon-table",
                         id: "toggle-table"
+                    },
+                    {
+                        title: "ویرایش",
+                        className: "esri-icon-edit",
+                        id: "toggle-edit"
                     }
                 ]];
             }
@@ -152,6 +157,8 @@ view.when(() => {
             });
         } else if (event.action.id === "toggle-table") {
             toggleFeatureTable(selectedLayer.url, selectedLayer.title);
+        } else if (event.action.id === "toggle-edit") {
+            alert(selectedLayer.url);
         }
     });
     let panelMapView = document.getElementById("panelMapView");
@@ -229,7 +236,7 @@ view.when(() => {
     function stopEdit() {
         isEditing = false;
         editor.visible = false;       
-        editor.destroy();
+        editor.destroy();        
     }
     function startEdit() {
         isEditing = true;
@@ -239,16 +246,15 @@ view.when(() => {
             snappingOptions: { // autocasts to SnappingOptions()
                 enabled: true,
                 featureSources: [{ layer: featureLayer }], // autocasts to FeatureSnappingLayerSource()                
-            },
-            container: "panel_Editable"
+            },            
         });        
-        //view.ui.add(editor, "top-left");
-        editor.on("sketch-update", function (evt) {            
+        view.ui.add(editor, "top-left");
+        editor.on("sketch-update", function (evt) {
+            
             const { tool, graphics, state } = evt.detail;            
             if (state === "complete") {
                 
-            }
-            
+            }            
         });
     }
     // #endregion 
