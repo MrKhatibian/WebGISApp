@@ -236,12 +236,15 @@ view.when(() => {
         editor = new Editor({
             view: view,
             layerInfos: [featureLayer],
-            //visibleElements: { filter : false }
+            snappingOptions: { // autocasts to SnappingOptions()
+                enabled: true,
+                featureSources: [{ layer: featureLayer }], // autocasts to FeatureSnappingLayerSource()                
+            },
+            container: "panel_Editable"
         });        
-        view.ui.add(editor, "top-left");
+        //view.ui.add(editor, "top-left");
         editor.on("sketch-update", function (evt) {            
-            const { tool, graphics, state } = evt.detail;
-
+            const { tool, graphics, state } = evt.detail;            
             if (state === "complete") {
                 
             }
