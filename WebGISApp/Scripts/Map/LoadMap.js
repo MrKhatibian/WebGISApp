@@ -7,6 +7,7 @@ import Map from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core
 import MapView from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/views/MapView.js";
 import MapImageLayer from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/layers/MapImageLayer.js";
 import FeatureLayer from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/layers/FeatureLayer.js";
+import WFSLayer from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/layers/WFSLayer.js";
 import Home from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/Home.js";
 import Fullscreen from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/Fullscreen.js";
 import CoordinateConversion from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/CoordinateConversion.js";
@@ -59,7 +60,8 @@ const layer = new MapImageLayer({
 });
 map.add(layer);
 
-
+//const MainfeatureLayer = new FeatureLayer({ url: `${featureServerUrl}/2` });
+//map.add(MainfeatureLayer);
 
 // Creat and Set Map View
 const view = new MapView({
@@ -89,17 +91,16 @@ view.when(() => {
         outFields: ["*"], // Fetch all fields
         title: "عرصه" // Replace with a descriptive title
     });
-
-    // Add the feature layer to the map
-    //map.add(featureLayer);
-
+    
     // #region FeatureTable and layerlist
     //Add LayerList
     const layerList = new LayerList({
-        view,
+        view: view,
         dragEnabled: true,
         visibilityAppearance: "checkbox",
         container: "layers-container",
+        visibleElements: { filter: true },// add Layerlist filter
+        minFilterItems: 5,//Default Value: 10
         listItemCreatedFunction: (event) => {
             const { item } = event;
             if (item.layer.type === "map-image") {
@@ -132,10 +133,6 @@ view.when(() => {
             }
         }
     });
-    // add Layerlist filter 
-    layerList.visibleElements.filter = true;
-    //Default Value: 10
-    layerList.minFilterItems = 5;
 
     // Handle LayerList action events
     layerList.on("trigger-action", (event) => {
@@ -237,7 +234,7 @@ view.when(() => {
     var editor = null;    
     let isEditing = false;
     document.getElementById("Editable").onclick = () => {
-        isEditing ? stopEdit() : startEdit();
+        isEditing ? stopEdit() : startEdit(featureLayer);
     };
     function stopEdit() {
         isEditing = false;
@@ -258,6 +255,7 @@ view.when(() => {
                 },
             });
             view.ui.add(editor, "top-left");
+            toggleFeatureTable(featureLayer.url, featureLayer.title);
             editor.on("sketch-update", function (evt) {
 
                 const { tool, graphics, state } = evt.detail;
