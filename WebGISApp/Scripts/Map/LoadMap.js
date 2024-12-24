@@ -5,6 +5,7 @@
 //Import Modules
 import Map from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/Map.js";
 import MapView from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/views/MapView.js";
+import GroupLayer from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/layers/GroupLayer.js";
 import MapImageLayer from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/layers/MapImageLayer.js";
 import FeatureLayer from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/layers/FeatureLayer.js";
 import WFSLayer from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/layers/WFSLayer.js";
@@ -60,15 +61,44 @@ const layer = new MapImageLayer({
 });
 map.add(layer);
 
-//const MainfeatureLayer = new FeatureLayer({ url: `${featureServerUrl}/2` });
-//map.add(MainfeatureLayer);
+const MainfeatureLayer = new FeatureLayer({ url: `${featureServerUrl}/2` });
+map.add(MainfeatureLayer);
+
+// Create a GroupLayer to hold all feature layers
+const groupLayer = new GroupLayer({
+    title: "Feature Layers Group",
+    visibilityMode: "independent", // Allows independent toggling of sublayers
+    opacity: 1, // Default opacity
+});
+map.add(groupLayer);
+// URL of your feature server
+const featureServerUrl1 = "http://localhost:6080/arcgis/rest/services/Maryanaj/MaryanajWithoutLabel_14030619/FeatureServer";
+
+// Function to add all layers from the FeatureServer
+function addFeatureLayers(url) {
+    // Fetch the service information
+    fetch(`${url}?f=json`)
+        .then((response) => response.json())
+        .then((serviceInfo) => {
+            serviceInfo.layers.forEach((layerInfo) => {
+                const layer = new FeatureLayer({
+                    url: `${url}/${layerInfo.id}`, // Add layer URL
+                    title: layerInfo.name, // Layer name
+                });
+                groupLayer.add(layer); // Add layer to the GroupLayer
+            });
+        })
+        .catch((error) => console.error("Error loading layers:", error));
+}
+// Add all feature layers
+addFeatureLayers(featureServerUrl1);
 
 // Creat and Set Map View
-const view = new MapView({
-    container: "mapView", // Div element     
+const view = new MapView({         
     map: map,
     zoom: 14, // Zoom level
-    center: [48.464869, 34.834155] // Longitude, latitude 48.464869  34.834155                        
+    center: [48.464869, 34.834155], // Longitude, latitude 48.464869  34.834155   
+    container: "mapView" // Div element
 });
 view.when(() => {
   
@@ -134,6 +164,23 @@ view.when(() => {
         }
     });
 
+    const featureTable = new FeatureTable({
+        view: view,
+        layer: featureLayer,
+        //layer: featureLayer,
+        container: "attributeTable", // Temporary container for now
+        multiSortEnabled: true, // set this to true to enable sorting on multiple columns    
+        editingEnabled: false, // set this to true to enable editing
+        paginationEnabled: true,// Optional: Customize FeatureTable fields        
+        visibleElements: {
+            header: true,
+            menu: true,
+            menuItems: {
+                clearSelection: true,
+                zoomToSelection: true
+            }
+        }
+    });
     // Handle LayerList action events
     layerList.on("trigger-action", (event) => {
         const selectedLayer = event.item.layer;
@@ -161,30 +208,16 @@ view.when(() => {
                 title: selectedLayer.title // Replace with a descriptive title
             });
             startEdit(featureLayer);
+            toggleFeatureTable(featureLayer.url, featureLayer.title);
             //alert(`${featureServerUrl}/${selectedLayer.id}`);
         }
     });
     let panelMapView = document.getElementById("panelMapView");
     let panelAttributeTable = document.getElementById("panelAttributeTable");
-    let flag = true;
-    const featureTable = new FeatureTable({
-        view: view,
-        layer: featureLayer,
-        container: "attributeTable", // Temporary container for now
-        multiSortEnabled: true, // set this to true to enable sorting on multiple columns    
-        editingEnabled: true, // set this to true to enable editing
-        paginationEnabled: true,
-    });
-    // Optional: Customize FeatureTable fields
-    featureTable.visibleElements = {
-        header: true,
-        menu: true,
-        menuItems: {
-            clearSelection: true,
-            zoomToSelection: true
-        },
-    };
+    
+    
     // Toggle FeatureTable overlay visibility
+    let flag = true;
     function toggleFeatureTable(urlLayer, titleLayer) {
         const featureLayer1 = new FeatureLayer({
             url: urlLayer,
@@ -239,6 +272,7 @@ view.when(() => {
     function stopEdit() {
         isEditing = false;
         editor.visible = false;       
+        featureTable.editingEnabled = false;
         editor.destroy();
         map.remove(featureLayer);
     }
@@ -255,7 +289,8 @@ view.when(() => {
                 },
             });
             view.ui.add(editor, "top-left");
-            toggleFeatureTable(featureLayer.url, featureLayer.title);
+            //toggleFeatureTable(featureLayer.url, featureLayer.title);
+            featureTable.editingEnabled = true;
             editor.on("sketch-update", function (evt) {
 
                 const { tool, graphics, state } = evt.detail;
