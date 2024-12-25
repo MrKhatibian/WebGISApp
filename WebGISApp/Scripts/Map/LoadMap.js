@@ -61,21 +61,23 @@ const layer = new MapImageLayer({
 });
 map.add(layer);
 
-const MainfeatureLayer = new FeatureLayer({ url: `${featureServerUrl}/2` });
-map.add(MainfeatureLayer);
+//const MainfeatureLayer = new FeatureLayer({ url: `${featureServerUrl}/2` });
+//map.add(MainfeatureLayer);
 
-// Create a GroupLayer to hold all feature layers
-const groupLayer = new GroupLayer({
-    title: "Feature Layers Group",
-    visibilityMode: "independent", // Allows independent toggling of sublayers
-    opacity: 1, // Default opacity
-});
-map.add(groupLayer);
-// URL of your feature server
-const featureServerUrl1 = "http://localhost:6080/arcgis/rest/services/Maryanaj/MaryanajWithoutLabel_14030619/FeatureServer";
+// Add all feature layers
+addFeatureLayers(featureServerUrl);
 
 // Function to add all layers from the FeatureServer
 function addFeatureLayers(url) {
+    let urlSplit = url.split("/");    
+    let featureLayerName = urlSplit[urlSplit.length - 2];        
+    
+    // Create a GroupLayer to hold all feature layers
+    const groupLayer = new GroupLayer({
+        title: featureLayerName,
+        visibilityMode: "independent", // Allows independent toggling of sublayers
+        opacity: 1, // Default opacity
+    });
     // Fetch the service information
     fetch(`${url}?f=json`)
         .then((response) => response.json())
@@ -89,9 +91,9 @@ function addFeatureLayers(url) {
             });
         })
         .catch((error) => console.error("Error loading layers:", error));
+    map.add(groupLayer);
 }
-// Add all feature layers
-addFeatureLayers(featureServerUrl1);
+
 
 // Creat and Set Map View
 const view = new MapView({         
