@@ -35,8 +35,9 @@ import Editor from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/c
 // #region Main
 
 // Paramter
-let featureLayer;
+/*let featureLayer;*/
 const features = [];
+var featuresLayerArray = [];
 
 // Add the basemap layer
 const basemapLayer = new TileLayer({
@@ -55,44 +56,12 @@ const mapServerUrl = serverUrl + "/MapServer";
 //Creat FeatureServer URL
 const featureServerUrl = serverUrl + "/FeatureServer";
 
-const layer = new MapImageLayer({
-    // Replace with your ArcGIS Server URL
-    url: mapServerUrl   
-});
-map.add(layer);
+
 
 //const MainfeatureLayer = new FeatureLayer({ url: `${featureServerUrl}/2` });
 //map.add(MainfeatureLayer);
 
-// Add all feature layers
-addFeatureLayers(featureServerUrl);
 
-// Function to add all layers from the FeatureServer
-function addFeatureLayers(url) {
-    let urlSplit = url.split("/");    
-    let featureLayerName = urlSplit[urlSplit.length - 2];        
-    
-    // Create a GroupLayer to hold all feature layers
-    const groupLayer = new GroupLayer({
-        title: featureLayerName,
-        visibilityMode: "independent", // Allows independent toggling of sublayers
-        opacity: 1, // Default opacity
-    });
-    // Fetch the service information
-    fetch(`${url}?f=json`)
-        .then((response) => response.json())
-        .then((serviceInfo) => {
-            serviceInfo.layers.forEach((layerInfo) => {
-                const layer = new FeatureLayer({
-                    url: `${url}/${layerInfo.id}`, // Add layer URL
-                    title: layerInfo.name, // Layer name
-                });
-                groupLayer.add(layer); // Add layer to the GroupLayer
-            });
-        })
-        .catch((error) => console.error("Error loading layers:", error));
-    map.add(groupLayer);
-}
 
 
 // Creat and Set Map View
@@ -103,7 +72,11 @@ const view = new MapView({
     container: "mapView" // Div element
 });
 view.when(() => {
-  
+    const layer = new MapImageLayer({
+        // Replace with your ArcGIS Server URL
+        url: mapServerUrl
+    });
+    //map.add(layer);
     if (!layer || !featureServerUrl) {
         console.error("Layer or FeatureServer URL is missing");
         return;
@@ -113,17 +86,86 @@ view.when(() => {
 
     // Update HTML elements safely
     const headerTitleElement = document.querySelector("#header-title");
-    const itemDescriptionElement = document.querySelector("#item-description");    
+    const itemDescriptionElement = document.querySelector("#item-description");
     if (headerTitleElement) headerTitleElement.heading = title;
     if (itemDescriptionElement) itemDescriptionElement.innerHTML = url;
-    
+
     // Add Feature Layer
     var featureLayer = new FeatureLayer({
         url: `${featureServerUrl}/0`, // Template literals for clarity
         outFields: ["*"], // Fetch all fields
         title: "عرصه" // Replace with a descriptive title
     });
+    //map.add(featureLayer);
+
     
+
+    function addFeatureLayers(url) {        
+        let urlSplit = url.split("/");
+        let featureLayerName = urlSplit[urlSplit.length - 2];
+
+        // Create a GroupLayer to hold all feature layers
+        const groupLayer = new GroupLayer({
+            title: featureLayerName,
+            visibilityMode: "independent", // Allows independent toggling of sublayers
+            opacity: 1, // Default opacity
+            id: "myGroupLayer"
+        });
+
+        fetch(`${url}?f=json`)
+            .then((response) => response.json())
+            .then((serviceInfo) => {
+                const promises = serviceInfo.layers.map((layerInfo) => {
+                    featureLayer = new FeatureLayer({
+                        url: `${url}/${layerInfo.id}`,
+                        outFields: ["*"],
+                        title: layerInfo.name,
+                    });
+
+                    groupLayer.add(featureLayer);                    
+                    featuresLayerArray.push(featureLayer); // Add to array
+                    return featureLayer.load(); // Ensure layer is loaded
+                });
+
+                // Wait for all FeatureLayers to load
+                return Promise.all(promises);
+            })
+            .then(() => {
+                map.add(groupLayer); // Add GroupLayer to map                
+                //alert(featuresLayerArray.length);                                                          
+            })
+            .catch((error) => console.error("Error loading layers:", error));
+    
+
+      
+
+        //alert(featuresLayerArray.length);
+        //// Fetch the service information
+        //fetch(`${url}?f=json`)
+        //    .then((response) => response.json())
+        //    .then((serviceInfo) => {
+        //        serviceInfo.layers.forEach((layerInfo) => {
+        //            featureLayer = new FeatureLayer({
+        //                url: `${url}/${layerInfo.id}`, // Add layer URL
+        //                outFields: ["*"], // Fetch all fields
+        //                title: layerInfo.name, // Layer name
+        //            });
+
+        //            groupLayer.add(featureLayer); // Add layer to the GroupLayer
+        //            featuresLayerArray.push(featureLayer);
+        //            //alert(featureLayer.title);
+        //        });
+        //    })
+        //    .catch((error) => console.error("Error loading layers:", error));
+        //map.add(groupLayer);
+        //featuresLayerArray.push(featureLayer);
+        //alert(featuresLayerArray.length);
+        //const layersArray = groupLayer.layers.toArray();
+        //alert(groupLayer.layers.getItemAt(0).title);
+        //alert(featuresLayerArray[0]);
+    }
+    // Add all feature layers
+    addFeatureLayers(featureServerUrl);
     // #region FeatureTable and layerlist
     //Add LayerList
     const layerList = new LayerList({
@@ -135,8 +177,22 @@ view.when(() => {
         minFilterItems: 5,//Default Value: 10
         listItemCreatedFunction: (event) => {
             const { item } = event;
-            if (item.layer.type === "map-image") {
-                // Add custom actions: Toggle Table and Zoom to Layer
+            //if (item.layer.type === "map-image") {}            
+            // Add custom actions: Remove layer and Zoom to Layer
+            item.actionsSections = [[
+                {
+                    title: "زوم به لایه",
+                    className: "esri-icon-zoom-out-fixed",
+                    id: "zoom-to-layer"
+                },
+                {
+                    title: "پاک کردن لایه",
+                    className: "esri-icon-close",
+                    id: "remove-layer"
+                }
+            ]];
+            //} else if (item.layer.type === "sublayer") {
+            if (item.layer.type === "feature" || item.layer.type === "sublayer") {
                 item.actionsSections = [[
                     {
                         title: "زوم به لایه",
@@ -147,10 +203,7 @@ view.when(() => {
                         title: "پاک کردن لایه",
                         className: "esri-icon-close",
                         id: "remove-layer"
-                    }
-                ]];
-            } else if (item.layer.type === "sublayer") {
-                item.actionsSections = [[
+                    },
                     {
                         title: "جدول اطلاعات",
                         className: "esri-icon-table",
@@ -186,6 +239,7 @@ view.when(() => {
     // Handle LayerList action events
     layerList.on("trigger-action", (event) => {
         const selectedLayer = event.item.layer;
+        alert(`${selectedLayer.id}...${selectedLayer.type}...${selectedLayer.url}...${selectedLayer.title}`);        
         if (event.action.id === "zoom-to-layer") {
             selectedLayer.when(() => {
                 view.goTo(selectedLayer.fullExtent).catch((error) => {
@@ -201,41 +255,63 @@ view.when(() => {
                     console.error(error);
                 }
             });
-        } else if (event.action.id === "toggle-table") {
-            toggleFeatureTable(selectedLayer.url, selectedLayer.title);
-        } else if (event.action.id === "toggle-edit") {                       
-            featureLayer = new FeatureLayer({
-                url: `${featureServerUrl}/${selectedLayer.id}`, // Template literals for clarity
-                outFields: ["*"], // Fetch all fields
-                title: selectedLayer.title // Replace with a descriptive title
-            });
-            startEdit(featureLayer);
-            toggleFeatureTable(featureLayer.url, featureLayer.title);
-            //alert(`${featureServerUrl}/${selectedLayer.id}`);
+        } else if (event.action.id === "toggle-table" || event.action.id === "toggle-edit") {
+           
+
+            // Fetch the service information
+            fetch(`${selectedLayer.url}?f=json`)
+                .then((response) => response.json())
+                .then((serviceInfo) => {
+                    serviceInfo.layers.forEach((layerInfo) => {
+                        if (layerInfo.name === selectedLayer.title) {
+                            featureLayer = new FeatureLayer({
+                                url: `${selectedLayer.url}/${layerInfo.id}`, // Add layer URL
+                                outFields: ["*"], // Fetch all fields
+                                title: layerInfo.name, // Layer name
+                            });
+                        }
+                    });
+                })
+                .catch((error) => console.error("Error loading layers:", error));
+
+            if (event.action.id === "toggle-table") {
+                //toggleFeatureTable(selectedLayer.url, selectedLayer.title);
+                toggleFeatureTable(featureLayer);
+            } else if (event.action.id === "toggle-edit") {
+                startEdit(featureLayer);
+                toggleFeatureTable(featureLayer);
+            }
         }
     });
     let panelMapView = document.getElementById("panelMapView");
     let panelAttributeTable = document.getElementById("panelAttributeTable");
-    
-    
+
+
     // Toggle FeatureTable overlay visibility
     let flag = true;
-    function toggleFeatureTable(urlLayer, titleLayer) {
-        const featureLayer1 = new FeatureLayer({
-            url: urlLayer,
-            outFields: ["*"],
-            title: titleLayer
-        });
-        if (flag) {
-            flag = false;
-            featureTable.layer = featureLayer1;
-            panelMapView.style.height = "50%";
-            panelAttributeTable.style.height = "50%";
-        } else {
-            flag = true;
-            panelMapView.style.height = "100%";
-            panelAttributeTable.style.height = "0%";
-        }
+    function toggleFeatureTable(featureLayer) {
+        featureTable.layer = featureLayer;
+        //const featureLayer1 = new FeatureLayer({
+        //    url: urlLayer,
+        //    outFields: ["*"],
+        //    title: titleLayer
+        //});
+        //featureLayer = new FeatureLayer({
+        //    url: `${featureServerUrl}/7`,
+        //    outFields: ["*"],
+        //    title: titleLayer
+        //});        
+        //if (flag) {
+        //    flag = false;
+        //    //featureTable.layer = featureLayer1;
+        //    featureTable.layer = featureLayer;
+        //    panelMapView.style.height = "50%";
+        //    panelAttributeTable.style.height = "50%";
+        //} else {
+        //    flag = true;
+        //    panelMapView.style.height = "100%";
+        //    panelAttributeTable.style.height = "0%";
+        //}
     }
     // #endregion
     function layerLoadStatus() {
@@ -266,22 +342,22 @@ view.when(() => {
 
     // #region Editor
     // Create the Editor
-    var editor = null;    
+    var editor = null;
     let isEditing = false;
     document.getElementById("Editable").onclick = () => {
         isEditing ? stopEdit() : startEdit(featureLayer);
     };
     function stopEdit() {
         isEditing = false;
-        editor.visible = false;       
+        editor.visible = false;
         featureTable.editingEnabled = false;
         editor.destroy();
-        map.remove(featureLayer);
+        //map.remove(featureLayer);
     }
     function startEdit(featureLayer) {
         if (isEditing == false) {
             isEditing = true;
-            map.add(featureLayer);
+            //map.add(featureLayer);
             editor = new Editor({
                 view: view,
                 layerInfos: [featureLayer],
@@ -300,7 +376,7 @@ view.when(() => {
 
                 }
             });
-        }        
+        }
     }
     // #endregion 
 
@@ -332,7 +408,7 @@ view.when(() => {
         //    excludedEffect: "blur(5px) grayscale(90%) opacity(40%)"
         //};
     });
-    
+
 
 
 
