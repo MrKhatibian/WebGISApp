@@ -239,7 +239,7 @@ view.when(() => {
     // Handle LayerList action events
     layerList.on("trigger-action", (event) => {
         const selectedLayer = event.item.layer;
-        alert(`${selectedLayer.id}...${selectedLayer.type}...${selectedLayer.url}...${selectedLayer.title}`);        
+        //alert(`${selectedLayer.id}...${selectedLayer.type}...${selectedLayer.url}...${selectedLayer.title}`);        
         if (event.action.id === "zoom-to-layer") {
             selectedLayer.when(() => {
                 view.goTo(selectedLayer.fullExtent).catch((error) => {
@@ -255,25 +255,12 @@ view.when(() => {
                     console.error(error);
                 }
             });
-        } else if (event.action.id === "toggle-table" || event.action.id === "toggle-edit") {
-           
-
-            // Fetch the service information
-            fetch(`${selectedLayer.url}?f=json`)
-                .then((response) => response.json())
-                .then((serviceInfo) => {
-                    serviceInfo.layers.forEach((layerInfo) => {
-                        if (layerInfo.name === selectedLayer.title) {
-                            featureLayer = new FeatureLayer({
-                                url: `${selectedLayer.url}/${layerInfo.id}`, // Add layer URL
-                                outFields: ["*"], // Fetch all fields
-                                title: layerInfo.name, // Layer name
-                            });
-                        }
-                    });
-                })
-                .catch((error) => console.error("Error loading layers:", error));
-
+        } else if (event.action.id === "toggle-table" || event.action.id === "toggle-edit") {            
+            featuresLayerArray.forEach((selectedFeatureLayer) => {
+                if (selectedFeatureLayer.title === selectedLayer.title) {
+                    featureLayer = selectedFeatureLayer;
+                }
+            });
             if (event.action.id === "toggle-table") {
                 //toggleFeatureTable(selectedLayer.url, selectedLayer.title);
                 toggleFeatureTable(featureLayer);
