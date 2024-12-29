@@ -28,6 +28,8 @@ import ImageryTileLayer from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30
 import TileLayer from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/layers/TileLayer.js";
 import { Polygon } from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/geometry.js";
 import Editor from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/Editor.js";
+import * as identify from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/rest/identify.js";
+import IdentifyParameters from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/rest/support/IdentifyParameters.js";
 
 
 // #endregion
@@ -38,6 +40,7 @@ import Editor from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/c
 /*let featureLayer;*/
 const features = [];
 var featuresLayerArray = [];
+let params;
 
 // Add the basemap layer
 const basemapLayer = new TileLayer({
@@ -55,14 +58,6 @@ const serverUrl = "http://localhost:6080/arcgis/rest/services/Maryanaj/MaryanajW
 const mapServerUrl = serverUrl + "/MapServer";
 //Creat FeatureServer URL
 const featureServerUrl = serverUrl + "/FeatureServer";
-
-
-
-//const MainfeatureLayer = new FeatureLayer({ url: `${featureServerUrl}/2` });
-//map.add(MainfeatureLayer);
-
-
-
 
 // Creat and Set Map View
 const view = new MapView({         
@@ -96,10 +91,9 @@ view.when(() => {
         outFields: ["*"], // Fetch all fields
         title: "عرصه" // Replace with a descriptive title
     });
-    //map.add(featureLayer);
+    map.add(featureLayer);
 
-    
-
+    // Add all feature layers
     function addFeatureLayers(url) {        
         let urlSplit = url.split("/");
         let featureLayerName = urlSplit[urlSplit.length - 2];
@@ -108,8 +102,7 @@ view.when(() => {
         const groupLayer = new GroupLayer({
             title: featureLayerName,
             visibilityMode: "independent", // Allows independent toggling of sublayers
-            opacity: 1, // Default opacity
-            id: "myGroupLayer"
+            opacity: 1, // Default opacity            
         });
 
         fetch(`${url}?f=json`)
@@ -133,39 +126,11 @@ view.when(() => {
             .then(() => {
                 map.add(groupLayer); // Add GroupLayer to map                
                 //alert(featuresLayerArray.length);                                                          
-            })
-            .catch((error) => console.error("Error loading layers:", error));
-    
-
-      
-
-        //alert(featuresLayerArray.length);
-        //// Fetch the service information
-        //fetch(`${url}?f=json`)
-        //    .then((response) => response.json())
-        //    .then((serviceInfo) => {
-        //        serviceInfo.layers.forEach((layerInfo) => {
-        //            featureLayer = new FeatureLayer({
-        //                url: `${url}/${layerInfo.id}`, // Add layer URL
-        //                outFields: ["*"], // Fetch all fields
-        //                title: layerInfo.name, // Layer name
-        //            });
-
-        //            groupLayer.add(featureLayer); // Add layer to the GroupLayer
-        //            featuresLayerArray.push(featureLayer);
-        //            //alert(featureLayer.title);
-        //        });
-        //    })
-        //    .catch((error) => console.error("Error loading layers:", error));
-        //map.add(groupLayer);
-        //featuresLayerArray.push(featureLayer);
-        //alert(featuresLayerArray.length);
-        //const layersArray = groupLayer.layers.toArray();
-        //alert(groupLayer.layers.getItemAt(0).title);
-        //alert(featuresLayerArray[0]);
+            })         
     }
     // Add all feature layers
-    addFeatureLayers(featureServerUrl);
+    //addFeatureLayers(featureServerUrl);
+
     // #region FeatureTable and layerlist
     //Add LayerList
     const layerList = new LayerList({
@@ -250,7 +215,7 @@ view.when(() => {
             });
         } else if (event.action.id === "remove-layer") {
             // Remove the layer from the map
-            map.remove(selectedLayer).catch((error) => {
+            map.remove(featureLayer).catch((error) => {
                 if (error.name != "AbortError") {
                     console.error(error);
                 }
@@ -277,17 +242,7 @@ view.when(() => {
     // Toggle FeatureTable overlay visibility
     let flag = true;
     function toggleFeatureTable(featureLayer) {
-        featureTable.layer = featureLayer;
-        //const featureLayer1 = new FeatureLayer({
-        //    url: urlLayer,
-        //    outFields: ["*"],
-        //    title: titleLayer
-        //});
-        //featureLayer = new FeatureLayer({
-        //    url: `${featureServerUrl}/7`,
-        //    outFields: ["*"],
-        //    title: titleLayer
-        //});        
+        featureTable.layer = featureLayer;        
         //if (flag) {
         //    flag = false;
         //    //featureTable.layer = featureLayer1;
@@ -331,15 +286,14 @@ view.when(() => {
     // Create the Editor
     var editor = null;
     let isEditing = false;
-    document.getElementById("Editable").onclick = () => {
+    document.getElementById("editable").onclick = () => {
         isEditing ? stopEdit() : startEdit(featureLayer);
     };
     function stopEdit() {
         isEditing = false;
         editor.visible = false;
         featureTable.editingEnabled = false;
-        editor.destroy();
-        //map.remove(featureLayer);
+        editor.destroy();        
     }
     function startEdit(featureLayer) {
         if (isEditing == false) {
@@ -357,7 +311,6 @@ view.when(() => {
             //toggleFeatureTable(featureLayer.url, featureLayer.title);
             featureTable.editingEnabled = true;
             editor.on("sketch-update", function (evt) {
-
                 const { tool, graphics, state } = evt.detail;
                 if (state === "complete") {
 
@@ -478,7 +431,9 @@ const sketch = new Sketch({
     view: view,
     creationMode: "single",
     visibleElements: {
-        createTools: { point: false, rectangle: false, circle: false }, selectionTools: { "lasso-selection": false }, settingsMenu: true
+        createTools: { point: false, rectangle: false, circle: false },
+        selectionTools: { "lasso-selection": false },
+        settingsMenu: true
     }
 });
 sketch.visible = false;
