@@ -41,6 +41,12 @@ calcite-alert{
     width: 100%;
     height: 100%;
 }
+#optionsDiv {
+    background-color: white;
+    color: black;
+    padding: 6px;
+    max-width: 400px;
+}
 #panelAttributeTable {
     width: 100%;
     height: 50%;

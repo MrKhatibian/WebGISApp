@@ -65,7 +65,17 @@ const view = new MapView({
     map: map,
     zoom: 14, // Zoom level
     center: [48.464869, 34.834155], // Longitude, latitude 48.464869  34.834155   
-    container: "mapView" // Div element
+    container: "mapView", // Div element
+    popupEnabled: false,
+    popup: {
+        dockEnabled: true,
+        dockOptions: {
+            // dock popup at bottom-right side of view
+            buttonEnabled: false,
+            breakpoint: false,
+            position: "bottom-left"
+        }
+    }
 });
 view.when(() => {
     const layer = new MapImageLayer({
@@ -94,8 +104,7 @@ view.when(() => {
     });
     map.add(featureLayer);
     
-    document.getElementById("identify").onclick = () => {
-        debugger;
+    document.getElementById("identify").onclick = () => {        
         isIdentify ? stopIdentify() : startIdentify(featureLayer);
     };    
 
@@ -292,15 +301,21 @@ view.when(() => {
     
     function stopIdentify() {
         isIdentify = false;
+        document.getElementById("mapView").style.cursor = "auto";
+        document.getElementById("optionsDiv").hidden = true;
         viewClick.remove();
-        alert("stop");                
+        //alert("stop");                
     }
     function startIdentify(featureLayer) {
         isIdentify = true;
+        document.getElementById("mapView").style.cursor = "help";
+        document.getElementById("optionsDiv").hidden = false;
+        view.ui.add("optionsDiv", "top-left");
         // executeIdentify() is called each time the view is clicked
         //view.on("click", executeIdentify);
-        viewClick = view.on("click", () => { alert("start"); });
-        
+        viewClick = view.on("click", (event) => {
+            alert(event.mapPoint);            
+        });        
     }
     // #endregion Identify
 
