@@ -40,7 +40,8 @@ import IdentifyParameters from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.
 /*let featureLayer;*/
 const features = [];
 var featuresLayerArray = [];
-let params;
+var params, viewClick;
+var isIdentify = false;
 
 // Add the basemap layer
 const basemapLayer = new TileLayer({
@@ -92,6 +93,11 @@ view.when(() => {
         title: "عرصه" // Replace with a descriptive title
     });
     map.add(featureLayer);
+    
+    document.getElementById("identify").onclick = () => {
+        debugger;
+        isIdentify ? stopIdentify() : startIdentify(featureLayer);
+    };    
 
     // Add all feature layers
     function addFeatureLayers(url) {        
@@ -281,6 +287,22 @@ view.when(() => {
             alertBox("لایه مشخص نشده یا قابلیت رفرش ندارد.", "error"); // Error handling for undefined layer
         }
     });
+
+    // #region Identify        
+    
+    function stopIdentify() {
+        isIdentify = false;
+        viewClick.remove();
+        alert("stop");                
+    }
+    function startIdentify(featureLayer) {
+        isIdentify = true;
+        // executeIdentify() is called each time the view is clicked
+        //view.on("click", executeIdentify);
+        viewClick = view.on("click", () => { alert("start"); });
+        
+    }
+    // #endregion Identify
 
     // #region Editor
     // Create the Editor
