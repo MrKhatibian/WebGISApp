@@ -30,6 +30,7 @@ import { Polygon } from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arc
 import Editor from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/Editor.js";
 import * as identify from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/rest/identify.js";
 import IdentifyParameters from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/rest/support/IdentifyParameters.js";
+import Query from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/rest/support/Query.js";
 
 
 // #endregion
@@ -311,12 +312,121 @@ view.when(() => {
         document.getElementById("mapView").style.cursor = "help";
         document.getElementById("optionsDiv").hidden = false;
         view.ui.add("optionsDiv", "top-left");
+
+        // additional query fields initially set to null for basic query
+        let distance = null;
+        let units = null;
+
+        //create graphic for mouse point click
+        const pointGraphic = new Graphic({
+            symbol: {
+                type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
+                color: [0, 0, 139],
+                outline: {
+                    color: [255, 255, 255],
+                    width: 1.5
+                }
+            }
+        });
+
+        // Create graphic for distance buffer
+        const bufferGraphic = new Graphic({
+            symbol: {
+                type: "simple-fill", // autocasts as new SimpleFillSymbol()
+                color: [173, 216, 230, 0.2],
+                outline: {
+                    // autocasts as new SimpleLineSymbol()
+                    color: [255, 255, 255],
+                    width: 1
+                }
+            }
+        });
+
+        // when query type changes, set appropriate values
+        const queryOpts = document.getElementById("query-type");
+
+        queryOpts.addEventListener("change", () => {            
+            switch (queryOpts.value) {
+                // values set for distance query
+                case "distance":
+                    distance = 1500;
+                    units = "meters";
+                    break;
+                default:
+                    // Default set to basic query
+                    distance = null;
+                    units = null;
+            }
+        });
+
+        featureLayer.load().then(() => {
+            // Set the view extent to the data extent
+            //view.extent = featureLayer.fullExtent;
+            featureLayer.popupTemplate = featureLayer.createPopupTemplate();
+        });
+
         // executeIdentify() is called each time the view is clicked
         //view.on("click", executeIdentify);
         viewClick = view.on("click", (event) => {
-            alert(event.mapPoint);            
+            view.graphics.remove(pointGraphic);
+            if (view.graphics.includes(bufferGraphic)) {
+                view.graphics.remove(bufferGraphic);
+            }
+            queryFeatures1(event);
+            //alert(event.mapPoint);
+            // Create a buffer around the clicked point
+            //const point = event.mapPoint;
+            //const buffer = geometryEngine.buffer(point, 50, "meters");
+
+            //// Visualize the buffer
+            //const bufferGraphic1 = new Graphic({
+            //    geometry: buffer,
+            //    symbol: {
+            //        type: "simple-fill",
+            //        color: [0, 0, 255, 0.3],
+            //        outline: {
+            //            color: [0, 0, 255],
+            //            width: 2
+            //        }
+            //    }
+            //});
+            //view.graphics.add(bufferGraphic1);
         });        
+        function queryFeatures1(screenPoint) {            
+            //const point = view.toMap(screenPoint);
+            const point = event.mapPoint;;
+            let query = new Query({
+                geometry: point,
+                // distance and units will be null if basic query selected
+                distance: distance,
+                units: units,
+                spatialRelationship: "intersects",
+                returnGeometry: false,
+                returnQueryGeometry: true,
+                outFields: ["*"]
+            });
+            featureLayer
+                .queryFeatures(query)
+                .then((featureSet) => {
+                    // set graphic location to mouse pointer and add to mapview
+                    pointGraphic.geometry = point;
+                    view.graphics.add(pointGraphic);
+                    // open popup of query result
+                    view.openPopup({
+                        location: point,
+                        features: featureSet.features,
+                        featureMenuOpen: true
+                    });
+                    alert(distance);
+                    if (distance>0) {
+                        //bufferGraphic.geometry = featureSet.queryGeometry;
+                        bufferGraphic.geometry = point;
+                        view.graphics.add(bufferGraphic);
+                    }
+                });
+        }
     }
+   
     // #endregion Identify
 
     // #region Editor
