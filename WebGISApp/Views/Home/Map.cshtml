@@ -14,16 +14,21 @@
             <!-- Dynamically populated -->
         </calcite-navigation-logo>
         <calcite-menu slot="content-end">
-            <calcite-menu-item text="باز نشانی" icon-start="refresh" id="refresh"></calcite-menu-item>
+            <calcite-menu-item text="باز نشانی" icon-start="refresh" id="refresh" hidden></calcite-menu-item>
             <calcite-menu-item text="نقشه" icon-start="analysis" text-enabled active></calcite-menu-item>
         </calcite-menu>
     </calcite-navigation>
     <!-- Left Panel -->
     <calcite-shell-panel slot="panel-start" position="start" id="shell-panel-start" display-mode="float" collapsed>
         <calcite-action-bar slot="action-bar" id="actionBarLeft">
-            <calcite-action id="measureTool" icon="measure" text="ابزار اندازه‌گیر"></calcite-action>
-            <calcite-action id="editable" icon="layers-editable" text="ویرایش"></calcite-action>
-            <calcite-action id="identify" icon="information" text="اطلاعات"></calcite-action>
+            <calcite-action-group>
+                <calcite-action id="measureTool" icon="measure" text="ابزار اندازه‌گیر"></calcite-action>
+                <calcite-action id="editable" icon="layers-editable" text="ویرایش"></calcite-action>
+                <calcite-action id="identify" icon="information" text="اطلاعات"></calcite-action>
+            </calcite-action-group>                        
+            <clacite-action-group layout="vertical" overlay-positioning="fixed" class="js-action-group" calcite-hydrated slot="actions-end">                
+                @*<calcite-action id="mapProperties" icon="gear" text="تنظیمات"></calcite-action>*@
+            </clacite-action-group>
         </calcite-action-bar>
 
         <!-- Map-specific panels (each one provides a div for a ArcGIS Maps SDK for JavaScript widget) -->
@@ -45,13 +50,13 @@
         <calcite-action-bar slot="action-bar" id="actionBarRight">
             <calcite-action-group>
                 <calcite-action id="layers" icon="layers" text="لایه‌ها"></calcite-action>
-                <calcite-action id="basemaps" icon="basemap" text="نقشه‌های پایه"></calcite-action>
                 <calcite-action id="legend" icon="legend" text="راهنمای نقشه"></calcite-action>
+                <calcite-action id="basemaps" icon="basemap" text="نقشه‌های پایه"></calcite-action>                
                 <calcite-action id="print" icon="print" text="چاپ و خروجی"></calcite-action>
 
             </calcite-action-group>
             <clacite-action-group layout="vertical" overlay-positioning="fixed" class="js-action-group" calcite-hydrated slot="actions-end">
-                <calcite-action id="information" icon="information" text="اطلاعات"></calcite-action>
+                @*<calcite-action id="information" icon="information" text="اطلاعات"></calcite-action>*@
                 <calcite-action id="mapProperties" icon="gear" text="تنظیمات"></calcite-action>
             </clacite-action-group>
         </calcite-action-bar>

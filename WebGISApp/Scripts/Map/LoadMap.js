@@ -74,7 +74,7 @@ const view = new MapView({
             // dock popup at bottom-right side of view
             buttonEnabled: false,
             breakpoint: false,
-            position: "bottom-left"
+            position: "top-left"
         }
     }
 });
@@ -311,18 +311,28 @@ view.when(() => {
     });
 
     // #region Identify        
-    
+    // Declare pointGraphic and bufferGraphic globally for access in both functions
+    let pointGraphic;
+    let bufferGraphic;
     function stopIdentify() {
         isIdentify = false;
         document.getElementById("mapView").style.cursor = "auto";
+        alertBox("ابزار شناسایی غیر فعال شد", "warning");
         document.getElementById("optionsDiv").hidden = true;
+        
+        if (view.graphics.includes(pointGraphic)) {
+            view.graphics.remove(pointGraphic);
+        }else if (view.graphics.includes(bufferGraphic)) {
+            view.graphics.remove(bufferGraphic);
+        }
         viewClick.remove();
         //alert("stop");                
     }
     function startIdentify(featureLayer) {
         isIdentify = true;
         document.getElementById("mapView").style.cursor = "help";
-        document.getElementById("optionsDiv").hidden = false;
+        alertBox("ابزار شناسایی فعال شد", "success");
+        //document.getElementById("optionsDiv").hidden = false;
         view.ui.add("optionsDiv", "top-left");
 
         // additional query fields initially set to null for basic query
@@ -330,7 +340,7 @@ view.when(() => {
         let units = null;
 
         //create graphic for mouse point click
-        const pointGraphic = new Graphic({
+        pointGraphic = new Graphic({
             symbol: {
                 type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
                 color: [0, 0, 139],
@@ -342,7 +352,7 @@ view.when(() => {
         });
 
         // Create graphic for distance buffer
-        const bufferGraphic = new Graphic({
+        bufferGraphic = new Graphic({
             symbol: {
                 type: "simple-fill", // autocasts as new SimpleFillSymbol()
                 color: [173, 216, 230, 0.2],
@@ -384,7 +394,7 @@ view.when(() => {
             if (view.graphics.includes(bufferGraphic)) {
                 view.graphics.remove(bufferGraphic);
             }
-            queryFeatures1(event);
+            featuresQuery(event);
             //alert(event.mapPoint);
             // Create a buffer around the clicked point
             //const point = event.mapPoint;
@@ -404,9 +414,9 @@ view.when(() => {
             //});
             //view.graphics.add(bufferGraphic1);
         });        
-        function queryFeatures1(screenPoint) {            
-            //const point = view.toMap(screenPoint);
-            const point = event.mapPoint;;
+        function featuresQuery(screenPoint) {            
+            const point = view.toMap(screenPoint);
+            //const point = event.mapPoint;;
             let query = new Query({
                 geometry: point,
                 // distance and units will be null if basic query selected
@@ -428,8 +438,7 @@ view.when(() => {
                         location: point,
                         features: featureSet.features,
                         featureMenuOpen: true
-                    });
-                    alert(distance);
+                    });                    
                     if (distance>0) {
                         //bufferGraphic.geometry = featureSet.queryGeometry;
                         bufferGraphic.geometry = point;
@@ -646,7 +655,7 @@ function updateUI(showResult) {
 view.ui.empty();
 
 // Move Zoom button                
-view.ui.move("zoom", "bottom-right");
+view.ui.move("zoom", "top-right");
 
 // Add Home button
 const homeBtn = new Home({
@@ -655,16 +664,16 @@ const homeBtn = new Home({
 view.ui.add(homeBtn, "top-right");
 
 // Add FullScreen
-const fullscreen = new Fullscreen({
-    view: view
-});
-view.ui.add(fullscreen, "top-right");
+//const fullscreen = new Fullscreen({
+//    view: view
+//});
+//view.ui.add(fullscreen, "top-right");
 
 //Add Coordinate
 const ccWidget = new CoordinateConversion({
     view: view
 });
-//view.ui.add(ccWidget, "bottom-left");
+//view.ui.add(ccWidget, "bottom-right");
 
 //Add Legend
 const legend = new Legend({
