@@ -171,8 +171,7 @@ view.when(() => {
                     className: "esri-icon-close",
                     id: "remove-layer"
                 }
-            ]];
-            //} else if (item.layer.type === "sublayer") {
+            ]];            
             if (item.layer.type === "feature" || item.layer.type === "sublayer") {
                 item.actionsSections = [[
                     {
@@ -215,8 +214,9 @@ view.when(() => {
                 clearSelection: true,
                 zoomToSelection: true
             }
-        }
-    });
+        },
+    });    
+
     // Handle LayerList action events
     layerList.on("trigger-action", (event) => {
         const selectedLayer = event.item.layer;
@@ -250,15 +250,27 @@ view.when(() => {
                 toggleFeatureTable(featureLayer);
             }
         }
-    });
+    });    
+
+    // Toggle FeatureTable visibility
+    const btnCloseAttributeTable = document.getElementById("closeAttributeTable");    
     let panelMapView = document.getElementById("panelMapView");
     let panelAttributeTable = document.getElementById("panelAttributeTable");
 
-
+    btnCloseAttributeTable.addEventListener("click", () => {
+        if (panelAttributeTable.style.height === "50%") {
+            panelAttributeTable.style.height = "0%";
+            btnCloseAttributeTable.hidden = true;
+            panelMapView.style.height = "100%";            
+        }
+    });
     // Toggle FeatureTable overlay visibility
     let flag = true;
     function toggleFeatureTable(featureLayer) {
-        featureTable.layer = featureLayer;        
+        featureTable.layer = featureLayer; 
+        panelAttributeTable.style.height = "50%";
+        btnCloseAttributeTable.hidden = false;
+        panelMapView.style.height = "50%";
         //if (flag) {
         //    flag = false;
         //    //featureTable.layer = featureLayer1;
