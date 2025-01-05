@@ -78,6 +78,33 @@ const view = new MapView({
         }
     }
 });
+// #region Add data and open dialogdialog_import
+const btn_AddData = document.getElementById("btn_AddData");
+const dialog_AddData = document.getElementById("dialog_AddData");
+const btnAdd_AddData = document.getElementById("btnAdd_AddData");
+const btnCancel_AddData = document.getElementById("btnCancel_AddData");
+const input_AddDataValue = document.getElementById("input_AddData");
+const combo_AddDataValue = document.getElementById("combo_AddData");
+btn_AddData.addEventListener("click", function () {    
+    if (!dialog_AddData.open) { dialog_AddData.open = true }            
+});
+btnAdd_AddData.addEventListener("click", function () {    
+    addData(input_AddDataValue.value, combo_AddDataValue.value);
+});
+btnCancel_AddData.addEventListener("click", function () {
+    dialog_AddData.open = false;
+});
+
+function addData(dataPath, dataType) {        
+    if (dataType === "ArcGIS Server web service") {
+        const layer = new MapImageLayer({
+            url: dataPath
+        });
+        map.add(layer);
+        dialog_AddData.open = false;
+    }    
+}
+// #endregion
 view.when(() => {
     const layer = new MapImageLayer({
         // Replace with your ArcGIS Server URL
@@ -158,21 +185,23 @@ view.when(() => {
         minFilterItems: 5,//Default Value: 10
         listItemCreatedFunction: (event) => {
             const { item } = event;
-            //if (item.layer.type === "map-image") {}            
+            //if (item.layer.type === "map-image") {}
             // Add custom actions: Remove layer and Zoom to Layer
-            item.actionsSections = [[
-                {
-                    title: "زوم به لایه",
-                    className: "esri-icon-zoom-out-fixed",
-                    id: "zoom-to-layer"
-                },
-                {
-                    title: "پاک کردن لایه",
-                    className: "esri-icon-close",
-                    id: "remove-layer"
-                }
-            ]];            
-            if (item.layer.type === "feature" || item.layer.type === "sublayer") {
+            if (item.layer.type === "map-image") {
+                item.actionsSections = [[
+                    {
+                        title: "زوم به لایه",
+                        className: "esri-icon-zoom-out-fixed",
+                        id: "zoom-to-layer"
+                    },
+                    {
+                        title: "پاک کردن لایه",
+                        className: "esri-icon-close",
+                        id: "remove-layer"
+                    }
+                ]];
+            }                        
+            else if (item.layer.type === "feature") {
                 item.actionsSections = [[
                     {
                         title: "زوم به لایه",
@@ -231,7 +260,7 @@ view.when(() => {
             });
         } else if (event.action.id === "remove-layer") {
             // Remove the layer from the map
-            map.remove(featureLayer).catch((error) => {
+            map.remove(selectedLayer).catch((error) => {
                 if (error.name != "AbortError") {
                     console.error(error);
                 }
@@ -469,7 +498,7 @@ view.when(() => {
             //map.add(featureLayer);
             editor = new Editor({
                 view: view,
-                layerInfos: [featureLayer],
+                layerInfos: [{ layer:featureLayer }],
                 snappingOptions: { // autocasts to SnappingOptions()
                     enabled: true,
                     featureSources: [{ layer: featureLayer }], // autocasts to FeatureSnappingLayerSource()                
@@ -566,31 +595,7 @@ actionsEnd?.forEach(el => {
     });
 });
 // #endregion
-// #region Add data and open dialogdialog_import
-const btn_AddData = document.getElementById("btn_AddData");
-const dialog_AddData = document.getElementById("dialog_AddData");
-const btn_CancelAddData = document.getElementById("btn_CancelAddData");
-btn_AddData?.addEventListener("click", function () {
-    dialog_AddData.open = true;
-});
-btn_CancelAddData.addEventListener("click", function () {
-    dialog_AddData.open = false;
-});
-const btnAdd_AddData = document.getElementById("btnAdd_AddData");
-const input_AddData = document.getElementById("input_AddData").value;
-const combo_AddData = document.getElementById("combo_AddData").value;
-btnAdd_AddData.addEventListener("click", function () { addData(input_AddData, combo_AddData) });
-function addData(dataPath, dataType) {
-    if (!dialog_AddData.open) { dialog_AddData.open = true }
-    if (dataType == "ArcGIS Server web service") {
-        const layer = new MapImageLayer({
-            url: dataPath
-        });
-        map.add(layer);
-        dialog_AddData.open = false;
-    }
-}
-// #endregion
+
 // #region Measurment tool 
 const graphicsLayer = new GraphicsLayer();
 
