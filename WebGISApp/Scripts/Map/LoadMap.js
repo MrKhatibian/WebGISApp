@@ -55,7 +55,7 @@ const map = new Map({
 });
 
 // Adding Map URL
-const serverUrl = "http://localhost:6080/arcgis/rest/services/Maryanaj/MaryanajWithoutLabel_14030619";
+const serverUrl = "http://localhost:6080/arcgis/rest/services/Maryanaj/MaryanajWithoutLabel_14031013";
 //Creat MapServer URL 
 const mapServerUrl = serverUrl + "/MapServer";
 //Creat FeatureServer URL
