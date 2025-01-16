@@ -132,9 +132,6 @@ view.when(() => {
     });
     map.add(featureLayer);
     
-    document.getElementById("identify").onclick = () => {        
-        isIdentify ? stopIdentify() : startIdentify(featureLayer);
-    };    
 
     // Add all feature layers
     function addFeatureLayers(url) {        
@@ -342,7 +339,11 @@ view.when(() => {
     // #region Identify        
     // Declare pointGraphic and bufferGraphic globally for access in both functions
     let pointGraphic;
-    let bufferGraphic;
+    let bufferGraphic;    
+    document.getElementById("identify").onclick = () => {
+        isIdentify ? stopIdentify() : startIdentify(featureLayer);
+    };    
+
     function stopIdentify() {
         isIdentify = false;
         document.getElementById("mapView").style.cursor = "auto";
@@ -478,6 +479,63 @@ view.when(() => {
     }
    
     // #endregion Identify
+
+    // #region Search
+    document.getElementById("btnSearch").addEventListener("click", () => {
+        let codeNosazi = document.getElementById("inputCodeNosazi").value;
+        if (codeNosazi) {
+            selectByAttribute(codeNosazi);
+        } else {
+            alert("لطفا کد نوسازی معتبر وارد کنید ");
+        }
+    });
+    function selectByAttribute(codeNosazi) {
+        featureLayer.load().then(() => {
+            // Set the view extent to the data extent
+            //view.extent = featureLayer.fullExtent;
+            featureLayer.popupTemplate = featureLayer.createPopupTemplate();
+        });
+        const query = featureLayer.createQuery();
+        query.where = `Code_nosazi = N'${codeNosazi}'`; // Search for the specific ObjectID
+        query.returnGeometry = true; // Ensure geometry is returned
+        query.outFields = ["*"]; // Retrieve all attributes
+
+        featureLayer.queryFeatures(query).then((featureSet) => {
+            if (featureSet.features.length > 0) {
+                const feature = featureSet.features[0]; // Get the first matching feature
+                console.log("Found Feature:", feature.attributes);
+
+                // Zoom to the feature's location
+                view.goTo(feature.geometry.extent.expand(2));
+
+                // Highlight the feature
+                view.graphics.removeAll();
+                const highlightGraphic = new Graphic({
+                    geometry: feature.geometry,
+                    symbol: {
+                        type: "simple-fill", // For polygons
+                        color: [255, 255, 0, 0.5],
+                        outline: {
+                            color: [255, 0, 0],
+                            width: 2
+                        }
+                    }
+                });
+                view.graphics.add(highlightGraphic);
+                // open popup of query featureSet
+                view.openPopup({
+                    //location: feature.geometry,
+                    features: featureSet.features,
+                    featureMenuOpen: true
+                });
+                // Optionally display attributes
+                //alert(JSON.stringify(feature.attributes, null, 2));
+            } else {
+                alert("Feature not found!");
+            }
+        });
+    }
+    // #endregion search
 
     // #region Editor
     // Create the Editor

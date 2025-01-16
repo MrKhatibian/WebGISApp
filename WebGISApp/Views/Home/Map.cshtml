@@ -10,12 +10,12 @@
     <!-- Header: Top navigation area -->
     <calcite-navigation slot="header">
         <calcite-navigation-user slot="logo" full-name="تحلیل گران آمارد" thumbnail="~/Content/Images/Amard.png"></calcite-navigation-user>
-        <calcite-navigation-logo id="header-title" heading-level="1" slot="content-center">
-            <!-- Dynamically populated -->
-        </calcite-navigation-logo>
+        <calcite-navigation-logo id="header-title" heading-level="1" slot="content-center"></calcite-navigation-logo>
         <calcite-menu slot="content-end">
             <calcite-menu-item text="باز نشانی" icon-start="refresh" id="refresh" hidden></calcite-menu-item>
-            <calcite-menu-item text="نقشه" icon-start="analysis" text-enabled active></calcite-menu-item>
+            @*<calcite-menu-item text="نقشه" icon-start="analysis" text-enabled active></calcite-menu-item>*@
+            <calcite-button style="height:50%; margin-left:20px" id="btnSearch" icon-start="search" label="جستوجو">جستوجو</calcite-button>
+            <calcite-input-text style="height:50%; margin-left:20px" id="inputCodeNosazi" placeholder="کد نوسازی را وارد کنید"></calcite-input-text>
         </calcite-menu>
     </calcite-navigation>
     <!-- Left Panel -->
@@ -24,7 +24,7 @@
             <calcite-action-group>
                 <calcite-action id="measureTool" icon="measure" text="ابزار اندازه‌گیر"></calcite-action>
                 <calcite-action id="editable" icon="layers-editable" text="ویرایش"></calcite-action>
-                <calcite-action id="identify" icon="information" text="اطلاعات"></calcite-action>
+                <calcite-action id="identify" icon="information" text="اطلاعات"></calcite-action>                
             </calcite-action-group>                        
             <clacite-action-group layout="vertical" overlay-positioning="fixed" class="js-action-group" calcite-hydrated slot="actions-end">                
                 @*<calcite-action id="mapProperties" icon="gear" text="تنظیمات"></calcite-action>*@
