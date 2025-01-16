@@ -51,8 +51,8 @@
             <calcite-action-group>
                 <calcite-action id="layers" icon="layers" text="لایه‌ها"></calcite-action>
                 <calcite-action id="legend" icon="legend" text="راهنمای نقشه"></calcite-action>
-                <calcite-action id="basemaps" icon="basemap" text="نقشه‌های پایه"></calcite-action>                
                 <calcite-action id="print" icon="print" text="چاپ و خروجی"></calcite-action>
+                <calcite-action id="basemaps" icon="basemap" text="نقشه‌های پایه"></calcite-action>
 
             </calcite-action-group>
             <clacite-action-group layout="vertical" overlay-positioning="fixed" class="js-action-group" calcite-hydrated slot="actions-end">
@@ -74,7 +74,7 @@
             <div id="legend-container"></div>
         </calcite-panel>
         <calcite-panel id="panel_print" class="drRtL" hidden closed>
-            <div id="print-container"></div>
+            <div id="print-container" style="direction:ltr"></div>
         </calcite-panel>
         <!-- Info panel (populates with info from the web map) -->
         <calcite-panel id="panel_information" class="drRtL" hidden closed>
@@ -134,7 +134,7 @@
         <div style="padding-bottom:80px">
             <calcite-label>
                 <span class="lable">آدرس کامل داده را وارد نمایید:</span>
-                <calcite-input style="direction:ltr;text-align:left" id="input_AddData" value="http://localhost:6080/arcgis/rest/services/KhoramAbad/KhoramAbad14030712/MapServer" placeholder="Example: http://"></calcite-input>
+                <calcite-input style="direction:ltr;text-align:left" id="input_AddData" value="http://localhost:6080/arcgis/rest/services/KhoramAbad/KhoramAbad_14030712/MapServer" placeholder="Example: http://"></calcite-input>
             </calcite-label>
             <calcite-label>
                 <span class="lable">نوع داده را انتخاب کنید:</span>

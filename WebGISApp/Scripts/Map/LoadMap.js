@@ -169,7 +169,7 @@ view.when(() => {
             })         
     }
     // Add all feature layers
-    //addFeatureLayers(featureServerUrl);
+    addFeatureLayers(featureServerUrl);
 
     // #region FeatureTable and layerlist
     //Add LayerList
