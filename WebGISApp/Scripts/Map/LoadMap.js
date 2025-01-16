@@ -751,6 +751,13 @@ const scaleBar = new ScaleBar({
 });
 view.ui.add(scaleBar, "bottom-left");
 
+// Create the Print widget
+const printWidget = new Print({
+    view: view,
+    container: "print-container",
+    printServiceUrl:
+        "http://localhost:6080/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task"
+});
 // Add Draw button
 //view.ui.add(["line-button", "top-right");
 // #endregion Widget 
