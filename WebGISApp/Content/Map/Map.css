@@ -1,60 +1,101 @@
-﻿/*#region MapLoad */
+﻿html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 14px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+/*body {
+  margin-bottom: 60px;
+}*/
+/*#region MapLoad */
 
 body {
     font-family: Candara, sans-serif;
-    height: 100vh;    
+    height: 100vh;
     overflow: hidden;
 }
-.drRtL{
-    direction:rtl;
-    text-align:right
+
+.drRtL {
+    direction: rtl;
+    text-align: right
 }
+
 calcite-navigation {
     direction: rtl;
     text-align: right;
+}
+
+calcite-chip {
+    font-size: 18px;
+    align-self: center;
+    margin-inline: 1rem;
+    --calcite-color-foreground-2: var(--calcite-color-status-success);
+    --calcite-color-text-1: var(--calcite-color-text-inverse);
 }
 
 calcite-action-bar {
     direction: rtl;
     text-align: right;
 }
+
 calcite-rating {
     margin-top: 0.25rem;
 }
+
 calcite-dialog {
     direction: rtl;
     text-align: right;
 }
-calcite-alert{
-    direction:rtl;
+
+calcite-alert {
+    direction: rtl;
 }
+
 #mainPanel {
     width: 100%;
     height: 100%;
 }
-#panelMapView{
-    width:100%;
-    height:100%;
+
+#panelMapView {
+    width: 100%;
+    height: 100%;
 }
 /* Map container */
 #mapView {
     width: 100%;
     height: 100%;
 }
+
 #optionsDiv {
     background-color: white;
     color: black;
     padding: 6px;
     max-width: 400px;
 }
+
 #panelAttributeTable {
     width: 100%;
     height: 0%;
 }
+
 #attributeTable {
     width: 100%;
     height: 100%;
 }
+
 #info-content {
     padding: 0.75rem;
 }
