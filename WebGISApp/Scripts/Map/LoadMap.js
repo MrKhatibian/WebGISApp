@@ -52,8 +52,8 @@ const osmLayer = new WebTileLayer({
 });
 
 const map = new Map({
-    //basemap: "osm"
-    basemap: { baseLayers: [osmLayer]}
+    basemap: "osm"
+    //basemap: { baseLayers: [osmLayer]}
 });
 
 // Adding Map URL
