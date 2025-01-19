@@ -46,13 +46,14 @@ var isIdentify = false;
 
 // Create a WebTileLayer with the OSM tile URL
 const osmLayer = new WebTileLayer({
-    urlTemplate: "https://{s}.basemaps.cartocdn.com/{variant}/{z}/{x}/{y}{r}.png",
+    urlTemplate: "https://{subDomain}.tile.openstreetmap.org/{z}/{x}/{y}.png",
     subDomains: ["a", "b", "c"], // Subdomains for OSM tiles
     title: "OpenStreetMap"
 });
 
 const map = new Map({
     basemap: "osm"
+    //basemap: "topo-vector"
     //basemap: { baseLayers: [osmLayer]}
 });
 
@@ -763,10 +764,10 @@ const printWidget = new Print({
         "http://localhost:6080/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task"
 });
 // Create the BaseMap widget
-const basemapGallery = new BasemapGallery({
-    view: view,
-    container: "basemaps-container",    
-});
+//const basemapGallery = new BasemapGallery({
+//    view: view,
+//    container: "basemaps-container"
+//});
 // Add Draw button
 //view.ui.add(["line-button", "top-right");
 // #endregion Widget 
