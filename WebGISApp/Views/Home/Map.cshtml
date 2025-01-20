@@ -88,10 +88,8 @@
             <div id="mapProperties-container">
                 <calcite-tabs>
                     <calcite-tab-nav slot="title-group">
-                        <calcite-tab-title selected>
-                            Watercraft
-                        </calcite-tab-title>
-                        <calcite-tab-title>Automobiles</calcite-tab-title>
+                        <calcite-tab-title selected>Watercraft</calcite-tab-title>
+                        <calcite-tab-title>سرویس</calcite-tab-title>
                         <calcite-tab-title>Aircrafts</calcite-tab-title>
                     </calcite-tab-nav>
                     <calcite-tab selected>
@@ -140,9 +138,26 @@
                         </calcite-tree>
                     </calcite-tab>
                     <calcite-tab>
-                        <calcite-notice icon="car" open>
+                        @*<calcite-notice icon="car" open>
                             <div slot="message">A good choice for inland adventure</div>
-                        </calcite-notice>
+                        </calcite-notice>*@
+
+                        <calcite-list>
+                            <div style="width:97.5%;height:auto;margin:0 1% 0 1%">
+                                <calcite-label>
+                                    آدرس سرور نقشه
+                                    <calcite-input placeholder="http://localhost:6080/arcgis/rest/services/(example)/MapServer"></calcite-input>                                    
+                                    <div style="width: 100%; height: auto; align-items: center; background-color: aqua">
+                                        <calcite-fab kind="brand" icon="plus" id="" alignment="center"></calcite-fab>
+                                        @*<calcite-fab kind="danger" icon="x" id=""></calcite-fab>*@
+                                    </div>                                    
+                                </calcite-label>
+                                <calcite-list-item label="Layers" description="This one has a note">
+                                    <calcite-icon scale="s" slot="content-end" icon="layers"></calcite-icon>
+                                </calcite-list-item>
+                            </div>                                                        
+                        </calcite-list>
+                            
                     </calcite-tab>
                     <calcite-tab>
                         <calcite-notice icon="plane" open>
