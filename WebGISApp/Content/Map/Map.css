@@ -110,6 +110,19 @@ calcite-alert {
     min-width: 200px;
     display: none;
 }
-
-
+calcite-fab {
+    padding:2px;
+}
+.settingDiv {
+    width: 97.5%;
+    height: auto;
+    margin: 0 1% 0 1%
+}
+.settingServiceDivFab {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;    
+    padding: 5px
+}
 /*#endregion */
