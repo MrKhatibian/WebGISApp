@@ -107,6 +107,17 @@ function addData(dataPath, dataType) {
         dialog_AddData.open = false;
     }
 }
+
+// #region Service Setting
+const inputServiceSetting = document.getElementById("inputServiceSetting");
+const inputPrintSetting = document.getElementById("inputPrintSetting");
+const btnSetServiceSetting = document.getElementById("btnSetServiceSetting");
+const btnCancelServiceSetting = document.getElementById("btnCancelServiceSetting");
+btnSetServiceSetting.addEventListener("click", () => {
+    alert("say Hi")
+});
+
+// #endregion
 // #endregion
 view.when(() => {
     const layer = new MapImageLayer({

@@ -89,8 +89,8 @@
                 <calcite-tabs>
                     
                         <calcite-tab-nav slot="title-group">
-                            <calcite-tab-title selected>Watercraft</calcite-tab-title>
-                            <calcite-tab-title>سرویس</calcite-tab-title>
+                            <calcite-tab-title>Watercraft</calcite-tab-title>
+                            <calcite-tab-title selected>سرویس</calcite-tab-title>
                             <calcite-tab-title>Aircrafts</calcite-tab-title>
                         </calcite-tab-nav>
                         <calcite-tab selected>
@@ -150,19 +150,16 @@
                             <div class="settingDiv">
                                 <calcite-label>
                                     آدرس سرویس نقشه
-                                    <calcite-input placeholder="http://(your server)/arcgis/rest/services/(example)/MapServer"></calcite-input>
+                                    <calcite-input id="inputServiceSetting" placeholder="http://(your server)/arcgis/rest/services/(example)/MapServer"></calcite-input>
                                 </calcite-label>
                                 <calcite-label>
                                     آدرس سرویس کروکی (PrintingTools)
-                                    <calcite-input placeholder="http://(your server)/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task"></calcite-input>
+                                    <calcite-input id="inputPrintSetting" placeholder="http://(your server)/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task"></calcite-input>
                                 </calcite-label>
-                                <div class="settingServiceDivFab">
-                                    <calcite-fab kind="brand" icon="plus" id="" text="ثبت" textEnabled="true"></calcite-fab>
-                                    <calcite-fab kind="danger" icon="x" id="" text="انصراف" textEnabled="true"></calcite-fab>
-                                </div>
-                                <calcite-list-item label="Layers" description="This one has a note">
-                                    <calcite-icon scale="s" slot="content-end" icon="layers"></calcite-icon>
-                                </calcite-list-item>
+                                <div class="settingServiceDivbtn">
+                                    <calcite-button id="btnCancelServiceSetting" kind="danger" icon-start="x" label="انصراف">انصراف</calcite-button>
+                                    <calcite-button id="btnSetServiceSetting" kind="brand" icon-start="plus" label="ثبت">ثبت</calcite-button>                                    
+                                </div>                                
                             </div>
                         </calcite-list>
 
@@ -264,17 +261,12 @@
                 <span class="lable">نوع داده را انتخاب کنید:</span>
             </calcite-label>
             <calcite-combobox style="direction:ltr;text-align:left" selection-mode="single" id="combo_AddData">
-                <calcite-combobox-item value="ArcGIS Server web service" text-label="ArcGIS Server web service" selected></calcite-combobox-item>
+                <calcite-combobox-item value="MapServer" text-label="MapServer" selected></calcite-combobox-item>
                 <calcite-combobox-item value="Shapefile" text-label="Shapefile"></calcite-combobox-item>
                 <calcite-combobox-item value="WMS (OGC)" text-label="WMS (OGC)"></calcite-combobox-item>
-                <calcite-combobox-item value="CSV" text-label="CSV"></calcite-combobox-item>
-                <calcite-combobox-item value="GeoJSON" text-label="GeoJSON"></calcite-combobox-item>
-                <calcite-combobox-item value="KML (OGC)" text-label="KML (OGC)"></calcite-combobox-item>
-                <calcite-combobox-item value="OGC feature layer" text-label="OGC feature layer"></calcite-combobox-item>
+                <calcite-combobox-item value="CSV" text-label="CSV"></calcite-combobox-item>                
                 <calcite-combobox-item value="WFS (OGC)" text-label="WFS (OGC)"></calcite-combobox-item>
-                <calcite-combobox-item value="WMTS (OGC)" text-label="WMTS (OGC)"></calcite-combobox-item>
-                <calcite-combobox-item value="GeoRSS" text-label="GeoRSS"></calcite-combobox-item>
-                <calcite-combobox-item value="Tile layer" text-label="Tile layer"></calcite-combobox-item>
+                <calcite-combobox-item value="WMTS (OGC)" text-label="WMTS (OGC)"></calcite-combobox-item>                
             </calcite-combobox>
 
         </div>
@@ -282,8 +274,8 @@
             <div slot="title">لیست نوع داده‌های مجاز:</div>
             <div slot="message" style="direction:ltr">CSV, GeoJSON, ArcGIS Server, WFS, etc.</div>
         </calcite-notice>
-        <calcite-button slot="footer-end" id="btnCancel_AddData">انصراف</calcite-button>
-        <calcite-button slot="footer-end" id="btnAdd_AddData">افزودن</calcite-button>
+        <calcite-button kind="danger" slot="footer-end" id="btnCancel_AddData">انصراف</calcite-button>
+        <calcite-button kind="brand" slot="footer-end" id="btnAdd_AddData">افزودن</calcite-button>
     </calcite-dialog>
     <!-- Add alet box for show system info -->
     <calcite-alert id="alert">
