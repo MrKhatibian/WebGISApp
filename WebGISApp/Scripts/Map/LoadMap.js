@@ -113,8 +113,21 @@ const inputServiceSetting = document.getElementById("inputServiceSetting");
 const inputPrintSetting = document.getElementById("inputPrintSetting");
 const btnSetServiceSetting = document.getElementById("btnSetServiceSetting");
 const btnCancelServiceSetting = document.getElementById("btnCancelServiceSetting");
-btnSetServiceSetting.addEventListener("click", () => {
-    alert("say Hi");
+btnSetServiceSetting.addEventListener("click", () => {    
+    const query = `INSERT INTO servicesSetting (mapService, printService) VALUES ('${inputServiceSetting.value}', '${inputPrintSetting.value}')`;
+    alert(query);
+    //$.ajax({
+    //    type: "POST",
+    //    url: "/ControllerName/InsertOrUpdate",
+    //    data: { query: query },
+    //    success: function (response) {
+    //        if (response.success) {
+    //            alert("Record inserted successfully");
+    //        } else {
+    //            alert("Error inserting record");
+    //        }
+    //    }
+    //});
 });
 
 // #endregion

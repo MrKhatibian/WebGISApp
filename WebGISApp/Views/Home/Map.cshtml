@@ -150,15 +150,17 @@
                             <div class="settingDiv">
                                 <calcite-label>
                                     آدرس سرویس نقشه
-                                    <calcite-input id="inputServiceSetting" placeholder="http://(your server)/arcgis/rest/services/(example)/MapServer"></calcite-input>
+                                    <calcite-input id="inputServiceSetting" placeholder="http://(your server)/arcgis/rest/services/(example)/MapServer"
+                                                   value="http://localhost:6080/arcgis/rest/services/Maryanaj/MaryanajWithoutLabel_14031013/FeatureServer"></calcite-input>
                                 </calcite-label>
                                 <calcite-label>
                                     آدرس سرویس کروکی (PrintingTools)
-                                    <calcite-input id="inputPrintSetting" placeholder="http://(your server)/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task"></calcite-input>
+                                    <calcite-input id="inputPrintSetting" placeholder="http://(your server)/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task"
+                                                   value="http://localhost:6080/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task"></calcite-input>
                                 </calcite-label>
                                 <div class="settingServiceDivbtn">
-                                    <calcite-button id="btnCancelServiceSetting" kind="danger" icon-start="x" label="انصراف">انصراف</calcite-button>
-                                    <calcite-button id="btnSetServiceSetting" kind="brand" icon-start="plus" label="ثبت">ثبت</calcite-button>                                    
+                                    <calcite-button class="btnCalcite" id="btnCancelServiceSetting" kind="danger" icon-start="x" label="انصراف">انصراف</calcite-button>
+                                    <calcite-button class="btnCalcite" id="btnSetServiceSetting" kind="brand" icon-start="plus" label="ثبت">ثبت</calcite-button>                                    
                                 </div>                                
                             </div>
                         </calcite-list>

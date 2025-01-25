@@ -110,7 +110,7 @@ calcite-alert {
     min-width: 200px;
     display: none;
 }
-calcite-button {
+.btnCalcite {
     padding: 3px;
 }
 .settingDiv {

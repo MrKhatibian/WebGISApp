@@ -4,7 +4,199 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="GisMaryanjModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="GisMaryanjModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6005: The data type 'geometry' is not supported for the target Entity Framework version schema. The column 'Shape' in the table 'GisMaryanj.dbo.a10' was excluded from the model. To use the data type 'geometry', target the Entity Framework schema version 3.0 or higher.-->
+        <EntityType Name="a10">
+          <Key>
+            <PropertyRef Name="OBJECTID_1" />
+            <PropertyRef Name="SDE_STATE_ID" />
+          </Key>
+          <Property Name="OBJECTID_1" Type="int" Nullable="false" />
+          <Property Name="F97m" Type="nvarchar" MaxLength="254" />
+          <Property Name="F97t" Type="nvarchar" MaxLength="254" />
+          <Property Name="F97e" Type="nvarchar" MaxLength="254" />
+          <Property Name="Code_Block" Type="nvarchar" MaxLength="10" />
+          <Property Name="Code_Band" Type="nvarchar" MaxLength="10" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="W" Type="nvarchar" MaxLength="10" />
+          <Property Name="SDE_STATE_ID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6005: The data type 'geometry' is not supported for the target Entity Framework version schema. The column 'Shape' in the table 'GisMaryanj.dbo.a11' was excluded from the model. To use the data type 'geometry', target the Entity Framework schema version 3.0 or higher.-->
+        <EntityType Name="a11">
+          <Key>
+            <PropertyRef Name="OBJECTID" />
+            <PropertyRef Name="SDE_STATE_ID" />
+          </Key>
+          <Property Name="OBJECTID" Type="int" Nullable="false" />
+          <Property Name="malek" Type="nvarchar" MaxLength="254" />
+          <Property Name="id" Type="numeric" Precision="38" Scale="8" />
+          <Property Name="name" Type="nvarchar" MaxLength="254" />
+          <Property Name="ORIG_FID" Type="int" />
+          <Property Name="SDE_STATE_ID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6005: The data type 'geometry' is not supported for the target Entity Framework version schema. The column 'Shape' in the table 'GisMaryanj.dbo.a12' was excluded from the model. To use the data type 'geometry', target the Entity Framework schema version 3.0 or higher.-->
+        <EntityType Name="a12">
+          <Key>
+            <PropertyRef Name="OBJECTID_1" />
+            <PropertyRef Name="SDE_STATE_ID" />
+          </Key>
+          <Property Name="OBJECTID_1" Type="int" Nullable="false" />
+          <Property Name="OBJECTID" Type="int" />
+          <Property Name="Shape_Leng" Type="numeric" Precision="38" Scale="8" />
+          <Property Name="SDE_STATE_ID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6005: The data type 'geometry' is not supported for the target Entity Framework version schema. The column 'SHAPE' in the table 'GisMaryanj.dbo.a13' was excluded from the model. To use the data type 'geometry', target the Entity Framework schema version 3.0 or higher.-->
+        <EntityType Name="a13">
+          <Key>
+            <PropertyRef Name="OBJECTID" />
+            <PropertyRef Name="SDE_STATE_ID" />
+          </Key>
+          <Property Name="OBJECTID" Type="int" Nullable="false" />
+          <Property Name="مشخصات" Type="nvarchar" MaxLength="50" />
+          <Property Name="SDE_STATE_ID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6005: The data type 'geometry' is not supported for the target Entity Framework version schema. The column 'SHAPE' in the table 'GisMaryanj.dbo.a14' was excluded from the model. To use the data type 'geometry', target the Entity Framework schema version 3.0 or higher.-->
+        <EntityType Name="a14">
+          <Key>
+            <PropertyRef Name="OBJECTID" />
+            <PropertyRef Name="SDE_STATE_ID" />
+          </Key>
+          <Property Name="OBJECTID" Type="int" Nullable="false" />
+          <Property Name="Parvaneh" Type="nvarchar" MaxLength="10" />
+          <Property Name="Code_Block" Type="nvarchar" MaxLength="10" />
+          <Property Name="Amlak__" Type="numeric" Precision="38" Scale="8" />
+          <Property Name="COD" Type="nvarchar" MaxLength="50" />
+          <Property Name="Code_nosazi" Type="nvarchar" MaxLength="255" />
+          <Property Name="Mantaghe" Type="numeric" Precision="38" Scale="8" />
+          <Property Name="Mahale" Type="numeric" Precision="38" Scale="8" />
+          <Property Name="Block" Type="numeric" Precision="38" Scale="8" />
+          <Property Name="Melk" Type="numeric" Precision="38" Scale="8" />
+          <Property Name="Name_malek" Type="nvarchar" MaxLength="255" />
+          <Property Name="Address" Type="nvarchar" MaxLength="255" />
+          <Property Name="Malekiyat" Type="nvarchar" MaxLength="255" />
+          <Property Name="Mahiyate_fiziki" Type="nvarchar" MaxLength="255" />
+          <Property Name="Karbari" Type="nvarchar" MaxLength="255" />
+          <Property Name="Sanad" Type="nvarchar" MaxLength="255" />
+          <Property Name="Marhale_sakhtemani" Type="nvarchar" MaxLength="255" />
+          <Property Name="Masahat" Type="nvarchar" MaxLength="255" />
+          <Property Name="pelakabi" Type="nvarchar" MaxLength="255" />
+          <Property Name="codeposti" Type="nvarchar" MaxLength="255" />
+          <Property Name="Archive_No" Type="nvarchar" MaxLength="255" />
+          <Property Name="mogheyat" Type="nvarchar" MaxLength="255" />
+          <Property Name="bakhsh" Type="nvarchar" MaxLength="255" />
+          <Property Name="asli" Type="nvarchar" MaxLength="255" />
+          <Property Name="fari" Type="nvarchar" MaxLength="255" />
+          <Property Name="tafkiki" Type="nvarchar" MaxLength="255" />
+          <Property Name="Telephone" Type="nvarchar" MaxLength="255" />
+          <Property Name="COD_1" Type="nvarchar" MaxLength="255" />
+          <Property Name="Parvande_No" Type="int" />
+          <Property Name="SDE_STATE_ID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6005: The data type 'geometry' is not supported for the target Entity Framework version schema. The column 'Shape' in the table 'GisMaryanj.dbo.a7' was excluded from the model. To use the data type 'geometry', target the Entity Framework schema version 3.0 or higher.-->
+        <EntityType Name="a7">
+          <Key>
+            <PropertyRef Name="OBJECTID" />
+            <PropertyRef Name="SDE_STATE_ID" />
+          </Key>
+          <Property Name="OBJECTID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="W" Type="nvarchar" MaxLength="10" />
+          <Property Name="Code_M" Type="nvarchar" MaxLength="10" />
+          <Property Name="SDE_STATE_ID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6005: The data type 'geometry' is not supported for the target Entity Framework version schema. The column 'Shape' in the table 'GisMaryanj.dbo.a8' was excluded from the model. To use the data type 'geometry', target the Entity Framework schema version 3.0 or higher.-->
+        <EntityType Name="a8">
+          <Key>
+            <PropertyRef Name="OBJECTID" />
+            <PropertyRef Name="SDE_STATE_ID" />
+          </Key>
+          <Property Name="OBJECTID" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="254" />
+          <Property Name="price" Type="nvarchar" MaxLength="254" />
+          <Property Name="F91" Type="nvarchar" MaxLength="254" />
+          <Property Name="F90" Type="nvarchar" MaxLength="254" />
+          <Property Name="F87" Type="nvarchar" MaxLength="254" />
+          <Property Name="F86" Type="nvarchar" MaxLength="254" />
+          <Property Name="F85" Type="nvarchar" MaxLength="254" />
+          <Property Name="F84" Type="nvarchar" MaxLength="254" />
+          <Property Name="F83" Type="nvarchar" MaxLength="254" />
+          <Property Name="F82" Type="nvarchar" MaxLength="254" />
+          <Property Name="F81" Type="nvarchar" MaxLength="254" />
+          <Property Name="F80" Type="nvarchar" MaxLength="254" />
+          <Property Name="F79" Type="nvarchar" MaxLength="254" />
+          <Property Name="F78" Type="nvarchar" MaxLength="254" />
+          <Property Name="F77" Type="nvarchar" MaxLength="254" />
+          <Property Name="F76" Type="nvarchar" MaxLength="254" />
+          <Property Name="F75" Type="nvarchar" MaxLength="254" />
+          <Property Name="F74" Type="nvarchar" MaxLength="254" />
+          <Property Name="F73" Type="nvarchar" MaxLength="254" />
+          <Property Name="F72" Type="nvarchar" MaxLength="254" />
+          <Property Name="F71" Type="nvarchar" MaxLength="254" />
+          <Property Name="F70" Type="nvarchar" MaxLength="254" />
+          <Property Name="F69" Type="nvarchar" MaxLength="254" />
+          <Property Name="F68" Type="nvarchar" MaxLength="254" />
+          <Property Name="F67" Type="nvarchar" MaxLength="254" />
+          <Property Name="F66" Type="nvarchar" MaxLength="254" />
+          <Property Name="F65" Type="nvarchar" MaxLength="254" />
+          <Property Name="F64" Type="nvarchar" MaxLength="254" />
+          <Property Name="F94" Type="nvarchar" MaxLength="254" />
+          <Property Name="F95" Type="nvarchar" MaxLength="254" />
+          <Property Name="SDE_STATE_ID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6005: The data type 'geometry' is not supported for the target Entity Framework version schema. The column 'Shape' in the table 'GisMaryanj.dbo.a9' was excluded from the model. To use the data type 'geometry', target the Entity Framework schema version 3.0 or higher.-->
+        <EntityType Name="a9">
+          <Key>
+            <PropertyRef Name="OBJECTID" />
+            <PropertyRef Name="SDE_STATE_ID" />
+          </Key>
+          <Property Name="OBJECTID" Type="int" Nullable="false" />
+          <Property Name="F91" Type="nvarchar" MaxLength="254" />
+          <Property Name="F87" Type="nvarchar" MaxLength="254" />
+          <Property Name="F85" Type="nvarchar" MaxLength="254" />
+          <Property Name="F84" Type="nvarchar" MaxLength="254" />
+          <Property Name="F83" Type="nvarchar" MaxLength="254" />
+          <Property Name="F82" Type="nvarchar" MaxLength="254" />
+          <Property Name="F81" Type="nvarchar" MaxLength="254" />
+          <Property Name="F71" Type="nvarchar" MaxLength="254" />
+          <Property Name="F68" Type="nvarchar" MaxLength="254" />
+          <Property Name="F64" Type="nvarchar" MaxLength="254" />
+          <Property Name="F95" Type="nvarchar" MaxLength="254" />
+          <Property Name="F96" Type="nvarchar" MaxLength="254" />
+          <Property Name="F65" Type="nvarchar" MaxLength="50" />
+          <Property Name="F66" Type="nvarchar" MaxLength="50" />
+          <Property Name="F67" Type="nvarchar" MaxLength="50" />
+          <Property Name="F69" Type="nvarchar" MaxLength="50" />
+          <Property Name="F70" Type="nvarchar" MaxLength="50" />
+          <Property Name="F72" Type="nvarchar" MaxLength="50" />
+          <Property Name="F73" Type="nvarchar" MaxLength="50" />
+          <Property Name="F74" Type="nvarchar" MaxLength="50" />
+          <Property Name="F75" Type="nvarchar" MaxLength="50" />
+          <Property Name="F76" Type="nvarchar" MaxLength="50" />
+          <Property Name="F77" Type="nvarchar" MaxLength="50" />
+          <Property Name="F78" Type="nvarchar" MaxLength="50" />
+          <Property Name="F79" Type="nvarchar" MaxLength="50" />
+          <Property Name="F80" Type="nvarchar" MaxLength="50" />
+          <Property Name="F86" Type="nvarchar" MaxLength="50" />
+          <Property Name="F88" Type="nvarchar" MaxLength="50" />
+          <Property Name="F89" Type="nvarchar" MaxLength="50" />
+          <Property Name="F90" Type="nvarchar" MaxLength="50" />
+          <Property Name="F92" Type="nvarchar" MaxLength="50" />
+          <Property Name="F93" Type="nvarchar" MaxLength="50" />
+          <Property Name="F94" Type="nvarchar" MaxLength="50" />
+          <Property Name="Code_Block" Type="nvarchar" MaxLength="10" />
+          <Property Name="Code_Band" Type="nvarchar" MaxLength="10" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="W" Type="nvarchar" MaxLength="10" />
+          <Property Name="SDE_STATE_ID" Type="bigint" Nullable="false" />
+        </EntityType>
         <!--Errors Found During Generation:
 warning 6005: The data type 'geometry' is not supported for the target Entity Framework version schema. The column 'SHAPE' in the table 'GisMaryanj.dbo.ARSE' was excluded from the model. To use the data type 'geometry', target the Entity Framework schema version 3.0 or higher.-->
         <EntityType Name="ARSE">
@@ -40,6 +232,86 @@ warning 6005: The data type 'geometry' is not supported for the target Entity Fr
           <Property Name="Telephone" Type="nvarchar" MaxLength="255" />
           <Property Name="COD_1" Type="nvarchar" MaxLength="255" />
           <Property Name="Parvande_No" Type="int" />
+        </EntityType>
+        <EntityType Name="D10">
+          <Key>
+            <PropertyRef Name="SDE_STATE_ID" />
+            <PropertyRef Name="SDE_DELETES_ROW_ID" />
+            <PropertyRef Name="DELETED_AT" />
+          </Key>
+          <Property Name="SDE_STATE_ID" Type="bigint" Nullable="false" />
+          <Property Name="SDE_DELETES_ROW_ID" Type="int" Nullable="false" />
+          <Property Name="DELETED_AT" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="D11">
+          <Key>
+            <PropertyRef Name="SDE_STATE_ID" />
+            <PropertyRef Name="SDE_DELETES_ROW_ID" />
+            <PropertyRef Name="DELETED_AT" />
+          </Key>
+          <Property Name="SDE_STATE_ID" Type="bigint" Nullable="false" />
+          <Property Name="SDE_DELETES_ROW_ID" Type="int" Nullable="false" />
+          <Property Name="DELETED_AT" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="D12">
+          <Key>
+            <PropertyRef Name="SDE_STATE_ID" />
+            <PropertyRef Name="SDE_DELETES_ROW_ID" />
+            <PropertyRef Name="DELETED_AT" />
+          </Key>
+          <Property Name="SDE_STATE_ID" Type="bigint" Nullable="false" />
+          <Property Name="SDE_DELETES_ROW_ID" Type="int" Nullable="false" />
+          <Property Name="DELETED_AT" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="D13">
+          <Key>
+            <PropertyRef Name="SDE_STATE_ID" />
+            <PropertyRef Name="SDE_DELETES_ROW_ID" />
+            <PropertyRef Name="DELETED_AT" />
+          </Key>
+          <Property Name="SDE_STATE_ID" Type="bigint" Nullable="false" />
+          <Property Name="SDE_DELETES_ROW_ID" Type="int" Nullable="false" />
+          <Property Name="DELETED_AT" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="D14">
+          <Key>
+            <PropertyRef Name="SDE_STATE_ID" />
+            <PropertyRef Name="SDE_DELETES_ROW_ID" />
+            <PropertyRef Name="DELETED_AT" />
+          </Key>
+          <Property Name="SDE_STATE_ID" Type="bigint" Nullable="false" />
+          <Property Name="SDE_DELETES_ROW_ID" Type="int" Nullable="false" />
+          <Property Name="DELETED_AT" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="D7">
+          <Key>
+            <PropertyRef Name="SDE_STATE_ID" />
+            <PropertyRef Name="SDE_DELETES_ROW_ID" />
+            <PropertyRef Name="DELETED_AT" />
+          </Key>
+          <Property Name="SDE_STATE_ID" Type="bigint" Nullable="false" />
+          <Property Name="SDE_DELETES_ROW_ID" Type="int" Nullable="false" />
+          <Property Name="DELETED_AT" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="D8">
+          <Key>
+            <PropertyRef Name="SDE_STATE_ID" />
+            <PropertyRef Name="SDE_DELETES_ROW_ID" />
+            <PropertyRef Name="DELETED_AT" />
+          </Key>
+          <Property Name="SDE_STATE_ID" Type="bigint" Nullable="false" />
+          <Property Name="SDE_DELETES_ROW_ID" Type="int" Nullable="false" />
+          <Property Name="DELETED_AT" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="D9">
+          <Key>
+            <PropertyRef Name="SDE_STATE_ID" />
+            <PropertyRef Name="SDE_DELETES_ROW_ID" />
+            <PropertyRef Name="DELETED_AT" />
+          </Key>
+          <Property Name="SDE_STATE_ID" Type="bigint" Nullable="false" />
+          <Property Name="SDE_DELETES_ROW_ID" Type="int" Nullable="false" />
+          <Property Name="DELETED_AT" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="GDB_ITEMRELATIONSHIPS">
           <Key>
@@ -480,58 +752,74 @@ warning 6005: The data type 'geometry' is not supported for the target Entity Fr
         <EntityType Name="SDE_GEOMETRY2">
           <Key>
             <PropertyRef Name="GEOMETRY_ID" />
+            <PropertyRef Name="SDE_STATE_ID" />
           </Key>
           <Property Name="GEOMETRY_ID" Type="int" Nullable="false" />
           <Property Name="CAD" Type="varbinary(max)" />
+          <Property Name="SDE_STATE_ID" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="SDE_GEOMETRY3">
           <Key>
             <PropertyRef Name="GEOMETRY_ID" />
+            <PropertyRef Name="SDE_STATE_ID" />
           </Key>
           <Property Name="GEOMETRY_ID" Type="int" Nullable="false" />
           <Property Name="CAD" Type="varbinary(max)" />
+          <Property Name="SDE_STATE_ID" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="SDE_GEOMETRY4">
           <Key>
             <PropertyRef Name="GEOMETRY_ID" />
+            <PropertyRef Name="SDE_STATE_ID" />
           </Key>
           <Property Name="GEOMETRY_ID" Type="int" Nullable="false" />
           <Property Name="CAD" Type="varbinary(max)" />
+          <Property Name="SDE_STATE_ID" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="SDE_GEOMETRY5">
           <Key>
             <PropertyRef Name="GEOMETRY_ID" />
+            <PropertyRef Name="SDE_STATE_ID" />
           </Key>
           <Property Name="GEOMETRY_ID" Type="int" Nullable="false" />
           <Property Name="CAD" Type="varbinary(max)" />
+          <Property Name="SDE_STATE_ID" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="SDE_GEOMETRY6">
           <Key>
             <PropertyRef Name="GEOMETRY_ID" />
+            <PropertyRef Name="SDE_STATE_ID" />
           </Key>
           <Property Name="GEOMETRY_ID" Type="int" Nullable="false" />
           <Property Name="CAD" Type="varbinary(max)" />
+          <Property Name="SDE_STATE_ID" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="SDE_GEOMETRY7">
           <Key>
             <PropertyRef Name="GEOMETRY_ID" />
+            <PropertyRef Name="SDE_STATE_ID" />
           </Key>
           <Property Name="GEOMETRY_ID" Type="int" Nullable="false" />
           <Property Name="CAD" Type="varbinary(max)" />
+          <Property Name="SDE_STATE_ID" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="SDE_GEOMETRY8">
           <Key>
             <PropertyRef Name="GEOMETRY_ID" />
+            <PropertyRef Name="SDE_STATE_ID" />
           </Key>
           <Property Name="GEOMETRY_ID" Type="int" Nullable="false" />
           <Property Name="CAD" Type="varbinary(max)" />
+          <Property Name="SDE_STATE_ID" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="SDE_GEOMETRY9">
           <Key>
             <PropertyRef Name="GEOMETRY_ID" />
+            <PropertyRef Name="SDE_STATE_ID" />
           </Key>
           <Property Name="GEOMETRY_ID" Type="int" Nullable="false" />
           <Property Name="CAD" Type="varbinary(max)" />
+          <Property Name="SDE_STATE_ID" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="SDE_layer_locks">
           <Key>
@@ -876,6 +1164,15 @@ warning 6005: The data type 'geometry' is not supported for the target Entity Fr
           <Property Name="index_type" Type="int" Nullable="false" />
           <Property Name="description" Type="nvarchar" MaxLength="64" />
         </EntityType>
+        <EntityType Name="servicesSetting">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="mapService" Type="nvarchar" MaxLength="50" />
+          <Property Name="printService" Type="nvarchar" MaxLength="50" />
+          <Property Name="geometryService" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <!--Errors Found During Generation:
 warning 6005: The data type 'geometry' is not supported for the target Entity Framework version schema. The column 'Shape' in the table 'GisMaryanj.dbo.T_T1394' was excluded from the model. To use the data type 'geometry', target the Entity Framework schema version 3.0 or higher.-->
         <EntityType Name="T_T1394">
@@ -889,6 +1186,41 @@ warning 6005: The data type 'geometry' is not supported for the target Entity Fr
           <Property Name="ORIG_FID" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6005: The data type 'geometry' is not supported for the target Entity Framework version schema. The column 'SHAPE' in the table 'GisMaryanj.dbo.ARSE_EVW' was excluded from the model. To use the data type 'geometry', target the Entity Framework schema version 3.0 or higher.
+warning 6013: The table/view 'GisMaryanj.dbo.ARSE_EVW' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="ARSE_EVW">
+          <Property Name="OBJECTID" Type="int" />
+          <Property Name="Parvaneh" Type="nvarchar" MaxLength="10" />
+          <Property Name="Code_Block" Type="nvarchar" MaxLength="10" />
+          <Property Name="Amlak__" Type="numeric" Precision="38" Scale="8" />
+          <Property Name="COD" Type="nvarchar" MaxLength="50" />
+          <Property Name="Code_nosazi" Type="nvarchar" MaxLength="255" />
+          <Property Name="Mantaghe" Type="numeric" Precision="38" Scale="8" />
+          <Property Name="Mahale" Type="numeric" Precision="38" Scale="8" />
+          <Property Name="Block" Type="numeric" Precision="38" Scale="8" />
+          <Property Name="Melk" Type="numeric" Precision="38" Scale="8" />
+          <Property Name="Name_malek" Type="nvarchar" MaxLength="255" />
+          <Property Name="Address" Type="nvarchar" MaxLength="255" />
+          <Property Name="Malekiyat" Type="nvarchar" MaxLength="255" />
+          <Property Name="Mahiyate_fiziki" Type="nvarchar" MaxLength="255" />
+          <Property Name="Karbari" Type="nvarchar" MaxLength="255" />
+          <Property Name="Sanad" Type="nvarchar" MaxLength="255" />
+          <Property Name="Marhale_sakhtemani" Type="nvarchar" MaxLength="255" />
+          <Property Name="Masahat" Type="nvarchar" MaxLength="255" />
+          <Property Name="pelakabi" Type="nvarchar" MaxLength="255" />
+          <Property Name="codeposti" Type="nvarchar" MaxLength="255" />
+          <Property Name="Archive_No" Type="nvarchar" MaxLength="255" />
+          <Property Name="mogheyat" Type="nvarchar" MaxLength="255" />
+          <Property Name="bakhsh" Type="nvarchar" MaxLength="255" />
+          <Property Name="asli" Type="nvarchar" MaxLength="255" />
+          <Property Name="fari" Type="nvarchar" MaxLength="255" />
+          <Property Name="tafkiki" Type="nvarchar" MaxLength="255" />
+          <Property Name="Telephone" Type="nvarchar" MaxLength="255" />
+          <Property Name="COD_1" Type="nvarchar" MaxLength="255" />
+          <Property Name="Parvande_No" Type="int" />
+          <Property Name="SDE_STATE_ID" Type="bigint" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'GisMaryanj.dbo.dbtune' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="dbtune">
           <Key>
@@ -899,6 +1231,128 @@ warning 6002: The table/view 'GisMaryanj.dbo.dbtune' does not have a primary key
           <Property Name="parameter_name" Type="nvarchar" MaxLength="32" Nullable="false" />
           <Property Name="config_string" Type="nvarchar" MaxLength="2048" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6005: The data type 'geometry' is not supported for the target Entity Framework version schema. The column 'Shape' in the table 'GisMaryanj.dbo.GH1395_EVW' was excluded from the model. To use the data type 'geometry', target the Entity Framework schema version 3.0 or higher.
+warning 6013: The table/view 'GisMaryanj.dbo.GH1395_EVW' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="GH1395_EVW">
+          <Property Name="OBJECTID" Type="int" />
+          <Property Name="name" Type="nvarchar" MaxLength="254" />
+          <Property Name="price" Type="nvarchar" MaxLength="254" />
+          <Property Name="F91" Type="nvarchar" MaxLength="254" />
+          <Property Name="F90" Type="nvarchar" MaxLength="254" />
+          <Property Name="F87" Type="nvarchar" MaxLength="254" />
+          <Property Name="F86" Type="nvarchar" MaxLength="254" />
+          <Property Name="F85" Type="nvarchar" MaxLength="254" />
+          <Property Name="F84" Type="nvarchar" MaxLength="254" />
+          <Property Name="F83" Type="nvarchar" MaxLength="254" />
+          <Property Name="F82" Type="nvarchar" MaxLength="254" />
+          <Property Name="F81" Type="nvarchar" MaxLength="254" />
+          <Property Name="F80" Type="nvarchar" MaxLength="254" />
+          <Property Name="F79" Type="nvarchar" MaxLength="254" />
+          <Property Name="F78" Type="nvarchar" MaxLength="254" />
+          <Property Name="F77" Type="nvarchar" MaxLength="254" />
+          <Property Name="F76" Type="nvarchar" MaxLength="254" />
+          <Property Name="F75" Type="nvarchar" MaxLength="254" />
+          <Property Name="F74" Type="nvarchar" MaxLength="254" />
+          <Property Name="F73" Type="nvarchar" MaxLength="254" />
+          <Property Name="F72" Type="nvarchar" MaxLength="254" />
+          <Property Name="F71" Type="nvarchar" MaxLength="254" />
+          <Property Name="F70" Type="nvarchar" MaxLength="254" />
+          <Property Name="F69" Type="nvarchar" MaxLength="254" />
+          <Property Name="F68" Type="nvarchar" MaxLength="254" />
+          <Property Name="F67" Type="nvarchar" MaxLength="254" />
+          <Property Name="F66" Type="nvarchar" MaxLength="254" />
+          <Property Name="F65" Type="nvarchar" MaxLength="254" />
+          <Property Name="F64" Type="nvarchar" MaxLength="254" />
+          <Property Name="F94" Type="nvarchar" MaxLength="254" />
+          <Property Name="F95" Type="nvarchar" MaxLength="254" />
+          <Property Name="SDE_STATE_ID" Type="bigint" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6005: The data type 'geometry' is not supported for the target Entity Framework version schema. The column 'Shape' in the table 'GisMaryanj.dbo.GH1396_E_EVW' was excluded from the model. To use the data type 'geometry', target the Entity Framework schema version 3.0 or higher.
+warning 6013: The table/view 'GisMaryanj.dbo.GH1396_E_EVW' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="GH1396_E_EVW">
+          <Property Name="OBJECTID" Type="int" />
+          <Property Name="F91" Type="nvarchar" MaxLength="254" />
+          <Property Name="F87" Type="nvarchar" MaxLength="254" />
+          <Property Name="F85" Type="nvarchar" MaxLength="254" />
+          <Property Name="F84" Type="nvarchar" MaxLength="254" />
+          <Property Name="F83" Type="nvarchar" MaxLength="254" />
+          <Property Name="F82" Type="nvarchar" MaxLength="254" />
+          <Property Name="F81" Type="nvarchar" MaxLength="254" />
+          <Property Name="F71" Type="nvarchar" MaxLength="254" />
+          <Property Name="F68" Type="nvarchar" MaxLength="254" />
+          <Property Name="F64" Type="nvarchar" MaxLength="254" />
+          <Property Name="F95" Type="nvarchar" MaxLength="254" />
+          <Property Name="F96" Type="nvarchar" MaxLength="254" />
+          <Property Name="F65" Type="nvarchar" MaxLength="50" />
+          <Property Name="F66" Type="nvarchar" MaxLength="50" />
+          <Property Name="F67" Type="nvarchar" MaxLength="50" />
+          <Property Name="F69" Type="nvarchar" MaxLength="50" />
+          <Property Name="F70" Type="nvarchar" MaxLength="50" />
+          <Property Name="F72" Type="nvarchar" MaxLength="50" />
+          <Property Name="F73" Type="nvarchar" MaxLength="50" />
+          <Property Name="F74" Type="nvarchar" MaxLength="50" />
+          <Property Name="F75" Type="nvarchar" MaxLength="50" />
+          <Property Name="F76" Type="nvarchar" MaxLength="50" />
+          <Property Name="F77" Type="nvarchar" MaxLength="50" />
+          <Property Name="F78" Type="nvarchar" MaxLength="50" />
+          <Property Name="F79" Type="nvarchar" MaxLength="50" />
+          <Property Name="F80" Type="nvarchar" MaxLength="50" />
+          <Property Name="F86" Type="nvarchar" MaxLength="50" />
+          <Property Name="F88" Type="nvarchar" MaxLength="50" />
+          <Property Name="F89" Type="nvarchar" MaxLength="50" />
+          <Property Name="F90" Type="nvarchar" MaxLength="50" />
+          <Property Name="F92" Type="nvarchar" MaxLength="50" />
+          <Property Name="F93" Type="nvarchar" MaxLength="50" />
+          <Property Name="F94" Type="nvarchar" MaxLength="50" />
+          <Property Name="Code_Block" Type="nvarchar" MaxLength="10" />
+          <Property Name="Code_Band" Type="nvarchar" MaxLength="10" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="W" Type="nvarchar" MaxLength="10" />
+          <Property Name="SDE_STATE_ID" Type="bigint" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6005: The data type 'geometry' is not supported for the target Entity Framework version schema. The column 'Shape' in the table 'GisMaryanj.dbo.GH1397_E_EVW' was excluded from the model. To use the data type 'geometry', target the Entity Framework schema version 3.0 or higher.
+warning 6013: The table/view 'GisMaryanj.dbo.GH1397_E_EVW' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="GH1397_E_EVW">
+          <Property Name="OBJECTID_1" Type="int" />
+          <Property Name="F97m" Type="nvarchar" MaxLength="254" />
+          <Property Name="F97t" Type="nvarchar" MaxLength="254" />
+          <Property Name="F97e" Type="nvarchar" MaxLength="254" />
+          <Property Name="Code_Block" Type="nvarchar" MaxLength="10" />
+          <Property Name="Code_Band" Type="nvarchar" MaxLength="10" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="W" Type="nvarchar" MaxLength="10" />
+          <Property Name="SDE_STATE_ID" Type="bigint" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6005: The data type 'geometry' is not supported for the target Entity Framework version schema. The column 'SHAPE' in the table 'GisMaryanj.dbo.H_M_POLYGON_EVW' was excluded from the model. To use the data type 'geometry', target the Entity Framework schema version 3.0 or higher.
+warning 6013: The table/view 'GisMaryanj.dbo.H_M_POLYGON_EVW' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="H_M_POLYGON_EVW">
+          <Property Name="OBJECTID" Type="int" />
+          <Property Name="مشخصات" Type="nvarchar" MaxLength="50" />
+          <Property Name="SDE_STATE_ID" Type="bigint" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6005: The data type 'geometry' is not supported for the target Entity Framework version schema. The column 'Shape' in the table 'GisMaryanj.dbo.M_NAME_EVW' was excluded from the model. To use the data type 'geometry', target the Entity Framework schema version 3.0 or higher.
+warning 6013: The table/view 'GisMaryanj.dbo.M_NAME_EVW' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="M_NAME_EVW">
+          <Property Name="OBJECTID" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="W" Type="nvarchar" MaxLength="10" />
+          <Property Name="Code_M" Type="nvarchar" MaxLength="10" />
+          <Property Name="SDE_STATE_ID" Type="bigint" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6005: The data type 'geometry' is not supported for the target Entity Framework version schema. The column 'Shape' in the table 'GisMaryanj.dbo.MAABER_PT_EVW' was excluded from the model. To use the data type 'geometry', target the Entity Framework schema version 3.0 or higher.
+warning 6013: The table/view 'GisMaryanj.dbo.MAABER_PT_EVW' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="MAABER_PT_EVW">
+          <Property Name="OBJECTID_1" Type="int" />
+          <Property Name="OBJECTID" Type="int" />
+          <Property Name="Shape_Leng" Type="numeric" Precision="38" Scale="8" />
+          <Property Name="SDE_STATE_ID" Type="bigint" />
+        </EntityType>-->
         <!--Errors Found During Generation:
 warning 6013: The table/view 'GisMaryanj.dbo.SDE_generate_guid' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
         <EntityType Name="SDE_generate_guid">
@@ -950,6 +1404,17 @@ warning 6002: The table/view 'GisMaryanj.dbo.ST_SPATIAL_REFERENCE_SYSTEMS' does 
           <Property Name="organization_coordsys_id" Type="int" />
           <Property Name="definition" Type="varchar" MaxLength="1024" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6005: The data type 'geometry' is not supported for the target Entity Framework version schema. The column 'Shape' in the table 'GisMaryanj.dbo.T_T1394_EVW' was excluded from the model. To use the data type 'geometry', target the Entity Framework schema version 3.0 or higher.
+warning 6013: The table/view 'GisMaryanj.dbo.T_T1394_EVW' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="T_T1394_EVW">
+          <Property Name="OBJECTID" Type="int" />
+          <Property Name="malek" Type="nvarchar" MaxLength="254" />
+          <Property Name="id" Type="numeric" Precision="38" Scale="8" />
+          <Property Name="name" Type="nvarchar" MaxLength="254" />
+          <Property Name="ORIG_FID" Type="int" />
+          <Property Name="SDE_STATE_ID" Type="bigint" />
+        </EntityType>-->
         <Association Name="archives_fk1">
           <End Role="SDE_table_registry" Type="Self.SDE_table_registry" Multiplicity="1" />
           <End Role="SDE_archives" Type="Self.SDE_archives" Multiplicity="0..1" />
@@ -2078,7 +2543,23 @@ warning 6035: The relationship 'sdelayer_stats_fk1' has columns that are not par
           <Parameter Name="table" Type="nvarchar" Mode="In" />
         </Function>
         <EntityContainer Name="GisMaryanjModelStoreContainer">
+          <EntitySet Name="a10" EntityType="Self.a10" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="a11" EntityType="Self.a11" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="a12" EntityType="Self.a12" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="a13" EntityType="Self.a13" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="a14" EntityType="Self.a14" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="a7" EntityType="Self.a7" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="a8" EntityType="Self.a8" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="a9" EntityType="Self.a9" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ARSE" EntityType="Self.ARSE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="D10" EntityType="Self.D10" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="D11" EntityType="Self.D11" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="D12" EntityType="Self.D12" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="D13" EntityType="Self.D13" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="D14" EntityType="Self.D14" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="D7" EntityType="Self.D7" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="D8" EntityType="Self.D8" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="D9" EntityType="Self.D9" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GDB_ITEMRELATIONSHIPS" EntityType="Self.GDB_ITEMRELATIONSHIPS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GDB_ITEMS" EntityType="Self.GDB_ITEMS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GH1395" EntityType="Self.GH1395" Schema="dbo" store:Type="Tables" />
@@ -2138,6 +2619,7 @@ warning 6035: The relationship 'sdelayer_stats_fk1' has columns that are not par
           <EntitySet Name="SDE_xml_columns" EntityType="Self.SDE_xml_columns" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SDE_xml_index_tags" EntityType="Self.SDE_xml_index_tags" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SDE_xml_indexes" EntityType="Self.SDE_xml_indexes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="servicesSetting" EntityType="Self.servicesSetting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_T1394" EntityType="Self.T_T1394" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GDB_ITEMRELATIONSHIPTYPES" EntityType="Self.GDB_ITEMRELATIONSHIPTYPES" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -2259,8 +2741,7 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
             <End Role="SDE_xml_index_tags" EntitySet="SDE_xml_index_tags" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="GisMaryanjModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -2661,58 +3142,74 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
         <EntityType Name="SDE_GEOMETRY2">
           <Key>
             <PropertyRef Name="GEOMETRY_ID" />
+            <PropertyRef Name="SDE_STATE_ID" />
           </Key>
           <Property Name="GEOMETRY_ID" Type="Int32" Nullable="false" />
           <Property Name="CAD" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="SDE_STATE_ID" Type="Int64" Nullable="false" />
         </EntityType>
         <EntityType Name="SDE_GEOMETRY3">
           <Key>
             <PropertyRef Name="GEOMETRY_ID" />
+            <PropertyRef Name="SDE_STATE_ID" />
           </Key>
           <Property Name="GEOMETRY_ID" Type="Int32" Nullable="false" />
           <Property Name="CAD" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="SDE_STATE_ID" Type="Int64" Nullable="false" />
         </EntityType>
         <EntityType Name="SDE_GEOMETRY4">
           <Key>
             <PropertyRef Name="GEOMETRY_ID" />
+            <PropertyRef Name="SDE_STATE_ID" />
           </Key>
           <Property Name="GEOMETRY_ID" Type="Int32" Nullable="false" />
           <Property Name="CAD" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="SDE_STATE_ID" Type="Int64" Nullable="false" />
         </EntityType>
         <EntityType Name="SDE_GEOMETRY5">
           <Key>
             <PropertyRef Name="GEOMETRY_ID" />
+            <PropertyRef Name="SDE_STATE_ID" />
           </Key>
           <Property Name="GEOMETRY_ID" Type="Int32" Nullable="false" />
           <Property Name="CAD" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="SDE_STATE_ID" Type="Int64" Nullable="false" />
         </EntityType>
         <EntityType Name="SDE_GEOMETRY6">
           <Key>
             <PropertyRef Name="GEOMETRY_ID" />
+            <PropertyRef Name="SDE_STATE_ID" />
           </Key>
           <Property Name="GEOMETRY_ID" Type="Int32" Nullable="false" />
           <Property Name="CAD" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="SDE_STATE_ID" Type="Int64" Nullable="false" />
         </EntityType>
         <EntityType Name="SDE_GEOMETRY7">
           <Key>
             <PropertyRef Name="GEOMETRY_ID" />
+            <PropertyRef Name="SDE_STATE_ID" />
           </Key>
           <Property Name="GEOMETRY_ID" Type="Int32" Nullable="false" />
           <Property Name="CAD" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="SDE_STATE_ID" Type="Int64" Nullable="false" />
         </EntityType>
         <EntityType Name="SDE_GEOMETRY8">
           <Key>
             <PropertyRef Name="GEOMETRY_ID" />
+            <PropertyRef Name="SDE_STATE_ID" />
           </Key>
           <Property Name="GEOMETRY_ID" Type="Int32" Nullable="false" />
           <Property Name="CAD" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="SDE_STATE_ID" Type="Int64" Nullable="false" />
         </EntityType>
         <EntityType Name="SDE_GEOMETRY9">
           <Key>
             <PropertyRef Name="GEOMETRY_ID" />
+            <PropertyRef Name="SDE_STATE_ID" />
           </Key>
           <Property Name="GEOMETRY_ID" Type="Int32" Nullable="false" />
           <Property Name="CAD" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="SDE_STATE_ID" Type="Int64" Nullable="false" />
         </EntityType>
         <EntityType Name="SDE_layer_locks">
           <Key>
@@ -3434,7 +3931,7 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
             <Parameter Name="description" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="delete_version">
-            <Parameter Name="name" Mode="In" Type="String" />
+          <Parameter Name="name" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="edit_version">
             <Parameter Name="name" Mode="In" Type="String" />
@@ -3604,10 +4101,10 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
             <Parameter Name="num_ids" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="isGeoDatabase">
-            <Parameter Name="isgdb" Mode="InOut" Type="String" />
+          <Parameter Name="isgdb" Mode="InOut" Type="String" />
           </FunctionImport>
           <FunctionImport Name="next_globalid">
-            <Parameter Name="guid" Mode="InOut" Type="String" />
+          <Parameter Name="guid" Mode="InOut" Type="String" />
           </FunctionImport>
           <FunctionImport Name="next_rowid">
             <Parameter Name="owner" Mode="In" Type="String" />
@@ -3615,7 +4112,7 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
             <Parameter Name="rowid" Mode="InOut" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SDE_archives_def_delete">
-            <Parameter Name="archivingRegIdVal" Mode="In" Type="Int32" />
+          <Parameter Name="archivingRegIdVal" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SDE_archives_def_insert">
             <Parameter Name="archivingRegIdVal" Mode="In" Type="Int32" />
@@ -3669,10 +4166,10 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
             <Parameter Name="objIdVal" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SDE_current_version_not_default">
-            <Parameter Name="current_state" Mode="In" Type="Int64" />
+          <Parameter Name="current_state" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="SDE_current_version_writable">
-            <Parameter Name="current_state" Mode="InOut" Type="Int64" />
+          <Parameter Name="current_state" Mode="InOut" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="SDE_dbtune_def_delete">
             <Parameter Name="keywordVal" Mode="In" Type="String" />
@@ -3721,7 +4218,7 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
             <Parameter Name="mcluster_tolVal" Mode="In" Type="Double" />
           </FunctionImport>
           <FunctionImport Name="SDE_get_current_user_name">
-            <Parameter Name="current_user" Mode="InOut" Type="String" />
+          <Parameter Name="current_user" Mode="InOut" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SDE_get_globals">
             <Parameter Name="current_state" Mode="InOut" Type="Int64" />
@@ -3740,7 +4237,7 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
             <Parameter Name="keysetIdVal" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SDE_keyset_remove">
-            <Parameter Name="tableNameVal" Mode="In" Type="String" />
+          <Parameter Name="tableNameVal" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SDE_last_lineage_mod_def_insert">
             <Parameter Name="lineageNameVal" Mode="In" Type="Int64" />
@@ -3766,7 +4263,7 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
             <Parameter Name="layerIdVal" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SDE_layer_def_delete">
-            <Parameter Name="layer_idVal" Mode="In" Type="Int32" />
+          <Parameter Name="layer_idVal" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SDE_layer_def_envelope_update">
             <Parameter Name="minxVal" Mode="In" Type="Double" />
@@ -3841,7 +4338,7 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
             <Parameter Name="autoLockVal" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SDE_layer_lock_def_delete_user">
-            <Parameter Name="sdeIdVal" Mode="In" Type="Int32" />
+          <Parameter Name="sdeIdVal" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SDE_layer_lock_def_insert">
             <Parameter Name="sdeIdVal" Mode="In" Type="Int32" />
@@ -3900,7 +4397,7 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
             <Parameter Name="totalPointsVal" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SDE_locator_def_delete">
-            <Parameter Name="id1" Mode="In" Type="Int32" />
+          <Parameter Name="id1" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SDE_locator_def_insert">
             <Parameter Name="locator_idVal" Mode="In" Type="Int32" />
@@ -3923,7 +4420,7 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
             <Parameter Name="useTruncateVal" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SDE_logfile_pool_release_id">
-            <Parameter Name="tableIdVal" Mode="In" Type="Int32" />
+          <Parameter Name="tableIdVal" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SDE_metadata_def_delete">
             <Parameter Name="id1" Mode="In" Type="Int32" />
@@ -3995,7 +4492,7 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
             <Parameter Name="autoLockVal" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SDE_object_lock_def_delete_user">
-            <Parameter Name="sdeIdVal" Mode="In" Type="Int32" />
+          <Parameter Name="sdeIdVal" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SDE_object_lock_def_insert">
             <Parameter Name="sdeIdVal" Mode="In" Type="Int32" />
@@ -4011,7 +4508,7 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
             <Parameter Name="parsed_owner" Mode="InOut" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SDE_pinfo_def_delete">
-            <Parameter Name="sdeIdVal" Mode="In" Type="Int32" />
+          <Parameter Name="sdeIdVal" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SDE_pinfo_def_insert">
             <Parameter Name="sdeIdVal" Mode="In" Type="Int32" />
@@ -4036,7 +4533,7 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
           <FunctionImport Name="SDE_procedure_release" ReturnType="Collection(Int32)" />
           <FunctionImport Name="SDE_purge_processes" />
           <FunctionImport Name="SDE_rascol_def_delete">
-            <Parameter Name="rascol_idVal" Mode="In" Type="Int32" />
+          <Parameter Name="rascol_idVal" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SDE_rascol_def_insert">
             <Parameter Name="rastercolumn_idVal" Mode="In" Type="Int32" />
@@ -4083,14 +4580,14 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
             <Parameter Name="rastercolumn_idVal" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SDE_registry_clear_modified">
-            <Parameter Name="regIdVal" Mode="In" Type="Int32" />
+          <Parameter Name="regIdVal" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SDE_registry_def_change_table_name">
             <Parameter Name="tabNameVal" Mode="In" Type="String" />
             <Parameter Name="regIdVal" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SDE_registry_def_delete">
-            <Parameter Name="regIdVal" Mode="In" Type="Int32" />
+          <Parameter Name="regIdVal" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SDE_registry_def_insert">
             <Parameter Name="regIdVal" Mode="In" Type="Int32" />
@@ -4126,7 +4623,7 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
             <Parameter Name="edit_version_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SDE_sref_def_delete">
-            <Parameter Name="sridVal" Mode="In" Type="Int32" />
+          <Parameter Name="sridVal" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SDE_sref_def_insert">
             <Parameter Name="sridVal" Mode="In" Type="Int32" />
@@ -4206,7 +4703,7 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
             <Parameter Name="markedVal" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SDE_state_lock_def_delete_user">
-            <Parameter Name="sdeIdVal" Mode="In" Type="Int32" />
+          <Parameter Name="sdeIdVal" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SDE_state_lock_def_insert">
             <Parameter Name="sdeIdVal" Mode="In" Type="Int32" />
@@ -4237,7 +4734,7 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
             <Parameter Name="registrationIdVal" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SDE_table_lock_def_delete_user">
-            <Parameter Name="sdeIdVal" Mode="In" Type="Int32" />
+          <Parameter Name="sdeIdVal" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SDE_table_lock_def_insert">
             <Parameter Name="sdeIdVal" Mode="In" Type="Int32" />
@@ -4284,7 +4781,7 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
             <Parameter Name="ownerVal" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SDE_xml_columns_def_delete">
-            <Parameter Name="columnIdVal" Mode="In" Type="Int32" />
+          <Parameter Name="columnIdVal" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SDE_xml_columns_def_insert">
             <Parameter Name="regIdVal" Mode="In" Type="Int32" />
@@ -4343,7 +4840,7 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
             <Parameter Name="descriptionVal" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="set_current_version">
-            <Parameter Name="version_name" Mode="In" Type="String" />
+          <Parameter Name="version_name" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="set_default" />
           <FunctionImport Name="spatial_ref_info">
@@ -4354,7 +4851,289 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
             <Parameter Name="wkt" Mode="InOut" Type="String" />
             <Parameter Name="st_srid" Mode="InOut" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="a10" EntityType="GisMaryanjModel.a10" />
+          <EntitySet Name="a11" EntityType="GisMaryanjModel.a11" />
+          <EntitySet Name="a12" EntityType="GisMaryanjModel.a12" />
+          <EntitySet Name="a13" EntityType="GisMaryanjModel.a13" />
+          <EntitySet Name="a14" EntityType="GisMaryanjModel.a14" />
+          <EntitySet Name="a7" EntityType="GisMaryanjModel.a7" />
+          <EntitySet Name="a8" EntityType="GisMaryanjModel.a8" />
+          <EntitySet Name="a9" EntityType="GisMaryanjModel.a9" />
+          <EntitySet Name="D10" EntityType="GisMaryanjModel.D10" />
+          <EntitySet Name="D11" EntityType="GisMaryanjModel.D11" />
+          <EntitySet Name="D12" EntityType="GisMaryanjModel.D12" />
+          <EntitySet Name="D13" EntityType="GisMaryanjModel.D13" />
+          <EntitySet Name="D14" EntityType="GisMaryanjModel.D14" />
+          <EntitySet Name="D7" EntityType="GisMaryanjModel.D7" />
+          <EntitySet Name="D8" EntityType="GisMaryanjModel.D8" />
+          <EntitySet Name="D9" EntityType="GisMaryanjModel.D9" />
+          <EntitySet Name="servicesSetting" EntityType="GisMaryanjModel.servicesSetting" />
         </EntityContainer>
+        <EntityType Name="a10">
+          <Key>
+            <PropertyRef Name="OBJECTID_1" />
+            <PropertyRef Name="SDE_STATE_ID" />
+          </Key>
+          <Property Name="OBJECTID_1" Type="Int32" Nullable="false" />
+          <Property Name="F97m" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="F97t" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="F97e" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="Code_Block" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Code_Band" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="W" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SDE_STATE_ID" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="a11">
+          <Key>
+            <PropertyRef Name="OBJECTID" />
+            <PropertyRef Name="SDE_STATE_ID" />
+          </Key>
+          <Property Name="OBJECTID" Type="Int32" Nullable="false" />
+          <Property Name="malek" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="id" Type="Decimal" Precision="38" Scale="8" />
+          <Property Name="name" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="ORIG_FID" Type="Int32" />
+          <Property Name="SDE_STATE_ID" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="a12">
+          <Key>
+            <PropertyRef Name="OBJECTID_1" />
+            <PropertyRef Name="SDE_STATE_ID" />
+          </Key>
+          <Property Name="OBJECTID_1" Type="Int32" Nullable="false" />
+          <Property Name="OBJECTID" Type="Int32" />
+          <Property Name="Shape_Leng" Type="Decimal" Precision="38" Scale="8" />
+          <Property Name="SDE_STATE_ID" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="a13">
+          <Key>
+            <PropertyRef Name="OBJECTID" />
+            <PropertyRef Name="SDE_STATE_ID" />
+          </Key>
+          <Property Name="OBJECTID" Type="Int32" Nullable="false" />
+          <Property Name="مشخصات" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SDE_STATE_ID" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="a14">
+          <Key>
+            <PropertyRef Name="OBJECTID" />
+            <PropertyRef Name="SDE_STATE_ID" />
+          </Key>
+          <Property Name="OBJECTID" Type="Int32" Nullable="false" />
+          <Property Name="Parvaneh" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Code_Block" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Amlak__" Type="Decimal" Precision="38" Scale="8" />
+          <Property Name="COD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Code_nosazi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Mantaghe" Type="Decimal" Precision="38" Scale="8" />
+          <Property Name="Mahale" Type="Decimal" Precision="38" Scale="8" />
+          <Property Name="Block" Type="Decimal" Precision="38" Scale="8" />
+          <Property Name="Melk" Type="Decimal" Precision="38" Scale="8" />
+          <Property Name="Name_malek" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Malekiyat" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Mahiyate_fiziki" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Karbari" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Sanad" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Marhale_sakhtemani" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Masahat" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="pelakabi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="codeposti" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Archive_No" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="mogheyat" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="bakhsh" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="asli" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="fari" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="tafkiki" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Telephone" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="COD_1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Parvande_No" Type="Int32" />
+          <Property Name="SDE_STATE_ID" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="a7">
+          <Key>
+            <PropertyRef Name="OBJECTID" />
+            <PropertyRef Name="SDE_STATE_ID" />
+          </Key>
+          <Property Name="OBJECTID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="W" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Code_M" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SDE_STATE_ID" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="a8">
+          <Key>
+            <PropertyRef Name="OBJECTID" />
+            <PropertyRef Name="SDE_STATE_ID" />
+          </Key>
+          <Property Name="OBJECTID" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="price" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="F91" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="F90" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="F87" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="F86" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="F85" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="F84" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="F83" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="F82" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="F81" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="F80" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="F79" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="F78" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="F77" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="F76" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="F75" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="F74" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="F73" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="F72" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="F71" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="F70" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="F69" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="F68" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="F67" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="F66" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="F65" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="F64" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="F94" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="F95" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="SDE_STATE_ID" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="a9">
+          <Key>
+            <PropertyRef Name="OBJECTID" />
+            <PropertyRef Name="SDE_STATE_ID" />
+          </Key>
+          <Property Name="OBJECTID" Type="Int32" Nullable="false" />
+          <Property Name="F91" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="F87" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="F85" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="F84" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="F83" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="F82" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="F81" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="F71" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="F68" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="F64" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="F95" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="F96" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="F65" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="F66" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="F67" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="F69" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="F70" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="F72" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="F73" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="F74" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="F75" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="F76" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="F77" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="F78" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="F79" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="F80" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="F86" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="F88" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="F89" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="F90" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="F92" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="F93" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="F94" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Code_Block" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Code_Band" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="W" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SDE_STATE_ID" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="D10">
+          <Key>
+            <PropertyRef Name="SDE_STATE_ID" />
+            <PropertyRef Name="SDE_DELETES_ROW_ID" />
+            <PropertyRef Name="DELETED_AT" />
+          </Key>
+          <Property Name="SDE_STATE_ID" Type="Int64" Nullable="false" />
+          <Property Name="SDE_DELETES_ROW_ID" Type="Int32" Nullable="false" />
+          <Property Name="DELETED_AT" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="D11">
+          <Key>
+            <PropertyRef Name="SDE_STATE_ID" />
+            <PropertyRef Name="SDE_DELETES_ROW_ID" />
+            <PropertyRef Name="DELETED_AT" />
+          </Key>
+          <Property Name="SDE_STATE_ID" Type="Int64" Nullable="false" />
+          <Property Name="SDE_DELETES_ROW_ID" Type="Int32" Nullable="false" />
+          <Property Name="DELETED_AT" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="D12">
+          <Key>
+            <PropertyRef Name="SDE_STATE_ID" />
+            <PropertyRef Name="SDE_DELETES_ROW_ID" />
+            <PropertyRef Name="DELETED_AT" />
+          </Key>
+          <Property Name="SDE_STATE_ID" Type="Int64" Nullable="false" />
+          <Property Name="SDE_DELETES_ROW_ID" Type="Int32" Nullable="false" />
+          <Property Name="DELETED_AT" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="D13">
+          <Key>
+            <PropertyRef Name="SDE_STATE_ID" />
+            <PropertyRef Name="SDE_DELETES_ROW_ID" />
+            <PropertyRef Name="DELETED_AT" />
+          </Key>
+          <Property Name="SDE_STATE_ID" Type="Int64" Nullable="false" />
+          <Property Name="SDE_DELETES_ROW_ID" Type="Int32" Nullable="false" />
+          <Property Name="DELETED_AT" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="D14">
+          <Key>
+            <PropertyRef Name="SDE_STATE_ID" />
+            <PropertyRef Name="SDE_DELETES_ROW_ID" />
+            <PropertyRef Name="DELETED_AT" />
+          </Key>
+          <Property Name="SDE_STATE_ID" Type="Int64" Nullable="false" />
+          <Property Name="SDE_DELETES_ROW_ID" Type="Int32" Nullable="false" />
+          <Property Name="DELETED_AT" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="D7">
+          <Key>
+            <PropertyRef Name="SDE_STATE_ID" />
+            <PropertyRef Name="SDE_DELETES_ROW_ID" />
+            <PropertyRef Name="DELETED_AT" />
+          </Key>
+          <Property Name="SDE_STATE_ID" Type="Int64" Nullable="false" />
+          <Property Name="SDE_DELETES_ROW_ID" Type="Int32" Nullable="false" />
+          <Property Name="DELETED_AT" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="D8">
+          <Key>
+            <PropertyRef Name="SDE_STATE_ID" />
+            <PropertyRef Name="SDE_DELETES_ROW_ID" />
+            <PropertyRef Name="DELETED_AT" />
+          </Key>
+          <Property Name="SDE_STATE_ID" Type="Int64" Nullable="false" />
+          <Property Name="SDE_DELETES_ROW_ID" Type="Int32" Nullable="false" />
+          <Property Name="DELETED_AT" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="D9">
+          <Key>
+            <PropertyRef Name="SDE_STATE_ID" />
+            <PropertyRef Name="SDE_DELETES_ROW_ID" />
+            <PropertyRef Name="DELETED_AT" />
+          </Key>
+          <Property Name="SDE_STATE_ID" Type="Int64" Nullable="false" />
+          <Property Name="SDE_DELETES_ROW_ID" Type="Int32" Nullable="false" />
+          <Property Name="DELETED_AT" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="servicesSetting">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="mapService" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="printService" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="geometryService" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4749,6 +5528,7 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
           <EntitySetMapping Name="SDE_GEOMETRY2">
             <EntityTypeMapping TypeName="GisMaryanjModel.SDE_GEOMETRY2">
               <MappingFragment StoreEntitySet="SDE_GEOMETRY2">
+                <ScalarProperty Name="SDE_STATE_ID" ColumnName="SDE_STATE_ID" />
                 <ScalarProperty Name="GEOMETRY_ID" ColumnName="GEOMETRY_ID" />
                 <ScalarProperty Name="CAD" ColumnName="CAD" />
               </MappingFragment>
@@ -4757,6 +5537,7 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
           <EntitySetMapping Name="SDE_GEOMETRY3">
             <EntityTypeMapping TypeName="GisMaryanjModel.SDE_GEOMETRY3">
               <MappingFragment StoreEntitySet="SDE_GEOMETRY3">
+                <ScalarProperty Name="SDE_STATE_ID" ColumnName="SDE_STATE_ID" />
                 <ScalarProperty Name="GEOMETRY_ID" ColumnName="GEOMETRY_ID" />
                 <ScalarProperty Name="CAD" ColumnName="CAD" />
               </MappingFragment>
@@ -4765,6 +5546,7 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
           <EntitySetMapping Name="SDE_GEOMETRY4">
             <EntityTypeMapping TypeName="GisMaryanjModel.SDE_GEOMETRY4">
               <MappingFragment StoreEntitySet="SDE_GEOMETRY4">
+                <ScalarProperty Name="SDE_STATE_ID" ColumnName="SDE_STATE_ID" />
                 <ScalarProperty Name="GEOMETRY_ID" ColumnName="GEOMETRY_ID" />
                 <ScalarProperty Name="CAD" ColumnName="CAD" />
               </MappingFragment>
@@ -4773,6 +5555,7 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
           <EntitySetMapping Name="SDE_GEOMETRY5">
             <EntityTypeMapping TypeName="GisMaryanjModel.SDE_GEOMETRY5">
               <MappingFragment StoreEntitySet="SDE_GEOMETRY5">
+                <ScalarProperty Name="SDE_STATE_ID" ColumnName="SDE_STATE_ID" />
                 <ScalarProperty Name="GEOMETRY_ID" ColumnName="GEOMETRY_ID" />
                 <ScalarProperty Name="CAD" ColumnName="CAD" />
               </MappingFragment>
@@ -4781,6 +5564,7 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
           <EntitySetMapping Name="SDE_GEOMETRY6">
             <EntityTypeMapping TypeName="GisMaryanjModel.SDE_GEOMETRY6">
               <MappingFragment StoreEntitySet="SDE_GEOMETRY6">
+                <ScalarProperty Name="SDE_STATE_ID" ColumnName="SDE_STATE_ID" />
                 <ScalarProperty Name="GEOMETRY_ID" ColumnName="GEOMETRY_ID" />
                 <ScalarProperty Name="CAD" ColumnName="CAD" />
               </MappingFragment>
@@ -4789,6 +5573,7 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
           <EntitySetMapping Name="SDE_GEOMETRY7">
             <EntityTypeMapping TypeName="GisMaryanjModel.SDE_GEOMETRY7">
               <MappingFragment StoreEntitySet="SDE_GEOMETRY7">
+                <ScalarProperty Name="SDE_STATE_ID" ColumnName="SDE_STATE_ID" />
                 <ScalarProperty Name="GEOMETRY_ID" ColumnName="GEOMETRY_ID" />
                 <ScalarProperty Name="CAD" ColumnName="CAD" />
               </MappingFragment>
@@ -4797,6 +5582,7 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
           <EntitySetMapping Name="SDE_GEOMETRY8">
             <EntityTypeMapping TypeName="GisMaryanjModel.SDE_GEOMETRY8">
               <MappingFragment StoreEntitySet="SDE_GEOMETRY8">
+                <ScalarProperty Name="SDE_STATE_ID" ColumnName="SDE_STATE_ID" />
                 <ScalarProperty Name="GEOMETRY_ID" ColumnName="GEOMETRY_ID" />
                 <ScalarProperty Name="CAD" ColumnName="CAD" />
               </MappingFragment>
@@ -4805,6 +5591,7 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
           <EntitySetMapping Name="SDE_GEOMETRY9">
             <EntityTypeMapping TypeName="GisMaryanjModel.SDE_GEOMETRY9">
               <MappingFragment StoreEntitySet="SDE_GEOMETRY9">
+                <ScalarProperty Name="SDE_STATE_ID" ColumnName="SDE_STATE_ID" />
                 <ScalarProperty Name="GEOMETRY_ID" ColumnName="GEOMETRY_ID" />
                 <ScalarProperty Name="CAD" ColumnName="CAD" />
               </MappingFragment>
@@ -5398,6 +6185,264 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
           <FunctionImportMapping FunctionImportName="set_current_version" FunctionName="GisMaryanjModel.Store.set_current_version" />
           <FunctionImportMapping FunctionImportName="set_default" FunctionName="GisMaryanjModel.Store.set_default" />
           <FunctionImportMapping FunctionImportName="spatial_ref_info" FunctionName="GisMaryanjModel.Store.spatial_ref_info" />
+          <EntitySetMapping Name="a10">
+            <EntityTypeMapping TypeName="GisMaryanjModel.a10">
+              <MappingFragment StoreEntitySet="a10">
+                <ScalarProperty Name="SDE_STATE_ID" ColumnName="SDE_STATE_ID" />
+                <ScalarProperty Name="W" ColumnName="W" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code_Band" ColumnName="Code_Band" />
+                <ScalarProperty Name="Code_Block" ColumnName="Code_Block" />
+                <ScalarProperty Name="F97e" ColumnName="F97e" />
+                <ScalarProperty Name="F97t" ColumnName="F97t" />
+                <ScalarProperty Name="F97m" ColumnName="F97m" />
+                <ScalarProperty Name="OBJECTID_1" ColumnName="OBJECTID_1" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="a11">
+            <EntityTypeMapping TypeName="GisMaryanjModel.a11">
+              <MappingFragment StoreEntitySet="a11">
+                <ScalarProperty Name="SDE_STATE_ID" ColumnName="SDE_STATE_ID" />
+                <ScalarProperty Name="ORIG_FID" ColumnName="ORIG_FID" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="malek" ColumnName="malek" />
+                <ScalarProperty Name="OBJECTID" ColumnName="OBJECTID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="a12">
+            <EntityTypeMapping TypeName="GisMaryanjModel.a12">
+              <MappingFragment StoreEntitySet="a12">
+                <ScalarProperty Name="SDE_STATE_ID" ColumnName="SDE_STATE_ID" />
+                <ScalarProperty Name="Shape_Leng" ColumnName="Shape_Leng" />
+                <ScalarProperty Name="OBJECTID" ColumnName="OBJECTID" />
+                <ScalarProperty Name="OBJECTID_1" ColumnName="OBJECTID_1" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="a13">
+            <EntityTypeMapping TypeName="GisMaryanjModel.a13">
+              <MappingFragment StoreEntitySet="a13">
+                <ScalarProperty Name="SDE_STATE_ID" ColumnName="SDE_STATE_ID" />
+                <ScalarProperty Name="مشخصات" ColumnName="مشخصات" />
+                <ScalarProperty Name="OBJECTID" ColumnName="OBJECTID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="a14">
+            <EntityTypeMapping TypeName="GisMaryanjModel.a14">
+              <MappingFragment StoreEntitySet="a14">
+                <ScalarProperty Name="SDE_STATE_ID" ColumnName="SDE_STATE_ID" />
+                <ScalarProperty Name="Parvande_No" ColumnName="Parvande_No" />
+                <ScalarProperty Name="COD_1" ColumnName="COD_1" />
+                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+                <ScalarProperty Name="tafkiki" ColumnName="tafkiki" />
+                <ScalarProperty Name="fari" ColumnName="fari" />
+                <ScalarProperty Name="asli" ColumnName="asli" />
+                <ScalarProperty Name="bakhsh" ColumnName="bakhsh" />
+                <ScalarProperty Name="mogheyat" ColumnName="mogheyat" />
+                <ScalarProperty Name="Archive_No" ColumnName="Archive_No" />
+                <ScalarProperty Name="codeposti" ColumnName="codeposti" />
+                <ScalarProperty Name="pelakabi" ColumnName="pelakabi" />
+                <ScalarProperty Name="Masahat" ColumnName="Masahat" />
+                <ScalarProperty Name="Marhale_sakhtemani" ColumnName="Marhale_sakhtemani" />
+                <ScalarProperty Name="Sanad" ColumnName="Sanad" />
+                <ScalarProperty Name="Karbari" ColumnName="Karbari" />
+                <ScalarProperty Name="Mahiyate_fiziki" ColumnName="Mahiyate_fiziki" />
+                <ScalarProperty Name="Malekiyat" ColumnName="Malekiyat" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Name_malek" ColumnName="Name_malek" />
+                <ScalarProperty Name="Melk" ColumnName="Melk" />
+                <ScalarProperty Name="Block" ColumnName="Block" />
+                <ScalarProperty Name="Mahale" ColumnName="Mahale" />
+                <ScalarProperty Name="Mantaghe" ColumnName="Mantaghe" />
+                <ScalarProperty Name="Code_nosazi" ColumnName="Code_nosazi" />
+                <ScalarProperty Name="COD" ColumnName="COD" />
+                <ScalarProperty Name="Amlak__" ColumnName="Amlak__" />
+                <ScalarProperty Name="Code_Block" ColumnName="Code_Block" />
+                <ScalarProperty Name="Parvaneh" ColumnName="Parvaneh" />
+                <ScalarProperty Name="OBJECTID" ColumnName="OBJECTID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="a7">
+            <EntityTypeMapping TypeName="GisMaryanjModel.a7">
+              <MappingFragment StoreEntitySet="a7">
+                <ScalarProperty Name="SDE_STATE_ID" ColumnName="SDE_STATE_ID" />
+                <ScalarProperty Name="Code_M" ColumnName="Code_M" />
+                <ScalarProperty Name="W" ColumnName="W" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="OBJECTID" ColumnName="OBJECTID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="a8">
+            <EntityTypeMapping TypeName="GisMaryanjModel.a8">
+              <MappingFragment StoreEntitySet="a8">
+                <ScalarProperty Name="SDE_STATE_ID" ColumnName="SDE_STATE_ID" />
+                <ScalarProperty Name="F95" ColumnName="F95" />
+                <ScalarProperty Name="F94" ColumnName="F94" />
+                <ScalarProperty Name="F64" ColumnName="F64" />
+                <ScalarProperty Name="F65" ColumnName="F65" />
+                <ScalarProperty Name="F66" ColumnName="F66" />
+                <ScalarProperty Name="F67" ColumnName="F67" />
+                <ScalarProperty Name="F68" ColumnName="F68" />
+                <ScalarProperty Name="F69" ColumnName="F69" />
+                <ScalarProperty Name="F70" ColumnName="F70" />
+                <ScalarProperty Name="F71" ColumnName="F71" />
+                <ScalarProperty Name="F72" ColumnName="F72" />
+                <ScalarProperty Name="F73" ColumnName="F73" />
+                <ScalarProperty Name="F74" ColumnName="F74" />
+                <ScalarProperty Name="F75" ColumnName="F75" />
+                <ScalarProperty Name="F76" ColumnName="F76" />
+                <ScalarProperty Name="F77" ColumnName="F77" />
+                <ScalarProperty Name="F78" ColumnName="F78" />
+                <ScalarProperty Name="F79" ColumnName="F79" />
+                <ScalarProperty Name="F80" ColumnName="F80" />
+                <ScalarProperty Name="F81" ColumnName="F81" />
+                <ScalarProperty Name="F82" ColumnName="F82" />
+                <ScalarProperty Name="F83" ColumnName="F83" />
+                <ScalarProperty Name="F84" ColumnName="F84" />
+                <ScalarProperty Name="F85" ColumnName="F85" />
+                <ScalarProperty Name="F86" ColumnName="F86" />
+                <ScalarProperty Name="F87" ColumnName="F87" />
+                <ScalarProperty Name="F90" ColumnName="F90" />
+                <ScalarProperty Name="F91" ColumnName="F91" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="OBJECTID" ColumnName="OBJECTID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="a9">
+            <EntityTypeMapping TypeName="GisMaryanjModel.a9">
+              <MappingFragment StoreEntitySet="a9">
+                <ScalarProperty Name="SDE_STATE_ID" ColumnName="SDE_STATE_ID" />
+                <ScalarProperty Name="W" ColumnName="W" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code_Band" ColumnName="Code_Band" />
+                <ScalarProperty Name="Code_Block" ColumnName="Code_Block" />
+                <ScalarProperty Name="F94" ColumnName="F94" />
+                <ScalarProperty Name="F93" ColumnName="F93" />
+                <ScalarProperty Name="F92" ColumnName="F92" />
+                <ScalarProperty Name="F90" ColumnName="F90" />
+                <ScalarProperty Name="F89" ColumnName="F89" />
+                <ScalarProperty Name="F88" ColumnName="F88" />
+                <ScalarProperty Name="F86" ColumnName="F86" />
+                <ScalarProperty Name="F80" ColumnName="F80" />
+                <ScalarProperty Name="F79" ColumnName="F79" />
+                <ScalarProperty Name="F78" ColumnName="F78" />
+                <ScalarProperty Name="F77" ColumnName="F77" />
+                <ScalarProperty Name="F76" ColumnName="F76" />
+                <ScalarProperty Name="F75" ColumnName="F75" />
+                <ScalarProperty Name="F74" ColumnName="F74" />
+                <ScalarProperty Name="F73" ColumnName="F73" />
+                <ScalarProperty Name="F72" ColumnName="F72" />
+                <ScalarProperty Name="F70" ColumnName="F70" />
+                <ScalarProperty Name="F69" ColumnName="F69" />
+                <ScalarProperty Name="F67" ColumnName="F67" />
+                <ScalarProperty Name="F66" ColumnName="F66" />
+                <ScalarProperty Name="F65" ColumnName="F65" />
+                <ScalarProperty Name="F96" ColumnName="F96" />
+                <ScalarProperty Name="F95" ColumnName="F95" />
+                <ScalarProperty Name="F64" ColumnName="F64" />
+                <ScalarProperty Name="F68" ColumnName="F68" />
+                <ScalarProperty Name="F71" ColumnName="F71" />
+                <ScalarProperty Name="F81" ColumnName="F81" />
+                <ScalarProperty Name="F82" ColumnName="F82" />
+                <ScalarProperty Name="F83" ColumnName="F83" />
+                <ScalarProperty Name="F84" ColumnName="F84" />
+                <ScalarProperty Name="F85" ColumnName="F85" />
+                <ScalarProperty Name="F87" ColumnName="F87" />
+                <ScalarProperty Name="F91" ColumnName="F91" />
+                <ScalarProperty Name="OBJECTID" ColumnName="OBJECTID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="D10">
+            <EntityTypeMapping TypeName="GisMaryanjModel.D10">
+              <MappingFragment StoreEntitySet="D10">
+                <ScalarProperty Name="DELETED_AT" ColumnName="DELETED_AT" />
+                <ScalarProperty Name="SDE_DELETES_ROW_ID" ColumnName="SDE_DELETES_ROW_ID" />
+                <ScalarProperty Name="SDE_STATE_ID" ColumnName="SDE_STATE_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="D11">
+            <EntityTypeMapping TypeName="GisMaryanjModel.D11">
+              <MappingFragment StoreEntitySet="D11">
+                <ScalarProperty Name="DELETED_AT" ColumnName="DELETED_AT" />
+                <ScalarProperty Name="SDE_DELETES_ROW_ID" ColumnName="SDE_DELETES_ROW_ID" />
+                <ScalarProperty Name="SDE_STATE_ID" ColumnName="SDE_STATE_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="D12">
+            <EntityTypeMapping TypeName="GisMaryanjModel.D12">
+              <MappingFragment StoreEntitySet="D12">
+                <ScalarProperty Name="DELETED_AT" ColumnName="DELETED_AT" />
+                <ScalarProperty Name="SDE_DELETES_ROW_ID" ColumnName="SDE_DELETES_ROW_ID" />
+                <ScalarProperty Name="SDE_STATE_ID" ColumnName="SDE_STATE_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="D13">
+            <EntityTypeMapping TypeName="GisMaryanjModel.D13">
+              <MappingFragment StoreEntitySet="D13">
+                <ScalarProperty Name="DELETED_AT" ColumnName="DELETED_AT" />
+                <ScalarProperty Name="SDE_DELETES_ROW_ID" ColumnName="SDE_DELETES_ROW_ID" />
+                <ScalarProperty Name="SDE_STATE_ID" ColumnName="SDE_STATE_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="D14">
+            <EntityTypeMapping TypeName="GisMaryanjModel.D14">
+              <MappingFragment StoreEntitySet="D14">
+                <ScalarProperty Name="DELETED_AT" ColumnName="DELETED_AT" />
+                <ScalarProperty Name="SDE_DELETES_ROW_ID" ColumnName="SDE_DELETES_ROW_ID" />
+                <ScalarProperty Name="SDE_STATE_ID" ColumnName="SDE_STATE_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="D7">
+            <EntityTypeMapping TypeName="GisMaryanjModel.D7">
+              <MappingFragment StoreEntitySet="D7">
+                <ScalarProperty Name="DELETED_AT" ColumnName="DELETED_AT" />
+                <ScalarProperty Name="SDE_DELETES_ROW_ID" ColumnName="SDE_DELETES_ROW_ID" />
+                <ScalarProperty Name="SDE_STATE_ID" ColumnName="SDE_STATE_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="D8">
+            <EntityTypeMapping TypeName="GisMaryanjModel.D8">
+              <MappingFragment StoreEntitySet="D8">
+                <ScalarProperty Name="DELETED_AT" ColumnName="DELETED_AT" />
+                <ScalarProperty Name="SDE_DELETES_ROW_ID" ColumnName="SDE_DELETES_ROW_ID" />
+                <ScalarProperty Name="SDE_STATE_ID" ColumnName="SDE_STATE_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="D9">
+            <EntityTypeMapping TypeName="GisMaryanjModel.D9">
+              <MappingFragment StoreEntitySet="D9">
+                <ScalarProperty Name="DELETED_AT" ColumnName="DELETED_AT" />
+                <ScalarProperty Name="SDE_DELETES_ROW_ID" ColumnName="SDE_DELETES_ROW_ID" />
+                <ScalarProperty Name="SDE_STATE_ID" ColumnName="SDE_STATE_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="servicesSetting">
+            <EntityTypeMapping TypeName="GisMaryanjModel.servicesSetting">
+              <MappingFragment StoreEntitySet="servicesSetting">
+                <ScalarProperty Name="geometryService" ColumnName="geometryService" />
+                <ScalarProperty Name="printService" ColumnName="printService" />
+                <ScalarProperty Name="mapService" ColumnName="mapService" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
