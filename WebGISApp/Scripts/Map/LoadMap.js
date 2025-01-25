@@ -114,7 +114,7 @@ const inputPrintSetting = document.getElementById("inputPrintSetting");
 const btnSetServiceSetting = document.getElementById("btnSetServiceSetting");
 const btnCancelServiceSetting = document.getElementById("btnCancelServiceSetting");
 btnSetServiceSetting.addEventListener("click", () => {
-    alert("say Hi")
+    alert("say Hi");
 });
 
 // #endregion
