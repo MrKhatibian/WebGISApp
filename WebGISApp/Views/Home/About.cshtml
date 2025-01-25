@@ -4,4 +4,77 @@
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 
-<p>Use this area to provide additional information.</p>
+    <link rel="stylesheet" href="https://js.arcgis.com/4.31/esri/themes/light/main.css" />
+    <script src="https://js.arcgis.com/4.31/"></script>
+
+    <style>
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #viewDiv {
+            height: 50%;
+            width: 100%;
+        }
+
+        .container {
+            height: 50%;
+            width: 100%;
+        }
+    </style>
+
+    <script>
+      require(["esri/Map", "esri/views/MapView", "esri/layers/FeatureLayer", "esri/widgets/FeatureTable"], (
+        Map,
+        MapView,
+        FeatureLayer,
+        FeatureTable
+      ) => {
+        let featureLayer;
+        const features = [];
+
+        const map = new Map({
+          basemap: "osm"
+        });
+
+        const view = new MapView({
+          container: "viewDiv",
+          map: map,
+          center: [-87.63, 41.86],
+          zoom: 11,
+          popupEnabled: false
+        });
+
+          view.when(() => {
+              alert("Hi");
+          featureLayer = new FeatureLayer({
+            //portalItem: {
+            //  id: "3807c58dd48c4d32810042d8edf4a2fe"
+              //},
+              url: "http://localhost:6080/arcgis/rest/services/Maryanaj/MaryanajEditenabled_14030619/FeatureServer/0",
+            outFields: ["*"],
+            title: "Chicago crime incidents"
+          });
+          map.add(featureLayer);
+
+          // Create the feature table
+          const featureTable = new FeatureTable({
+            view: view,
+            layer: featureLayer,
+            multiSortEnabled: true, // set this to true to enable sorting on multiple columns
+            attachmentsEnabled: true, //set this to true to enable attachments
+            editingEnabled: true, // set this to true to enable editing
+            paginationEnabled: true,           
+            container: document.getElementById("tableDiv")
+          });
+        });
+      });
+    </script>
+    <div id="viewDiv"></div>
+    <div class="container">
+        <div id="tableDiv"></div>
+    </div>

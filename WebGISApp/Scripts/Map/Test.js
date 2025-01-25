@@ -1,12 +1,2 @@
-﻿// Import the value
-//import {myValue,myFunction} from './Draw.js';
-import {view} from './Draw.js';
-
-
-
-
-
-
-console.log(view.zoom);        // 42
-//console.log(myFunction());   // 84
-//alert(view.zoom.toString());
+﻿let iddd = document.getElementById("calcite-action-1c69c070-4083-dcb5-2baa-05813a49cc1a-button");
+alert(iddd);

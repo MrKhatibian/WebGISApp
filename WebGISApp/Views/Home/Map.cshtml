@@ -4,129 +4,294 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@* Add mapload *@
-<script type="module" src="~/Scripts/Map/LoadMap.js"></script>
-
 <!-- #region viewMapDiv -->
-<calcite-shell content-behind>
-    @*<calcite-loader></calcite-loader>*@
 
+<calcite-shell>
+    <!-- Header: Top navigation area -->
     <calcite-navigation slot="header">
-        <calcite-navigation-logo id="header-title" heading-level="1" slot="logo">
-            <!-- Dynamically populated -->
-        </calcite-navigation-logo>
+        <calcite-navigation-user slot="logo" full-name="تحلیل گران آمارد" thumbnail="~/Content/Images/Amard.png"></calcite-navigation-user>
+        <calcite-navigation-logo id="header-title" heading-level="1" slot="content-center"></calcite-navigation-logo>
+        <calcite-menu slot="content-end" style="margin-top:5px; height:50%">
+            <calcite-menu-item text="باز نشانی" icon-start="refresh" id="refresh" hidden></calcite-menu-item>
+            @*<calcite-menu-item text="نقشه" icon-start="analysis" text-enabled active></calcite-menu-item>*@
+            <calcite-button style="height:30%; margin-left:10px" id="btnSearch" icon-start="search" label="جستوجو"></calcite-button>
+            <calcite-input-text style="height:30%; margin-left:10px" id="inputCodeNosazi" placeholder="کد نوسازی را وارد کنید"></calcite-input-text>
+        </calcite-menu>
     </calcite-navigation>
-
-    <calcite-shell-panel slot="panel-start" display-mode="float">
-        <calcite-action-bar slot="action-bar">
-            <calcite-action data-action-id="addlayer" icon="plus" text="Add Layer"></calcite-action>
-            <calcite-action data-action-id="layers" icon="layers" text="Layers"></calcite-action>
-            <calcite-action data-action-id="basemaps" icon="basemap" text="Basemaps"></calcite-action>
-            <calcite-action data-action-id="legend" icon="legend" text="Legend"></calcite-action>
-            <calcite-action data-action-id="bookmarks" icon="bookmark" text="Bookmarks"></calcite-action>
-            <calcite-action data-action-id="print" icon="print" text="Print"></calcite-action>
-            <calcite-action data-action-id="information" icon="information" text="Information"></calcite-action>
+    <!-- Left Panel -->
+    <calcite-shell-panel slot="panel-start" position="start" id="shell-panel-start" display-mode="float" collapsed>
+        <calcite-action-bar slot="action-bar" id="actionBarLeft">
+            <calcite-action-group>
+                <calcite-action id="measureTool" icon="measure" text="ابزار اندازه‌گیر"></calcite-action>
+                <calcite-action id="editable" icon="layers-editable" text="ویرایش"></calcite-action>
+                <calcite-action id="identify" icon="information" text="اطلاعات"></calcite-action>                
+            </calcite-action-group>                        
+            <clacite-action-group layout="vertical" overlay-positioning="fixed" class="js-action-group" calcite-hydrated slot="actions-end">                
+                @*<calcite-action id="mapProperties" icon="gear" text="تنظیمات"></calcite-action>*@
+            </clacite-action-group>
         </calcite-action-bar>
 
         <!-- Map-specific panels (each one provides a div for a ArcGIS Maps SDK for JavaScript widget) -->
-        <calcite-panel heading="Add Layer" height-scale="l" data-panel-id="addlayer" hidden>
-            <div id="addlayer-container"></div>
+        @*<calcite-panel heading="ابزار اندازه‌گیری" height-scale="l" data-panel-id="measureTool" hidden>
+                <div id="measureTool-container" style="height:50px">
+                    <calcite-switch id="switchMeasure" label="فعال کردن ابزار"></calcite-switch>
+                </div>
+            </calcite-panel>*@
+        <calcite-panel id="panel_measureTool" hidden closed>
+            <div id="measureTool-container" style="margin:10px;text-align:center">
+                <calcite-switch id="switchMeasure" label="فعال کردن ابزار"></calcite-switch>
+            </div>
         </calcite-panel>
-        <calcite-panel heading="Layers" height-scale="l" data-panel-id="layers" hidden>
+        <calcite-panel id="panel_editable" hidden closed></calcite-panel>
+    </calcite-shell-panel>
+    <!-- Right Panel -->
+    <calcite-shell-panel slot="panel-end" position="end" id="shell-panel-end" display-mode="float" collapsed>
+        @*<calcite-action-bar slot="action-bar" id="actionBarLeft">*@
+        <calcite-action-bar slot="action-bar" id="actionBarRight">
+            <calcite-action-group>
+                <calcite-action id="layers" icon="layers" text="لایه‌ها"></calcite-action>
+                <calcite-action id="legend" icon="legend" text="راهنمای نقشه"></calcite-action>
+                <calcite-action id="print" icon="print" text="چاپ و خروجی"></calcite-action>
+                <calcite-action id="basemaps" icon="basemap" text="نقشه‌های پایه"></calcite-action>
+
+            </calcite-action-group>
+            <clacite-action-group layout="vertical" overlay-positioning="fixed" class="js-action-group" calcite-hydrated slot="actions-end">
+                @*<calcite-action id="information" icon="information" text="اطلاعات"></calcite-action>*@
+                <calcite-action id="mapProperties" icon="gear" text="تنظیمات"></calcite-action>
+            </clacite-action-group>
+        </calcite-action-bar>
+
+        <!-- Map-specific panels (each one provides a div for a ArcGIS Maps SDK for JavaScript widget) -->
+        <calcite-panel id="panel_layers" class="drRtL" hidden closed>
             <div id="layers-container"></div>
-            <calcite-split-button id="btn_addlayer" slot="fab" primary-icon-start="layers" primary-text="Add" overlay-positioning="fixed" data-name="addfromonline" appearance="outline-fill" kind="brand" dropdown-icon-type="chevron" scale="m" width="auto" calcite-hydrated="">
-                <calcite-dropdown-group selection-mode="none" role="group" calcite-hydrated="">
-                    <calcite-dropdown-item icon-start="search" data-name="addfromonline" role="menuitem" tabindex="0" calcite-hydrated="">Browse layers</calcite-dropdown-item>
-                    <calcite-dropdown-item icon-start="web" data-name="addfromurl" role="menuitem" tabindex="0" calcite-hydrated="">Add layer from URL</calcite-dropdown-item>
-                    <calcite-dropdown-item icon-start="pencil-mark" data-name="addsketch" role="menuitem" tabindex="0" calcite-hydrated="">Create Sketch layer</calcite-dropdown-item>
-                    <calcite-dropdown-item icon-start="media-layer" data-name="addmedia" role="menuitem" tabindex="0" calcite-hydrated="">Add media layer</calcite-dropdown-item>
-                </calcite-dropdown-group>
-            </calcite-split-button>
+            @*<calcite-button id="btn_AddData" slot="fab" primary-icon-start="layers" primary-text="Add" overlay-positioning="fixed" data-name="addfromonline" appearance="outline-fill" kind="brand" dropdown-icon-type="chevron" scale="m" width="auto" calcite-hydrated=""></calcite-button>*@
+            <calcite-button id="btn_AddData" icon-start="add-layer" label="افزودن داده" slot="fab" scale="m" width="auto" overlay-positioning="fixed">افزودن داده</calcite-button>
         </calcite-panel>
-        <calcite-panel heading="Basemaps" height-scale="l" data-panel-id="basemaps" hidden>
+        <calcite-panel id="panel_basemaps" class="drRtL" hidden closed>
             <div id="basemaps-container"></div>
         </calcite-panel>
-        <calcite-panel heading="Legend" height-scale="l" data-panel-id="legend" hidden>
+        <calcite-panel id="panel_legend" class="drRtL" hidden closed>
             <div id="legend-container"></div>
         </calcite-panel>
-        <calcite-panel heading="Bookmarks" height-scale="l" data-panel-id="bookmarks" hidden>
-            <div id="bookmarks-container"></div>
+        <calcite-panel id="panel_print" class="drRtL" hidden closed>
+            <div id="print-container" style="direction:ltr"></div>
         </calcite-panel>
-        <calcite-panel heading="Print" height-scale="l" data-panel-id="print" hidden>
-            <div id="print-container"></div>
-        </calcite-panel>
-
         <!-- Info panel (populates with info from the web map) -->
-        <calcite-panel heading="Details" data-panel-id="information" hidden>
+        <calcite-panel id="panel_information" class="drRtL" hidden closed>
             <div id="info-content">
-                <img id="item-thumbnail" alt="webmap thumbnail" />
                 <div id="item-description">
                     <!-- Dynamically populated -->
                 </div>
-                <calcite-label layout="inline">
-                    <b>Rating:</b>
-                    <calcite-rating id="item-rating" read-only>
-                        <!-- Dynamically populated -->
-                    </calcite-rating>
-                </calcite-label>
+            </div>
+        </calcite-panel>
+        <calcite-panel id="panel_mapProperties" class="drRtL" hidden closed>
+            <div id="mapProperties-container">
+                <calcite-tabs>
+                    
+                        <calcite-tab-nav slot="title-group">
+                            <calcite-tab-title>Watercraft</calcite-tab-title>
+                            <calcite-tab-title selected>سرویس</calcite-tab-title>
+                            <calcite-tab-title>Aircrafts</calcite-tab-title>
+                        </calcite-tab-nav>
+                        <calcite-tab selected>
+                            <div class="settingDiv">
+                                <calcite-tree>
+                                    <calcite-tree-item>East Coast</calcite-tree-item>
+                                    <calcite-tree-item>
+                                        Midwest
+                                        <calcite-tree slot="children">
+                                            <calcite-tree-item>Great Lakes</calcite-tree-item>
+                                            <calcite-tree-item>Northwoods</calcite-tree-item>
+                                        </calcite-tree>
+                                    </calcite-tree-item>
+                                    <calcite-tree-item>
+                                        West Coast
+                                        <calcite-tree slot="children">
+                                            <calcite-tree-item>
+                                                California
+                                                <calcite-tree slot="children">
+                                                    <calcite-tree-item>Bay Area</calcite-tree-item>
+                                                    <calcite-tree-item>Central Valley</calcite-tree-item>
+                                                    <calcite-tree-item>Inland Empire</calcite-tree-item>
+                                                    <calcite-tree-item>Trinity Alps</calcite-tree-item>
+                                                </calcite-tree>
+                                            </calcite-tree-item>
+                                            <calcite-tree-item>
+                                                Pacific Northwest
+                                                <calcite-tree slot="children">
+                                                    <calcite-tree-item>Oregon</calcite-tree-item>
+                                                    <calcite-tree-item>
+                                                        Washington
+                                                        <calcite-tree slot="children">
+                                                            <calcite-tree-item>Coastal</calcite-tree-item>
+                                                            <calcite-tree-item>
+                                                                Inland
+                                                                <calcite-tree slot="children">
+                                                                    <calcite-tree-item>Mount St. Helens</calcite-tree-item>
+                                                                    <calcite-tree-item>The Enchantments</calcite-tree-item>
+                                                                </calcite-tree>
+                                                            </calcite-tree-item>
+                                                        </calcite-tree>
+                                                    </calcite-tree-item>
+                                                </calcite-tree>
+                                            </calcite-tree-item>
+                                        </calcite-tree>
+                                    </calcite-tree-item>
+                                </calcite-tree>
+                            </div>
+                        </calcite-tab>
+                    
+                    <calcite-tab>
+                        @*<calcite-notice icon="car" open>
+                <div slot="message">A good choice for inland adventure</div>
+            </calcite-notice>*@
+
+                        <calcite-list>
+                            <div class="settingDiv">
+                                <calcite-label>
+                                    آدرس سرویس نقشه
+                                    <calcite-input id="inputServiceSetting" placeholder="http://(your server)/arcgis/rest/services/(example)/MapServer"></calcite-input>
+                                </calcite-label>
+                                <calcite-label>
+                                    آدرس سرویس کروکی (PrintingTools)
+                                    <calcite-input id="inputPrintSetting" placeholder="http://(your server)/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task"></calcite-input>
+                                </calcite-label>
+                                <div class="settingServiceDivbtn">
+                                    <calcite-button id="btnCancelServiceSetting" kind="danger" icon-start="x" label="انصراف">انصراف</calcite-button>
+                                    <calcite-button id="btnSetServiceSetting" kind="brand" icon-start="plus" label="ثبت">ثبت</calcite-button>                                    
+                                </div>                                
+                            </div>
+                        </calcite-list>
+
+                    </calcite-tab>
+                    <calcite-tab>
+                        <div class="settingDiv">
+                            <calcite-notice icon="plane" open>
+                                <div slot="message">Cross continents quickly</div>
+                            </calcite-notice>
+
+                            <calcite-flow id="example-flow">
+                                <calcite-flow-item heading="App Settings" description="Configuration">
+                                    <calcite-action id="tooltip-ref" text="Configure" icon="lightbulb" slot="header-actions-end">
+                                    </calcite-action>
+                                    <calcite-tooltip reference-element="tooltip-ref" text="Configure" slot="header-actions-end">
+                                        A
+                                        helpful
+                                        hint
+                                    </calcite-tooltip>
+                                    <calcite-block id="first-flow-item-block" heading="Sample options"
+                                                   description="Adjustment categories" open>
+                                        <calcite-list>
+                                            <calcite-list-item label="Web map">
+                                                <calcite-icon scale="s" slot="content-end" icon="browser-map"></calcite-icon>
+                                            </calcite-list-item>
+                                            <calcite-list-item label="Layout">
+                                                <calcite-icon scale="s" slot="content-end" icon="group-layout-elements"></calcite-icon>
+                                            </calcite-list-item>
+                                            <calcite-list-item label="Layers" description="This one has a note">
+                                                <calcite-icon scale="s" slot="content-end" icon="layers"></calcite-icon>
+                                            </calcite-list-item>
+                                            <calcite-list-item label="Onboarding">
+                                                <calcite-icon scale="s" slot="content-end" icon="education"></calcite-icon>
+                                            </calcite-list-item>
+                                            <calcite-list-item label="Sharing">
+                                                <calcite-chip scale="s" slot="content-end">3 viewers</calcite-chip>
+                                                <calcite-icon scale="s" slot="content-end" icon="collaboration"></calcite-icon>
+                                            </calcite-list-item>
+                                        </calcite-list>
+                                    </calcite-block>
+                                </calcite-flow-item>
+                            </calcite-flow>
+                        </div>
+                    </calcite-tab>
+                </calcite-tabs>
+                
             </div>
         </calcite-panel>
     </calcite-shell-panel>
 
+    <!--#region Extera buttons-->
+    @*<div id="FullScreen-button" class="esri-widget esri-widget--button esri-interactive" title="Full Screen">
+            <span class="esri-icon-zoom-out-fixed"></span>
+        </div>
 
-    <div id="line-button" class="esri-widget esri-widget--button  esri-interactive" title="Draw polyline">
-        <span class="esri-icon-polyline"></span>
-    </div>
-    @*
+        <div id="line-button" class="esri-widget esri-widget--button  esri-interactive" title="Draw polyline">
+            <span class="esri-icon-polyline"></span>
+        </div>
+        <div id="identify" class="esri-widget esri-widget--button  esri-interactive" title="Draw polyline">
+            <span class="esri-icon-polyline"></span>
+        </div>
+
         <div id="Home-button" class="esri-widget esri-widget--button esri-home" title="Default map view">
             <span class="esri-icon-home"></span>
-        </div>
-        <div id="FullScreen-button" class="esri-widget esri-widget--button esri-interactive" title="Full Screen">
-            <span class="esri-icon-zoom-out-fixed"></span>
         </div>*@
-    <div id="mapView"></div>
-</calcite-shell>
+    <!--#endregion-->
+    <!-- Main Content Area: Where the map or primary content goes -->
+    <calcite-panel id="panelMapView">
+        <div id="mapView">
+            <div id="optionsDiv" class="esri-widget" hidden>
+                <p>Select a query type and click a point on the map to view the results.</p>
+                <select id="query-type" class="esri-widget">
+                    <option value="basic">Basic Query</option>
+                    <option value="distance">Query By Distance</option>
+                </select>
+            </div>
+        </div>
 
-<!-- Add Modal-->
-<calcite-dialog heading="Add a group" id="dialog_addlayer">
-    <calcite-label>
-        Group name
-        <calcite-input value="City of Acme Surveying Crews" placeholder="Enter a descriptive title"></calcite-input>
-    </calcite-label>
-    <calcite-label>
-        Choose default user role
-        <calcite-tile-group>
-            <calcite-tile checked input-enabled input-alignment="end" icon="rangefinder"
-                                 heading="Field operator"
-                                 description="This role allows users in the field to create new Reports, and view and edit existing Reports and Attachments">
-            </calcite-tile>
-            <calcite-tile input-enabled input-alignment="end" icon="knowledge-graph-dashboard"
-                                 heading="Office coordinator"
-                                 description="This role allows teammates on-base to view, duplicate, and create meaningful insights from Reports">
-            </calcite-tile>
-        </calcite-tile-group>
-    </calcite-label>
-    <calcite-notice open icon width="full">
-        <div slot="message">You can edit this choice later on, in Settings.</div>
-    </calcite-notice>
-    <calcite-button slot="footer-start" kind="neutral">
-        Back
-    </calcite-button>
-    <calcite-button slot="footer-end" appearance="outline">
-        Cancel
-    </calcite-button>
-    <calcite-button slot="footer-end">
-        Save
-    </calcite-button>
-</calcite-dialog>
+        <calcite-card id="measurement-result" appearance="solid">
+            <div slot="title">Measurement Result</div>
+            <div slot="subtitle"><span id="result-value">0</span></div>
+        </calcite-card>
+    </calcite-panel>
+    
+    <!-- AttributeTable -->
+    <calcite-panel id="panelAttributeTable">
+        <div id="attributeTable">
+            <calcite-button id="closeAttributeTable" icon-start="x-circle" label="بستن جدول" hidden></calcite-button>
+        </div>
+    </calcite-panel>
+    <!-- Add Modal -->
+    <calcite-dialog heading="افزودن داده" id="dialog_AddData" kind="info">
+        <div style="padding-bottom:80px">
+            <calcite-label>
+                <span class="lable">آدرس کامل داده را وارد نمایید:</span>
+                <calcite-input style="direction:ltr;text-align:left" id="input_AddData" value="http://localhost:6080/arcgis/rest/services/KhoramAbad/KhoramAbad_14030712/MapServer" placeholder="Example: http://"></calcite-input>
+            </calcite-label>
+            <calcite-label>
+                <span class="lable">نوع داده را انتخاب کنید:</span>
+            </calcite-label>
+            <calcite-combobox style="direction:ltr;text-align:left" selection-mode="single" id="combo_AddData">
+                <calcite-combobox-item value="MapServer" text-label="MapServer" selected></calcite-combobox-item>
+                <calcite-combobox-item value="Shapefile" text-label="Shapefile"></calcite-combobox-item>
+                <calcite-combobox-item value="WMS (OGC)" text-label="WMS (OGC)"></calcite-combobox-item>
+                <calcite-combobox-item value="CSV" text-label="CSV"></calcite-combobox-item>                
+                <calcite-combobox-item value="WFS (OGC)" text-label="WFS (OGC)"></calcite-combobox-item>
+                <calcite-combobox-item value="WMTS (OGC)" text-label="WMTS (OGC)"></calcite-combobox-item>                
+            </calcite-combobox>
+
+        </div>
+        <calcite-notice open icon width="full">
+            <div slot="title">لیست نوع داده‌های مجاز:</div>
+            <div slot="message" style="direction:ltr">CSV, GeoJSON, ArcGIS Server, WFS, etc.</div>
+        </calcite-notice>
+        <calcite-button kind="danger" slot="footer-end" id="btnCancel_AddData">انصراف</calcite-button>
+        <calcite-button kind="brand" slot="footer-end" id="btnAdd_AddData">افزودن</calcite-button>
+    </calcite-dialog>
+    <!-- Add alet box for show system info -->
+    <calcite-alert id="alert">
+        <div slot="title" id="alertTitle"></div>
+        <div slot="message" id="alertMessage"></div>
+        @*<calcite-link slot="link">Take action</calcite-link>*@
+    </calcite-alert>
+</calcite-shell>
 <!-- #endregion -->
+@* Add mapload *@
+<script type="module" src="~/Scripts/Map/LoadMap.js"></script>
 @* Add DrawTools *@
 @*<script type="module" src="~/Scripts/Map/Draw.js"></script>*@
 
 @*Add Identify*@
-<script type="module" src="~/Scripts/Map/Identify.js"></script>
+@*<script type="module" src="~/Scripts/Map/Identify.js"></script>*@
 
 
 @*<script type="module" src="~/Scripts/Map/Test.js"></script>*@
-
-
