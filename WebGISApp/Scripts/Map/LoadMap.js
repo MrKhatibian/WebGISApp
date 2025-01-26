@@ -113,21 +113,26 @@ const inputServiceSetting = document.getElementById("inputServiceSetting");
 const inputPrintSetting = document.getElementById("inputPrintSetting");
 const btnSetServiceSetting = document.getElementById("btnSetServiceSetting");
 const btnCancelServiceSetting = document.getElementById("btnCancelServiceSetting");
-btnSetServiceSetting.addEventListener("click", () => {    
-    const query = `INSERT INTO servicesSetting (mapService, printService) VALUES ('${inputServiceSetting.value}', '${inputPrintSetting.value}')`;
-    alert(query);
-    //$.ajax({
-    //    type: "POST",
-    //    url: "/ControllerName/InsertOrUpdate",
-    //    data: { query: query },
-    //    success: function (response) {
-    //        if (response.success) {
-    //            alert("Record inserted successfully");
-    //        } else {
-    //            alert("Error inserting record");
-    //        }
-    //    }
-    //});
+btnSetServiceSetting.addEventListener("click", () => {           
+    fetch('https://localhost:44323/Home/insertToDB/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            mapService: inputServiceSetting.value,
+            printService: inputPrintSetting.value
+        }),
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.success) {
+                console.log("Feature added successfully:", data.message);
+            } else {
+                console.error("Failed to add feature:", data.message);
+            }
+        })
+        .catch((error) => console.error("Error:", error));
 });
 
 // #endregion

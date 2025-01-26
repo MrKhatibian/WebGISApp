@@ -39,17 +39,7 @@ namespace WebGISApp.Controllers
         public HomeController()
         {
             _context = new GisMaryanjEntities();
-        }
-
-        [HttpGet]
-        public ActionResult GetFeatures()
-        {
-            // Query FeatureClasses from the database
-            var features = _context.ARSE.ToList();
-
-            // Return the features as JSON (including geometries)
-            return Json(features, JsonRequestBehavior.AllowGet);
-        }
+        }       
 
         // New method for adding features to the database
         [HttpPost]
@@ -71,6 +61,67 @@ namespace WebGISApp.Controllers
                 return Json(new { success = false, message = "Error: " + ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+        // Get all features
+        [HttpGet]
+        public ActionResult GetFeatures()
+        {
+            var features = _context.servicesSetting.ToList();
+            return Json(features.Select(f => new
+            {
+                ID = f.ID,
+                mapService = f.mapService,
+                printService = f.printService               
+            }), JsonRequestBehavior.AllowGet);
+        }       
+
+        // Update an existing feature
+        [HttpPost]
+        public ActionResult UpdateFeature(servicesSetting mapServiceValues)
+        {
+            if (mapServiceValues == null)
+                return Json(new { success = false, message = "Invalid data" });
+
+            try
+            {
+                var feature = _context.servicesSetting.FirstOrDefault(f => f.ID == mapServiceValues.ID);
+                if (feature == null)
+                    return Json(new { success = false, message = "Feature not found" });
+
+                // Update the fields
+                feature.mapService = mapServiceValues.mapService;
+                feature.printService = mapServiceValues.printService;               
+
+                _context.SaveChanges();
+
+                return Json(new { success = true, message = "Feature updated successfully" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Error: " + ex.Message });
+            }
+        }
+
+        // Delete a feature
+        [HttpPost]
+        public ActionResult DeleteFeature(int id)
+        {
+            try
+            {
+                var feature = _context.servicesSetting.FirstOrDefault(f => f.ID == id);
+                if (feature == null)
+                    return Json(new { success = false, message = "Feature not found" });
+
+                _context.servicesSetting.Remove(feature);
+                _context.SaveChanges();
+
+                return Json(new { success = true, message = "Feature deleted successfully" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Error: " + ex.Message });
+            }
+        }
+
 
     }
 }

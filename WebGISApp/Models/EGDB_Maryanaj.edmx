@@ -1168,10 +1168,10 @@ warning 6005: The data type 'geometry' is not supported for the target Entity Fr
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="mapService" Type="nvarchar" MaxLength="50" />
-          <Property Name="printService" Type="nvarchar" MaxLength="50" />
-          <Property Name="geometryService" Type="nvarchar" MaxLength="50" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="mapService" Type="nvarchar(max)" />
+          <Property Name="printService" Type="nvarchar(max)" />
+          <Property Name="geometryService" Type="nvarchar(max)" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6005: The data type 'geometry' is not supported for the target Entity Framework version schema. The column 'Shape' in the table 'GisMaryanj.dbo.T_T1394' was excluded from the model. To use the data type 'geometry', target the Entity Framework schema version 3.0 or higher.-->
@@ -1186,41 +1186,6 @@ warning 6005: The data type 'geometry' is not supported for the target Entity Fr
           <Property Name="ORIG_FID" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6005: The data type 'geometry' is not supported for the target Entity Framework version schema. The column 'SHAPE' in the table 'GisMaryanj.dbo.ARSE_EVW' was excluded from the model. To use the data type 'geometry', target the Entity Framework schema version 3.0 or higher.
-warning 6013: The table/view 'GisMaryanj.dbo.ARSE_EVW' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="ARSE_EVW">
-          <Property Name="OBJECTID" Type="int" />
-          <Property Name="Parvaneh" Type="nvarchar" MaxLength="10" />
-          <Property Name="Code_Block" Type="nvarchar" MaxLength="10" />
-          <Property Name="Amlak__" Type="numeric" Precision="38" Scale="8" />
-          <Property Name="COD" Type="nvarchar" MaxLength="50" />
-          <Property Name="Code_nosazi" Type="nvarchar" MaxLength="255" />
-          <Property Name="Mantaghe" Type="numeric" Precision="38" Scale="8" />
-          <Property Name="Mahale" Type="numeric" Precision="38" Scale="8" />
-          <Property Name="Block" Type="numeric" Precision="38" Scale="8" />
-          <Property Name="Melk" Type="numeric" Precision="38" Scale="8" />
-          <Property Name="Name_malek" Type="nvarchar" MaxLength="255" />
-          <Property Name="Address" Type="nvarchar" MaxLength="255" />
-          <Property Name="Malekiyat" Type="nvarchar" MaxLength="255" />
-          <Property Name="Mahiyate_fiziki" Type="nvarchar" MaxLength="255" />
-          <Property Name="Karbari" Type="nvarchar" MaxLength="255" />
-          <Property Name="Sanad" Type="nvarchar" MaxLength="255" />
-          <Property Name="Marhale_sakhtemani" Type="nvarchar" MaxLength="255" />
-          <Property Name="Masahat" Type="nvarchar" MaxLength="255" />
-          <Property Name="pelakabi" Type="nvarchar" MaxLength="255" />
-          <Property Name="codeposti" Type="nvarchar" MaxLength="255" />
-          <Property Name="Archive_No" Type="nvarchar" MaxLength="255" />
-          <Property Name="mogheyat" Type="nvarchar" MaxLength="255" />
-          <Property Name="bakhsh" Type="nvarchar" MaxLength="255" />
-          <Property Name="asli" Type="nvarchar" MaxLength="255" />
-          <Property Name="fari" Type="nvarchar" MaxLength="255" />
-          <Property Name="tafkiki" Type="nvarchar" MaxLength="255" />
-          <Property Name="Telephone" Type="nvarchar" MaxLength="255" />
-          <Property Name="COD_1" Type="nvarchar" MaxLength="255" />
-          <Property Name="Parvande_No" Type="int" />
-          <Property Name="SDE_STATE_ID" Type="bigint" />
-        </EntityType>-->
-        <!--Errors Found During Generation:
 warning 6002: The table/view 'GisMaryanj.dbo.dbtune' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="dbtune">
           <Key>
@@ -1231,133 +1196,6 @@ warning 6002: The table/view 'GisMaryanj.dbo.dbtune' does not have a primary key
           <Property Name="parameter_name" Type="nvarchar" MaxLength="32" Nullable="false" />
           <Property Name="config_string" Type="nvarchar" MaxLength="2048" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6005: The data type 'geometry' is not supported for the target Entity Framework version schema. The column 'Shape' in the table 'GisMaryanj.dbo.GH1395_EVW' was excluded from the model. To use the data type 'geometry', target the Entity Framework schema version 3.0 or higher.
-warning 6013: The table/view 'GisMaryanj.dbo.GH1395_EVW' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="GH1395_EVW">
-          <Property Name="OBJECTID" Type="int" />
-          <Property Name="name" Type="nvarchar" MaxLength="254" />
-          <Property Name="price" Type="nvarchar" MaxLength="254" />
-          <Property Name="F91" Type="nvarchar" MaxLength="254" />
-          <Property Name="F90" Type="nvarchar" MaxLength="254" />
-          <Property Name="F87" Type="nvarchar" MaxLength="254" />
-          <Property Name="F86" Type="nvarchar" MaxLength="254" />
-          <Property Name="F85" Type="nvarchar" MaxLength="254" />
-          <Property Name="F84" Type="nvarchar" MaxLength="254" />
-          <Property Name="F83" Type="nvarchar" MaxLength="254" />
-          <Property Name="F82" Type="nvarchar" MaxLength="254" />
-          <Property Name="F81" Type="nvarchar" MaxLength="254" />
-          <Property Name="F80" Type="nvarchar" MaxLength="254" />
-          <Property Name="F79" Type="nvarchar" MaxLength="254" />
-          <Property Name="F78" Type="nvarchar" MaxLength="254" />
-          <Property Name="F77" Type="nvarchar" MaxLength="254" />
-          <Property Name="F76" Type="nvarchar" MaxLength="254" />
-          <Property Name="F75" Type="nvarchar" MaxLength="254" />
-          <Property Name="F74" Type="nvarchar" MaxLength="254" />
-          <Property Name="F73" Type="nvarchar" MaxLength="254" />
-          <Property Name="F72" Type="nvarchar" MaxLength="254" />
-          <Property Name="F71" Type="nvarchar" MaxLength="254" />
-          <Property Name="F70" Type="nvarchar" MaxLength="254" />
-          <Property Name="F69" Type="nvarchar" MaxLength="254" />
-          <Property Name="F68" Type="nvarchar" MaxLength="254" />
-          <Property Name="F67" Type="nvarchar" MaxLength="254" />
-          <Property Name="F66" Type="nvarchar" MaxLength="254" />
-          <Property Name="F65" Type="nvarchar" MaxLength="254" />
-          <Property Name="F64" Type="nvarchar" MaxLength="254" />
-          <Property Name="F94" Type="nvarchar" MaxLength="254" />
-          <Property Name="F95" Type="nvarchar" MaxLength="254" />
-          <Property Name="SDE_STATE_ID" Type="bigint" />
-        </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6005: The data type 'geometry' is not supported for the target Entity Framework version schema. The column 'Shape' in the table 'GisMaryanj.dbo.GH1396_E_EVW' was excluded from the model. To use the data type 'geometry', target the Entity Framework schema version 3.0 or higher.
-warning 6013: The table/view 'GisMaryanj.dbo.GH1396_E_EVW' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="GH1396_E_EVW">
-          <Property Name="OBJECTID" Type="int" />
-          <Property Name="F91" Type="nvarchar" MaxLength="254" />
-          <Property Name="F87" Type="nvarchar" MaxLength="254" />
-          <Property Name="F85" Type="nvarchar" MaxLength="254" />
-          <Property Name="F84" Type="nvarchar" MaxLength="254" />
-          <Property Name="F83" Type="nvarchar" MaxLength="254" />
-          <Property Name="F82" Type="nvarchar" MaxLength="254" />
-          <Property Name="F81" Type="nvarchar" MaxLength="254" />
-          <Property Name="F71" Type="nvarchar" MaxLength="254" />
-          <Property Name="F68" Type="nvarchar" MaxLength="254" />
-          <Property Name="F64" Type="nvarchar" MaxLength="254" />
-          <Property Name="F95" Type="nvarchar" MaxLength="254" />
-          <Property Name="F96" Type="nvarchar" MaxLength="254" />
-          <Property Name="F65" Type="nvarchar" MaxLength="50" />
-          <Property Name="F66" Type="nvarchar" MaxLength="50" />
-          <Property Name="F67" Type="nvarchar" MaxLength="50" />
-          <Property Name="F69" Type="nvarchar" MaxLength="50" />
-          <Property Name="F70" Type="nvarchar" MaxLength="50" />
-          <Property Name="F72" Type="nvarchar" MaxLength="50" />
-          <Property Name="F73" Type="nvarchar" MaxLength="50" />
-          <Property Name="F74" Type="nvarchar" MaxLength="50" />
-          <Property Name="F75" Type="nvarchar" MaxLength="50" />
-          <Property Name="F76" Type="nvarchar" MaxLength="50" />
-          <Property Name="F77" Type="nvarchar" MaxLength="50" />
-          <Property Name="F78" Type="nvarchar" MaxLength="50" />
-          <Property Name="F79" Type="nvarchar" MaxLength="50" />
-          <Property Name="F80" Type="nvarchar" MaxLength="50" />
-          <Property Name="F86" Type="nvarchar" MaxLength="50" />
-          <Property Name="F88" Type="nvarchar" MaxLength="50" />
-          <Property Name="F89" Type="nvarchar" MaxLength="50" />
-          <Property Name="F90" Type="nvarchar" MaxLength="50" />
-          <Property Name="F92" Type="nvarchar" MaxLength="50" />
-          <Property Name="F93" Type="nvarchar" MaxLength="50" />
-          <Property Name="F94" Type="nvarchar" MaxLength="50" />
-          <Property Name="Code_Block" Type="nvarchar" MaxLength="10" />
-          <Property Name="Code_Band" Type="nvarchar" MaxLength="10" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="W" Type="nvarchar" MaxLength="10" />
-          <Property Name="SDE_STATE_ID" Type="bigint" />
-        </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6005: The data type 'geometry' is not supported for the target Entity Framework version schema. The column 'Shape' in the table 'GisMaryanj.dbo.GH1397_E_EVW' was excluded from the model. To use the data type 'geometry', target the Entity Framework schema version 3.0 or higher.
-warning 6013: The table/view 'GisMaryanj.dbo.GH1397_E_EVW' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="GH1397_E_EVW">
-          <Property Name="OBJECTID_1" Type="int" />
-          <Property Name="F97m" Type="nvarchar" MaxLength="254" />
-          <Property Name="F97t" Type="nvarchar" MaxLength="254" />
-          <Property Name="F97e" Type="nvarchar" MaxLength="254" />
-          <Property Name="Code_Block" Type="nvarchar" MaxLength="10" />
-          <Property Name="Code_Band" Type="nvarchar" MaxLength="10" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="W" Type="nvarchar" MaxLength="10" />
-          <Property Name="SDE_STATE_ID" Type="bigint" />
-        </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6005: The data type 'geometry' is not supported for the target Entity Framework version schema. The column 'SHAPE' in the table 'GisMaryanj.dbo.H_M_POLYGON_EVW' was excluded from the model. To use the data type 'geometry', target the Entity Framework schema version 3.0 or higher.
-warning 6013: The table/view 'GisMaryanj.dbo.H_M_POLYGON_EVW' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="H_M_POLYGON_EVW">
-          <Property Name="OBJECTID" Type="int" />
-          <Property Name="مشخصات" Type="nvarchar" MaxLength="50" />
-          <Property Name="SDE_STATE_ID" Type="bigint" />
-        </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6005: The data type 'geometry' is not supported for the target Entity Framework version schema. The column 'Shape' in the table 'GisMaryanj.dbo.M_NAME_EVW' was excluded from the model. To use the data type 'geometry', target the Entity Framework schema version 3.0 or higher.
-warning 6013: The table/view 'GisMaryanj.dbo.M_NAME_EVW' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="M_NAME_EVW">
-          <Property Name="OBJECTID" Type="int" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="W" Type="nvarchar" MaxLength="10" />
-          <Property Name="Code_M" Type="nvarchar" MaxLength="10" />
-          <Property Name="SDE_STATE_ID" Type="bigint" />
-        </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6005: The data type 'geometry' is not supported for the target Entity Framework version schema. The column 'Shape' in the table 'GisMaryanj.dbo.MAABER_PT_EVW' was excluded from the model. To use the data type 'geometry', target the Entity Framework schema version 3.0 or higher.
-warning 6013: The table/view 'GisMaryanj.dbo.MAABER_PT_EVW' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="MAABER_PT_EVW">
-          <Property Name="OBJECTID_1" Type="int" />
-          <Property Name="OBJECTID" Type="int" />
-          <Property Name="Shape_Leng" Type="numeric" Precision="38" Scale="8" />
-          <Property Name="SDE_STATE_ID" Type="bigint" />
-        </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'GisMaryanj.dbo.SDE_generate_guid' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="SDE_generate_guid">
-          <Property Name="guidstr" Type="nvarchar" MaxLength="38" />
-        </EntityType>-->
         <!--Errors Found During Generation:
 warning 6002: The table/view 'GisMaryanj.dbo.ST_GEOMETRY_COLUMNS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ST_GEOMETRY_COLUMNS">
@@ -1404,17 +1242,6 @@ warning 6002: The table/view 'GisMaryanj.dbo.ST_SPATIAL_REFERENCE_SYSTEMS' does 
           <Property Name="organization_coordsys_id" Type="int" />
           <Property Name="definition" Type="varchar" MaxLength="1024" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6005: The data type 'geometry' is not supported for the target Entity Framework version schema. The column 'Shape' in the table 'GisMaryanj.dbo.T_T1394_EVW' was excluded from the model. To use the data type 'geometry', target the Entity Framework schema version 3.0 or higher.
-warning 6013: The table/view 'GisMaryanj.dbo.T_T1394_EVW' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="T_T1394_EVW">
-          <Property Name="OBJECTID" Type="int" />
-          <Property Name="malek" Type="nvarchar" MaxLength="254" />
-          <Property Name="id" Type="numeric" Precision="38" Scale="8" />
-          <Property Name="name" Type="nvarchar" MaxLength="254" />
-          <Property Name="ORIG_FID" Type="int" />
-          <Property Name="SDE_STATE_ID" Type="bigint" />
-        </EntityType>-->
         <Association Name="archives_fk1">
           <End Role="SDE_table_registry" Type="Self.SDE_table_registry" Multiplicity="1" />
           <End Role="SDE_archives" Type="Self.SDE_archives" Multiplicity="0..1" />
@@ -5129,10 +4956,10 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="mapService" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="printService" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="geometryService" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="mapService" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="printService" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="geometryService" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
