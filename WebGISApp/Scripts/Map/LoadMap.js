@@ -113,21 +113,38 @@ const inputServiceSetting = document.getElementById("inputServiceSetting");
 const inputPrintSetting = document.getElementById("inputPrintSetting");
 const btnSetServiceSetting = document.getElementById("btnSetServiceSetting");
 const btnCancelServiceSetting = document.getElementById("btnCancelServiceSetting");
-btnSetServiceSetting.addEventListener("click", () => {           
-    fetch('https://localhost:44323/Home/insertToDB/', {
+btnSetServiceSetting.addEventListener("click", () => {
+
+    //
+    fetch('https://localhost:44323/Home/GetFeatures/', {
+        method: 'GET',
+        header: {
+            'Content-Type': 'application/json',
+        },
+    }).then((response) => response.json())
+        .then((data) => {
+            if (data.success) {
+                alert(`Feature added successfully: ${data.message}`);
+            } else {
+                console.error("Failed to add feature:", data.message);
+            }
+        })
+        .catch((error) => console.error("Error:", error));
+    //
+    fetch('https://localhost:44323/Home/UpdateFeature/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+            ID: '1',
             mapService: inputServiceSetting.value,
             printService: inputPrintSetting.value
         }),
-    })
-        .then((response) => response.json())
+    }).then((response) => response.json())
         .then((data) => {
             if (data.success) {
-                console.log("Feature added successfully:", data.message);
+                alert(`Feature added successfully: ${data.message}`);
             } else {
                 console.error("Failed to add feature:", data.message);
             }

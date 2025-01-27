@@ -53,7 +53,7 @@ namespace WebGISApp.Controllers
                 // Add the new feature to the database
                 _context.servicesSetting.Add(mapServiceValues);
                 _context.SaveChanges();
-
+                
                 return Json(new { success = true, message = "Feature added successfully" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
