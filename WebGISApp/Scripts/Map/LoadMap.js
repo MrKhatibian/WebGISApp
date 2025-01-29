@@ -111,46 +111,117 @@ function addData(dataPath, dataType) {
 // #region Service Setting
 const inputServiceSetting = document.getElementById("inputServiceSetting");
 const inputPrintSetting = document.getElementById("inputPrintSetting");
+const inputCodeArse = document.getElementById("inputCodeArse");
 const btnSetServiceSetting = document.getElementById("btnSetServiceSetting");
 const btnCancelServiceSetting = document.getElementById("btnCancelServiceSetting");
-btnSetServiceSetting.addEventListener("click", () => {
 
-    //
-    fetch('https://localhost:44323/Home/GetFeatures/', {
-        method: 'GET',
-        header: {
-            'Content-Type': 'application/json',
-        },
-    }).then((response) => response.json())
-        .then((data) => {
-            if (data.success) {
-                alert(`Feature added successfully: ${data.message}`);
-            } else {
-                console.error("Failed to add feature:", data.message);
-            }
-        })
-        .catch((error) => console.error("Error:", error));
-    //
-    fetch('https://localhost:44323/Home/UpdateFeature/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            ID: '1',
-            mapService: inputServiceSetting.value,
-            printService: inputPrintSetting.value
-        }),
-    }).then((response) => response.json())
-        .then((data) => {
-            if (data.success) {
-                alert(`Feature added successfully: ${data.message}`);
-            } else {
-                console.error("Failed to add feature:", data.message);
-            }
-        })
-        .catch((error) => console.error("Error:", error));
+btnSetServiceSetting.addEventListener("click", async function () {
+    debugger;
+    const url = inputServiceSetting.value.trim() +"?f=pjson";    
+
+    // Check if the service URL exists
+    try {
+        const response = await fetch(url);
+        if (response.ok) {
+            const data = await response.json(); // Parse the JSON response if it's a valid service
+            alert("Service URL is valid and accessible!");
+            fetchArcGISData(url);
+        } else {
+            alert(`Service URL is invalid or inaccessible. Status: ${response.status}`);            
+        }
+    } catch (error) {        
+        alert("Error checking the service URL. Please try again.");        
+    }
 });
+async function fetchArcGISData(url) {
+    debugger;
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        const combobox = document.getElementById("comboSelectArseSetting");
+        combobox.innerHTML = ""; // Clear previous items
+
+        data.layers.forEach(layer => {
+            const value = layer.name; // Change this to your field name
+            if (value) {
+                const item = document.createElement("calcite-combobox-item");
+                item.value = value;
+                item.textLabel = value;
+                combobox.appendChild(item);
+            }
+        });
+
+    } catch (error) {
+        alert("Error fetching ArcGIS data:");
+    }
+}
+//btnSetServiceSetting.addEventListener("click", () => {
+//    debugger
+//    if (
+//        inputServiceSetting.value.trim() === "" ||
+//        inputPrintSetting.value.trim() === "" ||
+//        !inputCodeArse.value
+//    ) {
+//        alert("لطفا مقادیر صحیح وارد کنید");
+//        return;
+//    }
+
+//    // GET request to fetch features
+//    fetch("https://localhost:44323/Home/GetFeatures/", {
+//        method: "GET",
+//        headers: {
+//            "Content-Type": "application/json",
+//        },
+//    })
+//        .then((response) => {
+//            if (!response.ok) {
+//                throw new Error("Failed to fetch features");
+//            }
+//            return response.json();
+//        })
+//        .then((data) => {
+//            if (data.success) {
+//                alert(`Features fetched successfully: ${data.message}`);
+//            } else {
+//                console.error("Failed to fetch features:", data.message);
+//            }
+//        })
+//        .catch((error) => {
+//            console.error("Error during GET request:", error);
+//            alert("Failed to fetch features. Please try again.");
+//        });
+
+//    // POST request to update features
+//    fetch("https://localhost:44323/Home/UpdateFeature/", {
+//        method: "POST",
+//        headers: {
+//            "Content-Type": "application/json",
+//        },
+//        body: JSON.stringify({
+//            ID: "1",
+//            mapService: inputServiceSetting.value.trim(),
+//            printService: inputPrintSetting.value.trim(),
+//        }),
+//    })
+//        .then((response) => {
+//            if (!response.ok) {
+//                throw new Error("Failed to update features");
+//            }
+//            return response.json();
+//        })
+//        .then((data) => {
+//            if (data.success) {
+//                alert(`Feature updated successfully: ${data.message}`);
+//            } else {
+//                console.error("Failed to update feature:", data.message);
+//            }
+//        })
+//        .catch((error) => {
+//            console.error("Error during POST request:", error);
+//            alert("Failed to update features. Please try again.");
+//        });
+//});
 
 // #endregion
 // #endregion

@@ -148,20 +148,23 @@
 
                         <calcite-list>
                             <div class="settingDiv">
-                                <calcite-label>
-                                    آدرس سرویس نقشه
-                                    <calcite-input id="inputServiceSetting" placeholder="http://(your server)/arcgis/rest/services/(example)/MapServer"
-                                                   value="http://localhost:6080/arcgis/rest/services/Maryanaj/MaryanajWithoutLabel_14031013/FeatureServer"></calcite-input>
-                                </calcite-label>
-                                <calcite-label>
-                                    آدرس سرویس کروکی (PrintingTools)
-                                    <calcite-input id="inputPrintSetting" placeholder="http://(your server)/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task"
-                                                   value="http://localhost:6080/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task"></calcite-input>
-                                </calcite-label>
-                                <calcite-label>
-                                    کد لایه عرصه
-                                    <calcite-input id="inputCodeArse" style="width:25%"></calcite-input>
-                                </calcite-label>                               
+                                <div style="padding-bottom:20%">
+                                    <calcite-label>
+                                        آدرس سرویس نقشه
+                                        <calcite-input-text status="valid" id="inputServiceSetting" placeholder="http://(your server)/arcgis/rest/services/(example)/MapServer"
+                                                            value="http://localhost:6080/arcgis/rest/services/Maryanaj/MaryanajWithoutLabel_14031013/FeatureServer"></calcite-input-text>
+                                    </calcite-label>
+                                    <calcite-label>
+                                        آدرس سرویس کروکی (PrintingTools)
+                                        <calcite-input-text id="inputPrintSetting" placeholder="http://(your server)/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task"
+                                                            value="http://localhost:6080/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task"></calcite-input-text>
+                                    </calcite-label>
+                                    <calcite-label>
+                                        کد لایه عرصه
+                                        @*<calcite-input id="inputCodeArse" style="width:25%"></calcite-input>*@
+                                        <calcite-combobox id="comboSelectArseSetting" placeholder="Select a layer"></calcite-combobox>
+                                    </calcite-label>
+                                </div>                                                               
                                 <div class="settingServiceDivbtn">
                                     <calcite-button class="btnCalcite" id="btnCancelServiceSetting" kind="danger" icon-start="x" label="انصراف">انصراف</calcite-button>
                                     <calcite-button class="btnCalcite" id="btnSetServiceSetting" kind="brand" icon-start="plus" label="ثبت">ثبت</calcite-button>                                    
