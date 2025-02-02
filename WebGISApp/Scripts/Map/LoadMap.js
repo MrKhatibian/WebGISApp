@@ -115,8 +115,7 @@ const inputCodeArse = document.getElementById("inputCodeArse");
 const btnSetServiceSetting = document.getElementById("btnSetServiceSetting");
 const btnCancelServiceSetting = document.getElementById("btnCancelServiceSetting");
 
-btnSetServiceSetting.addEventListener("click", async function () {
-    debugger;
+btnSetServiceSetting.addEventListener("click", async function () {    
     const url = inputServiceSetting.value.trim() +"?f=pjson";    
 
     // Check if the service URL exists
@@ -133,8 +132,7 @@ btnSetServiceSetting.addEventListener("click", async function () {
         alert("Error checking the service URL. Please try again.");        
     }
 });
-async function fetchArcGISData(url) {
-    debugger;
+async function fetchArcGISData(url) {    
     try {
         const response = await fetch(url);
         const data = await response.json();
@@ -250,7 +248,7 @@ view.when(() => {
         outFields: ["*"], // Fetch all fields
         title: "عرصه" // Replace with a descriptive title
     });
-    map.add(featureLayer);    
+    map.add(featureLayer);
     // #region Search
     document.getElementById("btnSearch").addEventListener("click", () => {
         let codeNosazi = document.getElementById("inputCodeNosazi").value;
@@ -521,8 +519,10 @@ view.when(() => {
     // Declare pointGraphic and bufferGraphic globally for access in both functions
     let pointGraphic;
     let bufferGraphic;
+    const btnConnect = document.getElementById("btnConnect");
     function stopIdentify() {
         isIdentify = false;
+        btnConnect.disabled = true;
         document.getElementById("mapView").style.cursor = "auto";
         //alertBox("ابزار شناسایی غیر فعال شد", "warning");
         document.getElementById("optionsDiv").hidden = true;
@@ -536,125 +536,91 @@ view.when(() => {
         //alert("stop");                
     }
     function startIdentify(featureLayer) {
-        isIdentify = true;
+        debugger;
+        isIdentify = true;        
         document.getElementById("mapView").style.cursor = "help";
-        //alertBox("ابزار شناسایی فعال شد", "success");
-        //document.getElementById("optionsDiv").hidden = false;
-        view.ui.add("optionsDiv", "top-left");
 
-        // additional query fields initially set to null for basic query
-        let distance = null;
-        let units = null;
-
-        //create graphic for mouse point click
-        pointGraphic = new Graphic({
+         //Display options UI
+        const optionsDiv = document.getElementById("optionsDiv");
+        if (!view.ui.find(optionsDiv)) {
+            view.ui.add(optionsDiv, "top-left");
+        }
+        //view.ui.add(optionsDiv, "top-left");
+        // Define point graphic
+        const pointGraphic = new Graphic({
             symbol: {
-                type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
+                type: "simple-marker",
                 color: [0, 0, 139],
-                outline: {
-                    color: [255, 255, 255],
-                    width: 1.5
-                }
+                outline: { color: [255, 255, 255], width: 1.5 }
             }
         });
 
-        // Create graphic for distance buffer
-        bufferGraphic = new Graphic({
-            symbol: {
-                type: "simple-fill", // autocasts as new SimpleFillSymbol()
-                color: [173, 216, 230, 0.2],
-                outline: {
-                    // autocasts as new SimpleLineSymbol()
-                    color: [255, 255, 255],
-                    width: 1
-                }
-            }
-        });
+        // Load feature layer with error handling
+        featureLayer.load()
+            .then(() => {
+                featureLayer.popupTemplate = featureLayer.createPopupTemplate();
+            })
+            .catch((error) => {
+                console.error("Error loading feature layer:", error);
+                alertBox("Failed to load feature layer!", "error");
+            });
 
-        // when query type changes, set appropriate values
-        const queryOpts = document.getElementById("query-type");
+        // Click event for identification
+        if (viewClick) viewClick.remove(); // Remove previous event listener if exists
+        viewClick = view.on("click", (event) => handleMapClick(event, pointGraphic));
+    }
 
-        queryOpts.addEventListener("change", () => {
-            switch (queryOpts.value) {
-                // values set for distance query
-                case "distance":
-                    distance = 1500;
-                    units = "meters";
-                    break;
-                default:
-                    // Default set to basic query
-                    distance = null;
-                    units = null;
-            }
-        });
+    function handleMapClick(event, pointGraphic) {
+        view.graphics.remove(pointGraphic);
 
-        featureLayer.load().then(() => {
-            // Set the view extent to the data extent
-            //view.extent = featureLayer.fullExtent;
-            featureLayer.popupTemplate = featureLayer.createPopupTemplate();
-        });
+        // Place point graphic
+        pointGraphic.geometry = event.mapPoint;
+        view.graphics.add(pointGraphic);
 
-        // executeIdentify() is called each time the view is clicked
-        //view.on("click", executeIdentify);
-        viewClick = view.on("click", (event) => {
-            view.graphics.remove(pointGraphic);
-            if (view.graphics.includes(bufferGraphic)) {
-                view.graphics.remove(bufferGraphic);
-            }
-            featuresQuery(event);
-            //alert(event.mapPoint);
-            // Create a buffer around the clicked point
-            //const point = event.mapPoint;
-            //const buffer = geometryEngine.buffer(point, 50, "meters");
-
-            //// Visualize the buffer
-            //const bufferGraphic1 = new Graphic({
-            //    geometry: buffer,
-            //    symbol: {
-            //        type: "simple-fill",
-            //        color: [0, 0, 255, 0.3],
-            //        outline: {
-            //            color: [0, 0, 255],
-            //            width: 2
-            //        }
-            //    }
-            //});
-            //view.graphics.add(bufferGraphic1);
-        });
-        function featuresQuery(screenPoint) {
+        // Execute feature query
+        featuresQuery(event, pointGraphic);
+    }
+    function featuresQuery(screenPoint, pointGraphic) {
+        try {
             const point = view.toMap(screenPoint);
-            //const point = event.mapPoint;;
+
             let query = new Query({
                 geometry: point,
-                // distance and units will be null if basic query selected
-                distance: distance,
-                units: units,
                 spatialRelationship: "intersects",
                 returnGeometry: false,
                 returnQueryGeometry: true,
                 outFields: ["*"]
             });
-            featureLayer
-                .queryFeatures(query)
+
+            featureLayer.queryFeatures(query)
                 .then((featureSet) => {
-                    // set graphic location to mouse pointer and add to mapview
+                    if (!featureSet.features.length) {
+                        console.warn("No features found at this location.");
+                        return;
+                    }                    
+                    // Set graphic location & add to view
                     pointGraphic.geometry = point;
-                    view.graphics.add(pointGraphic);
-                    // open popup of query result
+                    if (!view.graphics.includes(pointGraphic)) {
+                        view.graphics.add(pointGraphic);
+                    }
+
+                    // Open popup with query results
                     view.openPopup({
                         location: point,
                         features: featureSet.features,
                         featureMenuOpen: true
                     });
-                    if (distance > 0) {
-                        //bufferGraphic.geometry = featureSet.queryGeometry;
-                        bufferGraphic.geometry = point;
-                        view.graphics.add(bufferGraphic);
-                    }
+                    btnConnect.disabled = false;
+                })
+                .catch((error) => {
+                    console.error("Feature query failed:", error);
+                    alertBox("Error fetching feature data!", "error");
                 });
-        }
-    }
 
+        } catch (error) {
+            console.error("featuresQuery error:", error);
+        }
+    }    
     // #endregion Identify
 
     // #region Editor

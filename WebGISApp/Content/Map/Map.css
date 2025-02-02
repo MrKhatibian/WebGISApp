@@ -30,7 +30,8 @@ body {
 
 .drRtL {
     direction: rtl;
-    text-align: right
+    text-align: right;
+    height: 100vh
 }
 
 calcite-navigation {
@@ -114,15 +115,17 @@ calcite-alert {
     padding: 3px;
 }
 .settingDiv {
+    position: relative; /* Needed for absolute positioning */
     width: 97.5%;
-    height: auto;
+    height: 100%;
     margin: 0 1% 0 1%
 }
 .settingServiceDivbtn {
+    position: absolute;
     width: 100%;
     height: auto;
     display: flex;
-    justify-content: center;    
+    justify-content: center;
     padding: 2px
 }
 /*#endregion */
