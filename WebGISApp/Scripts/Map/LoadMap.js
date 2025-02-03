@@ -249,11 +249,12 @@ view.when(() => {
         title: "عرصه" // Replace with a descriptive title
     });
     map.add(featureLayer);
+    let inputCodeNosazi = document.getElementById("inputCodeNosazi");
     // #region Search
     document.getElementById("btnSearch").addEventListener("click", () => {
-        let codeNosazi = document.getElementById("inputCodeNosazi").value;
-        if (codeNosazi) {
-            selectByAttribute(codeNosazi);
+
+        if (inputCodeNosazi.value) {
+            selectByAttribute(inputCodeNosazi.value);
         } else {
             alert("لطفا کد نوسازی معتبر وارد کنید ");
         }
@@ -517,26 +518,31 @@ view.when(() => {
 
     // #region Identify        
     // Declare pointGraphic and bufferGraphic globally for access in both functions
-    let pointGraphic;
+    // Define point graphic
+    const pointGraphic = new Graphic({
+        symbol: {
+            type: "simple-marker",
+            color: [0, 0, 139],
+            outline: { color: [255, 255, 255], width: 1.5 }
+        }
+    });
     let bufferGraphic;
     const btnConnect = document.getElementById("btnConnect");
-    function stopIdentify() {
+    let selectFeatureInfo = new Map();   
+
+    function stopIdentify() {        
         isIdentify = false;
         btnConnect.disabled = true;
         document.getElementById("mapView").style.cursor = "auto";
-        //alertBox("ابزار شناسایی غیر فعال شد", "warning");
         document.getElementById("optionsDiv").hidden = true;
 
         if (view.graphics.includes(pointGraphic)) {
             view.graphics.remove(pointGraphic);
-        } else if (view.graphics.includes(bufferGraphic)) {
-            view.graphics.remove(bufferGraphic);
         }
         viewClick.remove();
         //alert("stop");                
     }
-    function startIdentify(featureLayer) {
-        debugger;
+    function startIdentify(featureLayer) {        
         isIdentify = true;        
         document.getElementById("mapView").style.cursor = "help";
 
@@ -546,14 +552,7 @@ view.when(() => {
             view.ui.add(optionsDiv, "top-left");
         }
         //view.ui.add(optionsDiv, "top-left");
-        // Define point graphic
-        const pointGraphic = new Graphic({
-            symbol: {
-                type: "simple-marker",
-                color: [0, 0, 139],
-                outline: { color: [255, 255, 255], width: 1.5 }
-            }
-        });
+        
 
         // Load feature layer with error handling
         featureLayer.load()
@@ -602,8 +601,7 @@ view.when(() => {
                     pointGraphic.geometry = point;
                     if (!view.graphics.includes(pointGraphic)) {
                         view.graphics.add(pointGraphic);
-                    }
-
+                    }                    
                     // Open popup with query results
                     view.openPopup({
                         location: point,
@@ -611,6 +609,11 @@ view.when(() => {
                         featureMenuOpen: true
                     });
                     btnConnect.disabled = false;
+
+                    let selectFeatureAttributes = featureSet.features[0].attributes;                    
+                    inputCodeNosazi.value = selectFeatureAttributes.Code_nosazi;
+                    selectFeatureInfo.set("Code_nosazi", selectByAttribute.Code_nosazi);
+                    selectFeatureInfo.set("Masahat", selectFeatureAttributes.Masahat);
                 })
                 .catch((error) => {
                     console.error("Feature query failed:", error);
@@ -622,7 +625,34 @@ view.when(() => {
         }
     }    
     // #endregion Identify
-
+    function exportToShahrsazi() {
+        //POST request to update features
+        fetch("https://localhost:44323/Home/insertToDB/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                mapService: selectFeatureInfo.get("Code_nosazi"),
+                printService: selectFeatureInfo.get("Masahat")
+            }),
+        }).then((response) => {
+            if (!response.ok) {
+                throw new Error("Failed to insert features");
+            }
+            return response.json();
+        }).then((data) => {
+            if (data.success) {
+                alert(`Feature insert successfully: ${data.message}`);
+            } else {
+                console.error("Failed to insert feature:", data.message);
+            }
+        }).catch((error) => {
+            console.error("Error during POST request:", error);
+            alert("Failed to insert features. Please try again.");
+        });
+    }
+    document.getElementById("btnConnect").addEventListener("click", exportToShahrsazi);       
     // #region Editor
     // Create the Editor
     var editor = null;
