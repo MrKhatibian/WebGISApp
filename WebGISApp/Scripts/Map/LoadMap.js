@@ -570,8 +570,8 @@ view.when(() => {
     }
 
     function handleMapClick(event) {
-        if (!event.mapPoint) {
-            console.warn("Invalid event.mapPoint.");
+        if (!pointGraphic || !event.mapPoint) {
+            console.warn("Invalid pointGraphic or event.mapPoint.");
             return;
         }
 
@@ -583,10 +583,10 @@ view.when(() => {
         view.graphics?.add(pointGraphic);
 
         // Execute feature query
-        featuresQuery(event, pointGraphic);
+        featuresQuery(event);
     }
 
-    function featuresQuery(screenPoint, pointGraphic) {
+    function featuresQuery(screenPoint) {
         if (!screenPoint || !pointGraphic) {
             console.warn("Invalid screenPoint or pointGraphic.");
             return;
@@ -653,36 +653,56 @@ view.when(() => {
     }
 
     // #endregion Identify
+
+    // #region Connect to Shahrsazi
     // Connect to shahrsazi when clicked by btnconnect
-    function connectToShahrsazi() {
-        debugger
-        //POST request to update features
-        fetch("https://localhost:44323/Home/insertToDB/", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                mapService: selectFeatureInfo.get("Code_nosazi"),
-                printService: selectFeatureInfo.get("Masahat")
-            }),
-        }).then((response) => {
+    async function connectToShahrsazi() {        
+
+        // Get feature info safely
+        const Code_nosazi = selectFeatureInfo.get("Code_nosazi");
+        const Masahat = selectFeatureInfo.get("Masahat");
+
+        // Ensure values are valid before sending request
+        if (!Code_nosazi || !Masahat) {
+            console.warn("Missing feature data! Please select a valid feature.");
+            alert("Feature data is missing. Please select a valid feature.");
+            return;
+        }
+
+        try {
+            const response = await fetch("https://localhost:44323/Home/insertToDB/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    mapService: Code_nosazi,
+                    printService: Masahat }),
+            });
+
             if (!response.ok) {
-                throw new Error("Failed to insert features");
+                throw new Error(`Failed to insert features: ${response.statusText}`);
             }
-            return response.json();
-        }).then((data) => {
+
+            const data = await response.json();
+
             if (data.success) {
-                alert(`Feature insert successfully: ${data.message}`);
+                alert(`Feature inserted successfully: ${data.message}`);
             } else {
                 console.error("Failed to insert feature:", data.message);
+                alert("Failed to insert feature. Please check the console for more details.");
             }
-        }).catch((error) => {
+        } catch (error) {
             console.error("Error during POST request:", error);
             alert("Failed to insert features. Please try again.");
-        });
+        }
     }
-    document.getElementById("btnConnect").addEventListener("click", connectToShahrsazi);       
+
+    // Attach event listener
+    document.getElementById("btnConnect")?.addEventListener("click", connectToShahrsazi);
+  
+    // #endregion Connect to Shahrsazi
+
     // #region Editor
     // Create the Editor
     var editor = null;
