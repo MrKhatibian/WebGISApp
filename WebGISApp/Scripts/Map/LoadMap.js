@@ -609,10 +609,10 @@ view.when(() => {
                         featureMenuOpen: true
                     });
                     btnConnect.disabled = false;
-
+                    debugger
                     let selectFeatureAttributes = featureSet.features[0].attributes;                    
                     inputCodeNosazi.value = selectFeatureAttributes.Code_nosazi;
-                    selectFeatureInfo.set("Code_nosazi", selectByAttribute.Code_nosazi);
+                    selectFeatureInfo.set("Code_nosazi", selectFeatureAttributes.Code_nosazi);
                     selectFeatureInfo.set("Masahat", selectFeatureAttributes.Masahat);
                 })
                 .catch((error) => {
@@ -625,7 +625,9 @@ view.when(() => {
         }
     }    
     // #endregion Identify
-    function exportToShahrsazi() {
+    // Connect to shahrsazi when clicked by btnconnect
+    function connectToShahrsazi() {
+        debugger
         //POST request to update features
         fetch("https://localhost:44323/Home/insertToDB/", {
             method: "POST",
@@ -652,7 +654,7 @@ view.when(() => {
             alert("Failed to insert features. Please try again.");
         });
     }
-    document.getElementById("btnConnect").addEventListener("click", exportToShahrsazi);       
+    document.getElementById("btnConnect").addEventListener("click", connectToShahrsazi);       
     // #region Editor
     // Create the Editor
     var editor = null;
