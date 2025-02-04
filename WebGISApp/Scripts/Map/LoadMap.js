@@ -503,21 +503,14 @@ view.when(() => {
             default:
                 return "وضعیت نامشخص است."; // In case of unexpected status
         }
-    }
-    // refresh map button
-    //const btnRefresh = document.getElementById("refresh");
-    //btnRefresh.addEventListener("click", function () {
-    //    if (typeof layer !== "undefined" && typeof layer.refresh === "function") {
-    //        layer.refresh(); // Refresh the layer
-    //        featureLayer.refresh();
-    //        alertBox(layerLoadStatus(), "info"); // Call the function to show the current status
-    //    } else {
-    //        alertBox("لایه مشخص نشده یا قابلیت رفرش ندارد.", "error"); // Error handling for undefined layer
-    //    }
-    //});
+    } 
 
-    // #region Identify        
-    // Declare pointGraphic and bufferGraphic globally for access in both functions
+    // #region Identify
+
+    let selectFeatureInfo = new Map();   
+    let bufferGraphic;
+    const btnConnect = document.getElementById("btnConnect");
+
     // Define point graphic
     const pointGraphic = new Graphic({
         symbol: {
@@ -526,22 +519,27 @@ view.when(() => {
             outline: { color: [255, 255, 255], width: 1.5 }
         }
     });
-    let bufferGraphic;
-    const btnConnect = document.getElementById("btnConnect");
-    let selectFeatureInfo = new Map();   
-
-    function stopIdentify() {        
+    
+    function stopIdentify() {
         isIdentify = false;
         btnConnect.disabled = true;
-        document.getElementById("mapView").style.cursor = "auto";
-        document.getElementById("optionsDiv").hidden = true;
 
-        if (view.graphics.includes(pointGraphic)) {
+        // Cache elements
+        const mapView = document.getElementById("mapView");
+        const optionsDiv = document.getElementById("optionsDiv");
+
+        if (mapView) mapView.style.cursor = "auto";
+        if (optionsDiv) optionsDiv.hidden = true;
+
+        // Remove point graphic safely
+        if (pointGraphic && view.graphics.includes(pointGraphic)) {
             view.graphics.remove(pointGraphic);
         }
-        viewClick.remove();
-        //alert("stop");                
+
+        // Remove event listener safely
+        viewClick?.remove();
     }
+
     function startIdentify(featureLayer) {        
         isIdentify = true;        
         document.getElementById("mapView").style.cursor = "help";
@@ -551,9 +549,7 @@ view.when(() => {
         if (!view.ui.find(optionsDiv)) {
             view.ui.add(optionsDiv, "top-left");
         }
-        //view.ui.add(optionsDiv, "top-left");
         
-
         // Load feature layer with error handling
         featureLayer.load()
             .then(() => {
