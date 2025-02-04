@@ -716,45 +716,70 @@ view.when(() => {
     // #endregion Connect to Shahrsazi
 
     // #region Editor
-    // Create the Editor
-    var editor = null;
+    let editor = null;
     let isEditing = false;
-    document.getElementById("editable").onclick = () => {
+    const editableButton = document.getElementById("editable");
+
+    editableButton.onclick = () => {
         isEditing ? stopEdit() : startEdit(featureLayer);
     };
+
     function stopEdit() {
+        if (!editor) {
+            console.warn("Editor is not initialized.");
+            return;
+        }
+
         isEditing = false;
         editor.visible = false;
-        featureTable.editingEnabled = false;
-        editor.destroy();
-    }
-    function startEdit(featureLayer) {
-        if (!document.getElementById("editable").active) {
-            document.getElementById("editable").active = true;
+
+        if (typeof featureTable !== "undefined") {
+            featureTable.editingEnabled = false;
         }
-        if (isEditing == false) {
+
+        editor.destroy();
+        editor = null; // Ensure proper cleanup
+    }
+
+    function startEdit(featureLayer) {
+        if (!featureLayer) {
+            console.error("Feature layer is not defined.");
+            return;
+        }
+
+        if (!editableButton.classList.contains("active")) {
+            editableButton.classList.add("active"); // Use classList to manage state
+        }
+
+        if (!isEditing) {
             isEditing = true;
-            //map.add(featureLayer);
+
             editor = new Editor({
                 view: view,
                 layerInfos: [{ layer: featureLayer }],
-                snappingOptions: { // autocasts to SnappingOptions()
+                snappingOptions: {
                     enabled: true,
-                    featureSources: [{ layer: featureLayer }], // autocasts to FeatureSnappingLayerSource()                
+                    featureSources: [{ layer: featureLayer }],
                 },
             });
+
             view.ui.add(editor, "top-left");
-            //toggleFeatureTable(featureLayer.url, featureLayer.title);
-            featureTable.editingEnabled = true;
-            editor.on("sketch-update", function (evt) {
+
+            if (typeof featureTable !== "undefined") {
+                featureTable.editingEnabled = true;
+            }
+
+            // Handle sketch updates
+            editor.on("sketch-update", (evt) => {
                 const { tool, graphics, state } = evt.detail;
                 if (state === "complete") {
-
+                    console.log("Sketch update complete:", tool, graphics);
                 }
             });
         }
     }
-    // #endregion 
+    // #endregion Editor
+
 
     // #region Add for test
 
