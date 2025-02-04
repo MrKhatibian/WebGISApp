@@ -540,30 +540,41 @@ view.when(() => {
         viewClick?.remove();
     }
 
-    function startIdentify(featureLayer) {        
-        isIdentify = true;        
-        document.getElementById("mapView").style.cursor = "help";
+    function startIdentify(featureLayer) {
+        isIdentify = true;
 
-         //Display options UI
+        // Cache elements
+        const mapView = document.getElementById("mapView");
         const optionsDiv = document.getElementById("optionsDiv");
-        if (!view.ui.find(optionsDiv)) {
+
+        if (mapView) mapView.style.cursor = "help";
+
+        // Display options UI safely
+        if (optionsDiv && !view.ui.find(optionsDiv)) {
             view.ui.add(optionsDiv, "top-left");
         }
-        
+
         // Load feature layer with error handling
-        featureLayer.load()
+        featureLayer?.load()
             .then(() => {
-                featureLayer.popupTemplate = featureLayer.createPopupTemplate();
+                if (typeof featureLayer.createPopupTemplate === "function") {
+                    featureLayer.popupTemplate = featureLayer.createPopupTemplate();
+                } else {
+                    console.warn("createPopupTemplate method not found on featureLayer.");
+                }
             })
             .catch((error) => {
-                console.error("Error loading feature layer:", error);
-                alertBox("Failed to load feature layer!", "error");
+                console.error("Feature layer failed to load:", error);
+                alert("Failed to load feature layer. See console for details.");
             });
 
+        // Remove previous event listener if it exists
+        viewClick?.remove();
+
         // Click event for identification
-        if (viewClick) viewClick.remove(); // Remove previous event listener if exists
         viewClick = view.on("click", (event) => handleMapClick(event, pointGraphic));
     }
+
 
     function handleMapClick(event, pointGraphic) {
         view.graphics.remove(pointGraphic);
