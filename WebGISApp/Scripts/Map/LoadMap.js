@@ -566,20 +566,26 @@ view.when(() => {
         viewClick?.remove();
 
         // Click event for identification
-        viewClick = view.on("click", (event) => handleMapClick(event, pointGraphic));
+        viewClick = view.on("click", (event) => handleMapClick(event));
     }
 
+    function handleMapClick(event) {
+        if (!event.mapPoint) {
+            console.warn("Invalid event.mapPoint.");
+            return;
+        }
 
-    function handleMapClick(event, pointGraphic) {
-        view.graphics.remove(pointGraphic);
+        // Remove existing pointGraphic safely
+        view.graphics?.remove(pointGraphic);
 
-        // Place point graphic
+        // Place point graphic safely
         pointGraphic.geometry = event.mapPoint;
-        view.graphics.add(pointGraphic);
+        view.graphics?.add(pointGraphic);
 
         // Execute feature query
         featuresQuery(event, pointGraphic);
     }
+
     function featuresQuery(screenPoint, pointGraphic) {
         try {
             const point = view.toMap(screenPoint);
@@ -624,7 +630,7 @@ view.when(() => {
         } catch (error) {
             console.error("featuresQuery error:", error);
         }
-    }    
+    }
     // #endregion Identify
     // Connect to shahrsazi when clicked by btnconnect
     function connectToShahrsazi() {
