@@ -544,15 +544,9 @@ view.when(() => {
         isIdentify = true;
 
         // Cache elements
-        const mapView = document.getElementById("mapView");
-        const optionsDiv = document.getElementById("optionsDiv");
+        const mapView = document.getElementById("mapView");        
 
         if (mapView) mapView.style.cursor = "help";
-
-        // Display options UI safely
-        if (optionsDiv && !view.ui.find(optionsDiv)) {
-            view.ui.add(optionsDiv, "top-left");
-        }
 
         // Load feature layer with error handling
         featureLayer?.load()
