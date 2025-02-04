@@ -507,7 +507,7 @@ view.when(() => {
 
     // #region Identify
 
-    let selectFeatureInfo = new Map();   
+    let selectFeatureInfo = new Map();
     let bufferGraphic;
     const btnConnect = document.getElementById("btnConnect");
 
@@ -519,7 +519,7 @@ view.when(() => {
             outline: { color: [255, 255, 255], width: 1.5 }
         }
     });
-    
+
     function stopIdentify() {
         isIdentify = false;
         btnConnect.disabled = true;
@@ -532,7 +532,7 @@ view.when(() => {
         if (optionsDiv) optionsDiv.hidden = true;
 
         // Remove point graphic safely
-        if (pointGraphic && view.graphics.includes(pointGraphic)) {
+        if (pointGraphic && view?.graphics?.includes(pointGraphic)) {
             view.graphics.remove(pointGraphic);
         }
 
@@ -541,15 +541,20 @@ view.when(() => {
     }
 
     function startIdentify(featureLayer) {
+        if (!featureLayer) {
+            console.error("Feature layer is undefined.");
+            return;
+        }
+
         isIdentify = true;
 
         // Cache elements
-        const mapView = document.getElementById("mapView");        
+        const mapView = document.getElementById("mapView");
 
         if (mapView) mapView.style.cursor = "help";
 
         // Load feature layer with error handling
-        featureLayer?.load()
+        featureLayer.load()
             .then(() => {
                 if (typeof featureLayer.createPopupTemplate === "function") {
                     featureLayer.popupTemplate = featureLayer.createPopupTemplate();
@@ -570,8 +575,8 @@ view.when(() => {
     }
 
     function handleMapClick(event) {
-        if (!pointGraphic || !event.mapPoint) {
-            console.warn("Invalid pointGraphic or event.mapPoint.");
+        if (!event?.mapPoint) {
+            console.warn("Invalid event.mapPoint.");
             return;
         }
 
@@ -583,12 +588,17 @@ view.when(() => {
         view.graphics?.add(pointGraphic);
 
         // Execute feature query
-        featuresQuery(event);
+        featuresQuery(event.screenPoint);
     }
 
     function featuresQuery(screenPoint) {
         if (!screenPoint || !pointGraphic) {
             console.warn("Invalid screenPoint or pointGraphic.");
+            return;
+        }
+
+        if (!featureLayer) {
+            console.error("Feature layer is not defined.");
             return;
         }
 
@@ -618,9 +628,11 @@ view.when(() => {
                 }
 
                 // Set graphic location and add to view if not already present
-                pointGraphic.geometry = point;
-                if (!view.graphics.includes(pointGraphic)) {
-                    view.graphics.add(pointGraphic);
+                if (pointGraphic.geometry !== point) {
+                    pointGraphic.geometry = point;
+                    if (!view.graphics.includes(pointGraphic)) {
+                        view.graphics.add(pointGraphic);
+                    }
                 }
 
                 // Open popup with query results
@@ -653,6 +665,7 @@ view.when(() => {
     }
 
     // #endregion Identify
+
 
     // #region Connect to Shahrsazi
     // Connect to shahrsazi when clicked by btnconnect
@@ -699,8 +712,7 @@ view.when(() => {
     }
 
     // Attach event listener
-    document.getElementById("btnConnect")?.addEventListener("click", connectToShahrsazi);
-  
+    document.getElementById("btnConnect")?.addEventListener("click", connectToShahrsazi);  
     // #endregion Connect to Shahrsazi
 
     // #region Editor
