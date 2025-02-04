@@ -587,50 +587,71 @@ view.when(() => {
     }
 
     function featuresQuery(screenPoint, pointGraphic) {
-        try {
-            const point = view.toMap(screenPoint);
+        if (!screenPoint || !pointGraphic) {
+            console.warn("Invalid screenPoint or pointGraphic.");
+            return;
+        }
 
-            let query = new Query({
-                geometry: point,
-                spatialRelationship: "intersects",
-                returnGeometry: false,
-                returnQueryGeometry: true,
-                outFields: ["*"]
-            });
+        // Convert screen point to map coordinates
+        const point = view.toMap(screenPoint);
+        if (!point) {
+            console.error("Failed to convert screenPoint to map coordinates.");
+            return;
+        }
 
-            featureLayer.queryFeatures(query)
-                .then((featureSet) => {
-                    if (!featureSet.features.length) {
-                        console.warn("No features found at this location.");
-                        return;
-                    }                    
-                    // Set graphic location & add to view
-                    pointGraphic.geometry = point;
-                    if (!view.graphics.includes(pointGraphic)) {
-                        view.graphics.add(pointGraphic);
-                    }                    
-                    // Open popup with query results
-                    view.openPopup({
-                        location: point,
-                        features: featureSet.features,
-                        featureMenuOpen: true
-                    });
-                    btnConnect.disabled = false;
-                    debugger
-                    let selectFeatureAttributes = featureSet.features[0].attributes;                    
-                    inputCodeNosazi.value = selectFeatureAttributes.Code_nosazi;
-                    selectFeatureInfo.set("Code_nosazi", selectFeatureAttributes.Code_nosazi);
-                    selectFeatureInfo.set("Masahat", selectFeatureAttributes.Masahat);
-                })
-                .catch((error) => {
-                    console.error("Feature query failed:", error);
-                    alertBox("Error fetching feature data!", "error");
+        // Define query
+        const query = new Query({
+            geometry: point,
+            spatialRelationship: "intersects",
+            returnGeometry: false,
+            returnQueryGeometry: true,
+            outFields: ["*"]
+        });
+
+        // Execute feature query
+        featureLayer.queryFeatures(query)
+            .then((featureSet) => {
+                const features = featureSet.features;
+                if (!features?.length) {
+                    console.warn("No features found at this location.");
+                    return;
+                }
+
+                // Set graphic location and add to view if not already present
+                pointGraphic.geometry = point;
+                if (!view.graphics.includes(pointGraphic)) {
+                    view.graphics.add(pointGraphic);
+                }
+
+                // Open popup with query results
+                view.openPopup({
+                    location: point,
+                    features: features,
+                    featureMenuOpen: true
                 });
 
-        } catch (error) {
-            console.error("featuresQuery error:", error);
-        }
+                // Enable connect button
+                btnConnect.disabled = false;
+
+                // Ensure the first feature has attributes
+                const attributes = features[0]?.attributes;
+                if (!attributes) {
+                    console.warn("Feature attributes not found.");
+                    return;
+                }
+
+                // Update UI elements with feature attributes
+                inputCodeNosazi.value = attributes.Code_nosazi ?? "";
+                selectFeatureInfo.set("Code_nosazi", attributes.Code_nosazi ?? "N/A");
+                selectFeatureInfo.set("Masahat", attributes.Masahat ?? "N/A");
+
+            })
+            .catch((error) => {
+                console.error("Feature query failed:", error);
+                alert("Error fetching feature data!");
+            });
     }
+
     // #endregion Identify
     // Connect to shahrsazi when clicked by btnconnect
     function connectToShahrsazi() {
