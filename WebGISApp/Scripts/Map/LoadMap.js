@@ -305,12 +305,7 @@ view.when(() => {
             }
         });
     }
-    // #endregion search
-
-
-    document.getElementById("identify").onclick = () => {
-        isIdentify ? stopIdentify() : startIdentify(featureLayer);
-    };
+    // #endregion search    
 
     // Add all feature layers
     function addFeatureLayers(url) {
@@ -458,37 +453,41 @@ view.when(() => {
         }
     });
 
-    // Toggle FeatureTable visibility
+    // References to elements
     const btnCloseAttributeTable = document.getElementById("closeAttributeTable");
     let panelMapView = document.getElementById("panelMapView");
     let panelAttributeTable = document.getElementById("panelAttributeTable");
 
-    btnCloseAttributeTable.addEventListener("click", () => {
-        if (panelAttributeTable.style.height === "50%") {
-            panelAttributeTable.style.height = "0%";
-            btnCloseAttributeTable.hidden = true;
-            panelMapView.style.height = "100%";
-        }
-    });
-    // Toggle FeatureTable overlay visibility
-    let flag = true;
+    // Flag to track the state of the table (open/close)
+    let isFeatureTableOpen = false;
+
+    // Toggle FeatureTable visibility
     function toggleFeatureTable(featureLayer) {
         featureTable.layer = featureLayer;
-        panelAttributeTable.style.height = "50%";
-        btnCloseAttributeTable.hidden = false;
-        panelMapView.style.height = "50%";
-        //if (flag) {
-        //    flag = false;
-        //    //featureTable.layer = featureLayer1;
-        //    featureTable.layer = featureLayer;
-        //    panelMapView.style.height = "50%";
-        //    panelAttributeTable.style.height = "50%";
-        //} else {
-        //    flag = true;
-        //    panelMapView.style.height = "100%";
-        //    panelAttributeTable.style.height = "0%";
-        //}
+
+        if (isFeatureTableOpen) {
+            // Close the Feature Table
+            panelAttributeTable.style.height = "0%";
+            panelMapView.style.height = "100%";
+            btnCloseAttributeTable.hidden = true;
+        } else {
+            // Open the Feature Table
+            panelAttributeTable.style.height = "50%";
+            panelMapView.style.height = "50%";
+            btnCloseAttributeTable.hidden = false;
+        }
+
+        // Toggle the state
+        isFeatureTableOpen = !isFeatureTableOpen;
     }
+
+    // Event listener to close the Feature Table when the close button is clicked
+    btnCloseAttributeTable.addEventListener("click", () => {
+        if (isFeatureTableOpen) {
+            toggleFeatureTable();  // Call the same toggle function to close
+        }
+    });
+
     // #endregion
     function layerLoadStatus() {
         switch (layer.loadStatus) {
@@ -505,8 +504,75 @@ view.when(() => {
         }
     } 
 
-    // #region Identify
+    // #region Editor
+    let editor = null;
+    let isEditing = false;
+    const editableButton = document.getElementById("editable");
 
+    editableButton.onclick = () => {
+        isEditing ? stopEdit() : startEdit(featureLayer);
+    };
+
+    function stopEdit() {
+        if (!editor) {
+            console.warn("Editor is not initialized.");
+            return;
+        }
+
+        isEditing = false;
+        editor.visible = false;
+
+        if (typeof featureTable !== "undefined") {
+            featureTable.editingEnabled = false;
+        }
+
+        editor.destroy();
+        editor = null; // Ensure proper cleanup
+    }
+
+    function startEdit(featureLayer) {
+        if (!editableButton.active) {
+            editableButton.active = true;
+        }
+        if (!featureLayer) {
+            console.error("Feature layer is not defined.");
+            return;
+        }       
+
+        if (!isEditing) {
+            isEditing = true;
+
+            editor = new Editor({
+                view: view,
+                layerInfos: [{ layer: featureLayer }],
+                snappingOptions: {
+                    enabled: true,
+                    featureSources: [{ layer: featureLayer }],
+                },
+            });
+
+            view.ui.add(editor, "top-left");
+
+            if (typeof featureTable !== "undefined") {
+                featureTable.editingEnabled = true;
+            }
+
+            // Handle sketch updates
+            editor.on("sketch-update", (evt) => {
+                const { tool, graphics, state } = evt.detail;
+                if (state === "complete") {
+                    console.log("Sketch update complete:", tool, graphics);
+                }
+            });
+        }
+    }
+    // #endregion Editor
+
+
+    // #region Identify
+    document.getElementById("identify").onclick = () => {
+        isIdentify ? stopIdentify() : startIdentify(featureLayer);
+    };
     let selectFeatureInfo = new Map();
     let bufferGraphic;
     const btnConnect = document.getElementById("btnConnect");
@@ -715,71 +781,7 @@ view.when(() => {
     document.getElementById("btnConnect")?.addEventListener("click", connectToShahrsazi);  
     // #endregion Connect to Shahrsazi
 
-    // #region Editor
-    let editor = null;
-    let isEditing = false;
-    const editableButton = document.getElementById("editable");
-
-    editableButton.onclick = () => {
-        isEditing ? stopEdit() : startEdit(featureLayer);
-    };
-
-    function stopEdit() {
-        if (!editor) {
-            console.warn("Editor is not initialized.");
-            return;
-        }
-
-        isEditing = false;
-        editor.visible = false;
-
-        if (typeof featureTable !== "undefined") {
-            featureTable.editingEnabled = false;
-        }
-
-        editor.destroy();
-        editor = null; // Ensure proper cleanup
-    }
-
-    function startEdit(featureLayer) {
-        if (!featureLayer) {
-            console.error("Feature layer is not defined.");
-            return;
-        }
-
-        if (!editableButton.classList.contains("active")) {
-            editableButton.classList.add("active"); // Use classList to manage state
-        }
-
-        if (!isEditing) {
-            isEditing = true;
-
-            editor = new Editor({
-                view: view,
-                layerInfos: [{ layer: featureLayer }],
-                snappingOptions: {
-                    enabled: true,
-                    featureSources: [{ layer: featureLayer }],
-                },
-            });
-
-            view.ui.add(editor, "top-left");
-
-            if (typeof featureTable !== "undefined") {
-                featureTable.editingEnabled = true;
-            }
-
-            // Handle sketch updates
-            editor.on("sketch-update", (evt) => {
-                const { tool, graphics, state } = evt.detail;
-                if (state === "complete") {
-                    console.log("Sketch update complete:", tool, graphics);
-                }
-            });
-        }
-    }
-    // #endregion Editor
-
+    
 
     // #region Add for test
 
