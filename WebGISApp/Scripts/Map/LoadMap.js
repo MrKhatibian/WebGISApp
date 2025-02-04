@@ -32,6 +32,7 @@ import * as identify from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@a
 import IdentifyParameters from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/rest/support/IdentifyParameters.js";
 import Query from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/rest/support/Query.js";
 import WebTileLayer from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/layers/WebTileLayer.js";
+import Fe from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/Editor.js";
 
 // #endregion
 
@@ -248,6 +249,7 @@ view.when(() => {
         outFields: ["*"], // Fetch all fields
         title: "عرصه" // Replace with a descriptive title
     });
+    featuresLayerArray.push(featureLayer);
     map.add(featureLayer);
     let inputCodeNosazi = document.getElementById("inputCodeNosazi");
     // #region Search
@@ -418,40 +420,88 @@ view.when(() => {
     });
 
     // Handle LayerList action events
-    layerList.on("trigger-action", (event) => {
+    layerList.on("trigger-action", async (event) => {
         const selectedLayer = event.item.layer;
-        //alert(`${selectedLayer.id}...${selectedLayer.type}...${selectedLayer.url}...${selectedLayer.title}`);        
-        if (event.action.id === "zoom-to-layer") {
-            //headerTitleElement.heading = selectedLayer.title;
-            selectedLayer.when(() => {
-                view.goTo(selectedLayer.fullExtent).catch((error) => {
-                    if (error.name != "AbortError") {
-                        console.error(error);
-                    }
-                });
-            });
-        } else if (event.action.id === "remove-layer") {
-            // Remove the layer from the map
-            map.remove(selectedLayer).catch((error) => {
-                if (error.name != "AbortError") {
-                    console.error(error);
-                }
-            });
-        } else if (event.action.id === "toggle-table" || event.action.id === "toggle-edit") {
-            featuresLayerArray.forEach((selectedFeatureLayer) => {
-                if (selectedFeatureLayer.title === selectedLayer.title) {
-                    featureLayer = selectedFeatureLayer;
-                }
-            });
-            if (event.action.id === "toggle-table") {
-                //toggleFeatureTable(selectedLayer.url, selectedLayer.title);
-                toggleFeatureTable(featureLayer);
-            } else if (event.action.id === "toggle-edit") {
-                startEdit(featureLayer);
-                toggleFeatureTable(featureLayer);
-            }
+        if (!selectedLayer) {
+            console.warn("No layer selected.");
+            return;
+        }
+
+        switch (event.action.id) {
+            case "zoom-to-layer":
+                await zoomToLayer(selectedLayer);
+                break;
+
+            case "remove-layer":
+                confirmAndRemoveLayer(selectedLayer);
+                break;
+
+            case "toggle-table":
+            case "toggle-edit":
+                handleFeatureLayerActions(selectedLayer, event.action.id);
+                break;
+
+            default:
+                console.warn(`Unhandled action: ${event.action.id}`);
+                break;
         }
     });
+
+    /**
+     * Zoom to the selected layer with UI feedback
+     */
+    async function zoomToLayer(layer) {
+        try {
+            // Show loading cursor
+            view.container.style.cursor = "wait";
+
+            await layer.when();
+            await view.goTo(layer.fullExtent);
+
+            // Restore cursor after zooming
+            view.container.style.cursor = "default";
+        } catch (error) {
+            view.container.style.cursor = "default";
+            if (error.name !== "AbortError") console.error("Zoom failed:", error);
+        }
+    }
+
+    /**
+     * Confirm before removing a layer
+     */
+    function confirmAndRemoveLayer(layer) {
+        if (confirm(`Are you sure you want to remove "${layer.title}"?`)) {
+            try {
+                map.remove(layer);
+                btnCloseAttributeTable.click();
+                editableButton.click();
+
+                console.log(`Layer "${layer.title}" removed.`);
+            } catch (error) {
+                if (error.name !== "AbortError") console.error("Error removing layer:", error);
+            }
+        }
+    }
+
+    /**
+     * Handle toggling Feature Table or Editing
+     */
+    function handleFeatureLayerActions(selectedLayer, actionId) {
+        // Find the matching feature layer
+        let featureLayer = featuresLayerArray.find((layer) => layer.title === selectedLayer.title);
+
+        if (!featureLayer) {
+            console.warn(`Feature layer "${selectedLayer.title}" not found.`);
+            return;
+        }
+
+        if (actionId === "toggle-table") {
+            toggleFeatureTable(featureLayer);
+        } else {
+            startEdit(featureLayer);
+            toggleFeatureTable(featureLayer);
+        }
+    }
 
     // References to elements
     const btnCloseAttributeTable = document.getElementById("closeAttributeTable");
