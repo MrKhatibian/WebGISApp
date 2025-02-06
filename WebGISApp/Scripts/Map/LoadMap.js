@@ -34,12 +34,10 @@ import Query from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/co
 import WebTileLayer from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/layers/WebTileLayer.js";
 import Fe from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/Editor.js";
 
-// #endregion
+// #endregion Import
 
 // #region Main
-
 // Paramter
-/*let featureLayer;*/
 const features = [];
 var featuresLayerArray = [];
 var params, viewClick;
@@ -108,6 +106,7 @@ function addData(dataPath, dataType) {
         dialog_AddData.open = false;
     }
 }
+// #endregion Main 
 
 // #region Service Setting
 const inputServiceSetting = document.getElementById("inputServiceSetting");
@@ -221,9 +220,8 @@ async function fetchArcGISData(url) {
 //            alert("Failed to update features. Please try again.");
 //        });
 //});
+// #endregion
 
-// #endregion
-// #endregion
 view.when(() => {
     const layer = new MapImageLayer({
         // Replace with your ArcGIS Server URL
@@ -252,64 +250,8 @@ view.when(() => {
     featuresLayerArray.push(featureLayer);
     map.add(featureLayer);
     let inputCodeNosazi = document.getElementById("inputCodeNosazi");
-    // #region Search
-    document.getElementById("btnSearch").addEventListener("click", () => {
 
-        if (inputCodeNosazi.value) {
-            selectByAttribute(inputCodeNosazi.value);
-        } else {
-            alert("لطفا کد نوسازی معتبر وارد کنید ");
-        }
-    });
-    function selectByAttribute(codeNosazi) {
-        featureLayer.load().then(() => {
-            // Set the view extent to the data extent
-            //view.extent = featureLayer.fullExtent;
-            featureLayer.popupTemplate = featureLayer.createPopupTemplate();
-        });
-        const query = featureLayer.createQuery();
-        query.where = `Code_nosazi = N'${codeNosazi}'`; // Search for the specific ObjectID
-        query.returnGeometry = true; // Ensure geometry is returned
-        query.outFields = ["*"]; // Retrieve all attributes
-
-        featureLayer.queryFeatures(query).then((featureSet) => {
-            if (featureSet.features.length > 0) {
-                const feature = featureSet.features[0]; // Get the first matching feature
-                //console.log("Found Feature:", feature.attributes);
-
-                // Zoom to the feature's location
-                view.goTo(feature.geometry.extent.expand(2));
-
-                // Highlight the feature
-                //view.graphics.removeAll();
-                //const highlightGraphic = new Graphic({
-                //    geometry: feature.geometry,
-                //    symbol: {
-                //        type: "simple-fill", // For polygons
-                //        color: [255, 255, 0, 0.5],
-                //        outline: {
-                //            color: [255, 0, 0],
-                //            width: 2
-                //        }
-                //    }
-                //});
-                //view.graphics.add(highlightGraphic);
-                // open popup of query featureSet
-                view.openPopup({
-                    //location: feature.geometry,
-                    features: featureSet.features,
-                    featureMenuOpen: true
-                });
-                // Optionally display attributes
-                //alert(JSON.stringify(feature.attributes, null, 2));
-            } else {
-                alert("مورد مورد نظر یافت نشد");
-            }
-        });
-    }
-    // #endregion search    
-
-    // Add all feature layers
+    // Add all feature layers in groupLayer
     function addFeatureLayers(url) {
         let urlSplit = url.split("/");
         let featureLayerName = urlSplit[urlSplit.length - 2];
@@ -340,12 +282,49 @@ view.when(() => {
                 return Promise.all(promises);
             })
             .then(() => {
-                map.add(groupLayer); // Add GroupLayer to map                
-                //alert(featuresLayerArray.length);                                                          
+                map.add(groupLayer); // Add GroupLayer to map                                                                      
             })
     }
     // Add all feature layers
     //addFeatureLayers(featureServerUrl);
+
+    // #region Search
+    document.getElementById("btnSearch").addEventListener("click", () => {
+
+        if (inputCodeNosazi.value) {
+            selectByAttribute(inputCodeNosazi.value);
+        } else {
+            alert("لطفا کد نوسازی معتبر وارد کنید ");
+        }
+    });
+    function selectByAttribute(codeNosazi) {
+        featureLayer.load().then(() => {                        
+            featureLayer.popupTemplate = featureLayer.createPopupTemplate();
+        });
+        const query = featureLayer.createQuery();
+        query.where = `Code_nosazi = N'${codeNosazi}'`; // Search for the specific ObjectID
+        query.returnGeometry = true; // Ensure geometry is returned
+        query.outFields = ["*"]; // Retrieve all attributes
+
+        featureLayer.queryFeatures(query).then((featureSet) => {
+            if (featureSet.features.length > 0) {
+                const feature = featureSet.features[0]; // Get the first matching feature
+                console.log("Found Feature:", feature.attributes);
+
+                // Zoom to the feature's location
+                view.goTo(feature.geometry.extent.expand(2));
+                
+                // open popup of query featureSet
+                view.openPopup({                    
+                    features: featureSet.features,
+                    featureMenuOpen: true
+                });                
+            } else {
+                alert("مورد مورد نظر یافت نشد");
+            }
+        });
+    }
+    // #endregion search       
 
     // #region FeatureTable and layerlist
     // Add LayerList with improved functionality
@@ -882,7 +861,7 @@ view.when(() => {
 });
 
 
-// #endregion Main 
+
 // #region shell panels and actionbar
 // References to shell panels and actions
 const shellPanelStart = document.getElementById("shell-panel-start");
