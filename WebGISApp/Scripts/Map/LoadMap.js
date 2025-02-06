@@ -529,21 +529,7 @@ view.when(() => {
         }
     });
 
-    // #endregion
-    function layerLoadStatus() {
-        switch (layer.loadStatus) {
-            case "not-loaded":
-                return "بارگذاری نشده است.";
-            case "loading":
-                return "درحال بارگذاری";
-            case "failed":
-                return "خطا در بارگذاری";
-            case "loaded":
-                return "بارگذاری انجام شد.";
-            default:
-                return "وضعیت نامشخص است."; // In case of unexpected status
-        }
-    } 
+    // #endregion   
 
     // #region Editor
     let editor = null;
@@ -822,7 +808,20 @@ view.when(() => {
     document.getElementById("btnConnect")?.addEventListener("click", connectToShahrsazi);  
     // #endregion Connect to Shahrsazi
 
-    
+    function layerLoadStatus() {
+        switch (layer.loadStatus) {
+            case "not-loaded":
+                return "بارگذاری نشده است.";
+            case "loading":
+                return "درحال بارگذاری";
+            case "failed":
+                return "خطا در بارگذاری";
+            case "loaded":
+                return "بارگذاری انجام شد.";
+            default:
+                return "وضعیت نامشخص است."; // In case of unexpected status
+        }
+    } 
 
     // #region Add for test
 

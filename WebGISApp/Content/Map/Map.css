@@ -31,7 +31,7 @@ body {
 .drRtL {
     direction: rtl;
     text-align: right;
-    height: 100vh
+    /*height: 100vh*/
 }
 
 calcite-navigation {
