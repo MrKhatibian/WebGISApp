@@ -348,76 +348,88 @@ view.when(() => {
     //addFeatureLayers(featureServerUrl);
 
     // #region FeatureTable and layerlist
-    //Add LayerList
+    // Add LayerList with improved functionality
     const layerList = new LayerList({
         view: view,
         dragEnabled: true,
         visibilityAppearance: "checkbox",
         container: "layers-container",
-        visibleElements: { filter: true },// add Layerlist filter
-        minFilterItems: 5,//Default Value: 10
-        listItemCreatedFunction: (event) => {
-            const { item } = event;
-            //if (item.layer.type === "map-image") {}
-            // Add custom actions: Remove layer and Zoom to Layer
-            if (item.layer.type === "map-image") {
-                item.actionsSections = [[
-                    {
-                        title: "زوم به لایه",
-                        className: "esri-icon-zoom-out-fixed",
-                        id: "zoom-to-layer"
-                    },
-                    {
-                        title: "پاک کردن لایه",
-                        className: "esri-icon-close",
-                        id: "remove-layer"
-                    }
-                ]];
-            }
-            else if (item.layer.type === "feature") {
-                item.actionsSections = [[
-                    {
-                        title: "زوم به لایه",
-                        className: "esri-icon-zoom-out-fixed",
-                        id: "zoom-to-layer"
-                    },
-                    {
-                        title: "جدول اطلاعات",
-                        className: "esri-icon-table",
-                        id: "toggle-table"
-                    },
-                    {
-                        title: "ویرایش",
-                        className: "esri-icon-edit",
-                        id: "toggle-edit"
-                    },
-                    {
-                        title: "پاک کردن لایه",
-                        className: "esri-icon-close",
-                        id: "remove-layer"
-                    }
-                ]];
-            }
-        }
+        visibleElements: { filter: true }, // Enable LayerList filter
+        minFilterItems: 5, // Default Value: 10
+        listItemCreatedFunction: (event) => setupLayerActions(event),
     });
 
+    /**
+     * Adds custom actions to LayerList items based on layer type
+     */
+    function setupLayerActions(event) {
+        const { item } = event;
+        const { layer } = item;
+
+        // Define common actions
+        const zoomAction = {
+            title: "زوم به لایه",
+            className: "esri-icon-zoom-out-fixed",
+            id: "zoom-to-layer",
+        };
+        const removeAction = {
+            title: "پاک کردن لایه",
+            className: "esri-icon-close",
+            id: "remove-layer",
+        };
+        const tableAction = {
+            title: "جدول اطلاعات",
+            className: "esri-icon-table",
+            id: "toggle-table",
+        };
+        const editAction = {
+            title: "ویرایش",
+            className: "esri-icon-edit",
+            id: "toggle-edit",
+        };
+
+        // Add actions based on layer type
+        if (layer.type === "map-image") {
+            item.actionsSections = [[zoomAction, removeAction]];
+        } else if (layer.type === "feature") {
+            item.actionsSections = [[
+                zoomAction,
+                tableAction,
+                editAction,
+                removeAction,
+            ]];
+        }
+    }
+
+    // Improved FeatureTable with dynamic updates
     const featureTable = new FeatureTable({
         view: view,
-        layer: featureLayer,
-        //layer: featureLayer,
-        container: "attributeTable", // Temporary container for now
-        multiSortEnabled: true, // set this to true to enable sorting on multiple columns    
-        editingEnabled: false, // set this to true to enable editing
-        paginationEnabled: true,// Optional: Customize FeatureTable fields        
+        container: "attributeTable",
+        multiSortEnabled: true, // Enable sorting on multiple columns
+        paginationEnabled: true, // Enable pagination for better performance
+        editingEnabled: false, // Editing remains disabled by default
         visibleElements: {
             header: true,
             menu: true,
             menuItems: {
                 clearSelection: true,
-                zoomToSelection: true
-            }
+                zoomToSelection: true,
+            },
         },
     });
+
+    /**
+     * Updates FeatureTable layer dynamically
+     */
+    function updateFeatureTable(layer) {
+        if (!layer) {
+            console.warn("No layer selected for FeatureTable.");
+            return;
+        }
+
+        featureTable.layer = layer;
+        console.log(`FeatureTable updated: ${layer.title}`);
+    }   
 
     // Handle LayerList action events
     layerList.on("trigger-action", async (event) => {
@@ -474,7 +486,7 @@ view.when(() => {
             try {
                 map.remove(layer);
                 btnCloseAttributeTable.click();
-                editableButton.click();
+                if (isEditing) editableButton.click();
 
                 console.log(`Layer "${layer.title}" removed.`);
             } catch (error) {
