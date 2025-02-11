@@ -14,6 +14,7 @@
         <calcite-menu slot="content-end" style="margin-top:5px; height:50%">
             <calcite-menu-item text="باز نشانی" icon-start="refresh" id="refresh" hidden></calcite-menu-item>
             @*<calcite-menu-item text="نقشه" icon-start="analysis" text-enabled active></calcite-menu-item>*@
+            <calcite-button style="height:30%; margin-left:10px" id="btnConnect" icon-start="arrow-right-left" kind="danger" label="ارتباط با شهرسازی" disabled></calcite-button>
             <calcite-button style="height:30%; margin-left:10px" id="btnSearch" icon-start="search" label="جستوجو"></calcite-button>
             <calcite-input-text style="height:30%; margin-left:10px" id="inputCodeNosazi" placeholder="کد نوسازی را وارد کنید"></calcite-input-text>
         </calcite-menu>
@@ -86,80 +87,84 @@
         </calcite-panel>
         <calcite-panel id="panel_mapProperties" class="drRtL" hidden closed>
             <div id="mapProperties-container">
-                <calcite-tabs>
-                    
-                        <calcite-tab-nav slot="title-group">
-                            <calcite-tab-title>Watercraft</calcite-tab-title>
-                            <calcite-tab-title selected>سرویس</calcite-tab-title>
-                            <calcite-tab-title>Aircrafts</calcite-tab-title>
-                        </calcite-tab-nav>
-                        <calcite-tab selected>
-                            <div class="settingDiv">
-                                <calcite-tree>
-                                    <calcite-tree-item>East Coast</calcite-tree-item>
-                                    <calcite-tree-item>
-                                        Midwest
-                                        <calcite-tree slot="children">
-                                            <calcite-tree-item>Great Lakes</calcite-tree-item>
-                                            <calcite-tree-item>Northwoods</calcite-tree-item>
-                                        </calcite-tree>
-                                    </calcite-tree-item>
-                                    <calcite-tree-item>
-                                        West Coast
-                                        <calcite-tree slot="children">
-                                            <calcite-tree-item>
-                                                California
-                                                <calcite-tree slot="children">
-                                                    <calcite-tree-item>Bay Area</calcite-tree-item>
-                                                    <calcite-tree-item>Central Valley</calcite-tree-item>
-                                                    <calcite-tree-item>Inland Empire</calcite-tree-item>
-                                                    <calcite-tree-item>Trinity Alps</calcite-tree-item>
-                                                </calcite-tree>
-                                            </calcite-tree-item>
-                                            <calcite-tree-item>
-                                                Pacific Northwest
-                                                <calcite-tree slot="children">
-                                                    <calcite-tree-item>Oregon</calcite-tree-item>
-                                                    <calcite-tree-item>
-                                                        Washington
-                                                        <calcite-tree slot="children">
-                                                            <calcite-tree-item>Coastal</calcite-tree-item>
-                                                            <calcite-tree-item>
-                                                                Inland
-                                                                <calcite-tree slot="children">
-                                                                    <calcite-tree-item>Mount St. Helens</calcite-tree-item>
-                                                                    <calcite-tree-item>The Enchantments</calcite-tree-item>
-                                                                </calcite-tree>
-                                                            </calcite-tree-item>
-                                                        </calcite-tree>
-                                                    </calcite-tree-item>
-                                                </calcite-tree>
-                                            </calcite-tree-item>
-                                        </calcite-tree>
-                                    </calcite-tree-item>
-                                </calcite-tree>
-                            </div>
-                        </calcite-tab>
-                    
-                    <calcite-tab>
-                        @*<calcite-notice icon="car" open>
-                <div slot="message">A good choice for inland adventure</div>
-            </calcite-notice>*@
+                <calcite-tabs style="height:80vh;">
+                    <calcite-tab-nav slot="title-group">
+                        <calcite-tab-title>Watercraft</calcite-tab-title>
+                        <calcite-tab-title selected>سرویس</calcite-tab-title>
+                        <calcite-tab-title>Aircrafts</calcite-tab-title>
+                    </calcite-tab-nav>
+                    <calcite-tab selected>
+                        <div class="settingDiv">
+                            <calcite-tree>
+                                <calcite-tree-item>East Coast</calcite-tree-item>
+                                <calcite-tree-item>
+                                    Midwest
+                                    <calcite-tree slot="children">
+                                        <calcite-tree-item>Great Lakes</calcite-tree-item>
+                                        <calcite-tree-item>Northwoods</calcite-tree-item>
+                                    </calcite-tree>
+                                </calcite-tree-item>
+                                <calcite-tree-item>
+                                    West Coast
+                                    <calcite-tree slot="children">
+                                        <calcite-tree-item>
+                                            California
+                                            <calcite-tree slot="children">
+                                                <calcite-tree-item>Bay Area</calcite-tree-item>
+                                                <calcite-tree-item>Central Valley</calcite-tree-item>
+                                                <calcite-tree-item>Inland Empire</calcite-tree-item>
+                                                <calcite-tree-item>Trinity Alps</calcite-tree-item>
+                                            </calcite-tree>
+                                        </calcite-tree-item>
+                                        <calcite-tree-item>
+                                            Pacific Northwest
+                                            <calcite-tree slot="children">
+                                                <calcite-tree-item>Oregon</calcite-tree-item>
+                                                <calcite-tree-item>
+                                                    Washington
+                                                    <calcite-tree slot="children">
+                                                        <calcite-tree-item>Coastal</calcite-tree-item>
+                                                        <calcite-tree-item>
+                                                            Inland
+                                                            <calcite-tree slot="children">
+                                                                <calcite-tree-item>Mount St. Helens</calcite-tree-item>
+                                                                <calcite-tree-item>The Enchantments</calcite-tree-item>
+                                                            </calcite-tree>
+                                                        </calcite-tree-item>
+                                                    </calcite-tree>
+                                                </calcite-tree-item>
+                                            </calcite-tree>
+                                        </calcite-tree-item>
+                                    </calcite-tree>
+                                </calcite-tree-item>
+                            </calcite-tree>
+                        </div>
+                    </calcite-tab>
 
+                    <calcite-tab>
                         <calcite-list>
                             <div class="settingDiv">
-                                <calcite-label>
-                                    آدرس سرویس نقشه
-                                    <calcite-input id="inputServiceSetting" placeholder="http://(your server)/arcgis/rest/services/(example)/MapServer"></calcite-input>
-                                </calcite-label>
-                                <calcite-label>
-                                    آدرس سرویس کروکی (PrintingTools)
-                                    <calcite-input id="inputPrintSetting" placeholder="http://(your server)/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task"></calcite-input>
-                                </calcite-label>
+                                <div style="padding-bottom:20%">
+                                    <calcite-label>
+                                        آدرس سرویس نقشه
+                                        <calcite-input-text status="valid" id="inputServiceSetting" placeholder="http://(your server)/arcgis/rest/services/(example)/MapServer"
+                                                            value="http://localhost:6080/arcgis/rest/services/Maryanaj/MaryanajWithoutLabel_14031013/FeatureServer"></calcite-input-text>
+                                    </calcite-label>
+                                    <calcite-label>
+                                        آدرس سرویس کروکی (PrintingTools)
+                                        <calcite-input-text id="inputPrintSetting" placeholder="http://(your server)/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task"
+                                                            value="http://localhost:6080/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task"></calcite-input-text>
+                                    </calcite-label>
+                                    <calcite-label>
+                                        کد لایه عرصه
+                                        @*<calcite-input id="inputCodeArse" style="width:25%"></calcite-input>*@
+                                        <calcite-combobox id="comboSelectArseSetting" placeholder="Select a layer"></calcite-combobox>
+                                    </calcite-label>
+                                </div>
                                 <div class="settingServiceDivbtn">
-                                    <calcite-button id="btnCancelServiceSetting" kind="danger" icon-start="x" label="انصراف">انصراف</calcite-button>
-                                    <calcite-button id="btnSetServiceSetting" kind="brand" icon-start="plus" label="ثبت">ثبت</calcite-button>                                    
-                                </div>                                
+                                    <calcite-button class="btnCalcite" id="btnCancelServiceSetting" kind="danger" icon-start="x" label="انصراف">انصراف</calcite-button>
+                                    <calcite-button class="btnCalcite" id="btnSetServiceSetting" kind="brand" icon-start="plus" label="ثبت">ثبت</calcite-button>
+                                </div>
                             </div>
                         </calcite-list>
 
@@ -228,15 +233,7 @@
     <!--#endregion-->
     <!-- Main Content Area: Where the map or primary content goes -->
     <calcite-panel id="panelMapView">
-        <div id="mapView">
-            <div id="optionsDiv" class="esri-widget" hidden>
-                <p>Select a query type and click a point on the map to view the results.</p>
-                <select id="query-type" class="esri-widget">
-                    <option value="basic">Basic Query</option>
-                    <option value="distance">Query By Distance</option>
-                </select>
-            </div>
-        </div>
+        <div id="mapView"></div>
 
         <calcite-card id="measurement-result" appearance="solid">
             <div slot="title">Measurement Result</div>

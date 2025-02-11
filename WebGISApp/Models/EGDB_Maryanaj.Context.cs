@@ -95,6 +95,23 @@ namespace WebGISApp.Models
         public DbSet<dbtune> dbtune { get; set; }
         public DbSet<ST_GEOMETRY_COLUMNS> ST_GEOMETRY_COLUMNS { get; set; }
         public DbSet<ST_SPATIAL_REFERENCE_SYSTEMS> ST_SPATIAL_REFERENCE_SYSTEMS { get; set; }
+        public DbSet<a10> a10 { get; set; }
+        public DbSet<a11> a11 { get; set; }
+        public DbSet<a12> a12 { get; set; }
+        public DbSet<a13> a13 { get; set; }
+        public DbSet<a14> a14 { get; set; }
+        public DbSet<a7> a7 { get; set; }
+        public DbSet<a8> a8 { get; set; }
+        public DbSet<a9> a9 { get; set; }
+        public DbSet<D10> D10 { get; set; }
+        public DbSet<D11> D11 { get; set; }
+        public DbSet<D12> D12 { get; set; }
+        public DbSet<D13> D13 { get; set; }
+        public DbSet<D14> D14 { get; set; }
+        public DbSet<D7> D7 { get; set; }
+        public DbSet<D8> D8 { get; set; }
+        public DbSet<D9> D9 { get; set; }
+        public DbSet<servicesSetting> servicesSetting { get; set; }
     
         public virtual int create_version(string parent_name, ObjectParameter name, Nullable<int> name_rule, Nullable<int> access, string description)
         {

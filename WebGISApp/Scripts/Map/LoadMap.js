@@ -32,13 +32,12 @@ import * as identify from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@a
 import IdentifyParameters from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/rest/support/IdentifyParameters.js";
 import Query from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/rest/support/Query.js";
 import WebTileLayer from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/layers/WebTileLayer.js";
+import Fe from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/Editor.js";
 
-// #endregion
+// #endregion Import
 
 // #region Main
-
 // Paramter
-/*let featureLayer;*/
 const features = [];
 var featuresLayerArray = [];
 var params, viewClick;
@@ -107,18 +106,122 @@ function addData(dataPath, dataType) {
         dialog_AddData.open = false;
     }
 }
+// #endregion Main 
 
 // #region Service Setting
 const inputServiceSetting = document.getElementById("inputServiceSetting");
 const inputPrintSetting = document.getElementById("inputPrintSetting");
+const inputCodeArse = document.getElementById("inputCodeArse");
 const btnSetServiceSetting = document.getElementById("btnSetServiceSetting");
 const btnCancelServiceSetting = document.getElementById("btnCancelServiceSetting");
-btnSetServiceSetting.addEventListener("click", () => {
-    alert("say Hi");
-});
 
+btnSetServiceSetting.addEventListener("click", async function () {    
+    const url = inputServiceSetting.value.trim() +"?f=pjson";    
+
+    // Check if the service URL exists
+    try {
+        const response = await fetch(url);
+        if (response.ok) {
+            const data = await response.json(); // Parse the JSON response if it's a valid service
+            alert("Service URL is valid and accessible!");
+            fetchArcGISData(url);
+        } else {
+            alert(`Service URL is invalid or inaccessible. Status: ${response.status}`);            
+        }
+    } catch (error) {        
+        alert("Error checking the service URL. Please try again.");        
+    }
+});
+async function fetchArcGISData(url) {    
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        const combobox = document.getElementById("comboSelectArseSetting");
+        combobox.innerHTML = ""; // Clear previous items
+
+        data.layers.forEach(layer => {
+            const value = layer.name; // Change this to your field name
+            if (value) {
+                const item = document.createElement("calcite-combobox-item");
+                item.value = value;
+                item.textLabel = value;
+                combobox.appendChild(item);
+            }
+        });
+
+    } catch (error) {
+        alert("Error fetching ArcGIS data:");
+    }
+}
+//btnSetServiceSetting.addEventListener("click", () => {
+//    debugger
+//    if (
+//        inputServiceSetting.value.trim() === "" ||
+//        inputPrintSetting.value.trim() === "" ||
+//        !inputCodeArse.value
+//    ) {
+//        alert("لطفا مقادیر صحیح وارد کنید");
+//        return;
+//    }
+
+//    // GET request to fetch features
+//    fetch("https://localhost:44323/Home/GetFeatures/", {
+//        method: "GET",
+//        headers: {
+//            "Content-Type": "application/json",
+//        },
+//    })
+//        .then((response) => {
+//            if (!response.ok) {
+//                throw new Error("Failed to fetch features");
+//            }
+//            return response.json();
+//        })
+//        .then((data) => {
+//            if (data.success) {
+//                alert(`Features fetched successfully: ${data.message}`);
+//            } else {
+//                console.error("Failed to fetch features:", data.message);
+//            }
+//        })
+//        .catch((error) => {
+//            console.error("Error during GET request:", error);
+//            alert("Failed to fetch features. Please try again.");
+//        });
+
+//    // POST request to update features
+//    fetch("https://localhost:44323/Home/UpdateFeature/", {
+//        method: "POST",
+//        headers: {
+//            "Content-Type": "application/json",
+//        },
+//        body: JSON.stringify({
+//            ID: "1",
+//            mapService: inputServiceSetting.value.trim(),
+//            printService: inputPrintSetting.value.trim(),
+//        }),
+//    })
+//        .then((response) => {
+//            if (!response.ok) {
+//                throw new Error("Failed to update features");
+//            }
+//            return response.json();
+//        })
+//        .then((data) => {
+//            if (data.success) {
+//                alert(`Feature updated successfully: ${data.message}`);
+//            } else {
+//                console.error("Failed to update feature:", data.message);
+//            }
+//        })
+//        .catch((error) => {
+//            console.error("Error during POST request:", error);
+//            alert("Failed to update features. Please try again.");
+//        });
+//});
 // #endregion
-// #endregion
+
 view.when(() => {
     const layer = new MapImageLayer({
         // Replace with your ArcGIS Server URL
@@ -144,70 +247,11 @@ view.when(() => {
         outFields: ["*"], // Fetch all fields
         title: "عرصه" // Replace with a descriptive title
     });
-    map.add(featureLayer);    
-    // #region Search
-    document.getElementById("btnSearch").addEventListener("click", () => {
-        let codeNosazi = document.getElementById("inputCodeNosazi").value;
-        if (codeNosazi) {
-            selectByAttribute(codeNosazi);
-        } else {
-            alert("لطفا کد نوسازی معتبر وارد کنید ");
-        }
-    });
-    function selectByAttribute(codeNosazi) {
-        featureLayer.load().then(() => {
-            // Set the view extent to the data extent
-            //view.extent = featureLayer.fullExtent;
-            featureLayer.popupTemplate = featureLayer.createPopupTemplate();
-        });
-        const query = featureLayer.createQuery();
-        query.where = `Code_nosazi = N'${codeNosazi}'`; // Search for the specific ObjectID
-        query.returnGeometry = true; // Ensure geometry is returned
-        query.outFields = ["*"]; // Retrieve all attributes
+    featuresLayerArray.push(featureLayer);
+    map.add(featureLayer);
+    let inputCodeNosazi = document.getElementById("inputCodeNosazi");
 
-        featureLayer.queryFeatures(query).then((featureSet) => {
-            if (featureSet.features.length > 0) {
-                const feature = featureSet.features[0]; // Get the first matching feature
-                //console.log("Found Feature:", feature.attributes);
-
-                // Zoom to the feature's location
-                view.goTo(feature.geometry.extent.expand(2));
-
-                // Highlight the feature
-                //view.graphics.removeAll();
-                //const highlightGraphic = new Graphic({
-                //    geometry: feature.geometry,
-                //    symbol: {
-                //        type: "simple-fill", // For polygons
-                //        color: [255, 255, 0, 0.5],
-                //        outline: {
-                //            color: [255, 0, 0],
-                //            width: 2
-                //        }
-                //    }
-                //});
-                //view.graphics.add(highlightGraphic);
-                // open popup of query featureSet
-                view.openPopup({
-                    //location: feature.geometry,
-                    features: featureSet.features,
-                    featureMenuOpen: true
-                });
-                // Optionally display attributes
-                //alert(JSON.stringify(feature.attributes, null, 2));
-            } else {
-                alert("مورد مورد نظر یافت نشد");
-            }
-        });
-    }
-    // #endregion search
-
-
-    document.getElementById("identify").onclick = () => {
-        isIdentify ? stopIdentify() : startIdentify(featureLayer);
-    };
-
-    // Add all feature layers
+    // Add all feature layers in groupLayer
     function addFeatureLayers(url) {
         let urlSplit = url.split("/");
         let featureLayerName = urlSplit[urlSplit.length - 2];
@@ -238,153 +282,532 @@ view.when(() => {
                 return Promise.all(promises);
             })
             .then(() => {
-                map.add(groupLayer); // Add GroupLayer to map                
-                //alert(featuresLayerArray.length);                                                          
+                map.add(groupLayer); // Add GroupLayer to map                                                                      
             })
     }
     // Add all feature layers
     //addFeatureLayers(featureServerUrl);
 
+    // #region Search
+    document.getElementById("btnSearch").addEventListener("click", () => {
+
+        if (inputCodeNosazi.value) {
+            selectByAttribute(inputCodeNosazi.value);
+        } else {
+            alert("لطفا کد نوسازی معتبر وارد کنید ");
+        }
+    });
+    function selectByAttribute(codeNosazi) {
+        featureLayer.load().then(() => {                        
+            featureLayer.popupTemplate = featureLayer.createPopupTemplate();
+        });
+        const query = featureLayer.createQuery();
+        query.where = `Code_nosazi = N'${codeNosazi}'`; // Search for the specific ObjectID
+        query.returnGeometry = true; // Ensure geometry is returned
+        query.outFields = ["*"]; // Retrieve all attributes
+
+        featureLayer.queryFeatures(query).then((featureSet) => {
+            if (featureSet.features.length > 0) {
+                const feature = featureSet.features[0]; // Get the first matching feature
+                console.log("Found Feature:", feature.attributes);
+
+                // Zoom to the feature's location
+                view.goTo(feature.geometry.extent.expand(2));
+                
+                // open popup of query featureSet
+                view.openPopup({                    
+                    features: featureSet.features,
+                    featureMenuOpen: true
+                });                
+            } else {
+                alert("مورد مورد نظر یافت نشد");
+            }
+        });
+    }
+    // #endregion search       
+
     // #region FeatureTable and layerlist
-    //Add LayerList
+    // Add LayerList with improved functionality
     const layerList = new LayerList({
         view: view,
         dragEnabled: true,
         visibilityAppearance: "checkbox",
         container: "layers-container",
-        visibleElements: { filter: true },// add Layerlist filter
-        minFilterItems: 5,//Default Value: 10
-        listItemCreatedFunction: (event) => {
-            const { item } = event;
-            //if (item.layer.type === "map-image") {}
-            // Add custom actions: Remove layer and Zoom to Layer
-            if (item.layer.type === "map-image") {
-                item.actionsSections = [[
-                    {
-                        title: "زوم به لایه",
-                        className: "esri-icon-zoom-out-fixed",
-                        id: "zoom-to-layer"
-                    },
-                    {
-                        title: "پاک کردن لایه",
-                        className: "esri-icon-close",
-                        id: "remove-layer"
-                    }
-                ]];
-            }
-            else if (item.layer.type === "feature") {
-                item.actionsSections = [[
-                    {
-                        title: "زوم به لایه",
-                        className: "esri-icon-zoom-out-fixed",
-                        id: "zoom-to-layer"
-                    },
-                    {
-                        title: "جدول اطلاعات",
-                        className: "esri-icon-table",
-                        id: "toggle-table"
-                    },
-                    {
-                        title: "ویرایش",
-                        className: "esri-icon-edit",
-                        id: "toggle-edit"
-                    },
-                    {
-                        title: "پاک کردن لایه",
-                        className: "esri-icon-close",
-                        id: "remove-layer"
-                    }
-                ]];
-            }
-        }
+        visibleElements: { filter: true }, // Enable LayerList filter
+        minFilterItems: 5, // Default Value: 10
+        listItemCreatedFunction: (event) => setupLayerActions(event),
     });
 
+    /**
+     * Adds custom actions to LayerList items based on layer type
+     */
+    function setupLayerActions(event) {
+        const { item } = event;
+        const { layer } = item;
+
+        // Define common actions
+        const zoomAction = {
+            title: "زوم به لایه",
+            className: "esri-icon-zoom-out-fixed",
+            id: "zoom-to-layer",
+        };
+        const removeAction = {
+            title: "پاک کردن لایه",
+            className: "esri-icon-close",
+            id: "remove-layer",
+        };
+        const tableAction = {
+            title: "جدول اطلاعات",
+            className: "esri-icon-table",
+            id: "toggle-table",
+        };
+        const editAction = {
+            title: "ویرایش",
+            className: "esri-icon-edit",
+            id: "toggle-edit",
+        };
+
+        // Add actions based on layer type
+        if (layer.type === "map-image") {
+            item.actionsSections = [[zoomAction, removeAction]];
+        } else if (layer.type === "feature") {
+            item.actionsSections = [[
+                zoomAction,
+                tableAction,
+                editAction,
+                removeAction,
+            ]];
+        }
+    }
+
+    // Improved FeatureTable with dynamic updates
     const featureTable = new FeatureTable({
         view: view,
-        layer: featureLayer,
-        //layer: featureLayer,
-        container: "attributeTable", // Temporary container for now
-        multiSortEnabled: true, // set this to true to enable sorting on multiple columns    
-        editingEnabled: false, // set this to true to enable editing
-        paginationEnabled: true,// Optional: Customize FeatureTable fields        
+        container: "attributeTable",
+        multiSortEnabled: true, // Enable sorting on multiple columns
+        paginationEnabled: true, // Enable pagination for better performance
+        editingEnabled: false, // Editing remains disabled by default
         visibleElements: {
             header: true,
             menu: true,
             menuItems: {
                 clearSelection: true,
-                zoomToSelection: true
-            }
+                zoomToSelection: true,
+            },
         },
     });
 
+    /**
+     * Updates FeatureTable layer dynamically
+     */
+    function updateFeatureTable(layer) {
+        if (!layer) {
+            console.warn("No layer selected for FeatureTable.");
+            return;
+        }
+
+        featureTable.layer = layer;
+        console.log(`FeatureTable updated: ${layer.title}`);
+    }   
+
     // Handle LayerList action events
-    layerList.on("trigger-action", (event) => {
+    layerList.on("trigger-action", async (event) => {
         const selectedLayer = event.item.layer;
-        //alert(`${selectedLayer.id}...${selectedLayer.type}...${selectedLayer.url}...${selectedLayer.title}`);        
-        if (event.action.id === "zoom-to-layer") {
-            //headerTitleElement.heading = selectedLayer.title;
-            selectedLayer.when(() => {
-                view.goTo(selectedLayer.fullExtent).catch((error) => {
-                    if (error.name != "AbortError") {
-                        console.error(error);
-                    }
-                });
-            });
-        } else if (event.action.id === "remove-layer") {
-            // Remove the layer from the map
-            map.remove(selectedLayer).catch((error) => {
-                if (error.name != "AbortError") {
-                    console.error(error);
-                }
-            });
-        } else if (event.action.id === "toggle-table" || event.action.id === "toggle-edit") {
-            featuresLayerArray.forEach((selectedFeatureLayer) => {
-                if (selectedFeatureLayer.title === selectedLayer.title) {
-                    featureLayer = selectedFeatureLayer;
-                }
-            });
-            if (event.action.id === "toggle-table") {
-                //toggleFeatureTable(selectedLayer.url, selectedLayer.title);
-                toggleFeatureTable(featureLayer);
-            } else if (event.action.id === "toggle-edit") {
-                startEdit(featureLayer);
-                toggleFeatureTable(featureLayer);
-            }
+        if (!selectedLayer) {
+            console.warn("No layer selected.");
+            return;
+        }
+
+        switch (event.action.id) {
+            case "zoom-to-layer":
+                await zoomToLayer(selectedLayer);
+                break;
+
+            case "remove-layer":
+                confirmAndRemoveLayer(selectedLayer);
+                break;
+
+            case "toggle-table":
+            case "toggle-edit":
+                handleFeatureLayerActions(selectedLayer, event.action.id);
+                break;
+
+            default:
+                console.warn(`Unhandled action: ${event.action.id}`);
+                break;
         }
     });
 
-    // Toggle FeatureTable visibility
+    /**
+     * Zoom to the selected layer with UI feedback
+     */
+    async function zoomToLayer(layer) {
+        try {
+            // Show loading cursor
+            view.container.style.cursor = "wait";
+
+            await layer.when();
+            await view.goTo(layer.fullExtent);
+
+            // Restore cursor after zooming
+            view.container.style.cursor = "default";
+        } catch (error) {
+            view.container.style.cursor = "default";
+            if (error.name !== "AbortError") console.error("Zoom failed:", error);
+        }
+    }
+
+    /**
+     * Confirm before removing a layer
+     */
+    function confirmAndRemoveLayer(layer) {
+        if (confirm(`Are you sure you want to remove "${layer.title}"?`)) {
+            try {
+                map.remove(layer);
+                btnCloseAttributeTable.click();
+                if (isEditing) editableButton.click();
+
+                console.log(`Layer "${layer.title}" removed.`);
+            } catch (error) {
+                if (error.name !== "AbortError") console.error("Error removing layer:", error);
+            }
+        }
+    }
+
+    /**
+     * Handle toggling Feature Table or Editing
+     */
+    function handleFeatureLayerActions(selectedLayer, actionId) {
+        // Find the matching feature layer
+        let featureLayer = featuresLayerArray.find((layer) => layer.title === selectedLayer.title);
+
+        if (!featureLayer) {
+            console.warn(`Feature layer "${selectedLayer.title}" not found.`);
+            return;
+        }
+
+        if (actionId === "toggle-table") {
+            toggleFeatureTable(featureLayer);
+        } else {
+            startEdit(featureLayer);
+            toggleFeatureTable(featureLayer);
+        }
+    }
+
+    // References to elements
     const btnCloseAttributeTable = document.getElementById("closeAttributeTable");
     let panelMapView = document.getElementById("panelMapView");
     let panelAttributeTable = document.getElementById("panelAttributeTable");
 
-    btnCloseAttributeTable.addEventListener("click", () => {
-        if (panelAttributeTable.style.height === "50%") {
-            panelAttributeTable.style.height = "0%";
-            btnCloseAttributeTable.hidden = true;
-            panelMapView.style.height = "100%";
-        }
-    });
-    // Toggle FeatureTable overlay visibility
-    let flag = true;
+    // Flag to track the state of the table (open/close)
+    let isFeatureTableOpen = false;
+
+    // Toggle FeatureTable visibility
     function toggleFeatureTable(featureLayer) {
         featureTable.layer = featureLayer;
-        panelAttributeTable.style.height = "50%";
-        btnCloseAttributeTable.hidden = false;
-        panelMapView.style.height = "50%";
-        //if (flag) {
-        //    flag = false;
-        //    //featureTable.layer = featureLayer1;
-        //    featureTable.layer = featureLayer;
-        //    panelMapView.style.height = "50%";
-        //    panelAttributeTable.style.height = "50%";
-        //} else {
-        //    flag = true;
-        //    panelMapView.style.height = "100%";
-        //    panelAttributeTable.style.height = "0%";
-        //}
+
+        if (isFeatureTableOpen) {
+            // Close the Feature Table
+            panelAttributeTable.style.height = "0%";
+            panelMapView.style.height = "100%";
+            btnCloseAttributeTable.hidden = true;
+        } else {
+            // Open the Feature Table
+            panelAttributeTable.style.height = "50%";
+            panelMapView.style.height = "50%";
+            btnCloseAttributeTable.hidden = false;
+        }
+
+        // Toggle the state
+        isFeatureTableOpen = !isFeatureTableOpen;
     }
-    // #endregion
+
+    // Event listener to close the Feature Table when the close button is clicked
+    btnCloseAttributeTable.addEventListener("click", () => {
+        if (isFeatureTableOpen) {
+            toggleFeatureTable();  // Call the same toggle function to close
+        }
+    });
+
+    // #endregion   
+
+    // #region Editor
+    let editor = null;
+    let isEditing = false;
+    const editableButton = document.getElementById("editable");
+
+    editableButton.onclick = () => {
+        isEditing ? stopEdit() : startEdit(featureLayer);
+    };
+
+    function stopEdit() {
+        if (!editor) {
+            console.warn("Editor is not initialized.");
+            return;
+        }
+
+        isEditing = false;
+        editor.visible = false;
+
+        if (typeof featureTable !== "undefined") {
+            featureTable.editingEnabled = false;
+        }
+
+        editor.destroy();
+        editor = null; // Ensure proper cleanup
+    }
+
+    function startEdit(featureLayer) {
+        if (!editableButton.active) {
+            editableButton.active = true;
+        }
+        if (!featureLayer) {
+            console.error("Feature layer is not defined.");
+            return;
+        }       
+
+        if (!isEditing) {
+            isEditing = true;
+
+            editor = new Editor({
+                view: view,
+                layerInfos: [{ layer: featureLayer }],
+                snappingOptions: {
+                    enabled: true,
+                    featureSources: [{ layer: featureLayer }],
+                },
+            });
+
+            view.ui.add(editor, "top-left");
+
+            if (typeof featureTable !== "undefined") {
+                featureTable.editingEnabled = true;
+            }
+
+            // Handle sketch updates
+            editor.on("sketch-update", (evt) => {
+                const { tool, graphics, state } = evt.detail;
+                if (state === "complete") {
+                    console.log("Sketch update complete:", tool, graphics);
+                }
+            });
+        }
+    }
+    // #endregion Editor
+
+
+    // #region Identify
+    document.getElementById("identify").onclick = () => {
+        isIdentify ? stopIdentify() : startIdentify(featureLayer);
+    };
+    let selectFeatureInfo = new Map();
+    let bufferGraphic;
+    const btnConnect = document.getElementById("btnConnect");
+
+    // Define point graphic
+    const pointGraphic = new Graphic({
+        symbol: {
+            type: "simple-marker",
+            color: [0, 0, 139],
+            outline: { color: [255, 255, 255], width: 1.5 }
+        }
+    });
+
+    function stopIdentify() {
+        isIdentify = false;
+        btnConnect.disabled = true;
+
+        // Cache elements
+        const mapView = document.getElementById("mapView");
+        const optionsDiv = document.getElementById("optionsDiv");
+
+        if (mapView) mapView.style.cursor = "auto";
+        if (optionsDiv) optionsDiv.hidden = true;
+
+        // Remove point graphic safely
+        if (pointGraphic && view?.graphics?.includes(pointGraphic)) {
+            view.graphics.remove(pointGraphic);
+        }
+
+        // Remove event listener safely
+        viewClick?.remove();
+    }
+
+    function startIdentify(featureLayer) {
+        if (!featureLayer) {
+            console.error("Feature layer is undefined.");
+            return;
+        }
+
+        isIdentify = true;
+
+        // Cache elements
+        const mapView = document.getElementById("mapView");
+
+        if (mapView) mapView.style.cursor = "help";
+
+        // Load feature layer with error handling
+        featureLayer.load()
+            .then(() => {
+                if (typeof featureLayer.createPopupTemplate === "function") {
+                    featureLayer.popupTemplate = featureLayer.createPopupTemplate();
+                } else {
+                    console.warn("createPopupTemplate method not found on featureLayer.");
+                }
+            })
+            .catch((error) => {
+                console.error("Feature layer failed to load:", error);
+                alert("Failed to load feature layer. See console for details.");
+            });
+
+        // Remove previous event listener if it exists
+        viewClick?.remove();
+
+        // Click event for identification
+        viewClick = view.on("click", (event) => handleMapClick(event));
+    }
+
+    function handleMapClick(event) {
+        if (!event?.mapPoint) {
+            console.warn("Invalid event.mapPoint.");
+            return;
+        }
+
+        // Remove existing pointGraphic safely
+        view.graphics?.remove(pointGraphic);
+
+        // Place point graphic safely
+        pointGraphic.geometry = event.mapPoint;
+        view.graphics?.add(pointGraphic);
+
+        // Execute feature query
+        featuresQuery(event.screenPoint);
+    }
+
+    function featuresQuery(screenPoint) {
+        if (!screenPoint || !pointGraphic) {
+            console.warn("Invalid screenPoint or pointGraphic.");
+            return;
+        }
+
+        if (!featureLayer) {
+            console.error("Feature layer is not defined.");
+            return;
+        }
+
+        // Convert screen point to map coordinates
+        const point = view.toMap(screenPoint);
+        if (!point) {
+            console.error("Failed to convert screenPoint to map coordinates.");
+            return;
+        }
+
+        // Define query
+        const query = new Query({
+            geometry: point,
+            spatialRelationship: "intersects",
+            returnGeometry: false,
+            returnQueryGeometry: true,
+            outFields: ["*"]
+        });
+
+        // Execute feature query
+        featureLayer.queryFeatures(query)
+            .then((featureSet) => {
+                const features = featureSet.features;
+                if (!features?.length) {
+                    console.warn("No features found at this location.");
+                    return;
+                }
+
+                // Set graphic location and add to view if not already present
+                if (pointGraphic.geometry !== point) {
+                    pointGraphic.geometry = point;
+                    if (!view.graphics.includes(pointGraphic)) {
+                        view.graphics.add(pointGraphic);
+                    }
+                }
+
+                // Open popup with query results
+                view.openPopup({
+                    location: point,
+                    features: features,
+                    featureMenuOpen: true
+                });
+
+                // Enable connect button
+                btnConnect.disabled = false;
+
+                // Ensure the first feature has attributes
+                const attributes = features[0]?.attributes;
+                if (!attributes) {
+                    console.warn("Feature attributes not found.");
+                    return;
+                }
+
+                // Update UI elements with feature attributes
+                inputCodeNosazi.value = attributes.Code_nosazi ?? "";
+                selectFeatureInfo.set("Code_nosazi", attributes.Code_nosazi ?? "N/A");
+                selectFeatureInfo.set("Masahat", attributes.Masahat ?? "N/A");
+
+            })
+            .catch((error) => {
+                console.error("Feature query failed:", error);
+                alert("Error fetching feature data!");
+            });
+    }
+
+    // #endregion Identify
+
+
+    // #region Connect to Shahrsazi
+    // Connect to shahrsazi when clicked by btnconnect
+    async function connectToShahrsazi() {        
+
+        // Get feature info safely
+        const Code_nosazi = selectFeatureInfo.get("Code_nosazi");
+        const Masahat = selectFeatureInfo.get("Masahat");
+
+        // Ensure values are valid before sending request
+        if (!Code_nosazi || !Masahat) {
+            console.warn("Missing feature data! Please select a valid feature.");
+            alert("Feature data is missing. Please select a valid feature.");
+            return;
+        }
+
+        try {
+            const response = await fetch("https://localhost:44323/Home/insertToDB/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    mapService: Code_nosazi,
+                    printService: Masahat }),
+            });
+
+            if (!response.ok) {
+                throw new Error(`Failed to insert features: ${response.statusText}`);
+            }
+
+            const data = await response.json();
+
+            if (data.success) {
+                alert(`Feature inserted successfully: ${data.message}`);
+            } else {
+                console.error("Failed to insert feature:", data.message);
+                alert("Failed to insert feature. Please check the console for more details.");
+            }
+        } catch (error) {
+            console.error("Error during POST request:", error);
+            alert("Failed to insert features. Please try again.");
+        }
+    }
+
+    // Attach event listener
+    document.getElementById("btnConnect")?.addEventListener("click", connectToShahrsazi);  
+    // #endregion Connect to Shahrsazi
+
     function layerLoadStatus() {
         switch (layer.loadStatus) {
             case "not-loaded":
@@ -398,199 +821,7 @@ view.when(() => {
             default:
                 return "وضعیت نامشخص است."; // In case of unexpected status
         }
-    }
-    // refresh map button
-    //const btnRefresh = document.getElementById("refresh");
-    //btnRefresh.addEventListener("click", function () {
-    //    if (typeof layer !== "undefined" && typeof layer.refresh === "function") {
-    //        layer.refresh(); // Refresh the layer
-    //        featureLayer.refresh();
-    //        alertBox(layerLoadStatus(), "info"); // Call the function to show the current status
-    //    } else {
-    //        alertBox("لایه مشخص نشده یا قابلیت رفرش ندارد.", "error"); // Error handling for undefined layer
-    //    }
-    //});
-
-    // #region Identify        
-    // Declare pointGraphic and bufferGraphic globally for access in both functions
-    let pointGraphic;
-    let bufferGraphic;
-    function stopIdentify() {
-        isIdentify = false;
-        document.getElementById("mapView").style.cursor = "auto";
-        //alertBox("ابزار شناسایی غیر فعال شد", "warning");
-        document.getElementById("optionsDiv").hidden = true;
-
-        if (view.graphics.includes(pointGraphic)) {
-            view.graphics.remove(pointGraphic);
-        } else if (view.graphics.includes(bufferGraphic)) {
-            view.graphics.remove(bufferGraphic);
-        }
-        viewClick.remove();
-        //alert("stop");                
-    }
-    function startIdentify(featureLayer) {
-        isIdentify = true;
-        document.getElementById("mapView").style.cursor = "help";
-        //alertBox("ابزار شناسایی فعال شد", "success");
-        //document.getElementById("optionsDiv").hidden = false;
-        view.ui.add("optionsDiv", "top-left");
-
-        // additional query fields initially set to null for basic query
-        let distance = null;
-        let units = null;
-
-        //create graphic for mouse point click
-        pointGraphic = new Graphic({
-            symbol: {
-                type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
-                color: [0, 0, 139],
-                outline: {
-                    color: [255, 255, 255],
-                    width: 1.5
-                }
-            }
-        });
-
-        // Create graphic for distance buffer
-        bufferGraphic = new Graphic({
-            symbol: {
-                type: "simple-fill", // autocasts as new SimpleFillSymbol()
-                color: [173, 216, 230, 0.2],
-                outline: {
-                    // autocasts as new SimpleLineSymbol()
-                    color: [255, 255, 255],
-                    width: 1
-                }
-            }
-        });
-
-        // when query type changes, set appropriate values
-        const queryOpts = document.getElementById("query-type");
-
-        queryOpts.addEventListener("change", () => {
-            switch (queryOpts.value) {
-                // values set for distance query
-                case "distance":
-                    distance = 1500;
-                    units = "meters";
-                    break;
-                default:
-                    // Default set to basic query
-                    distance = null;
-                    units = null;
-            }
-        });
-
-        featureLayer.load().then(() => {
-            // Set the view extent to the data extent
-            //view.extent = featureLayer.fullExtent;
-            featureLayer.popupTemplate = featureLayer.createPopupTemplate();
-        });
-
-        // executeIdentify() is called each time the view is clicked
-        //view.on("click", executeIdentify);
-        viewClick = view.on("click", (event) => {
-            view.graphics.remove(pointGraphic);
-            if (view.graphics.includes(bufferGraphic)) {
-                view.graphics.remove(bufferGraphic);
-            }
-            featuresQuery(event);
-            //alert(event.mapPoint);
-            // Create a buffer around the clicked point
-            //const point = event.mapPoint;
-            //const buffer = geometryEngine.buffer(point, 50, "meters");
-
-            //// Visualize the buffer
-            //const bufferGraphic1 = new Graphic({
-            //    geometry: buffer,
-            //    symbol: {
-            //        type: "simple-fill",
-            //        color: [0, 0, 255, 0.3],
-            //        outline: {
-            //            color: [0, 0, 255],
-            //            width: 2
-            //        }
-            //    }
-            //});
-            //view.graphics.add(bufferGraphic1);
-        });
-        function featuresQuery(screenPoint) {
-            const point = view.toMap(screenPoint);
-            //const point = event.mapPoint;;
-            let query = new Query({
-                geometry: point,
-                // distance and units will be null if basic query selected
-                distance: distance,
-                units: units,
-                spatialRelationship: "intersects",
-                returnGeometry: false,
-                returnQueryGeometry: true,
-                outFields: ["*"]
-            });
-            featureLayer
-                .queryFeatures(query)
-                .then((featureSet) => {
-                    // set graphic location to mouse pointer and add to mapview
-                    pointGraphic.geometry = point;
-                    view.graphics.add(pointGraphic);
-                    // open popup of query result
-                    view.openPopup({
-                        location: point,
-                        features: featureSet.features,
-                        featureMenuOpen: true
-                    });
-                    if (distance > 0) {
-                        //bufferGraphic.geometry = featureSet.queryGeometry;
-                        bufferGraphic.geometry = point;
-                        view.graphics.add(bufferGraphic);
-                    }
-                });
-        }
-    }
-
-    // #endregion Identify
-
-    // #region Editor
-    // Create the Editor
-    var editor = null;
-    let isEditing = false;
-    document.getElementById("editable").onclick = () => {
-        isEditing ? stopEdit() : startEdit(featureLayer);
-    };
-    function stopEdit() {
-        isEditing = false;
-        editor.visible = false;
-        featureTable.editingEnabled = false;
-        editor.destroy();
-    }
-    function startEdit(featureLayer) {
-        if (!document.getElementById("editable").active) {
-            document.getElementById("editable").active = true;
-        }
-        if (isEditing == false) {
-            isEditing = true;
-            //map.add(featureLayer);
-            editor = new Editor({
-                view: view,
-                layerInfos: [{ layer: featureLayer }],
-                snappingOptions: { // autocasts to SnappingOptions()
-                    enabled: true,
-                    featureSources: [{ layer: featureLayer }], // autocasts to FeatureSnappingLayerSource()                
-                },
-            });
-            view.ui.add(editor, "top-left");
-            //toggleFeatureTable(featureLayer.url, featureLayer.title);
-            featureTable.editingEnabled = true;
-            editor.on("sketch-update", function (evt) {
-                const { tool, graphics, state } = evt.detail;
-                if (state === "complete") {
-
-                }
-            });
-        }
-    }
-    // #endregion 
+    } 
 
     // #region Add for test
 
@@ -629,7 +860,7 @@ view.when(() => {
 });
 
 
-// #endregion Main 
+
 // #region shell panels and actionbar
 // References to shell panels and actions
 const shellPanelStart = document.getElementById("shell-panel-start");

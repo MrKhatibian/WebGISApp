@@ -16,5 +16,6 @@ namespace WebGISApp.Models
     {
         public int GEOMETRY_ID { get; set; }
         public byte[] CAD { get; set; }
+        public long SDE_STATE_ID { get; set; }
     }
 }
