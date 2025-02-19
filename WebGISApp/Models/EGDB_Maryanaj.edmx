@@ -1209,41 +1209,6 @@ warning 6005: The data type 'geometry' is not supported for the target Entity Fr
           <Property Name="AllowedCity" Type="nvarchar(max)" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6005: The data type 'geometry' is not supported for the target Entity Framework version schema. The column 'SHAPE' in the table 'GisMaryanj.dbo.ARSE_EVW' was excluded from the model. To use the data type 'geometry', target the Entity Framework schema version 3.0 or higher.
-warning 6013: The table/view 'GisMaryanj.dbo.ARSE_EVW' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="ARSE_EVW">
-          <Property Name="OBJECTID" Type="int" />
-          <Property Name="Parvaneh" Type="nvarchar" MaxLength="10" />
-          <Property Name="Code_Block" Type="nvarchar" MaxLength="10" />
-          <Property Name="Amlak__" Type="numeric" Precision="38" Scale="8" />
-          <Property Name="COD" Type="nvarchar" MaxLength="50" />
-          <Property Name="Code_nosazi" Type="nvarchar" MaxLength="255" />
-          <Property Name="Mantaghe" Type="numeric" Precision="38" Scale="8" />
-          <Property Name="Mahale" Type="numeric" Precision="38" Scale="8" />
-          <Property Name="Block" Type="numeric" Precision="38" Scale="8" />
-          <Property Name="Melk" Type="numeric" Precision="38" Scale="8" />
-          <Property Name="Name_malek" Type="nvarchar" MaxLength="255" />
-          <Property Name="Address" Type="nvarchar" MaxLength="255" />
-          <Property Name="Malekiyat" Type="nvarchar" MaxLength="255" />
-          <Property Name="Mahiyate_fiziki" Type="nvarchar" MaxLength="255" />
-          <Property Name="Karbari" Type="nvarchar" MaxLength="255" />
-          <Property Name="Sanad" Type="nvarchar" MaxLength="255" />
-          <Property Name="Marhale_sakhtemani" Type="nvarchar" MaxLength="255" />
-          <Property Name="Masahat" Type="nvarchar" MaxLength="255" />
-          <Property Name="pelakabi" Type="nvarchar" MaxLength="255" />
-          <Property Name="codeposti" Type="nvarchar" MaxLength="255" />
-          <Property Name="Archive_No" Type="nvarchar" MaxLength="255" />
-          <Property Name="mogheyat" Type="nvarchar" MaxLength="255" />
-          <Property Name="bakhsh" Type="nvarchar" MaxLength="255" />
-          <Property Name="asli" Type="nvarchar" MaxLength="255" />
-          <Property Name="fari" Type="nvarchar" MaxLength="255" />
-          <Property Name="tafkiki" Type="nvarchar" MaxLength="255" />
-          <Property Name="Telephone" Type="nvarchar" MaxLength="255" />
-          <Property Name="COD_1" Type="nvarchar" MaxLength="255" />
-          <Property Name="Parvande_No" Type="int" />
-          <Property Name="SDE_STATE_ID" Type="bigint" />
-        </EntityType>-->
-        <!--Errors Found During Generation:
 warning 6002: The table/view 'GisMaryanj.dbo.dbtune' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="dbtune">
           <Key>
@@ -1254,133 +1219,6 @@ warning 6002: The table/view 'GisMaryanj.dbo.dbtune' does not have a primary key
           <Property Name="parameter_name" Type="nvarchar" MaxLength="32" Nullable="false" />
           <Property Name="config_string" Type="nvarchar" MaxLength="2048" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6005: The data type 'geometry' is not supported for the target Entity Framework version schema. The column 'Shape' in the table 'GisMaryanj.dbo.GH1395_EVW' was excluded from the model. To use the data type 'geometry', target the Entity Framework schema version 3.0 or higher.
-warning 6013: The table/view 'GisMaryanj.dbo.GH1395_EVW' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="GH1395_EVW">
-          <Property Name="OBJECTID" Type="int" />
-          <Property Name="name" Type="nvarchar" MaxLength="254" />
-          <Property Name="price" Type="nvarchar" MaxLength="254" />
-          <Property Name="F91" Type="nvarchar" MaxLength="254" />
-          <Property Name="F90" Type="nvarchar" MaxLength="254" />
-          <Property Name="F87" Type="nvarchar" MaxLength="254" />
-          <Property Name="F86" Type="nvarchar" MaxLength="254" />
-          <Property Name="F85" Type="nvarchar" MaxLength="254" />
-          <Property Name="F84" Type="nvarchar" MaxLength="254" />
-          <Property Name="F83" Type="nvarchar" MaxLength="254" />
-          <Property Name="F82" Type="nvarchar" MaxLength="254" />
-          <Property Name="F81" Type="nvarchar" MaxLength="254" />
-          <Property Name="F80" Type="nvarchar" MaxLength="254" />
-          <Property Name="F79" Type="nvarchar" MaxLength="254" />
-          <Property Name="F78" Type="nvarchar" MaxLength="254" />
-          <Property Name="F77" Type="nvarchar" MaxLength="254" />
-          <Property Name="F76" Type="nvarchar" MaxLength="254" />
-          <Property Name="F75" Type="nvarchar" MaxLength="254" />
-          <Property Name="F74" Type="nvarchar" MaxLength="254" />
-          <Property Name="F73" Type="nvarchar" MaxLength="254" />
-          <Property Name="F72" Type="nvarchar" MaxLength="254" />
-          <Property Name="F71" Type="nvarchar" MaxLength="254" />
-          <Property Name="F70" Type="nvarchar" MaxLength="254" />
-          <Property Name="F69" Type="nvarchar" MaxLength="254" />
-          <Property Name="F68" Type="nvarchar" MaxLength="254" />
-          <Property Name="F67" Type="nvarchar" MaxLength="254" />
-          <Property Name="F66" Type="nvarchar" MaxLength="254" />
-          <Property Name="F65" Type="nvarchar" MaxLength="254" />
-          <Property Name="F64" Type="nvarchar" MaxLength="254" />
-          <Property Name="F94" Type="nvarchar" MaxLength="254" />
-          <Property Name="F95" Type="nvarchar" MaxLength="254" />
-          <Property Name="SDE_STATE_ID" Type="bigint" />
-        </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6005: The data type 'geometry' is not supported for the target Entity Framework version schema. The column 'Shape' in the table 'GisMaryanj.dbo.GH1396_E_EVW' was excluded from the model. To use the data type 'geometry', target the Entity Framework schema version 3.0 or higher.
-warning 6013: The table/view 'GisMaryanj.dbo.GH1396_E_EVW' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="GH1396_E_EVW">
-          <Property Name="OBJECTID" Type="int" />
-          <Property Name="F91" Type="nvarchar" MaxLength="254" />
-          <Property Name="F87" Type="nvarchar" MaxLength="254" />
-          <Property Name="F85" Type="nvarchar" MaxLength="254" />
-          <Property Name="F84" Type="nvarchar" MaxLength="254" />
-          <Property Name="F83" Type="nvarchar" MaxLength="254" />
-          <Property Name="F82" Type="nvarchar" MaxLength="254" />
-          <Property Name="F81" Type="nvarchar" MaxLength="254" />
-          <Property Name="F71" Type="nvarchar" MaxLength="254" />
-          <Property Name="F68" Type="nvarchar" MaxLength="254" />
-          <Property Name="F64" Type="nvarchar" MaxLength="254" />
-          <Property Name="F95" Type="nvarchar" MaxLength="254" />
-          <Property Name="F96" Type="nvarchar" MaxLength="254" />
-          <Property Name="F65" Type="nvarchar" MaxLength="50" />
-          <Property Name="F66" Type="nvarchar" MaxLength="50" />
-          <Property Name="F67" Type="nvarchar" MaxLength="50" />
-          <Property Name="F69" Type="nvarchar" MaxLength="50" />
-          <Property Name="F70" Type="nvarchar" MaxLength="50" />
-          <Property Name="F72" Type="nvarchar" MaxLength="50" />
-          <Property Name="F73" Type="nvarchar" MaxLength="50" />
-          <Property Name="F74" Type="nvarchar" MaxLength="50" />
-          <Property Name="F75" Type="nvarchar" MaxLength="50" />
-          <Property Name="F76" Type="nvarchar" MaxLength="50" />
-          <Property Name="F77" Type="nvarchar" MaxLength="50" />
-          <Property Name="F78" Type="nvarchar" MaxLength="50" />
-          <Property Name="F79" Type="nvarchar" MaxLength="50" />
-          <Property Name="F80" Type="nvarchar" MaxLength="50" />
-          <Property Name="F86" Type="nvarchar" MaxLength="50" />
-          <Property Name="F88" Type="nvarchar" MaxLength="50" />
-          <Property Name="F89" Type="nvarchar" MaxLength="50" />
-          <Property Name="F90" Type="nvarchar" MaxLength="50" />
-          <Property Name="F92" Type="nvarchar" MaxLength="50" />
-          <Property Name="F93" Type="nvarchar" MaxLength="50" />
-          <Property Name="F94" Type="nvarchar" MaxLength="50" />
-          <Property Name="Code_Block" Type="nvarchar" MaxLength="10" />
-          <Property Name="Code_Band" Type="nvarchar" MaxLength="10" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="W" Type="nvarchar" MaxLength="10" />
-          <Property Name="SDE_STATE_ID" Type="bigint" />
-        </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6005: The data type 'geometry' is not supported for the target Entity Framework version schema. The column 'Shape' in the table 'GisMaryanj.dbo.GH1397_E_EVW' was excluded from the model. To use the data type 'geometry', target the Entity Framework schema version 3.0 or higher.
-warning 6013: The table/view 'GisMaryanj.dbo.GH1397_E_EVW' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="GH1397_E_EVW">
-          <Property Name="OBJECTID_1" Type="int" />
-          <Property Name="F97m" Type="nvarchar" MaxLength="254" />
-          <Property Name="F97t" Type="nvarchar" MaxLength="254" />
-          <Property Name="F97e" Type="nvarchar" MaxLength="254" />
-          <Property Name="Code_Block" Type="nvarchar" MaxLength="10" />
-          <Property Name="Code_Band" Type="nvarchar" MaxLength="10" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="W" Type="nvarchar" MaxLength="10" />
-          <Property Name="SDE_STATE_ID" Type="bigint" />
-        </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6005: The data type 'geometry' is not supported for the target Entity Framework version schema. The column 'SHAPE' in the table 'GisMaryanj.dbo.H_M_POLYGON_EVW' was excluded from the model. To use the data type 'geometry', target the Entity Framework schema version 3.0 or higher.
-warning 6013: The table/view 'GisMaryanj.dbo.H_M_POLYGON_EVW' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="H_M_POLYGON_EVW">
-          <Property Name="OBJECTID" Type="int" />
-          <Property Name="مشخصات" Type="nvarchar" MaxLength="50" />
-          <Property Name="SDE_STATE_ID" Type="bigint" />
-        </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6005: The data type 'geometry' is not supported for the target Entity Framework version schema. The column 'Shape' in the table 'GisMaryanj.dbo.M_NAME_EVW' was excluded from the model. To use the data type 'geometry', target the Entity Framework schema version 3.0 or higher.
-warning 6013: The table/view 'GisMaryanj.dbo.M_NAME_EVW' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="M_NAME_EVW">
-          <Property Name="OBJECTID" Type="int" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="W" Type="nvarchar" MaxLength="10" />
-          <Property Name="Code_M" Type="nvarchar" MaxLength="10" />
-          <Property Name="SDE_STATE_ID" Type="bigint" />
-        </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6005: The data type 'geometry' is not supported for the target Entity Framework version schema. The column 'Shape' in the table 'GisMaryanj.dbo.MAABER_PT_EVW' was excluded from the model. To use the data type 'geometry', target the Entity Framework schema version 3.0 or higher.
-warning 6013: The table/view 'GisMaryanj.dbo.MAABER_PT_EVW' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="MAABER_PT_EVW">
-          <Property Name="OBJECTID_1" Type="int" />
-          <Property Name="OBJECTID" Type="int" />
-          <Property Name="Shape_Leng" Type="numeric" Precision="38" Scale="8" />
-          <Property Name="SDE_STATE_ID" Type="bigint" />
-        </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'GisMaryanj.dbo.SDE_generate_guid' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="SDE_generate_guid">
-          <Property Name="guidstr" Type="nvarchar" MaxLength="38" />
-        </EntityType>-->
         <!--Errors Found During Generation:
 warning 6002: The table/view 'GisMaryanj.dbo.ST_GEOMETRY_COLUMNS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ST_GEOMETRY_COLUMNS">
@@ -1427,17 +1265,6 @@ warning 6002: The table/view 'GisMaryanj.dbo.ST_SPATIAL_REFERENCE_SYSTEMS' does 
           <Property Name="organization_coordsys_id" Type="int" />
           <Property Name="definition" Type="varchar" MaxLength="1024" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6005: The data type 'geometry' is not supported for the target Entity Framework version schema. The column 'Shape' in the table 'GisMaryanj.dbo.T_T1394_EVW' was excluded from the model. To use the data type 'geometry', target the Entity Framework schema version 3.0 or higher.
-warning 6013: The table/view 'GisMaryanj.dbo.T_T1394_EVW' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="T_T1394_EVW">
-          <Property Name="OBJECTID" Type="int" />
-          <Property Name="malek" Type="nvarchar" MaxLength="254" />
-          <Property Name="id" Type="numeric" Precision="38" Scale="8" />
-          <Property Name="name" Type="nvarchar" MaxLength="254" />
-          <Property Name="ORIG_FID" Type="int" />
-          <Property Name="SDE_STATE_ID" Type="bigint" />
-        </EntityType>-->
         <Association Name="archives_fk1">
           <End Role="SDE_table_registry" Type="Self.SDE_table_registry" Multiplicity="1" />
           <End Role="SDE_archives" Type="Self.SDE_archives" Multiplicity="0..1" />
@@ -1684,8 +1511,6 @@ warning 6035: The relationship 'sdelayer_stats_fk1' has columns that are not par
           <Parameter Name="base_id" Type="int" Mode="In" />
           <Parameter Name="num_ids" Type="int" Mode="In" />
         </Function>
-        
-        
         <Function Name="i2_get_ids" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id_type" Type="int" Mode="In" />
           <Parameter Name="num_requested_ids" Type="int" Mode="In" />
@@ -2971,17 +2796,6 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
           <Property Name="num_ids" Type="Int32" Nullable="false" />
           <Property Name="last_id" Type="Int32" />
         </EntityType>
-        <EntityType Name="i14">
-          <Key>
-            <PropertyRef Name="id_type" />
-            <PropertyRef Name="base_id" />
-            <PropertyRef Name="num_ids" />
-          </Key>
-          <Property Name="id_type" Type="Int32" Nullable="false" />
-          <Property Name="base_id" Type="Int32" Nullable="false" />
-          <Property Name="num_ids" Type="Int32" Nullable="false" />
-          <Property Name="last_id" Type="Int32" />
-        </EntityType>
         <EntityType Name="i2">
           <Key>
             <PropertyRef Name="id_type" />
@@ -3210,15 +3024,6 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
           <Property Name="SDE_STATE_ID" Type="Int64" Nullable="false" />
         </EntityType>
         <EntityType Name="SDE_GEOMETRY8">
-          <Key>
-            <PropertyRef Name="GEOMETRY_ID" />
-            <PropertyRef Name="SDE_STATE_ID" />
-          </Key>
-          <Property Name="GEOMETRY_ID" Type="Int32" Nullable="false" />
-          <Property Name="CAD" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="SDE_STATE_ID" Type="Int64" Nullable="false" />
-        </EntityType>
-        <EntityType Name="SDE_GEOMETRY9">
           <Key>
             <PropertyRef Name="GEOMETRY_ID" />
             <PropertyRef Name="SDE_STATE_ID" />
@@ -3839,7 +3644,6 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
           <EntitySet Name="i11" EntityType="Self.i11" />
           <EntitySet Name="i12" EntityType="Self.i12" />
           <EntitySet Name="i13" EntityType="Self.i13" />
-          <EntitySet Name="i14" EntityType="Self.i14" />
           <EntitySet Name="i2" EntityType="Self.i2" />
           <EntitySet Name="i3" EntityType="Self.i3" />
           <EntitySet Name="i4" EntityType="Self.i4" />
@@ -3862,7 +3666,6 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
           <EntitySet Name="SDE_GEOMETRY6" EntityType="Self.SDE_GEOMETRY6" />
           <EntitySet Name="SDE_GEOMETRY7" EntityType="Self.SDE_GEOMETRY7" />
           <EntitySet Name="SDE_GEOMETRY8" EntityType="Self.SDE_GEOMETRY8" />
-          <EntitySet Name="SDE_GEOMETRY9" EntityType="Self.SDE_GEOMETRY9" />
           <EntitySet Name="SDE_layer_locks" EntityType="Self.SDE_layer_locks" />
           <EntitySet Name="SDE_layer_stats" EntityType="Self.SDE_layer_stats" />
           <EntitySet Name="SDE_layers" EntityType="Self.SDE_layers" />
@@ -4871,7 +4674,6 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
           <EntitySet Name="a11" EntityType="GisMaryanjModel.a11" />
           <EntitySet Name="a12" EntityType="GisMaryanjModel.a12" />
           <EntitySet Name="a13" EntityType="GisMaryanjModel.a13" />
-          <EntitySet Name="a14" EntityType="GisMaryanjModel.a14" />
           <EntitySet Name="a7" EntityType="GisMaryanjModel.a7" />
           <EntitySet Name="a8" EntityType="GisMaryanjModel.a8" />
           <EntitySet Name="a9" EntityType="GisMaryanjModel.a9" />
@@ -4879,7 +4681,6 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
           <EntitySet Name="D11" EntityType="GisMaryanjModel.D11" />
           <EntitySet Name="D12" EntityType="GisMaryanjModel.D12" />
           <EntitySet Name="D13" EntityType="GisMaryanjModel.D13" />
-          <EntitySet Name="D14" EntityType="GisMaryanjModel.D14" />
           <EntitySet Name="D7" EntityType="GisMaryanjModel.D7" />
           <EntitySet Name="D8" EntityType="GisMaryanjModel.D8" />
           <EntitySet Name="D9" EntityType="GisMaryanjModel.D9" />
@@ -4935,42 +4736,6 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
           </Key>
           <Property Name="OBJECTID" Type="Int32" Nullable="false" />
           <Property Name="مشخصات" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SDE_STATE_ID" Type="Int64" Nullable="false" />
-        </EntityType>
-        <EntityType Name="a14">
-          <Key>
-            <PropertyRef Name="OBJECTID" />
-            <PropertyRef Name="SDE_STATE_ID" />
-          </Key>
-          <Property Name="OBJECTID" Type="Int32" Nullable="false" />
-          <Property Name="Parvaneh" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="Code_Block" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="Amlak__" Type="Decimal" Precision="38" Scale="8" />
-          <Property Name="COD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Code_nosazi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Mantaghe" Type="Decimal" Precision="38" Scale="8" />
-          <Property Name="Mahale" Type="Decimal" Precision="38" Scale="8" />
-          <Property Name="Block" Type="Decimal" Precision="38" Scale="8" />
-          <Property Name="Melk" Type="Decimal" Precision="38" Scale="8" />
-          <Property Name="Name_malek" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Malekiyat" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Mahiyate_fiziki" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Karbari" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Sanad" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Marhale_sakhtemani" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Masahat" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="pelakabi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="codeposti" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Archive_No" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="mogheyat" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="bakhsh" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="asli" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="fari" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="tafkiki" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Telephone" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="COD_1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Parvande_No" Type="Int32" />
           <Property Name="SDE_STATE_ID" Type="Int64" Nullable="false" />
         </EntityType>
         <EntityType Name="a7">
@@ -5098,16 +4863,6 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
           <Property Name="DELETED_AT" Type="Int64" Nullable="false" />
         </EntityType>
         <EntityType Name="D13">
-          <Key>
-            <PropertyRef Name="SDE_STATE_ID" />
-            <PropertyRef Name="SDE_DELETES_ROW_ID" />
-            <PropertyRef Name="DELETED_AT" />
-          </Key>
-          <Property Name="SDE_STATE_ID" Type="Int64" Nullable="false" />
-          <Property Name="SDE_DELETES_ROW_ID" Type="Int32" Nullable="false" />
-          <Property Name="DELETED_AT" Type="Int64" Nullable="false" />
-        </EntityType>
-        <EntityType Name="D14">
           <Key>
             <PropertyRef Name="SDE_STATE_ID" />
             <PropertyRef Name="SDE_DELETES_ROW_ID" />

@@ -39,7 +39,6 @@ namespace WebGISApp.Models
         public DbSet<i11> i11 { get; set; }
         public DbSet<i12> i12 { get; set; }
         public DbSet<i13> i13 { get; set; }
-        public DbSet<i14> i14 { get; set; }
         public DbSet<i2> i2 { get; set; }
         public DbSet<i3> i3 { get; set; }
         public DbSet<i4> i4 { get; set; }
@@ -62,7 +61,6 @@ namespace WebGISApp.Models
         public DbSet<SDE_GEOMETRY6> SDE_GEOMETRY6 { get; set; }
         public DbSet<SDE_GEOMETRY7> SDE_GEOMETRY7 { get; set; }
         public DbSet<SDE_GEOMETRY8> SDE_GEOMETRY8 { get; set; }
-        public DbSet<SDE_GEOMETRY9> SDE_GEOMETRY9 { get; set; }
         public DbSet<SDE_layer_locks> SDE_layer_locks { get; set; }
         public DbSet<SDE_layer_stats> SDE_layer_stats { get; set; }
         public DbSet<SDE_layers> SDE_layers { get; set; }
@@ -99,7 +97,6 @@ namespace WebGISApp.Models
         public DbSet<a11> a11 { get; set; }
         public DbSet<a12> a12 { get; set; }
         public DbSet<a13> a13 { get; set; }
-        public DbSet<a14> a14 { get; set; }
         public DbSet<a7> a7 { get; set; }
         public DbSet<a8> a8 { get; set; }
         public DbSet<a9> a9 { get; set; }
@@ -107,7 +104,6 @@ namespace WebGISApp.Models
         public DbSet<D11> D11 { get; set; }
         public DbSet<D12> D12 { get; set; }
         public DbSet<D13> D13 { get; set; }
-        public DbSet<D14> D14 { get; set; }
         public DbSet<D7> D7 { get; set; }
         public DbSet<D8> D8 { get; set; }
         public DbSet<D9> D9 { get; set; }
