@@ -100,6 +100,12 @@
         <EntityTypeShape EntityType="GisMaryanjModel.D8" Width="1.5" PointX="27.75" PointY="9.75" />
         <EntityTypeShape EntityType="GisMaryanjModel.D9" Width="1.5" PointX="27.75" PointY="12.75" />
         <EntityTypeShape EntityType="GisMaryanjModel.servicesSetting" Width="1.5" PointX="5.375" PointY="28.75" />
+        <EntityTypeShape EntityType="GisMaryanjModel.a15" Width="1.5" PointX="7.375" PointY="28.75" />
+        <EntityTypeShape EntityType="GisMaryanjModel.D15" Width="1.5" PointX="14.375" PointY="28.75" />
+        <EntityTypeShape EntityType="GisMaryanjModel.i15" Width="1.5" PointX="28.375" PointY="15.75" />
+        <EntityTypeShape EntityType="GisMaryanjModel.SDE_compress_log" Width="1.5" PointX="28.375" PointY="18.75" />
+        <EntityTypeShape EntityType="GisMaryanjModel.SDE_GEOMETRY10" Width="1.5" PointX="28.375" PointY="22.75" />
+        <EntityTypeShape EntityType="GisMaryanjModel.User" Width="1.5" PointX="28.375" PointY="25.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

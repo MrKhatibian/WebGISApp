@@ -112,6 +112,12 @@ namespace WebGISApp.Models
         public DbSet<D8> D8 { get; set; }
         public DbSet<D9> D9 { get; set; }
         public DbSet<servicesSetting> servicesSetting { get; set; }
+        public DbSet<a15> a15 { get; set; }
+        public DbSet<D15> D15 { get; set; }
+        public DbSet<i15> i15 { get; set; }
+        public DbSet<SDE_compress_log> SDE_compress_log { get; set; }
+        public DbSet<SDE_GEOMETRY10> SDE_GEOMETRY10 { get; set; }
+        public DbSet<User> User { get; set; }
     
         public virtual int create_version(string parent_name, ObjectParameter name, Nullable<int> name_rule, Nullable<int> access, string description)
         {

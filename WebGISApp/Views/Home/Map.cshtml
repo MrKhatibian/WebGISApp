@@ -5,6 +5,7 @@
 }
 
 <!-- #region viewMapDiv -->
+@*@Html.ButtonSymbolAccess("ابلاغ رای", "", "210703", "SendToEblaghRay()", "fa-paper-plane", btnType: AmardbtnType.Copy)*@
 
 <calcite-shell>
     <!-- Header: Top navigation area -->
@@ -25,9 +26,9 @@
             <calcite-action-group>
                 <calcite-action id="measureTool" icon="measure" text="ابزار اندازه‌گیر"></calcite-action>
                 <calcite-action id="editable" icon="layers-editable" text="ویرایش"></calcite-action>
-                <calcite-action id="identify" icon="information" text="اطلاعات"></calcite-action>                
-            </calcite-action-group>                        
-            <clacite-action-group layout="vertical" overlay-positioning="fixed" class="js-action-group" calcite-hydrated slot="actions-end">                
+                <calcite-action id="identify" icon="information" text="اطلاعات"></calcite-action>
+            </calcite-action-group>
+            <clacite-action-group layout="vertical" overlay-positioning="fixed" class="js-action-group" calcite-hydrated slot="actions-end">
                 @*<calcite-action id="mapProperties" icon="gear" text="تنظیمات"></calcite-action>*@
             </clacite-action-group>
         </calcite-action-bar>
@@ -210,7 +211,7 @@
                         </div>
                     </calcite-tab>
                 </calcite-tabs>
-                
+
             </div>
         </calcite-panel>
     </calcite-shell-panel>
@@ -240,7 +241,7 @@
             <div slot="subtitle"><span id="result-value">0</span></div>
         </calcite-card>
     </calcite-panel>
-    
+
     <!-- AttributeTable -->
     <calcite-panel id="panelAttributeTable">
         <div id="attributeTable">
@@ -261,9 +262,9 @@
                 <calcite-combobox-item value="MapServer" text-label="MapServer" selected></calcite-combobox-item>
                 <calcite-combobox-item value="Shapefile" text-label="Shapefile"></calcite-combobox-item>
                 <calcite-combobox-item value="WMS (OGC)" text-label="WMS (OGC)"></calcite-combobox-item>
-                <calcite-combobox-item value="CSV" text-label="CSV"></calcite-combobox-item>                
+                <calcite-combobox-item value="CSV" text-label="CSV"></calcite-combobox-item>
                 <calcite-combobox-item value="WFS (OGC)" text-label="WFS (OGC)"></calcite-combobox-item>
-                <calcite-combobox-item value="WMTS (OGC)" text-label="WMTS (OGC)"></calcite-combobox-item>                
+                <calcite-combobox-item value="WMTS (OGC)" text-label="WMTS (OGC)"></calcite-combobox-item>
             </calcite-combobox>
 
         </div>
