@@ -1,8 +1,13 @@
 ﻿// #region Import
-//Import Files
+/**
+ * Import Files
+ */
 
 
-//Import Modules
+
+/**
+ * Import Modules
+ */
 import Map from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/Map.js";
 import MapView from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/views/MapView.js";
 import GroupLayer from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/layers/GroupLayer.js";
@@ -36,24 +41,22 @@ import Fe from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/
 
 // #endregion Import
 
-// #region Main
-// Paramter
+// #region Main Values
+/**
+ * Paramter 
+ */
 const features = [];
 var featuresLayerArray = [];
 var params, viewClick;
 var isIdentify = false;
 
-// Create a WebTileLayer with the OSM tile URL
-const osmLayer = new WebTileLayer({
-    urlTemplate: "https://{subDomain}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-    subDomains: ["a", "b", "c"], // Subdomains for OSM tiles
-    title: "OpenStreetMap"
-});
+/**
+ * Creat Main Values
+ */
 
+//Creat and Set Map
 const map = new Map({
-    basemap: "osm"
-    //basemap: "topo-vector"
-    //basemap: { baseLayers: [osmLayer]}
+    basemap: "osm"    
 });
 
 // Adding Map URL
@@ -63,7 +66,7 @@ const mapServerUrl = serverUrl + "/MapServer";
 //Creat FeatureServer URL
 const featureServerUrl = serverUrl + "/FeatureServer";
 
-// Creat and Set Map View
+// Creat and Set MapView
 const view = new MapView({
     map: map,
     zoom: 14, // Zoom level
@@ -80,7 +83,12 @@ const view = new MapView({
         }
     }
 });
+// #endregion Main Values
+
 // #region Add data and open dialogdialog_import
+/**
+ * Paramter
+ */
 const btn_AddData = document.getElementById("btn_AddData");
 const dialog_AddData = document.getElementById("dialog_AddData");
 const btnAdd_AddData = document.getElementById("btnAdd_AddData");
@@ -106,7 +114,7 @@ function addData(dataPath, dataType) {
         dialog_AddData.open = false;
     }
 }
-// #endregion Main 
+// #endregion Add data and open dialogdialog_import
 
 // #region Service Setting
 const inputServiceSetting = document.getElementById("inputServiceSetting");
@@ -115,8 +123,8 @@ const inputCodeArse = document.getElementById("inputCodeArse");
 const btnSetServiceSetting = document.getElementById("btnSetServiceSetting");
 const btnCancelServiceSetting = document.getElementById("btnCancelServiceSetting");
 
-btnSetServiceSetting.addEventListener("click", async function () {    
-    const url = inputServiceSetting.value.trim() +"?f=pjson";    
+btnSetServiceSetting.addEventListener("click", async function () {
+    const url = inputServiceSetting.value.trim() + "?f=pjson";
 
     // Check if the service URL exists
     try {
@@ -126,13 +134,13 @@ btnSetServiceSetting.addEventListener("click", async function () {
             alert("Service URL is valid and accessible!");
             fetchArcGISData(url);
         } else {
-            alert(`Service URL is invalid or inaccessible. Status: ${response.status}`);            
+            alert(`Service URL is invalid or inaccessible. Status: ${response.status}`);
         }
-    } catch (error) {        
-        alert("Error checking the service URL. Please try again.");        
+    } catch (error) {
+        alert("Error checking the service URL. Please try again.");
     }
 });
-async function fetchArcGISData(url) {    
+async function fetchArcGISData(url) {
     try {
         const response = await fetch(url);
         const data = await response.json();
@@ -298,7 +306,7 @@ view.when(() => {
         }
     });
     function selectByAttribute(codeNosazi) {
-        featureLayer.load().then(() => {                        
+        featureLayer.load().then(() => {
             featureLayer.popupTemplate = featureLayer.createPopupTemplate();
         });
         const query = featureLayer.createQuery();
@@ -312,16 +320,16 @@ view.when(() => {
                 //console.log("Found Feature:", feature.attributes);
 
                 // Check and update feature Info for Connect to Shahrsazi
-                updateSelectFeatureInfo(feature); 
+                updateSelectFeatureInfo(feature);
 
                 // Zoom to the feature's location
                 view.goTo(feature.geometry.extent.expand(2));
-                
+
                 // open popup of query featureSet
-                view.openPopup({                    
+                view.openPopup({
                     features: featureSet.features,
                     featureMenuOpen: true
-                });                
+                });
             } else {
                 alert("کد نوسازی مورد نظر یافت نشد");
             }
@@ -411,7 +419,7 @@ view.when(() => {
 
         featureTable.layer = layer;
         console.log(`FeatureTable updated: ${layer.title}`);
-    }   
+    }
 
     // Handle LayerList action events
     layerList.on("trigger-action", async (event) => {
@@ -567,7 +575,7 @@ view.when(() => {
         if (!featureLayer) {
             console.error("Feature layer is not defined.");
             return;
-        }       
+        }
 
         if (!isEditing) {
             isEditing = true;
@@ -716,13 +724,13 @@ view.when(() => {
 
         // Execute feature query
         featureLayer.queryFeatures(query)
-            .then((featureSet) => {                
+            .then((featureSet) => {
                 const features = featureSet.features;
                 if (!features?.length) {
                     console.warn("No features found at this location.");
                     return;
                 }
-               
+
                 // Set graphic location and add to view if not already present
                 if (pointGraphic.geometry !== point) {
                     pointGraphic.geometry = point;
@@ -736,11 +744,11 @@ view.when(() => {
                     location: point,
                     features: features,
                     featureMenuOpen: true
-                });                
-                
+                });
+
                 // Check and update feature Info for Connect to Shahrsazi
-                updateSelectFeatureInfo(features[0]);                                
-                
+                updateSelectFeatureInfo(features[0]);
+
 
             })
             .catch((error) => {
@@ -754,7 +762,7 @@ view.when(() => {
 
     // #region Connect to Shahrsazi
     // Connect to shahrsazi when clicked by btnconnect
-    function updateSelectFeatureInfo(feature) {        
+    function updateSelectFeatureInfo(feature) {
 
         // Ensure the feature has attributes
         const attributes = feature?.attributes;
@@ -770,7 +778,7 @@ view.when(() => {
         selectFeatureInfo.set("Code_nosazi", attributes.Code_nosazi ?? "N/A");
         selectFeatureInfo.set("Masahat", attributes.Masahat ?? "N/A");
     }
-    async function connectToShahrsazi() {        
+    async function connectToShahrsazi() {
 
         // Get feature info safely
         const Code_nosazi = selectFeatureInfo.get("Code_nosazi");
@@ -790,21 +798,16 @@ view.when(() => {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    mapService: Code_nosazi,
-                    printService: Masahat }),
-            });
-
-            if (!response.ok) {
-                throw new Error(`Failed to insert features: ${response.statusText}`);
-            }
+                    mapService: Code_nosazi1,
+                    printService: Masahat1
+                }),
+            });            
 
             const data = await response.json();
-
             if (data.success) {
                 alert(`Feature inserted successfully: ${data.message}`);
-            } else {
-                console.error("Failed to insert feature:", data.message);
-                alert("Failed to insert feature. Please check the console for more details.");
+            } else {                
+                alert(`Failed to insert feature: ${data.message}`);
             }
         } catch (error) {
             console.error("Error during POST request:", error);
@@ -813,7 +816,7 @@ view.when(() => {
     }
 
     // Attach event listener
-    document.getElementById("btnConnect")?.addEventListener("click", connectToShahrsazi);  
+    document.getElementById("btnConnect")?.addEventListener("click", connectToShahrsazi);
     // #endregion Connect to Shahrsazi
 
     function layerLoadStatus() {
@@ -829,7 +832,7 @@ view.when(() => {
             default:
                 return "وضعیت نامشخص است."; // In case of unexpected status
         }
-    } 
+    }
 
     // #region Add for test
 
@@ -869,46 +872,73 @@ view.when(() => {
 
 
 
-// #region shell panels and actionbar
-// References to shell panels and actions
-const shellPanelStart = document.getElementById("shell-panel-start");
-const shellPanelEnd = document.getElementById("shell-panel-end");
+// #region Shell Panels and Action Bar ======================================================================
 
-const actionsStart = shellPanelStart?.querySelectorAll("calcite-action");
-const panelStart = shellPanelStart?.querySelectorAll("calcite-panel");
-const actionsEnd = shellPanelEnd?.querySelectorAll("calcite-action");
-const panelEnd = shellPanelEnd?.querySelectorAll("calcite-panel");
-// Add click listeners for start panel actions
-actionsStart?.forEach(el => {
-    el.addEventListener("click", function () {
-        if (el.active) {
-            el.active = false; // Set the clicked action as active           
-            return
-        };
-        el.active = true; // Set the clicked action as active
+try {
+    // References to shell panels and actions
+    const shellPanelStart = document.getElementById("shell-panel-start");
+    const shellPanelEnd = document.getElementById("shell-panel-end");
+
+    if (!shellPanelStart || !shellPanelEnd) {
+        console.warn("Warning: Shell panels not found in the DOM.");
+    }
+
+    const actionsStart = shellPanelStart?.querySelectorAll("calcite-action") ?? [];
+    const panelStart = shellPanelStart?.querySelectorAll("calcite-panel") ?? [];
+    const actionsEnd = shellPanelEnd?.querySelectorAll("calcite-action") ?? [];
+    const panelEnd = shellPanelEnd?.querySelectorAll("calcite-panel") ?? [];
+
+    // Function to safely toggle action states
+    function toggleAction(action) {
+        try {
+            action.active = !action.active;
+        } catch (error) {
+            console.error("Error toggling action state:", error);
+        }
+    }
+
+    // Toggle start panel actions
+    actionsStart.forEach(action => {
+        action.addEventListener("click", () => toggleAction(action));
     });
-});
-// Add click listeners for end panel actions
-actionsEnd?.forEach(el => {
-    el.addEventListener("click", function () {
-        const selectedActionPanelEnd = document.getElementById("panel_" + el.id);
-        if (el.active) {
-            el.active = false; // Set the clicked action as active
-            shellPanelEnd.collapsed = true; // Expand panel
-            selectedActionPanelEnd.closed = true; // Open panel
-            selectedActionPanelEnd.hidden = true; // Open panel
-            return
-        }; // Prevent unnecessary toggling
-        panelEnd?.forEach(item => { item.closed = true });
-        actionsEnd?.forEach(action => (action.active = false));
-        el.active = true; // Set the clicked action as active
-        shellPanelEnd.collapsed = false; // Expand panel            
-        selectedActionPanelEnd.closed = false;
-        selectedActionPanelEnd.hidden = false;
-        selectedActionPanelEnd.heading = el.text; // Update heading
+
+    // Toggle end panel actions
+    actionsEnd.forEach(action => {
+        action.addEventListener("click", () => {
+            try {
+                const selectedPanel = document.getElementById("panel_" + action.id);
+
+                if (!selectedPanel) {
+                    console.warn(`Warning: No panel found for action ID: ${action.id}`);
+                    return;
+                }
+
+                if (action.active) {
+                    action.active = false;
+                    shellPanelEnd.collapsed = true;
+                    selectedPanel.closed = true;
+                    selectedPanel.hidden = true;
+                } else {
+                    panelEnd.forEach(panel => (panel.closed = true));
+                    actionsEnd.forEach(act => (act.active = false));
+
+                    action.active = true;
+                    shellPanelEnd.collapsed = false;
+                    selectedPanel.closed = false;
+                    selectedPanel.hidden = false;
+                    selectedPanel.heading = action.text;
+                }
+            } catch (error) {
+                console.error("Error handling end panel action click:", error);
+            }
+        });
     });
-});
-// #endregion
+} catch (error) {
+    console.error("Critical error initializing shell panels:", error);
+}
+
+// #endregion Shell Panels and Action Bar ===================================================================
+
 
 // #region Measurment tool 
 const graphicsLayer = new GraphicsLayer();

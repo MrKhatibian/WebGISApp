@@ -54,11 +54,11 @@ namespace WebGISApp.Controllers
                 _context.servicesSetting.Add(mapServiceValues);
                 _context.SaveChanges();
                 
-                return Json(new { success = true, message = "Feature added successfully" }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = true, message = "Successful" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
-                return Json(new { success = false, message = "Error: " + ex.Message }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = false, message = "Unsuccessful" + ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
         // Get all features
