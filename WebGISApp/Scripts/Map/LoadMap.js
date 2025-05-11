@@ -773,6 +773,9 @@ view.when(() => {
         // Enable connect button
         document.getElementById("btnConnect").disabled = false;
 
+        // Enable send button
+        document.getElementById("btnSendInfo").disabled = false;
+
         // Update UI elements with feature attributes
         document.getElementById("inputCodeNosazi").value = attributes.Code_nosazi ?? "";
         selectFeatureInfo.set("Code_nosazi", attributes.Code_nosazi ?? "N/A");
@@ -818,7 +821,12 @@ view.when(() => {
     // Attach event listener
     document.getElementById("btnConnect")?.addEventListener("click", connectToShahrsazi);
     // #endregion Connect to Shahrsazi
-
+    // region Send Data from GIS ============================================================================
+    function sendToShahrsazi() {
+        alert("Hiii Mohammad, what do you want?");
+    }
+    document.getElementById("btnSendInfo")?.addEventListener("click", sendToShahrsazi);
+    // endregion Send Data from GIS
     function layerLoadStatus() {
         switch (layer.loadStatus) {
             case "not-loaded":
