@@ -60,8 +60,8 @@ warning 6005: The data type 'geometry' is not supported for the target Entity Fr
           <Property Name="SDE_STATE_ID" Type="bigint" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6005: The data type 'geometry' is not supported for the target Entity Framework version schema. The column 'SHAPE' in the table 'GisMaryanj.dbo.a14' was excluded from the model. To use the data type 'geometry', target the Entity Framework schema version 3.0 or higher.-->
-        <EntityType Name="a14">
+warning 6005: The data type 'geometry' is not supported for the target Entity Framework version schema. The column 'SHAPE' in the table 'GisMaryanj.dbo.a15' was excluded from the model. To use the data type 'geometry', target the Entity Framework schema version 3.0 or higher.-->
+        <EntityType Name="a15">
           <Key>
             <PropertyRef Name="OBJECTID" />
             <PropertyRef Name="SDE_STATE_ID" />
@@ -273,7 +273,7 @@ warning 6005: The data type 'geometry' is not supported for the target Entity Fr
           <Property Name="SDE_DELETES_ROW_ID" Type="int" Nullable="false" />
           <Property Name="DELETED_AT" Type="bigint" Nullable="false" />
         </EntityType>
-        <EntityType Name="D14">
+        <EntityType Name="D15">
           <Key>
             <PropertyRef Name="SDE_STATE_ID" />
             <PropertyRef Name="SDE_DELETES_ROW_ID" />
@@ -564,7 +564,7 @@ warning 6005: The data type 'geometry' is not supported for the target Entity Fr
           <Property Name="num_ids" Type="int" Nullable="false" />
           <Property Name="last_id" Type="int" />
         </EntityType>
-        <EntityType Name="i14">
+        <EntityType Name="i15">
           <Key>
             <PropertyRef Name="id_type" />
             <PropertyRef Name="base_id" />
@@ -713,6 +713,20 @@ warning 6005: The data type 'geometry' is not supported for the target Entity Fr
           <Property Name="object_flags" Type="int" Nullable="false" />
           <Property Name="object_id" Type="int" />
         </EntityType>
+        <EntityType Name="SDE_compress_log">
+          <Key>
+            <PropertyRef Name="compress_id" />
+          </Key>
+          <Property Name="compress_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sde_id" Type="int" Nullable="false" />
+          <Property Name="server_id" Type="int" Nullable="false" />
+          <Property Name="direct_connect" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="compress_start" Type="datetime" Nullable="false" />
+          <Property Name="start_state_count" Type="int" Nullable="false" />
+          <Property Name="compress_end" Type="datetime" />
+          <Property Name="end_state_count" Type="int" />
+          <Property Name="compress_status" Type="varchar" MaxLength="20" />
+        </EntityType>
         <EntityType Name="SDE_dbtune">
           <Key>
             <PropertyRef Name="keyword" />
@@ -748,6 +762,15 @@ warning 6005: The data type 'geometry' is not supported for the target Entity Fr
           </Key>
           <Property Name="GEOMETRY_ID" Type="int" Nullable="false" />
           <Property Name="CAD" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="SDE_GEOMETRY10">
+          <Key>
+            <PropertyRef Name="GEOMETRY_ID" />
+            <PropertyRef Name="SDE_STATE_ID" />
+          </Key>
+          <Property Name="GEOMETRY_ID" Type="int" Nullable="false" />
+          <Property Name="CAD" Type="varbinary(max)" />
+          <Property Name="SDE_STATE_ID" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="SDE_GEOMETRY2">
           <Key>
@@ -804,15 +827,6 @@ warning 6005: The data type 'geometry' is not supported for the target Entity Fr
           <Property Name="SDE_STATE_ID" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="SDE_GEOMETRY8">
-          <Key>
-            <PropertyRef Name="GEOMETRY_ID" />
-            <PropertyRef Name="SDE_STATE_ID" />
-          </Key>
-          <Property Name="GEOMETRY_ID" Type="int" Nullable="false" />
-          <Property Name="CAD" Type="varbinary(max)" />
-          <Property Name="SDE_STATE_ID" Type="bigint" Nullable="false" />
-        </EntityType>
-        <EntityType Name="SDE_GEOMETRY9">
           <Key>
             <PropertyRef Name="GEOMETRY_ID" />
             <PropertyRef Name="SDE_STATE_ID" />
@@ -1185,6 +1199,15 @@ warning 6005: The data type 'geometry' is not supported for the target Entity Fr
           <Property Name="name" Type="nvarchar" MaxLength="254" />
           <Property Name="ORIG_FID" Type="int" />
         </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="nvarchar(max)" />
+          <Property Name="Role" Type="nvarchar(max)" />
+          <Property Name="AllowedCity" Type="nvarchar(max)" />
+        </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'GisMaryanj.dbo.dbtune' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="dbtune">
@@ -1484,17 +1507,6 @@ warning 6035: The relationship 'sdelayer_stats_fk1' has columns that are not par
           <Parameter Name="num_obtained_ids" Type="int" Mode="InOut" />
         </Function>
         <Function Name="i13_return_ids" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="id_type" Type="int" Mode="In" />
-          <Parameter Name="base_id" Type="int" Mode="In" />
-          <Parameter Name="num_ids" Type="int" Mode="In" />
-        </Function>
-        <Function Name="i14_get_ids" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="id_type" Type="int" Mode="In" />
-          <Parameter Name="num_requested_ids" Type="int" Mode="In" />
-          <Parameter Name="base_id" Type="int" Mode="InOut" />
-          <Parameter Name="num_obtained_ids" Type="int" Mode="InOut" />
-        </Function>
-        <Function Name="i14_return_ids" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id_type" Type="int" Mode="In" />
           <Parameter Name="base_id" Type="int" Mode="In" />
           <Parameter Name="num_ids" Type="int" Mode="In" />
@@ -2374,7 +2386,7 @@ warning 6035: The relationship 'sdelayer_stats_fk1' has columns that are not par
           <EntitySet Name="a11" EntityType="Self.a11" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="a12" EntityType="Self.a12" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="a13" EntityType="Self.a13" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="a14" EntityType="Self.a14" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="a15" EntityType="Self.a15" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="a7" EntityType="Self.a7" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="a8" EntityType="Self.a8" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="a9" EntityType="Self.a9" Schema="dbo" store:Type="Tables" />
@@ -2383,7 +2395,7 @@ warning 6035: The relationship 'sdelayer_stats_fk1' has columns that are not par
           <EntitySet Name="D11" EntityType="Self.D11" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="D12" EntityType="Self.D12" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="D13" EntityType="Self.D13" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="D14" EntityType="Self.D14" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="D15" EntityType="Self.D15" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="D7" EntityType="Self.D7" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="D8" EntityType="Self.D8" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="D9" EntityType="Self.D9" Schema="dbo" store:Type="Tables" />
@@ -2397,7 +2409,7 @@ warning 6035: The relationship 'sdelayer_stats_fk1' has columns that are not par
           <EntitySet Name="i11" EntityType="Self.i11" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="i12" EntityType="Self.i12" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="i13" EntityType="Self.i13" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="i14" EntityType="Self.i14" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="i15" EntityType="Self.i15" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="i2" EntityType="Self.i2" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="i3" EntityType="Self.i3" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="i4" EntityType="Self.i4" Schema="dbo" store:Type="Tables" />
@@ -2410,9 +2422,11 @@ warning 6035: The relationship 'sdelayer_stats_fk1' has columns that are not par
           <EntitySet Name="MAABER_PT" EntityType="Self.MAABER_PT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SDE_archives" EntityType="Self.SDE_archives" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SDE_column_registry" EntityType="Self.SDE_column_registry" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SDE_compress_log" EntityType="Self.SDE_compress_log" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SDE_dbtune" EntityType="Self.SDE_dbtune" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SDE_geometry_columns" EntityType="Self.SDE_geometry_columns" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SDE_GEOMETRY1" EntityType="Self.SDE_GEOMETRY1" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SDE_GEOMETRY10" EntityType="Self.SDE_GEOMETRY10" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SDE_GEOMETRY2" EntityType="Self.SDE_GEOMETRY2" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SDE_GEOMETRY3" EntityType="Self.SDE_GEOMETRY3" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SDE_GEOMETRY4" EntityType="Self.SDE_GEOMETRY4" Schema="dbo" store:Type="Tables" />
@@ -2420,7 +2434,6 @@ warning 6035: The relationship 'sdelayer_stats_fk1' has columns that are not par
           <EntitySet Name="SDE_GEOMETRY6" EntityType="Self.SDE_GEOMETRY6" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SDE_GEOMETRY7" EntityType="Self.SDE_GEOMETRY7" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SDE_GEOMETRY8" EntityType="Self.SDE_GEOMETRY8" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SDE_GEOMETRY9" EntityType="Self.SDE_GEOMETRY9" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SDE_layer_locks" EntityType="Self.SDE_layer_locks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SDE_layer_stats" EntityType="Self.SDE_layer_stats" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SDE_layers" EntityType="Self.SDE_layers" Schema="dbo" store:Type="Tables" />
@@ -2448,6 +2461,7 @@ warning 6035: The relationship 'sdelayer_stats_fk1' has columns that are not par
           <EntitySet Name="SDE_xml_indexes" EntityType="Self.SDE_xml_indexes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="servicesSetting" EntityType="Self.servicesSetting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_T1394" EntityType="Self.T_T1394" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GDB_ITEMRELATIONSHIPTYPES" EntityType="Self.GDB_ITEMRELATIONSHIPTYPES" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
 [GDB_ITEMRELATIONSHIPTYPES].[ObjectID] AS [ObjectID], 
@@ -2782,17 +2796,6 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
           <Property Name="num_ids" Type="Int32" Nullable="false" />
           <Property Name="last_id" Type="Int32" />
         </EntityType>
-        <EntityType Name="i14">
-          <Key>
-            <PropertyRef Name="id_type" />
-            <PropertyRef Name="base_id" />
-            <PropertyRef Name="num_ids" />
-          </Key>
-          <Property Name="id_type" Type="Int32" Nullable="false" />
-          <Property Name="base_id" Type="Int32" Nullable="false" />
-          <Property Name="num_ids" Type="Int32" Nullable="false" />
-          <Property Name="last_id" Type="Int32" />
-        </EntityType>
         <EntityType Name="i2">
           <Key>
             <PropertyRef Name="id_type" />
@@ -3021,15 +3024,6 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
           <Property Name="SDE_STATE_ID" Type="Int64" Nullable="false" />
         </EntityType>
         <EntityType Name="SDE_GEOMETRY8">
-          <Key>
-            <PropertyRef Name="GEOMETRY_ID" />
-            <PropertyRef Name="SDE_STATE_ID" />
-          </Key>
-          <Property Name="GEOMETRY_ID" Type="Int32" Nullable="false" />
-          <Property Name="CAD" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="SDE_STATE_ID" Type="Int64" Nullable="false" />
-        </EntityType>
-        <EntityType Name="SDE_GEOMETRY9">
           <Key>
             <PropertyRef Name="GEOMETRY_ID" />
             <PropertyRef Name="SDE_STATE_ID" />
@@ -3650,7 +3644,6 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
           <EntitySet Name="i11" EntityType="Self.i11" />
           <EntitySet Name="i12" EntityType="Self.i12" />
           <EntitySet Name="i13" EntityType="Self.i13" />
-          <EntitySet Name="i14" EntityType="Self.i14" />
           <EntitySet Name="i2" EntityType="Self.i2" />
           <EntitySet Name="i3" EntityType="Self.i3" />
           <EntitySet Name="i4" EntityType="Self.i4" />
@@ -3673,7 +3666,6 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
           <EntitySet Name="SDE_GEOMETRY6" EntityType="Self.SDE_GEOMETRY6" />
           <EntitySet Name="SDE_GEOMETRY7" EntityType="Self.SDE_GEOMETRY7" />
           <EntitySet Name="SDE_GEOMETRY8" EntityType="Self.SDE_GEOMETRY8" />
-          <EntitySet Name="SDE_GEOMETRY9" EntityType="Self.SDE_GEOMETRY9" />
           <EntitySet Name="SDE_layer_locks" EntityType="Self.SDE_layer_locks" />
           <EntitySet Name="SDE_layer_stats" EntityType="Self.SDE_layer_stats" />
           <EntitySet Name="SDE_layers" EntityType="Self.SDE_layers" />
@@ -4682,7 +4674,6 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
           <EntitySet Name="a11" EntityType="GisMaryanjModel.a11" />
           <EntitySet Name="a12" EntityType="GisMaryanjModel.a12" />
           <EntitySet Name="a13" EntityType="GisMaryanjModel.a13" />
-          <EntitySet Name="a14" EntityType="GisMaryanjModel.a14" />
           <EntitySet Name="a7" EntityType="GisMaryanjModel.a7" />
           <EntitySet Name="a8" EntityType="GisMaryanjModel.a8" />
           <EntitySet Name="a9" EntityType="GisMaryanjModel.a9" />
@@ -4690,11 +4681,16 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
           <EntitySet Name="D11" EntityType="GisMaryanjModel.D11" />
           <EntitySet Name="D12" EntityType="GisMaryanjModel.D12" />
           <EntitySet Name="D13" EntityType="GisMaryanjModel.D13" />
-          <EntitySet Name="D14" EntityType="GisMaryanjModel.D14" />
           <EntitySet Name="D7" EntityType="GisMaryanjModel.D7" />
           <EntitySet Name="D8" EntityType="GisMaryanjModel.D8" />
           <EntitySet Name="D9" EntityType="GisMaryanjModel.D9" />
           <EntitySet Name="servicesSetting" EntityType="GisMaryanjModel.servicesSetting" />
+          <EntitySet Name="a15" EntityType="GisMaryanjModel.a15" />
+          <EntitySet Name="D15" EntityType="GisMaryanjModel.D15" />
+          <EntitySet Name="i15" EntityType="GisMaryanjModel.i15" />
+          <EntitySet Name="SDE_compress_log" EntityType="GisMaryanjModel.SDE_compress_log" />
+          <EntitySet Name="SDE_GEOMETRY10" EntityType="GisMaryanjModel.SDE_GEOMETRY10" />
+          <EntitySet Name="User" EntityType="GisMaryanjModel.User" />
         </EntityContainer>
         <EntityType Name="a10">
           <Key>
@@ -4740,42 +4736,6 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
           </Key>
           <Property Name="OBJECTID" Type="Int32" Nullable="false" />
           <Property Name="مشخصات" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SDE_STATE_ID" Type="Int64" Nullable="false" />
-        </EntityType>
-        <EntityType Name="a14">
-          <Key>
-            <PropertyRef Name="OBJECTID" />
-            <PropertyRef Name="SDE_STATE_ID" />
-          </Key>
-          <Property Name="OBJECTID" Type="Int32" Nullable="false" />
-          <Property Name="Parvaneh" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="Code_Block" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="Amlak__" Type="Decimal" Precision="38" Scale="8" />
-          <Property Name="COD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Code_nosazi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Mantaghe" Type="Decimal" Precision="38" Scale="8" />
-          <Property Name="Mahale" Type="Decimal" Precision="38" Scale="8" />
-          <Property Name="Block" Type="Decimal" Precision="38" Scale="8" />
-          <Property Name="Melk" Type="Decimal" Precision="38" Scale="8" />
-          <Property Name="Name_malek" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Malekiyat" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Mahiyate_fiziki" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Karbari" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Sanad" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Marhale_sakhtemani" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Masahat" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="pelakabi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="codeposti" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Archive_No" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="mogheyat" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="bakhsh" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="asli" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="fari" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="tafkiki" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Telephone" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="COD_1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Parvande_No" Type="Int32" />
           <Property Name="SDE_STATE_ID" Type="Int64" Nullable="false" />
         </EntityType>
         <EntityType Name="a7">
@@ -4912,16 +4872,6 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
           <Property Name="SDE_DELETES_ROW_ID" Type="Int32" Nullable="false" />
           <Property Name="DELETED_AT" Type="Int64" Nullable="false" />
         </EntityType>
-        <EntityType Name="D14">
-          <Key>
-            <PropertyRef Name="SDE_STATE_ID" />
-            <PropertyRef Name="SDE_DELETES_ROW_ID" />
-            <PropertyRef Name="DELETED_AT" />
-          </Key>
-          <Property Name="SDE_STATE_ID" Type="Int64" Nullable="false" />
-          <Property Name="SDE_DELETES_ROW_ID" Type="Int32" Nullable="false" />
-          <Property Name="DELETED_AT" Type="Int64" Nullable="false" />
-        </EntityType>
         <EntityType Name="D7">
           <Key>
             <PropertyRef Name="SDE_STATE_ID" />
@@ -4960,6 +4910,95 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
           <Property Name="mapService" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="printService" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="geometryService" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="a15">
+          <Key>
+            <PropertyRef Name="OBJECTID" />
+            <PropertyRef Name="SDE_STATE_ID" />
+          </Key>
+          <Property Name="OBJECTID" Type="Int32" Nullable="false" />
+          <Property Name="Parvaneh" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Code_Block" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Amlak__" Type="Decimal" Precision="38" Scale="8" />
+          <Property Name="COD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Code_nosazi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Mantaghe" Type="Decimal" Precision="38" Scale="8" />
+          <Property Name="Mahale" Type="Decimal" Precision="38" Scale="8" />
+          <Property Name="Block" Type="Decimal" Precision="38" Scale="8" />
+          <Property Name="Melk" Type="Decimal" Precision="38" Scale="8" />
+          <Property Name="Name_malek" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Malekiyat" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Mahiyate_fiziki" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Karbari" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Sanad" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Marhale_sakhtemani" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Masahat" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="pelakabi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="codeposti" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Archive_No" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="mogheyat" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="bakhsh" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="asli" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="fari" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="tafkiki" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Telephone" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="COD_1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Parvande_No" Type="Int32" />
+          <Property Name="SDE_STATE_ID" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="D15">
+          <Key>
+            <PropertyRef Name="SDE_STATE_ID" />
+            <PropertyRef Name="SDE_DELETES_ROW_ID" />
+            <PropertyRef Name="DELETED_AT" />
+          </Key>
+          <Property Name="SDE_STATE_ID" Type="Int64" Nullable="false" />
+          <Property Name="SDE_DELETES_ROW_ID" Type="Int32" Nullable="false" />
+          <Property Name="DELETED_AT" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="i15">
+          <Key>
+            <PropertyRef Name="id_type" />
+            <PropertyRef Name="base_id" />
+            <PropertyRef Name="num_ids" />
+          </Key>
+          <Property Name="id_type" Type="Int32" Nullable="false" />
+          <Property Name="base_id" Type="Int32" Nullable="false" />
+          <Property Name="num_ids" Type="Int32" Nullable="false" />
+          <Property Name="last_id" Type="Int32" />
+        </EntityType>
+        <EntityType Name="SDE_compress_log">
+          <Key>
+            <PropertyRef Name="compress_id" />
+          </Key>
+          <Property Name="compress_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sde_id" Type="Int32" Nullable="false" />
+          <Property Name="server_id" Type="Int32" Nullable="false" />
+          <Property Name="direct_connect" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="compress_start" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="start_state_count" Type="Int32" Nullable="false" />
+          <Property Name="compress_end" Type="DateTime" Precision="3" />
+          <Property Name="end_state_count" Type="Int32" />
+          <Property Name="compress_status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="SDE_GEOMETRY10">
+          <Key>
+            <PropertyRef Name="GEOMETRY_ID" />
+            <PropertyRef Name="SDE_STATE_ID" />
+          </Key>
+          <Property Name="GEOMETRY_ID" Type="Int32" Nullable="false" />
+          <Property Name="CAD" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="SDE_STATE_ID" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Role" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AllowedCity" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -5173,16 +5212,6 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
           <EntitySetMapping Name="i13">
             <EntityTypeMapping TypeName="GisMaryanjModel.i13">
               <MappingFragment StoreEntitySet="i13">
-                <ScalarProperty Name="id_type" ColumnName="id_type" />
-                <ScalarProperty Name="base_id" ColumnName="base_id" />
-                <ScalarProperty Name="num_ids" ColumnName="num_ids" />
-                <ScalarProperty Name="last_id" ColumnName="last_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="i14">
-            <EntityTypeMapping TypeName="GisMaryanjModel.i14">
-              <MappingFragment StoreEntitySet="i14">
                 <ScalarProperty Name="id_type" ColumnName="id_type" />
                 <ScalarProperty Name="base_id" ColumnName="base_id" />
                 <ScalarProperty Name="num_ids" ColumnName="num_ids" />
@@ -5409,15 +5438,6 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
           <EntitySetMapping Name="SDE_GEOMETRY8">
             <EntityTypeMapping TypeName="GisMaryanjModel.SDE_GEOMETRY8">
               <MappingFragment StoreEntitySet="SDE_GEOMETRY8">
-                <ScalarProperty Name="SDE_STATE_ID" ColumnName="SDE_STATE_ID" />
-                <ScalarProperty Name="GEOMETRY_ID" ColumnName="GEOMETRY_ID" />
-                <ScalarProperty Name="CAD" ColumnName="CAD" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SDE_GEOMETRY9">
-            <EntityTypeMapping TypeName="GisMaryanjModel.SDE_GEOMETRY9">
-              <MappingFragment StoreEntitySet="SDE_GEOMETRY9">
                 <ScalarProperty Name="SDE_STATE_ID" ColumnName="SDE_STATE_ID" />
                 <ScalarProperty Name="GEOMETRY_ID" ColumnName="GEOMETRY_ID" />
                 <ScalarProperty Name="CAD" ColumnName="CAD" />
@@ -5882,8 +5902,6 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
           <FunctionImportMapping FunctionImportName="i12_return_ids" FunctionName="GisMaryanjModel.Store.i12_return_ids" />
           <FunctionImportMapping FunctionImportName="i13_get_ids" FunctionName="GisMaryanjModel.Store.i13_get_ids" />
           <FunctionImportMapping FunctionImportName="i13_return_ids" FunctionName="GisMaryanjModel.Store.i13_return_ids" />
-          <FunctionImportMapping FunctionImportName="i14_get_ids" FunctionName="GisMaryanjModel.Store.i14_get_ids" />
-          <FunctionImportMapping FunctionImportName="i14_return_ids" FunctionName="GisMaryanjModel.Store.i14_return_ids" />
           <FunctionImportMapping FunctionImportName="i2_get_ids" FunctionName="GisMaryanjModel.Store.i2_get_ids" />
           <FunctionImportMapping FunctionImportName="i2_return_ids" FunctionName="GisMaryanjModel.Store.i2_return_ids" />
           <FunctionImportMapping FunctionImportName="i3_get_ids" FunctionName="GisMaryanjModel.Store.i3_get_ids" />
@@ -6058,42 +6076,6 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="a14">
-            <EntityTypeMapping TypeName="GisMaryanjModel.a14">
-              <MappingFragment StoreEntitySet="a14">
-                <ScalarProperty Name="SDE_STATE_ID" ColumnName="SDE_STATE_ID" />
-                <ScalarProperty Name="Parvande_No" ColumnName="Parvande_No" />
-                <ScalarProperty Name="COD_1" ColumnName="COD_1" />
-                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
-                <ScalarProperty Name="tafkiki" ColumnName="tafkiki" />
-                <ScalarProperty Name="fari" ColumnName="fari" />
-                <ScalarProperty Name="asli" ColumnName="asli" />
-                <ScalarProperty Name="bakhsh" ColumnName="bakhsh" />
-                <ScalarProperty Name="mogheyat" ColumnName="mogheyat" />
-                <ScalarProperty Name="Archive_No" ColumnName="Archive_No" />
-                <ScalarProperty Name="codeposti" ColumnName="codeposti" />
-                <ScalarProperty Name="pelakabi" ColumnName="pelakabi" />
-                <ScalarProperty Name="Masahat" ColumnName="Masahat" />
-                <ScalarProperty Name="Marhale_sakhtemani" ColumnName="Marhale_sakhtemani" />
-                <ScalarProperty Name="Sanad" ColumnName="Sanad" />
-                <ScalarProperty Name="Karbari" ColumnName="Karbari" />
-                <ScalarProperty Name="Mahiyate_fiziki" ColumnName="Mahiyate_fiziki" />
-                <ScalarProperty Name="Malekiyat" ColumnName="Malekiyat" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Name_malek" ColumnName="Name_malek" />
-                <ScalarProperty Name="Melk" ColumnName="Melk" />
-                <ScalarProperty Name="Block" ColumnName="Block" />
-                <ScalarProperty Name="Mahale" ColumnName="Mahale" />
-                <ScalarProperty Name="Mantaghe" ColumnName="Mantaghe" />
-                <ScalarProperty Name="Code_nosazi" ColumnName="Code_nosazi" />
-                <ScalarProperty Name="COD" ColumnName="COD" />
-                <ScalarProperty Name="Amlak__" ColumnName="Amlak__" />
-                <ScalarProperty Name="Code_Block" ColumnName="Code_Block" />
-                <ScalarProperty Name="Parvaneh" ColumnName="Parvaneh" />
-                <ScalarProperty Name="OBJECTID" ColumnName="OBJECTID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="a7">
             <EntityTypeMapping TypeName="GisMaryanjModel.a7">
               <MappingFragment StoreEntitySet="a7">
@@ -6224,15 +6206,6 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="D14">
-            <EntityTypeMapping TypeName="GisMaryanjModel.D14">
-              <MappingFragment StoreEntitySet="D14">
-                <ScalarProperty Name="DELETED_AT" ColumnName="DELETED_AT" />
-                <ScalarProperty Name="SDE_DELETES_ROW_ID" ColumnName="SDE_DELETES_ROW_ID" />
-                <ScalarProperty Name="SDE_STATE_ID" ColumnName="SDE_STATE_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="D7">
             <EntityTypeMapping TypeName="GisMaryanjModel.D7">
               <MappingFragment StoreEntitySet="D7">
@@ -6266,6 +6239,95 @@ FROM [dbo].[ST_SPATIAL_REFERENCE_SYSTEMS] AS [ST_SPATIAL_REFERENCE_SYSTEMS]</Def
                 <ScalarProperty Name="geometryService" ColumnName="geometryService" />
                 <ScalarProperty Name="printService" ColumnName="printService" />
                 <ScalarProperty Name="mapService" ColumnName="mapService" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="a15">
+            <EntityTypeMapping TypeName="GisMaryanjModel.a15">
+              <MappingFragment StoreEntitySet="a15">
+                <ScalarProperty Name="SDE_STATE_ID" ColumnName="SDE_STATE_ID" />
+                <ScalarProperty Name="Parvande_No" ColumnName="Parvande_No" />
+                <ScalarProperty Name="COD_1" ColumnName="COD_1" />
+                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+                <ScalarProperty Name="tafkiki" ColumnName="tafkiki" />
+                <ScalarProperty Name="fari" ColumnName="fari" />
+                <ScalarProperty Name="asli" ColumnName="asli" />
+                <ScalarProperty Name="bakhsh" ColumnName="bakhsh" />
+                <ScalarProperty Name="mogheyat" ColumnName="mogheyat" />
+                <ScalarProperty Name="Archive_No" ColumnName="Archive_No" />
+                <ScalarProperty Name="codeposti" ColumnName="codeposti" />
+                <ScalarProperty Name="pelakabi" ColumnName="pelakabi" />
+                <ScalarProperty Name="Masahat" ColumnName="Masahat" />
+                <ScalarProperty Name="Marhale_sakhtemani" ColumnName="Marhale_sakhtemani" />
+                <ScalarProperty Name="Sanad" ColumnName="Sanad" />
+                <ScalarProperty Name="Karbari" ColumnName="Karbari" />
+                <ScalarProperty Name="Mahiyate_fiziki" ColumnName="Mahiyate_fiziki" />
+                <ScalarProperty Name="Malekiyat" ColumnName="Malekiyat" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Name_malek" ColumnName="Name_malek" />
+                <ScalarProperty Name="Melk" ColumnName="Melk" />
+                <ScalarProperty Name="Block" ColumnName="Block" />
+                <ScalarProperty Name="Mahale" ColumnName="Mahale" />
+                <ScalarProperty Name="Mantaghe" ColumnName="Mantaghe" />
+                <ScalarProperty Name="Code_nosazi" ColumnName="Code_nosazi" />
+                <ScalarProperty Name="COD" ColumnName="COD" />
+                <ScalarProperty Name="Amlak__" ColumnName="Amlak__" />
+                <ScalarProperty Name="Code_Block" ColumnName="Code_Block" />
+                <ScalarProperty Name="Parvaneh" ColumnName="Parvaneh" />
+                <ScalarProperty Name="OBJECTID" ColumnName="OBJECTID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="D15">
+            <EntityTypeMapping TypeName="GisMaryanjModel.D15">
+              <MappingFragment StoreEntitySet="D15">
+                <ScalarProperty Name="DELETED_AT" ColumnName="DELETED_AT" />
+                <ScalarProperty Name="SDE_DELETES_ROW_ID" ColumnName="SDE_DELETES_ROW_ID" />
+                <ScalarProperty Name="SDE_STATE_ID" ColumnName="SDE_STATE_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="i15">
+            <EntityTypeMapping TypeName="GisMaryanjModel.i15">
+              <MappingFragment StoreEntitySet="i15">
+                <ScalarProperty Name="last_id" ColumnName="last_id" />
+                <ScalarProperty Name="num_ids" ColumnName="num_ids" />
+                <ScalarProperty Name="base_id" ColumnName="base_id" />
+                <ScalarProperty Name="id_type" ColumnName="id_type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SDE_compress_log">
+            <EntityTypeMapping TypeName="GisMaryanjModel.SDE_compress_log">
+              <MappingFragment StoreEntitySet="SDE_compress_log">
+                <ScalarProperty Name="compress_status" ColumnName="compress_status" />
+                <ScalarProperty Name="end_state_count" ColumnName="end_state_count" />
+                <ScalarProperty Name="compress_end" ColumnName="compress_end" />
+                <ScalarProperty Name="start_state_count" ColumnName="start_state_count" />
+                <ScalarProperty Name="compress_start" ColumnName="compress_start" />
+                <ScalarProperty Name="direct_connect" ColumnName="direct_connect" />
+                <ScalarProperty Name="server_id" ColumnName="server_id" />
+                <ScalarProperty Name="sde_id" ColumnName="sde_id" />
+                <ScalarProperty Name="compress_id" ColumnName="compress_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SDE_GEOMETRY10">
+            <EntityTypeMapping TypeName="GisMaryanjModel.SDE_GEOMETRY10">
+              <MappingFragment StoreEntitySet="SDE_GEOMETRY10">
+                <ScalarProperty Name="SDE_STATE_ID" ColumnName="SDE_STATE_ID" />
+                <ScalarProperty Name="CAD" ColumnName="CAD" />
+                <ScalarProperty Name="GEOMETRY_ID" ColumnName="GEOMETRY_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="GisMaryanjModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="AllowedCity" ColumnName="AllowedCity" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

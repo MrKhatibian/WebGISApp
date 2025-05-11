@@ -286,7 +286,7 @@ view.when(() => {
             })
     }
     // Add all feature layers
-    //addFeatureLayers(featureServerUrl);
+    /*addFeatureLayers(featureServerUrl);*/
 
     // #region Search
     document.getElementById("btnSearch").addEventListener("click", () => {
@@ -309,7 +309,10 @@ view.when(() => {
         featureLayer.queryFeatures(query).then((featureSet) => {
             if (featureSet.features.length > 0) {
                 const feature = featureSet.features[0]; // Get the first matching feature
-                console.log("Found Feature:", feature.attributes);
+                //console.log("Found Feature:", feature.attributes);
+
+                // Check and update feature Info for Connect to Shahrsazi
+                updateSelectFeatureInfo(feature); 
 
                 // Zoom to the feature's location
                 view.goTo(feature.geometry.extent.expand(2));
@@ -320,7 +323,7 @@ view.when(() => {
                     featureMenuOpen: true
                 });                
             } else {
-                alert("مورد مورد نظر یافت نشد");
+                alert("کد نوسازی مورد نظر یافت نشد");
             }
         });
     }
@@ -713,13 +716,13 @@ view.when(() => {
 
         // Execute feature query
         featureLayer.queryFeatures(query)
-            .then((featureSet) => {
+            .then((featureSet) => {                
                 const features = featureSet.features;
                 if (!features?.length) {
                     console.warn("No features found at this location.");
                     return;
                 }
-
+               
                 // Set graphic location and add to view if not already present
                 if (pointGraphic.geometry !== point) {
                     pointGraphic.geometry = point;
@@ -733,22 +736,11 @@ view.when(() => {
                     location: point,
                     features: features,
                     featureMenuOpen: true
-                });
-
-                // Enable connect button
-                btnConnect.disabled = false;
-
-                // Ensure the first feature has attributes
-                const attributes = features[0]?.attributes;
-                if (!attributes) {
-                    console.warn("Feature attributes not found.");
-                    return;
-                }
-
-                // Update UI elements with feature attributes
-                inputCodeNosazi.value = attributes.Code_nosazi ?? "";
-                selectFeatureInfo.set("Code_nosazi", attributes.Code_nosazi ?? "N/A");
-                selectFeatureInfo.set("Masahat", attributes.Masahat ?? "N/A");
+                });                
+                
+                // Check and update feature Info for Connect to Shahrsazi
+                updateSelectFeatureInfo(features[0]);                                
+                
 
             })
             .catch((error) => {
@@ -762,6 +754,22 @@ view.when(() => {
 
     // #region Connect to Shahrsazi
     // Connect to shahrsazi when clicked by btnconnect
+    function updateSelectFeatureInfo(feature) {        
+
+        // Ensure the feature has attributes
+        const attributes = feature?.attributes;
+        if (!attributes) {
+            console.warn("Feature attributes not found.");
+            return;
+        }
+        // Enable connect button
+        document.getElementById("btnConnect").disabled = false;
+
+        // Update UI elements with feature attributes
+        document.getElementById("inputCodeNosazi").value = attributes.Code_nosazi ?? "";
+        selectFeatureInfo.set("Code_nosazi", attributes.Code_nosazi ?? "N/A");
+        selectFeatureInfo.set("Masahat", attributes.Masahat ?? "N/A");
+    }
     async function connectToShahrsazi() {        
 
         // Get feature info safely
@@ -947,7 +955,7 @@ sketch.on("create", event => {
     if (event.state === "complete") {
         const geometry = event.graphic.geometry;
         const result = geometry.type === "polyline"
-            ? geometryEngine.geodesicLength(geometry, "kilometers")
+            ? geometryEngine.geodesicLength(geometry, "meters")
             : geometryEngine.geodesicArea(geometry, "square-meters");
         displayResult(result, geometry.type === "polyline" ? "km" : "sq m");
     }
