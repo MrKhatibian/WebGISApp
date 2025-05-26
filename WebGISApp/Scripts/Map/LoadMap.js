@@ -38,7 +38,7 @@ import IdentifyParameters from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.
 import Query from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/rest/support/Query.js";
 import WebTileLayer from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/layers/WebTileLayer.js";
 import Fe from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/Editor.js";
-
+import esriConfig from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/config.js";
 // #endregion Import
 
 // #region Main Values
@@ -49,6 +49,7 @@ const features = [];
 var featuresLayerArray = [];
 var params, viewClick;
 var isIdentify = false;
+//esriConfig.fontsUrl = "/fonts";
 
 /**
  * Creat Main Values
@@ -60,7 +61,7 @@ const map = new Map({
 });
 
 // Adding Map URL
-const serverUrl = "http://localhost:6080/arcgis/rest/services/Maryanaj/MaryanajWithoutLabel_14031013";
+const serverUrl = "http://localhost:6080/arcgis/rest/services/Maryanaj/Maryanaj_14030619";
 //Creat MapServer URL 
 const mapServerUrl = serverUrl + "/MapServer";
 //Creat FeatureServer URL
@@ -247,15 +248,14 @@ view.when(() => {
     const headerTitleElement = document.querySelector("#header-title");
     const itemDescriptionElement = document.querySelector("#item-description");
     //if (headerTitleElement) headerTitleElement.heading = title;
-    //if (itemDescriptionElement) itemDescriptionElement.innerHTML = url;
-
+    //if (itemDescriptionElement) itemDescriptionElement.innerHTML = url;    
     // Add Feature Layer
     var featureLayer = new FeatureLayer({
         url: `${featureServerUrl}/0`, // Template literals for clarity
         outFields: ["*"], // Fetch all fields
         title: "عرصه" // Replace with a descriptive title
     });
-    featuresLayerArray.push(featureLayer);
+    featuresLayerArray.push(featureLayer);    
     map.add(featureLayer);
     let inputCodeNosazi = document.getElementById("inputCodeNosazi");
 
