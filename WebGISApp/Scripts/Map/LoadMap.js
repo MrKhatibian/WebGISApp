@@ -717,7 +717,7 @@ view.when(() => {
         const query = new Query({
             geometry: point,
             spatialRelationship: "intersects",
-            returnGeometry: false,
+            returnGeometry: true,
             returnQueryGeometry: true,
             outFields: ["*"]
         });
@@ -763,6 +763,7 @@ view.when(() => {
     // #region Connect to Shahrsazi
     // Connect to shahrsazi when clicked by btnconnect
     function updateSelectFeatureInfo(feature) {
+        debugger;
         //Get Feature geometry
         const geometry = feature.geometry;
         let x, y;
@@ -801,7 +802,8 @@ view.when(() => {
         document.getElementById("inputCodeNosazi").value = attributes.Code_nosazi ?? "";
         selectFeatureInfo.set("Code_nosazi", attributes.Code_nosazi ?? "N/A");
         selectFeatureInfo.set("Masahat", attributes.Masahat ?? "N/A");
-        selectFeatureInfo.set("X", attributes.)
+        selectFeatureInfo.set("X", x ?? "N/A");
+        selectFeatureInfo.set("Y", y ?? "N/A");
     }
     async function connectToShahrsazi() {
 
@@ -844,18 +846,21 @@ view.when(() => {
     document.getElementById("btnConnect")?.addEventListener("click", connectToShahrsazi);
     // #endregion Connect to Shahrsazi
     // region Send Data from GIS ============================================================================
-    function sendToShahrsazi() {
+    function sendToShahrsazi() {        
         debugger;
         // Get feature info safely
         const Code_nosazi = selectFeatureInfo.get("Code_nosazi");
         const Masahat = selectFeatureInfo.get("Masahat");
+        const x = selectFeatureInfo.get("X");
+        const y = selectFeatureInfo.get("Y");
         // Ensure values are valid before sending request
-        if (!Code_nosazi || !Masahat) {
+        if (!Code_nosazi || !Masahat|| !x || !y) {
             console.warn("Missing feature data! Please select a valid feature.");
             alert("Feature data is missing. Please select a valid feature.");
             return;
         }
-        alert(`Hiii Mohammad \nCode_nosazi: ${Code_nosazi} \nMasahat: ${Masahat}`);
+        alert(`Hiii Mohammad \nCode_nosazi: ${Code_nosazi} \nMasahat: ${Masahat}
+        \nX: ${x} \nY: ${y}`);
     }
     document.getElementById("btnSendInfo")?.addEventListener("click", sendToShahrsazi);
     // endregion Send Data from GIS
