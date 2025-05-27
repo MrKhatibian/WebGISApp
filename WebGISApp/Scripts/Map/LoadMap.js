@@ -763,7 +763,28 @@ view.when(() => {
     // #region Connect to Shahrsazi
     // Connect to shahrsazi when clicked by btnconnect
     function updateSelectFeatureInfo(feature) {
-
+        //Get Feature geometry
+        const geometry = feature.geometry;
+        let x, y;
+        if (geometry.type === "point") {
+            x = geometry.x;
+            y = geometry.y;
+        }
+        else if (geometry.type === "polyline") {
+            // Use first point of first path
+            const path = geometry.paths?.[0]?.[0];
+            if (path) {
+                [x, y] = path;
+            }
+        }
+        else if (geometry.type === "polygon") {
+            // Use centroid for polygon
+            //const centroid = geometryEngine.centroid(geom);
+            const centroid = geometry.centroid;
+            x = centroid.x;
+            y = centroid.y;
+        }                
+        
         // Ensure the feature has attributes
         const attributes = feature?.attributes;
         if (!attributes) {
@@ -780,6 +801,7 @@ view.when(() => {
         document.getElementById("inputCodeNosazi").value = attributes.Code_nosazi ?? "";
         selectFeatureInfo.set("Code_nosazi", attributes.Code_nosazi ?? "N/A");
         selectFeatureInfo.set("Masahat", attributes.Masahat ?? "N/A");
+        selectFeatureInfo.set("X", attributes.)
     }
     async function connectToShahrsazi() {
 
@@ -823,7 +845,17 @@ view.when(() => {
     // #endregion Connect to Shahrsazi
     // region Send Data from GIS ============================================================================
     function sendToShahrsazi() {
-        alert("Hiii Mohammad, what do you want?");
+        debugger;
+        // Get feature info safely
+        const Code_nosazi = selectFeatureInfo.get("Code_nosazi");
+        const Masahat = selectFeatureInfo.get("Masahat");
+        // Ensure values are valid before sending request
+        if (!Code_nosazi || !Masahat) {
+            console.warn("Missing feature data! Please select a valid feature.");
+            alert("Feature data is missing. Please select a valid feature.");
+            return;
+        }
+        alert(`Hiii Mohammad \nCode_nosazi: ${Code_nosazi} \nMasahat: ${Masahat}`);
     }
     document.getElementById("btnSendInfo")?.addEventListener("click", sendToShahrsazi);
     // endregion Send Data from GIS
