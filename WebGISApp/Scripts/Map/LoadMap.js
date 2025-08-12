@@ -1,13 +1,6 @@
-﻿// #region Import
-/**
- * Import Files
- */
+﻿//#region Import---------------------------------------------------------------------------------------------
 
-
-
-/**
- * Import Modules
- */
+//-------Import Modules--------\\
 import Map from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/Map.js";
 import MapView from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/views/MapView.js";
 import GroupLayer from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/layers/GroupLayer.js";
@@ -39,38 +32,43 @@ import Query from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/co
 import WebTileLayer from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/layers/WebTileLayer.js";
 import Fe from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/widgets/Editor.js";
 import esriConfig from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/config.js";
-// #endregion Import
+import { extend } from "./arcgis_js_v430_api/arcgis_js_api/javascript/4.30/@arcgis/core/chunks/arcadeAsyncRuntime.js";
+//#endregion Import------------------------------------------------------------------------------------------
 
-// #region Main Values
-/**
- * Paramter 
- */
+// #region Main Values---------------------------------------------------------------------------------------
+//-------Creat Parameters--------\\
+const activeFeatureLayer = new FeatureLayer();
 const features = [];
 var featuresLayerArray = [];
 var params, viewClick;
 var isIdentify = false;
+let editor = null;
+let isEditing = false;
+let isFeatureTableOpen = false; // Flag to track the state of the table (open/close)
+const serverUrl = "http://localhost:6080/arcgis/rest/services/Maryanaj/Maryanaj_14030619"; // Adding Map URL
+const mapServerUrl = serverUrl + "/MapServer"; //Creat MapServer URL 
+const featureServerUrl = serverUrl + "/FeatureServer"; //Creat FeatureServer URL
+
+
 //esriConfig.fontsUrl = "/fonts";
 
-/**
- * Creat Main Values
- */
+//-------Get Elements------------\\
+const btnCloseAttributeTable = document.getElementById("closeAttributeTable");
+const editableButton = document.getElementById("editable");
+let panelMapView = document.getElementById("panelMapView");
+let panelAttributeTable = document.getElementById("panelAttributeTable");
 
+//-------Creat Map Values--------\\
 //Creat and Set Map
 const map = new Map({
     basemap: "osm"    
 });
 
-// Adding Map URL
-const serverUrl = "http://localhost:6080/arcgis/rest/services/Maryanaj/Maryanaj_14030619";
-//Creat MapServer URL 
-const mapServerUrl = serverUrl + "/MapServer";
-//Creat FeatureServer URL
-const featureServerUrl = serverUrl + "/FeatureServer";
-
 // Creat and Set MapView
 const view = new MapView({
     map: map,
-    zoom: 14, // Zoom level
+    //extent: activeFeatureLayer.fullExtent,
+    zoom: 18, // Zoom level
     center: [48.464869, 34.834155], // Longitude, latitude 48.464869  34.834155   
     container: "mapView", // Div element
     popupEnabled: false,
@@ -84,12 +82,26 @@ const view = new MapView({
         }
     }
 });
-// #endregion Main Values
 
-// #region Add data and open dialogdialog_import
-/**
- * Paramter
- */
+// Improved FeatureTable with dynamic updates
+const featureTable = new FeatureTable({
+    view: view,
+    container: "attributeTable",
+    multiSortEnabled: true, // Enable sorting on multiple columns
+    paginationEnabled: true, // Enable pagination for better performance
+    editingEnabled: false, // Editing remains disabled by default
+    visibleElements: {
+        header: true,
+        menu: true,
+        menuItems: {
+            clearSelection: true,
+            zoomToSelection: true,
+        },
+    },
+});
+//#endregion Main Values-------------------------------------------------------------------------------------
+
+//#region Add data and open dialogdialog_import--------------------------------------------------------------
 const btn_AddData = document.getElementById("btn_AddData");
 const dialog_AddData = document.getElementById("dialog_AddData");
 const btnAdd_AddData = document.getElementById("btnAdd_AddData");
@@ -115,7 +127,7 @@ function addData(dataPath, dataType) {
         dialog_AddData.open = false;
     }
 }
-// #endregion Add data and open dialogdialog_import
+//#endregion Add data and open dialogdialog_import-----------------------------------------------------------
 
 // #region Service Setting
 const inputServiceSetting = document.getElementById("inputServiceSetting");
@@ -242,8 +254,7 @@ view.when(() => {
         return;
     }
 
-    const { title, url } = layer;
-
+    const { title, url } = layer;    
     // Update HTML elements safely
     const headerTitleElement = document.querySelector("#header-title");
     const itemDescriptionElement = document.querySelector("#item-description");
@@ -256,7 +267,8 @@ view.when(() => {
         title: "عرصه" // Replace with a descriptive title
     });
     featuresLayerArray.push(featureLayer);    
-    map.add(featureLayer);
+    map.add(featureLayer);    
+
     let inputCodeNosazi = document.getElementById("inputCodeNosazi");
 
     // Add all feature layers in groupLayer
@@ -391,22 +403,7 @@ view.when(() => {
         }
     }
 
-    // Improved FeatureTable with dynamic updates
-    const featureTable = new FeatureTable({
-        view: view,
-        container: "attributeTable",
-        multiSortEnabled: true, // Enable sorting on multiple columns
-        paginationEnabled: true, // Enable pagination for better performance
-        editingEnabled: false, // Editing remains disabled by default
-        visibleElements: {
-            header: true,
-            menu: true,
-            menuItems: {
-                clearSelection: true,
-                zoomToSelection: true,
-            },
-        },
-    });
+    
 
     /**
      * Updates FeatureTable layer dynamically
@@ -449,89 +446,19 @@ view.when(() => {
         }
     });
 
-    /**
-     * Zoom to the selected layer with UI feedback
-     */
-    async function zoomToLayer(layer) {
-        try {
-            // Show loading cursor
-            view.container.style.cursor = "wait";
+    
 
-            await layer.when();
-            await view.goTo(layer.fullExtent);
+    
 
-            // Restore cursor after zooming
-            view.container.style.cursor = "default";
-        } catch (error) {
-            view.container.style.cursor = "default";
-            if (error.name !== "AbortError") console.error("Zoom failed:", error);
-        }
-    }
-
-    /**
-     * Confirm before removing a layer
-     */
-    function confirmAndRemoveLayer(layer) {
-        if (confirm(`Are you sure you want to remove "${layer.title}"?`)) {
-            try {
-                map.remove(layer);
-                btnCloseAttributeTable.click();
-                if (isEditing) editableButton.click();
-
-                console.log(`Layer "${layer.title}" removed.`);
-            } catch (error) {
-                if (error.name !== "AbortError") console.error("Error removing layer:", error);
-            }
-        }
-    }
-
-    /**
-     * Handle toggling Feature Table or Editing
-     */
-    function handleFeatureLayerActions(selectedLayer, actionId) {
-        // Find the matching feature layer
-        let featureLayer = featuresLayerArray.find((layer) => layer.title === selectedLayer.title);
-
-        if (!featureLayer) {
-            console.warn(`Feature layer "${selectedLayer.title}" not found.`);
-            return;
-        }
-
-        if (actionId === "toggle-table") {
-            toggleFeatureTable(featureLayer);
-        } else {
-            startEdit(featureLayer);
-            toggleFeatureTable(featureLayer);
-        }
-    }
+    
 
     // References to elements
-    const btnCloseAttributeTable = document.getElementById("closeAttributeTable");
-    let panelMapView = document.getElementById("panelMapView");
-    let panelAttributeTable = document.getElementById("panelAttributeTable");
+    
+    
 
-    // Flag to track the state of the table (open/close)
-    let isFeatureTableOpen = false;
+    
 
-    // Toggle FeatureTable visibility
-    function toggleFeatureTable(featureLayer) {
-        featureTable.layer = featureLayer;
-
-        if (isFeatureTableOpen) {
-            // Close the Feature Table
-            panelAttributeTable.style.height = "0%";
-            panelMapView.style.height = "100%";
-            btnCloseAttributeTable.hidden = true;
-        } else {
-            // Open the Feature Table
-            panelAttributeTable.style.height = "50%";
-            panelMapView.style.height = "50%";
-            btnCloseAttributeTable.hidden = false;
-        }
-
-        // Toggle the state
-        isFeatureTableOpen = !isFeatureTableOpen;
-    }
+    
 
     // Event listener to close the Feature Table when the close button is clicked
     btnCloseAttributeTable.addEventListener("click", () => {
@@ -542,69 +469,7 @@ view.when(() => {
 
     // #endregion   
 
-    // #region Editor
-    let editor = null;
-    let isEditing = false;
-    const editableButton = document.getElementById("editable");
-
-    editableButton.onclick = () => {
-        isEditing ? stopEdit() : startEdit(featureLayer);
-    };
-
-    function stopEdit() {
-        if (!editor) {
-            console.warn("Editor is not initialized.");
-            return;
-        }
-
-        isEditing = false;
-        editor.visible = false;
-
-        if (typeof featureTable !== "undefined") {
-            featureTable.editingEnabled = false;
-        }
-
-        editor.destroy();
-        editor = null; // Ensure proper cleanup
-    }
-
-    function startEdit(featureLayer) {
-        if (!editableButton.active) {
-            editableButton.active = true;
-        }
-        if (!featureLayer) {
-            console.error("Feature layer is not defined.");
-            return;
-        }
-
-        if (!isEditing) {
-            isEditing = true;
-
-            editor = new Editor({
-                view: view,
-                layerInfos: [{ layer: featureLayer }],
-                snappingOptions: {
-                    enabled: true,
-                    featureSources: [{ layer: featureLayer }],
-                },
-            });
-
-            view.ui.add(editor, "top-left");
-
-            if (typeof featureTable !== "undefined") {
-                featureTable.editingEnabled = true;
-            }
-
-            // Handle sketch updates
-            editor.on("sketch-update", (evt) => {
-                const { tool, graphics, state } = evt.detail;
-                if (state === "complete") {
-                    console.log("Sketch update complete:", tool, graphics);
-                }
-            });
-        }
-    }
-    // #endregion Editor
+    
 
 
     // #region Identify
@@ -763,7 +628,6 @@ view.when(() => {
     // #region Connect to Shahrsazi
     // Connect to shahrsazi when clicked by btnconnect
     function updateSelectFeatureInfo(feature) {
-        debugger;
         //Get Feature geometry
         const geometry = feature.geometry;
         let x, y;
@@ -825,8 +689,8 @@ view.when(() => {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    mapService: Code_nosazi1,
-                    printService: Masahat1
+                    mapService: Code_nosazi,
+                    printService: Masahat
                 }),
             });            
 
@@ -847,20 +711,18 @@ view.when(() => {
     // #endregion Connect to Shahrsazi
     // region Send Data from GIS ============================================================================
     function sendToShahrsazi() {        
-        debugger;
         // Get feature info safely
         const Code_nosazi = selectFeatureInfo.get("Code_nosazi");
         const Masahat = selectFeatureInfo.get("Masahat");
         const x = selectFeatureInfo.get("X");
         const y = selectFeatureInfo.get("Y");
         // Ensure values are valid before sending request
-        if (!Code_nosazi || !Masahat|| !x || !y) {
+        if (!Code_nosazi || !Masahat || !x || !y) {
             console.warn("Missing feature data! Please select a valid feature.");
             alert("Feature data is missing. Please select a valid feature.");
             return;
         }
-        alert(`Hiii Mohammad \nCode_nosazi: ${Code_nosazi} \nMasahat: ${Masahat}
-        \nX: ${x} \nY: ${y}`);
+        alert(`Hiii Mohammad \nCode_nosazi: ${Code_nosazi} \nMasahat: ${Masahat} \nX: ${x} \nY: ${y}`);
     }
     document.getElementById("btnSendInfo")?.addEventListener("click", sendToShahrsazi);
     // endregion Send Data from GIS
@@ -915,7 +777,142 @@ view.when(() => {
     // #endregion End for test 
 });
 
+// Toggle FeatureTable visibility
+function toggleFeatureTable(featureLayer) {
+    featureTable.layer = featureLayer;
 
+    if (isFeatureTableOpen) {
+        // Close the Feature Table
+        panelAttributeTable.style.height = "0%";
+        panelMapView.style.height = "100%";
+        btnCloseAttributeTable.hidden = true;
+    } else {
+        // Open the Feature Table
+        panelAttributeTable.style.height = "50%";
+        panelMapView.style.height = "50%";
+        btnCloseAttributeTable.hidden = false;
+    }
+
+    // Toggle the state
+    isFeatureTableOpen = !isFeatureTableOpen;
+}
+
+// #region Editor
+    
+editableButton.onclick = () => {
+    isEditing ? stopEdit() : startEdit(featureLayer);
+};
+
+function stopEdit() {
+    if (!editor) {
+        console.warn("Editor is not initialized.");
+        return;
+    }
+
+    isEditing = false;
+    editor.visible = false;
+
+    if (typeof featureTable !== "undefined") {
+        featureTable.editingEnabled = false;
+    }
+
+    editor.destroy();
+    editor = null; // Ensure proper cleanup
+}
+
+function startEdit(featureLayer) {
+    if (!editableButton.active) {
+        editableButton.active = true;
+    }
+    if (!featureLayer) {
+        console.error("Feature layer is not defined.");
+        return;
+    }
+
+    if (!isEditing) {
+        isEditing = true;
+
+        editor = new Editor({
+            view: view,
+            layerInfos: [{ layer: featureLayer }],
+            snappingOptions: {
+                enabled: true,
+                featureSources: [{ layer: featureLayer }],
+            },
+        });
+
+        view.ui.add(editor, "top-left");
+
+        if (typeof featureTable !== "undefined") {
+            featureTable.editingEnabled = true;
+        }
+
+        // Handle sketch updates
+        editor.on("sketch-update", (evt) => {
+            const { tool, graphics, state } = evt.detail;
+            if (state === "complete") {
+                console.log("Sketch update complete:", tool, graphics);
+            }
+        });
+    }
+}
+// #endregion Editor
+
+/**
+     * Handle toggling Feature Table or Editing
+     */
+function handleFeatureLayerActions(selectedLayer, actionId) {
+    // Find the matching feature layer
+    let featureLayer = featuresLayerArray.find((layer) => layer.title === selectedLayer.title);
+
+    if (!featureLayer) {
+        console.warn(`Feature layer "${selectedLayer.title}" not found.`);
+        return;
+    }
+
+    if (actionId === "toggle-table") {
+        toggleFeatureTable(featureLayer);
+    } else {
+        startEdit(featureLayer);
+        toggleFeatureTable(featureLayer);
+    }
+}
+
+/**
+     * Confirm before removing a layer
+     */
+function confirmAndRemoveLayer(layer) {
+    if (confirm(`Are you sure you want to remove "${layer.title}"?`)) {
+        try {
+            map.remove(layer);
+            btnCloseAttributeTable.click();
+            if (isEditing) editableButton.click();
+
+            console.log(`Layer "${layer.title}" removed.`);
+        } catch (error) {
+            if (error.name !== "AbortError") console.error("Error removing layer:", error);
+        }
+    }
+}
+
+/**
+     * Zoom to the selected layer with UI feedback
+     */
+async function zoomToLayer(layer) {
+    try {
+        // Show loading cursor
+        view.container.style.cursor = "wait";
+
+        await layer.when();
+        await view.goTo(layer.fullExtent);
+
+        // Restore cursor after zooming
+        view.container.style.cursor = "default";
+    } catch (error) {
+        view.container.style.cursor = "default";
+        if (error.name !== "AbortError") console.error("Zoom failed:", error);
+    }
+}
 
 // #region Shell Panels and Action Bar ======================================================================
 
