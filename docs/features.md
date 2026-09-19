@@ -1,31 +1,65 @@
 # Features
 
-## Web Mapping
+## Map & Visualization
 
-* Interactive web map
-* ArcGIS Maps SDK for JavaScript 4.30 integration
-* Map navigation and interaction
-* ArcGIS Server layer integration
+### Layer Management
 
-## GIS
+Manage and control map layers and their visibility within the WebGIS.
 
-* Integration with ArcGIS Server
-* Integration with Enterprise Geodatabase
-* GIS data visualization and querying
-* ArcGIS-based web mapping
+### Thematic Map
 
-## Application
+Visualize spatial information using thematic mapping techniques.
 
-* ASP.NET MVC backend
-* JavaScript-based frontend
-* Bootstrap 5 user interface
-* Business data integration with SQL Server
+### Popup
 
-## Database
+Display attribute and feature information through interactive map popups.
 
-* SQL Server for business data
-* Enterprise Geodatabase hosted on SQL Server for GIS data
+### Identify
 
-## Deployment
+Identify map features and retrieve their associated information.
 
-* IIS-based deployment
+### Measurement
+
+Measure spatial properties and distances directly on the map.
+
+## Search & Spatial Analysis
+
+### Parcel Search
+
+Search and locate parcels using available parcel-related attributes.
+
+### Address Search
+
+Search for locations using address information.
+
+### Spatial Query
+
+Perform spatial queries to identify features based on their geographic relationships.
+
+### Feature Selection
+
+Select and interact with spatial features directly on the map.
+
+## GIS Operations
+
+### Editing
+
+Create and modify spatial features through the web application.
+
+### Drawing
+
+Draw graphics and geometries on the map for spatial interaction and analysis.
+
+### Print
+
+Generate printable map outputs from the WebGIS.
+
+## Application & Security
+
+### User Management
+
+Manage application users and their access to the system.
+
+### Authentication
+
+Provide authenticated access to application functionality and resources.
