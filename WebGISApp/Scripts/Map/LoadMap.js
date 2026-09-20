@@ -68,7 +68,7 @@ const map = new Map({
 const view = new MapView({
     map: map,
     //extent: activeFeatureLayer.fullExtent,
-    zoom: 18, // Zoom level
+    zoom: 15, // Zoom level
     center: [48.464869, 34.834155], // Longitude, latitude 48.464869  34.834155   
     container: "mapView", // Div element
     popupEnabled: false,
@@ -242,7 +242,12 @@ async function fetchArcGISData(url) {
 //        });
 //});
 // #endregion
-
+// Add Feature Layer
+var featureLayer = new FeatureLayer({
+    url: `${featureServerUrl}/8`, // Template literals for clarity
+    outFields: ["*"], // Fetch all fields
+    title: "عرصه" // Replace with a descriptive title
+});
 view.when(() => {
     const layer = new MapImageLayer({
         // Replace with your ArcGIS Server URL
@@ -260,14 +265,9 @@ view.when(() => {
     const itemDescriptionElement = document.querySelector("#item-description");
     //if (headerTitleElement) headerTitleElement.heading = title;
     //if (itemDescriptionElement) itemDescriptionElement.innerHTML = url;    
-    // Add Feature Layer
-    var featureLayer = new FeatureLayer({
-        url: `${featureServerUrl}/0`, // Template literals for clarity
-        outFields: ["*"], // Fetch all fields
-        title: "عرصه" // Replace with a descriptive title
-    });
-    featuresLayerArray.push(featureLayer);    
-    map.add(featureLayer);    
+    
+    //featuresLayerArray.push(featureLayer);    
+    //map.add(featureLayer);    
 
     let inputCodeNosazi = document.getElementById("inputCodeNosazi");
 
@@ -306,7 +306,7 @@ view.when(() => {
             })
     }
     // Add all feature layers
-    /*addFeatureLayers(featureServerUrl);*/
+    addFeatureLayers(featureServerUrl);
 
     // #region Search
     document.getElementById("btnSearch").addEventListener("click", () => {
