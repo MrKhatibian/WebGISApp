@@ -108,23 +108,23 @@ For more details:
 
 ## Screenshots
 
-### 01 — Main Map
+### Main Map
 
 ![Main Map](docs/screenshots/01-main-map.PNG)
 
-### 02 — Layer Management
+### Layer Management
 
 ![Layer Management](docs/screenshots/02-layer-management.PNG)
 
-### 03 — Parcel Search
+### Parcel Search
 
 ![Parcel Search](docs/screenshots/03-parcel-search.PNG)
 
-### 04 — Editing
+### Editing
 
 ![Editing](docs/screenshots/04-editing.PNG)
 
-### 05 — Print
+### Print
 
 ![Print](docs/screenshots/05-print.PNG)
 
