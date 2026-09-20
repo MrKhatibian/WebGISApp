@@ -172,6 +172,15 @@ IIS
  └── SQL Server
       └── Enterprise Geodatabase
 ```
+## Configuration
+
+The application uses environment-specific configuration for database
+connections and other deployment settings.
+
+A sample configuration is provided in `Web.config.example`.
+
+Before running the application, create a local `Web.config` based on
+the example file and provide the required environment-specific values.
 
 ## Project Documentation
 
