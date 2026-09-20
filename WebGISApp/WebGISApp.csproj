@@ -41277,6 +41277,13 @@
     <Content Include="Scripts\Map\arcgis_js_v430_api\arcgis_js_api\javascript\4.30\esri\widgets\Zoom\t9n\Zoom_zh-CN.json" />
     <Content Include="Scripts\Map\arcgis_js_v430_api\arcgis_js_api\javascript\4.30\esri\widgets\Zoom\t9n\Zoom_zh-HK.json" />
     <Content Include="Scripts\Map\arcgis_js_v430_api\arcgis_js_api\javascript\4.30\esri\widgets\Zoom\t9n\Zoom_zh-TW.json" />
+    <None Include="Web.config.example" />
+    <None Include="Web.config.Debug.example">
+      <DependentUpon>Web.config.example</DependentUpon>
+    </None>
+    <None Include="Web.config.Release.example">
+      <DependentUpon>Web.config.example</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
