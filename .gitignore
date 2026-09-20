@@ -361,3 +361,9 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/WebGISApp/Web.config
+/WebGISApp/Web.Debug.config
+/WebGISApp/Web.Release.config
+/WebGISApp/Web.config
+/WebGISApp/Web.Debug.config
+/WebGISApp/Web.Release.config
